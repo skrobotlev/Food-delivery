@@ -6,7 +6,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RinMinase/react-typescript"
+    "url": "https://github.com/usr109283jsmzs812/Food-delivery"
   },
   "scripts": {
     "start": "webpack serve",
@@ -38,6 +38,8 @@
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.3.0",
     "custom-tslint-formatters": "^2.4.0",
+    "eslint": "^8.5.0",
+    "eslint-loader": "^4.0.2",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.3.0",
     "sass-loader": "^12.1.0",
