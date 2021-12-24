@@ -24,6 +24,11 @@ module.exports = (_env, arg) => {
 				configureMainStyles(!isProduction),
 				configureChildStyles(!isProduction),
 				...configureTypescript(),
+				// по идее нахуй не нужно и не работает?
+				{
+					test: /\.svg$/i,
+					type: 'asset/resource',
+				  },
 			]
 		},
 		devServer: {
@@ -90,7 +95,7 @@ function configureChildStyles(sourceMap) {
 function configureTypescript() {
 	const lintingRules = {
 		rules: {
-			indent: [true, "tabs", 2],
+			indent: [false, "tabs", 2],
 			quotemark: [true, "double", "jsx-double"],
 			semicolon: [true, "always"],
 			"max-line-length": [true, 100]
