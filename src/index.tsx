@@ -1,17 +1,17 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import AddIcon from "@material-ui/icons/Add";
-import Icon from "@material-ui/core/Icon";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { BurgerSVG } from "./icons/burger";
 import FruitSVG from "./icons/strawb";
 import { SquareBut } from "./components/buttons/square-button";
 import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
-import SquareButton from "./components/buttons/square-button";
+import App from "./components/slider/test-slider";
+import SimpleSlider from "./components/slider/slider";
 
 ReactDOM.render(
 	<StrictMode>
+		<SimpleSlider />
 		<SquareBut size="lg" backgroundColor="#FFF2F0">
 			<FruitSVG />
 			FRUITS
@@ -31,6 +31,7 @@ ReactDOM.render(
 		</RectBut>
 		<RectBut size="md">Get started</RectBut>
 		<RectBut size="sm">Read now</RectBut>
+		<App />
 	</StrictMode>,
 	document.getElementById("app")
 );
