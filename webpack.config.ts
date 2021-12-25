@@ -26,14 +26,26 @@ module.exports = (_env, arg) => {
         ...configureTypescript(),
         // по идее нахуй не нужно и не работает?
         {
-          test: /\.svg$/i,
-          type: "asset/resource",
-        },
-        {
           test: /\.css$/i,
-          type: "asset/resource",
-		  loader: "file-loader"
+          use: ["style-loader", "css-loader"],
         },
+        { test: /\.(png|woff|woff2|eot|jpg|gif|svg)$/, 
+          type: 'asset/resource'
+          },
+        // {
+        //   test: /\.(sa|sc|c)ss$/,
+        //   use: [
+        //     MiniCssExtractPlugin.loader,
+        //     "css-loader",
+        //     {loader: "postcss-loader"},
+        //     "sass-loader"
+        //   ]
+        // },
+      //   {
+      //     test: /\.css$/i,
+      //     type: "asset/resource",
+		  // loader: "file-loader"
+      //   },
       ],
     },
     devServer: {
@@ -113,7 +125,7 @@ function configureTypescript() {
       indent: [false, "tabs", 2],
       quotemark: [true, "double", "jsx-double"],
       semicolon: [true, "always"],
-      "max-line-length": [true, 100],
+      "max-line-length": [true, 130],
     },
   };
 

@@ -1,4 +1,6 @@
 @import "~scss-spinners/components/round";
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 html {
 	font-family: Roboto, Arial, Helvetica, sans-serif
@@ -9,8 +11,20 @@ body {
 }
 
 .container {
-	padding: 35px 20px 30px;
+	padding: -5px;
+	background: beige;
+	margin-top: 2rem;
+	border-radius: 40px;
+	font-family: "Signika";
+	font-weight: bold;
+	max-width: 300px;
+	max-height: 650px;
+	display: flex;
+    flex-direction: column-reverse;
+  	text-align: center;
+  	justify-content: flex-end;
 }
+
 
 .rectangle-btn-lg {
 		margin: 20px;
@@ -25,13 +39,16 @@ body {
 		// justify-content: ;
 }
 
-// .square-btn-lg {
-// 		margin: 20px;
-// 		font-size: 2rem;
-// 		border-radius: 30px;
-// 		border-color: #FFF8EB;
-// 		width: 132px;
-// 		height: 144px;
-// 		background-color: #FFF8EB;
-
-// }
+.image {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+  }
+  .slider {
+	position: relative;
+	height: 35vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 3rem;
+  }

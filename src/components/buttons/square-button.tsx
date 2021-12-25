@@ -78,6 +78,7 @@ export const SquareBut = styled.button<SquareButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   `;
 // ПОЧЕМУ НЕ РАБОТАЕТ bckgrclr???
 
