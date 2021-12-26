@@ -29,9 +29,32 @@ module.exports = (_env, arg) => {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
         },
-        { test: /\.(png|woff|woff2|eot|jpg|gif|svg)$/, 
-          type: 'asset/resource'
-          },
+        {
+          test: /\.(jpg|png|gif|woff|eot|ttf|svg)/gi,
+          // type: "asset/resource",
+		    loader: "file-loader"
+        },
+        // {
+        //   test: /\.(jpg|png|gif|woff|eot|ttf|svg)/gi,
+        //   type: "asset/resource",
+        //   }
+      
+    
+        //   {
+        //     test: /\.(png|jpe?g|gif)$/i,
+        //     type: 'asset/resource',
+        //     use: [
+        //       {
+        //         loader: 'file-loader',
+        //       },
+        //     ],
+        //   },
+          // {
+          //   test: /\.(jpg|png)$/,
+          //   use: {
+          //     loader: 'url-loader',
+          //   },
+          // },
         // {
         //   test: /\.(sa|sc|c)ss$/,
         //   use: [
@@ -41,11 +64,7 @@ module.exports = (_env, arg) => {
         //     "sass-loader"
         //   ]
         // },
-      //   {
-      //     test: /\.css$/i,
-      //     type: "asset/resource",
-		  // loader: "file-loader"
-      //   },
+      
       ],
     },
     devServer: {
@@ -125,7 +144,7 @@ function configureTypescript() {
       indent: [false, "tabs", 2],
       quotemark: [true, "double", "jsx-double"],
       semicolon: [true, "always"],
-      "max-line-length": [true, 130],
+      "max-line-length": [true, 200],
     },
   };
 
@@ -149,6 +168,10 @@ function configureTypescript() {
       test: /\.js$/,
       use: ["source-map-loader"],
     },
+    
+    // { test: /\.(png|eot|jpg|gif|svg)$/, 
+    //   use: ["file-loader", "url-loader"]
+    //   }
   ];
 }
 

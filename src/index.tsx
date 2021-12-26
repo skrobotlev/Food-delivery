@@ -10,10 +10,15 @@ import { SquareBut } from "./components/buttons/square-button";
 import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
 import ReactSlickDemo from "./components/slider/slider";
 import ImageSlider from "./components/slider/test-slider/ImageSlider";
+import RecipeCard from "./components/recipe-card/recipe-card";
 // import SimpleSlider from "./components/slider/slider";
+// import * as imgpumpIdx from "./src/components/recipe-card/pumpkins.png";
+
 
 ReactDOM.render(
 	<StrictMode>
+		<RecipeCard />
+
 
 		<ReactSlickDemo />
 
@@ -36,7 +41,6 @@ ReactDOM.render(
 		</RectBut>
 		<RectBut size="md">Get started</RectBut>
 		<RectBut size="sm">Read now</RectBut>
-		{/* <SimpleSlider /> */}
 	</StrictMode>,
 	document.getElementById("app")
 );

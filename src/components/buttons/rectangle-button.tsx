@@ -14,7 +14,7 @@ export interface RectangleButtonProps
 }
 
 interface RectangleButtonComponentProps {
-  color?: "primary" | "error" | "warning" | "interest";
+  color?: string;
   title?: string;
   icon?: "product card" | "arrow";
   size: "lg" | "md" | "sm";

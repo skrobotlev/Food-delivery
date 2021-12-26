@@ -1,10 +1,11 @@
 import React, { ReactElement } from "react";
 import Slider from "react-slick";
 // import { SliderCard1 } from "./slider-cards";
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
-import StartPageSecImage from "./images/st-pg-sec-img";
-import StartPageFirstImage from "./images/st-pg-first-img";
-import StartPageThirImage from "./images/st-pg-thir-img";
+import StartPageSecImage from "../images/st-pg-sec-img";
+import StartPageFirstImage from "../images/st-pg-first-img";
+import StartPageThirImage from "../images/st-pg-thir-img";
 
 
 interface SliderCardProps {
@@ -35,6 +36,8 @@ class ReactSlickDemo extends React.Component {
         };
         return (
             <div className="container">
+                {/* <FaArrowAltCircleLeft className="left-arrow" />
+                <FaArrowAltCircleRight className="right-arrow" /> */}
                 <Slider   {...settings}>
                     <div>
                         <SliderCard1 header="Eat Healthy" image={<StartPageFirstImage />}

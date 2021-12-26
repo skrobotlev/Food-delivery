@@ -39,16 +39,67 @@ body {
 		// justify-content: ;
 }
 
-.image {
-    width: 300px;
-    height: 300px;
-    border-radius: 10px;
+
+
+
+  .recipe-card{
+background-color: #fcfcfc;
+border-radius: 30px;
+margin: 30px;	
+max-width: fit-content;
+display: flex;
+flex-flow: column ;
+text-align:center;
+font-family: "Signika";
   }
-  .slider {
-	position: relative;
-	height: 35vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 3rem;
-  }
+.recipe-card p {
+	padding-left: 20px;
+}
+.recipe-card h1 {
+	font-size: 1.5rem;
+}
+.recipe-card img {
+	width: 250px;
+height: 250px;
+// border-radius: 10px;
+}
+//   .slider {
+// 	position: relative;
+// 	height: 35vh;
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	margin: 3rem;
+//   }
+//   .right-arrow {
+// 	position: absolute;
+// 	top: 50%;
+// 	right: 32px;
+// 	font-size: 3rem;
+// 	color: #000;
+// 	z-index: 10;
+// 	cursor: pointer;
+// 	user-select: none;
+//   }
+//   .left-arrow {
+// 	  display: flex;
+// 	  text-align: center;
+// 	position: static;
+// 	top: 50%;
+// 	left: 32px;
+// 	font-size: 3rem;
+// 	color: #000;
+// 	z-index: 10;
+// 	cursor: pointer;
+// 	user-select: none;
+//   }
+//   .slide {
+// 	opacity: 0;
+// 	transition-duration: 1s ease;
+//   } 
+//   .slide.active {
+// 	opacity: 1;
+// 	transition-duration: 1s;
+// 	transform: scale(1.08);
+//   }
+  
