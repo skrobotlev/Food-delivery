@@ -70,6 +70,7 @@ export const RectBut = styled.button<RectangleButtonProps>`
   border-radius: 30px;
   color: white;
   font-family: "Signika";
+  border: none;
   display: flex;
   justify-content: center;
   align-items: center

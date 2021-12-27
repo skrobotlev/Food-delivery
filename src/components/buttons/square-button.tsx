@@ -75,6 +75,8 @@ export const SquareBut = styled.button<SquareButtonProps>`
   }};
   margin: 25px;
   font-family: "Signika";
+  border: none; 
+  
   display: flex;
   justify-content: center;
   align-items: center;

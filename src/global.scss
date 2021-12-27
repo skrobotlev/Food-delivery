@@ -6,6 +6,71 @@ html {
 	font-family: Roboto, Arial, Helvetica, sans-serif
 }
 
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+   }
+
+   .Tabs {
+	width: 35%;
+	height: auto;
+	min-height: 400px;
+	// background: #b3afa9;
+	margin: 3.5rem auto 1.5rem;
+	padding: 2rem 1rem;
+	color: #041114;
+	border-radius: 2rem;
+	@media (max-width: 769px) {
+	 padding: 2rem 0;
+	}
+   }
+
+   ul.nav {
+	width: 80%;
+	margin: 0 auto 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	// border: 1px solid #39A2DB;
+	border-radius: 2rem;
+	@media (max-width: 768px) {
+	  width: 90%;
+	}
+  }
+
+  ul.nav li {
+	width: 50%;
+	padding: 1rem;
+	background: #FFF8EB;
+	list-style: none;
+	text-align: center;
+	font-family: 'Signika';
+	cursor: pointer;
+	transition: all 0.7s;
+	border-bottom-left-radius: 2rem;
+	border-top-left-radius: 2rem;
+  }
+
+  ul.nav li:nth-child(2) {
+	border-radius: 0;
+	border-bottom-right-radius: 2rem;
+	border-top-right-radius: 2rem;
+  }
+
+//   ul.nav li:hover {
+// 	background: rgba(50, 224, 196, 0.15);
+//   }
+  ul.nav li.active {
+	background: #FF9385;
+  }
+
+.FirstTab p,
+.SecondTab p {
+  font-size: 2rem;
+  text-align: center;
+}
+
 body {
 	margin: 0;
 }
@@ -25,7 +90,6 @@ body {
 	text-align: center;
 }
 
-
 .rectangle-btn-lg {
 		margin: 20px;
 		font-size: 2rem;
@@ -38,9 +102,6 @@ body {
 		font-family: 'Signika';
 		// justify-content: ;
 }
-
-
-
 
   .recipe-card{
 background-color: #fcfcfc;
@@ -63,43 +124,3 @@ font-family: "Signika";
 height: 250px;
 // border-radius: 10px;
 }
-//   .slider {
-// 	position: relative;
-// 	height: 35vh;
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	margin: 3rem;
-//   }
-//   .right-arrow {
-// 	position: absolute;
-// 	top: 50%;
-// 	right: 32px;
-// 	font-size: 3rem;
-// 	color: #000;
-// 	z-index: 10;
-// 	cursor: pointer;
-// 	user-select: none;
-//   }
-//   .left-arrow {
-// 	  display: flex;
-// 	  text-align: center;
-// 	position: static;
-// 	top: 50%;
-// 	left: 32px;
-// 	font-size: 3rem;
-// 	color: #000;
-// 	z-index: 10;
-// 	cursor: pointer;
-// 	user-select: none;
-//   }
-//   .slide {
-// 	opacity: 0;
-// 	transition-duration: 1s ease;
-//   } 
-//   .slide.active {
-// 	opacity: 1;
-// 	transition-duration: 1s;
-// 	transform: scale(1.08);
-//   }
-  

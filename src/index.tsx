@@ -1,7 +1,6 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 
-import { SliderData } from "./components/slider/test-slider/SliderData";
 import "./global.scss";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { BurgerSVG } from "./icons/burger";
@@ -9,19 +8,14 @@ import FruitSVG from "./icons/strawb";
 import { SquareBut } from "./components/buttons/square-button";
 import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
 import ReactSlickDemo from "./components/slider/slider";
-import ImageSlider from "./components/slider/test-slider/ImageSlider";
 import RecipeCard from "./components/recipe-card/recipe-card";
-// import SimpleSlider from "./components/slider/slider";
-// import * as imgpumpIdx from "./src/components/recipe-card/pumpkins.png";
-
+import Tabs from "./components/tabulation/tabulation";
 
 ReactDOM.render(
 	<StrictMode>
+		<Tabs />
 		<RecipeCard />
-
-
 		<ReactSlickDemo />
-
 		<SquareBut size="lg" backgroundColor="#FFF2F0">
 			<FruitSVG />
 			FRUITS
