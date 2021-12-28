@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import FirstTab from "./all-tabs/first-tab";
-import SecondTab from "./all-tabs/second-tab";
+import FoodFavoriteTab from "./all-tabs/food-tab";
+import RecipeFavoriteCard from "./all-tabs/recipe-tab";
 
 const Tabs = () => {
     const [activeTab, setActiveTab] = useState("tab1");
 
     const handleTab1 = () => {
-        // update the state to tab1
         setActiveTab("tab1");
     };
     const handleTab2 = () => {
-        // update the state to tab2
         setActiveTab("tab2");
     };
 
 
     return (
         <div className="Tabs">
-            {/* Tab nav */}
             <ul className="nav">
                 <li className={activeTab === "tab1" ? "active" : ""}
                     onClick={handleTab1}>Food</li>
@@ -25,8 +22,7 @@ const Tabs = () => {
                     onClick={handleTab2}>Recipes</li>
             </ul>
             <div className="outlet">
-                {activeTab === "tab1" ? <FirstTab /> : <SecondTab />}
-                {/* content will be shown here */}
+                {activeTab === "tab1" ? <FoodFavoriteTab /> : <RecipeFavoriteCard />}
             </div>
         </div>
     );

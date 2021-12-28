@@ -8,11 +8,18 @@ import FruitSVG from "./icons/strawb";
 import { SquareBut } from "./components/buttons/square-button";
 import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
 import ReactSlickDemo from "./components/slider/slider";
-import RecipeCard from "./components/recipe-card/recipe-card";
+import RecipeCard from "./components/recipe-cards/recipe-card";
 import Tabs from "./components/tabulation/tabulation";
+import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
+import FavorRecCardLike from "./components/images/fav-re-cd-like";
+import FavorRecCardSalad from "./components/images/fav-re-cd-salad";
 
 ReactDOM.render(
 	<StrictMode>
+
+		<FavoriteRecipeCard title="Chopped Spring Ramen" calories="250 kcal"
+			likeIcon={<FavorRecCardLike />} icon={<FavorRecCardSalad />}
+			category="Scallions & tomatoes" />
 		<Tabs />
 		<RecipeCard />
 		<ReactSlickDemo />

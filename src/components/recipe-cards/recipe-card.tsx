@@ -1,8 +1,3 @@
-// declare module "*.png" {
-//     const value: any;
-//     export default value;
-// }
-
 import React from "react";
 // import Imgpump from "./pumkins-edit.png";
 // const Pumpimg = require("./pumpkins.png");
