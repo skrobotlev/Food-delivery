@@ -7,9 +7,10 @@ import "../../../global.scss";
 
 const RecipeFavoriteCard = () => {
     return (
-        <div className="SecondTab">
+        <div>
             <FavoriteRecipeCard title="Chopped Spring Ramen" calories="250 kcal"
-                likeIcon={<FavorRecCardLike />} icon={<FavorRecCardSalad />}>
+                likeIcon={<FavorRecCardLike />} icon={<FavorRecCardSalad />}
+                category="Scallions & tomatoes">
 
             </FavoriteRecipeCard>
 

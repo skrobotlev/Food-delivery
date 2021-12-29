@@ -139,28 +139,29 @@ body {
   background-color: #eff7ee;
   font-family: "Signika";
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  // align-items: flex-end;
 }
 
 .recipe-element .like-icon {
-  position: absolute;
-  top: 45px;
-  left: 305px;
+  position: relative;
+  top: 15px;
+  right: 20px;
 }
 
 .recipe-element h1 {
-  display: flex;
-  position: absolute;
-  top: 45px;
-  left: 170px;
+  // display: flex;
+  position: relative;
+  bottom: 10px;
+  left: 150px;
   font-size: 15px;
-  font-weight:700;
+  font-weight:600;
 }
 .recipe-element h2 {
   // display: flex;
-  position: absolute;
-  top: 23px;
-  left: 170px;
+  position: relative;
+  bottom: 170px;
+  left: 150px;
   font-size: 13px;
   color: #3bb825;
   font-weight: 600;
@@ -168,15 +169,15 @@ body {
 
 .recipe-element .fv-rc-cd-img {
   display: flex;
-  position: absolute;
-  top: 55px;
-  left: 60px;	
+  position: relative  ;
+  bottom: 75px;
+  left: 30px;	
 }
 
 .recipe-element .fv-rc-cd-category {
-  position: absolute;
-  top: 110px;
-  left: 170px;
+  position: relative;
+  top: -160px;
+  left: 150px;
   font-size: 12px;
   color: #646464;
   font-weight: 550;

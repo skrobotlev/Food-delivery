@@ -12,7 +12,6 @@ const Tabs = () => {
         setActiveTab("tab2");
     };
 
-
     return (
         <div className="Tabs">
             <ul className="nav">
