@@ -10,17 +10,24 @@ import RectangleButton, { RectBut } from "./components/buttons/rectangle-button"
 import ReactSlickDemo from "./components/slider/slider";
 import RecipeCard from "./components/recipe-cards/recipe-card";
 import Tabs from "./components/tabulation/tabulation";
-import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
+import SearchInput from "./components/searching/search-input";
 import FavorRecCardLike from "./components/images/fav-re-cd-like";
 import FavorRecCardSalad from "./components/images/fav-re-cd-salad";
+import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
+import TestSearchInut from "./components/searching/test-search";
+
 
 ReactDOM.render(
 	<StrictMode>
 
+		<SearchInput placeholder="Search recipes, articles, people..."></SearchInput>
+
+		{/* <TestSearchInut placeholder="HOPPP" /> */}
+
+		<Tabs />
 		<FavoriteRecipeCard title="Chopped Spring Ramen" calories="250 kcal"
 			likeIcon={<FavorRecCardLike />} icon={<FavorRecCardSalad />}
 			category="Scallions & tomatoes" />
-		<Tabs />
 		<RecipeCard />
 		<ReactSlickDemo />
 		<SquareBut size="lg" backgroundColor="#FFF2F0">

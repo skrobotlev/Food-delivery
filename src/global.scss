@@ -12,6 +12,8 @@ html {
   margin: 0;
 }
 
+// TABULATION
+
 .Tabs {
   width: 35%;
   height: auto;
@@ -103,6 +105,7 @@ body {
   // justify-content: ;
 }
 
+// RECIPE CARD ON SEARCH PAGE
 .recipe-card {
   background-color: #fcfcfc;
   border-radius: 30px;
@@ -125,12 +128,9 @@ body {
   // border-radius: 10px;
 }
 
-.like-icon {
-  display: flex;
-  justify-content: flex-end;
-  // flex-direction: row-reverse;
-}
 
+
+// FAVORITE RECIPE ELEMENT
 .recipe-element {
   width: 313px;
   height: 120px;
@@ -143,16 +143,22 @@ body {
   // align-items: flex-end;
 }
 
+.like-icon {
+  display: flex;
+  justify-content: flex-end;
+  // flex-direction: row-reverse;
+}
+
 .recipe-element .like-icon {
   position: relative;
-  top: 15px;
+  top: 10px;
   right: 20px;
 }
 
 .recipe-element h1 {
   // display: flex;
   position: relative;
-  bottom: 10px;
+  top: 25px;
   left: 150px;
   font-size: 15px;
   font-weight:600;
@@ -160,7 +166,7 @@ body {
 .recipe-element h2 {
   // display: flex;
   position: relative;
-  bottom: 170px;
+  bottom: 80px;
   left: 150px;
   font-size: 13px;
   color: #3bb825;
@@ -169,16 +175,80 @@ body {
 
 .recipe-element .fv-rc-cd-img {
   display: flex;
-  position: relative  ;
-  bottom: 75px;
+  position: relative;
+  bottom: 15px;
   left: 30px;	
 }
 
 .recipe-element .fv-rc-cd-category {
   position: relative;
-  top: -160px;
+  bottom: 40px;
   left: 150px;
   font-size: 12px;
   color: #646464;
   font-weight: 550;
+}
+
+// SEARCH INPUT
+
+// .search-input {
+//   margin: 30px;
+//   max-width: 60%;
+//   display: flex;
+//   border: 1px solid gray;
+//   border-radius: 20px;
+//   // border-color: #041114;
+//   justify-content: center;
+//   align-items: center;
+// }
+// .search-input {
+//   display: block;
+//   margin: 30px;
+//   width: 40%;
+//   height: 25px;
+//   padding: 0.375rem 0.75rem;
+//   font-family: inherit;
+//   font-size: 1rem;
+//   font-weight: 400;
+//   line-height: 1.5;
+//   color: #212529;
+//   background-color: #fff;
+//   background-clip: padding-box;
+//   border: 1px solid #bdbdbd;
+//   border-radius: 0.25rem;
+//   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+// }
+
+.text-field__input {
+  display: flex;
+  justify-content: center;
+  width: 327px;
+  max-height: 64;
+  margin: 30px;
+  padding: 15px ;
+  font-family: "Signika";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color:#F4F4F4;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 30px;
+  // transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.close-icon {
+  display: flex;
+  position: relative;
+  bottom: 70px;
+  left: 320px;
+  cursor: pointer;
+}
+
+.search-icon {
+  display: flex;
+  position: relative;
+  bottom: 70px;
+  left: 45px;
 }
