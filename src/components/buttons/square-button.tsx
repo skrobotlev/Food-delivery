@@ -12,12 +12,7 @@ export interface SquareButtonProps
   size: "lg" | "md" | "sm";
 }
 
-// interface SquareButtonProps {
-//   backgroundColor?: string;
-//   // icon?: ReactElement,
-//   title?: string;
-//   size: "lg" | "md" | "sm";
-// }
+
 
 export const SquareBut = styled.button<SquareButtonProps>`
   width: ${(props) => {
@@ -81,14 +76,13 @@ export const SquareBut = styled.button<SquareButtonProps>`
   align-items: center;
   flex-direction: column;
   `;
-// ПОЧЕМУ НЕ РАБОТАЕТ bckgrclr???
 
-const SquareButton: React.FC<SquareButtonProps> = ({ size }) => {
-  return (
-    <div>
-      <button className={`square-btn-${size}`}></button>
-    </div>
-  );
-};
+// const SquareButton: React.FC<SquareButtonProps> = ({ size }) => {
+//   return (
+//     <div>
+//       <button className={`square-btn-${size}`}></button>
+//     </div>
+//   );
+// };
 
-export default SquareButton;
+// export default SquareButton;

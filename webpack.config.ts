@@ -24,37 +24,19 @@ module.exports = (_env, arg) => {
         configureMainStyles(!isProduction),
         configureChildStyles(!isProduction),
         ...configureTypescript(),
-        // по идее нахуй не нужно и не работает?
         {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
         },
         {
           test: /\.(jpg|png|gif|woff|eot|ttf|svg)/gi,
-          // type: "asset/resource",
 		    loader: "file-loader"
         },
         // {
         //   test: /\.(jpg|png|gif|woff|eot|ttf|svg)/gi,
         //   type: "asset/resource",
         //   }
-      
-    
-        //   {
-        //     test: /\.(png|jpe?g|gif)$/i,
-        //     type: 'asset/resource',
-        //     use: [
-        //       {
-        //         loader: 'file-loader',
-        //       },
-        //     ],
-        //   },
-          // {
-          //   test: /\.(jpg|png)$/,
-          //   use: {
-          //     loader: 'url-loader',
-          //   },
-          // },
+
         // {
         //   test: /\.(sa|sc|c)ss$/,
         //   use: [

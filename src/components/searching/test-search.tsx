@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import CloseIcon from "@material-ui/icons/Close";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Cancel from "@mui/icons-material/Cancel";
 
 const TestSearchInut = ({ placeholder }) => {
     const [wordEntered, setWordEntered] = useState("");
@@ -18,7 +16,6 @@ const TestSearchInut = ({ placeholder }) => {
         <div className="search-input">
             <input className="text-field__input" type="text" placeholder={placeholder} value={wordEntered} onChange={handleFilter} />
             {wordEntered !== "" ? <CancelIcon className="closeicon" onClick={clearInput} /> : ""}
-            {/* <CancelIcon className="closeicon" onClick={clearInput} /> */}
         </div>
     );
 };

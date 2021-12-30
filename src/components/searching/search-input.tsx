@@ -1,11 +1,6 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Input from "@mui/material/Input";
-
-
 
 import "../../global.scss";
 

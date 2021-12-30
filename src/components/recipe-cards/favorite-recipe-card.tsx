@@ -1,10 +1,7 @@
 import React, { ReactElement } from "react";
-import styled, { css } from "styled-components";
-import FavRecCardSalad from "../images/fav-re-cd-salad";
-import FavorRecCardLike from "../images/fav-re-cd-like";
+import styled from "styled-components";
 
 import "../../global.scss";
-// import "./fav-re-cd-styles.scss";
 
 interface FavoriteRecipeCardProps {
     title?: string;
@@ -45,18 +42,15 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> =
     ({ title, calories, likeIcon, icon, category }) => {
         return (
             <div className="recipe-element">
-                {/* <RecipeElement> */}
                 <i className="like-icon">{likeIcon}</i>
 
                 <h1>
                     {title}
                 </h1>
                 <div className="fv-rc-cd-img">{icon}</div>
-                {/* <img className="fv-rc-cd-img"></img> */}
 
                 <h2>{calories}</h2>
                 <p className="fv-rc-cd-category">{category}</p>
-                {/* </RecipeElement> */}
             </div>
         );
     };
