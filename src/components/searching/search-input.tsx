@@ -27,13 +27,11 @@ const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
     };
     return (
         <div className="search-input">
-            <Input className="text-field__input"
-                startAdornment={<AccountCircle />} />
+
             {/* <input type="text"></input> */}
             {/* <SearchIcon className="search-icon" /> */}
             <input className="text-field__input"
-                type="text" placeholder="
-                Search recipes, articles, people..."
+                type="text" placeholder={"       " + placeholder}
                 value={searchValue} onChange={updateSearchValue} />
             {searchValue !== "" ?
                 <CancelIcon className="close-icon" onClick={clearInput} />

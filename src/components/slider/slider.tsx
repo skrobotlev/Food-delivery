@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 import Slider from "react-slick";
 // import { SliderCard1 } from "./slider-cards";
+import "../../global.scss";
+// import scss from "./slider.scss" assert {type: "css"}
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 import StartPageSecImage from "../images/st-pg-sec-img";
@@ -32,13 +34,21 @@ class ReactSlickDemo extends React.Component {
     render() {
         var settings = {
             dots: true,
+            dotsClass: "slick-dots line-indicator",
+            customPaging: function (i) {
+                return (
+                    <div className="dot"></div>
+                );
+            },
+            slidesToShow: 1,
+            slidesToScroll: 1,
 
         };
         return (
             <div className="container">
                 {/* <FaArrowAltCircleLeft className="left-arrow" />
                 <FaArrowAltCircleRight className="right-arrow" /> */}
-                <Slider   {...settings}>
+                <Slider {...settings}>
                     <div>
                         <SliderCard1 header="Eat Healthy" image={<StartPageFirstImage />}
                             desc="Maintaining good health should be the primary focus of everyone.">

@@ -14,15 +14,17 @@ import SearchInput from "./components/searching/search-input";
 import FavorRecCardLike from "./components/images/fav-re-cd-like";
 import FavorRecCardSalad from "./components/images/fav-re-cd-salad";
 import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
-import TestSearchInut from "./components/searching/test-search";
-
+import NoResultsCard from "./components/searching/no-results-card";
+import NoResCardImage from "./components/images/no-res-card";
 
 ReactDOM.render(
 	<StrictMode>
+		<NoResultsCard header="No Results Found"
+			desc="Try searching for a different keywork or tweek your search a little"
+			icon={<NoResCardImage />} />
 
 		<SearchInput placeholder="Search recipes, articles, people..."></SearchInput>
 
-		{/* <TestSearchInut placeholder="HOPPP" /> */}
 
 		<Tabs />
 		<FavoriteRecipeCard title="Chopped Spring Ramen" calories="250 kcal"
