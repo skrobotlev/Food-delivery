@@ -1,21 +1,20 @@
-import React from "react";
+import React, { DetailedHTMLProps, HTMLAttributes } from "react";
 
 
-interface RecipeCardProps {
+// обернуть divhtmlporps
+interface RecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     title?: string;
     desc?: string;
-    header?: string;
     image?: SVGRectElement;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ image }) => {
+// сделать как и задумано пропсамм
+const RecipeCard: React.FC<RecipeCardProps> = ({ image, title, desc }) => {
     return (
         <div className="recipe-card">
-
             <img className="image" src="https://user-images.githubusercontent.com/92730840/147400625-e55e86e1-b7ce-4629-8582-7a0edb438ef9.png"></img>
-
-            <h1>The pumpkin secret</h1>
-            <p>The pump secrets</p>
+            <h1>{title}</h1>
+            <p>{desc}</p>
         </div>
     );
 };

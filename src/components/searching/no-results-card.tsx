@@ -1,6 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { DetailedHTMLProps, HTMLAttributes, ReactElement } from "react";
 
-interface NoResultsCardProps {
+// тоже обернуть divhtmlprops
+interface NoResultsCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     icon?: ReactElement;
     header?: string;
     desc?: string;

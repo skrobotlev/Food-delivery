@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import FoodFavoriteTab from "./all-tabs/food-tab";
 import RecipeFavoriteCard from "./all-tabs/recipe-tab";
+import TabComponent from "./all-tabs/tab-component";
 
-const Tabs = () => {
-    const [activeTab, setActiveTab] = useState("tab1");
+interface TabsContentProps {
+    tabs: ReactElement[];
+    activeIndex: number;
+}
 
-    const handleTab1 = () => {
-        setActiveTab("tab1");
-    };
-    const handleTab2 = () => {
-        setActiveTab("tab2");
-    };
+const TabsContent = ({ activeIndex, tabs }: TabsContentProps) => {
+    return (
+        <>
+            {tabs.find((tab, index) => index === activeIndex)}
+        </>
+    );
+};
 
+
+const Tabulation = () => {
+    const [activeTab, setActiveTab] = useState(0);
+
+    const tabs = ["Food", "Recipes"];
     return (
         <div className="Tabs">
-            <ul className="nav">
+            {/* <ul className="nav">
                 <li className={activeTab === "tab1" ? "active" : ""}
                     onClick={handleTab1}>Food</li>
                 <li className={activeTab === "tab2" ? "active" : ""}
@@ -22,9 +31,12 @@ const Tabs = () => {
             </ul>
             <div className="outlet">
                 {activeTab === "tab1" ? <FoodFavoriteTab /> : <RecipeFavoriteCard />}
-            </div>
+            </div> */}
+            <TabComponent tabs={tabs} onActiveChange={(idx) => setActiveTab(idx)} activeTab={activeTab} />
+            <TabsContent tabs={[<FoodFavoriteTab />, <RecipeFavoriteCard />]} activeIndex={activeTab} />
+
         </div>
     );
 };
 
-export default Tabs;
+export default Tabulation;

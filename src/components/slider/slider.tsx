@@ -12,23 +12,22 @@ interface SliderCardProps {
     image: ReactElement;
 }
 
-const SliderCard1: React.FC<SliderCardProps> = ({ header, desc, image }) => {
+const SliderCard: React.FC<SliderCardProps> = ({ header, desc, image }) => {
     return (
+        // <div key={header}>
         <div className="container">
             {image}
             <h1>{header}</h1>
             <p>{desc}</p>
         </div>
+        // </div>
     );
 };
 
-export {
-    SliderCard1
-};
 
 class ReactSlickDemo extends React.Component {
     render() {
-        var settings = {
+        const settings = {
             dots: true,
             dotsClass: "slick-dots line-indicator",
             customPaging: function (i) {
@@ -38,29 +37,56 @@ class ReactSlickDemo extends React.Component {
             },
             slidesToShow: 1,
             slidesToScroll: 1,
+            infinite: true
 
         };
+        const cards = [
+            {
+                header: "Eat Healthy",
+                desc: "Maintaining good health should be the primary focus of everyone.",
+                image: <StartPageFirstImage />
+            },
+            {
+                header: "Healthy Recipes",
+                desc: "Browse thousands of healthy recipes from all over the world.",
+                image: <StartPageSecImage />
+            },
+            {
+                header: "Track Your Health",
+                desc: "With amazing inbuilt tools you can track your progress.",
+                image: <StartPageThirImage />
+            }
+        ];
         return (
             <div className="container">
                 <Slider {...settings}>
-                    <div>
-                        <SliderCard1 header="Eat Healthy" image={<StartPageFirstImage />}
-                            desc="Maintaining good health should be the primary focus of everyone.">
+                    {/* {cards.map(card => {
 
-                        </SliderCard1>
-                    </div>
-                    <div>
-                        <SliderCard1 header="Healthy Recipes" image={<StartPageSecImage />}
-                            desc="Browse thousands of healthy recipes from all over the world.">
+                        return (
 
-                        </SliderCard1>
-                    </div>
-                    <div>
-                        <SliderCard1 header="Track Your Health" image={<StartPageThirImage />}
-                            desc="With amazing inbuilt tools you can track your    progress.">
+                            <SliderCard key={card.header} header={card.header} image={card.image}
+                                desc={card.desc}>
+                            </SliderCard>
 
-                        </SliderCard1>
-                    </div>
+                        );
+                    })}; */}
+                    <SliderCard header="Eat Healthy" image={<StartPageFirstImage />}
+                        desc="Maintaining good health should be the primary focus of everyone.">
+
+                    </SliderCard>
+
+
+                    <SliderCard header="Healthy Recipes" image={<StartPageSecImage />}
+                        desc="Browse thousands of healthy recipes from all over the world.">
+
+                    </SliderCard>
+
+
+                    <SliderCard header="Track Your Health" image={<StartPageThirImage />}
+                        desc="With amazing inbuilt tools you can track your progress.">
+
+                    </SliderCard>
+
                     <div>
                         <StartPageThirImage />
                         <h1>Track Your Health</h1>

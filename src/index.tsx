@@ -5,52 +5,45 @@ import "./global.scss";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { BurgerSVG } from "./icons/burger";
 import FruitSVG from "./icons/strawb";
-import { SquareBut } from "./components/buttons/square-button";
+import SquareButton, { SquareBut } from "./components/buttons/square-button";
 import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
 import ReactSlickDemo from "./components/slider/slider";
 import RecipeCard from "./components/recipe-cards/recipe-card";
-import Tabs from "./components/tabulation/tabulation";
-import SearchInput from "./components/searching/search-input";
+import { Search } from "./components/searching/search-input";
 import FavorRecCardLike from "./components/images/fav-re-cd-like";
 import FavorRecCardSalad from "./components/images/fav-re-cd-salad";
 import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
 import NoResultsCard from "./components/searching/no-results-card";
 import NoResCardImage from "./components/images/no-res-card";
+import Tabulation from "./components/tabulation/tabulation";
 
 ReactDOM.render(
 	<StrictMode>
+		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
+
+		<RectangleButton size="sm" icon={<ArrowRightIcon />} title="Read now" />
 		<NoResultsCard header="No Results Found"
 			desc="Try searching for a different keywork or tweek your search a little"
 			icon={<NoResCardImage />} />
 
-		<SearchInput placeholder="Search recipes, articles, people..."></SearchInput>
-
-
-		<Tabs />
+		<Search clearAll placeholder="Search recipes, articles, people..."></Search>
+		<Tabulation />
 		<FavoriteRecipeCard title="Chopped Spring Ramen" calories="250 kcal"
 			likeIcon={<FavorRecCardLike />} icon={<FavorRecCardSalad />}
 			category="Scallions & tomatoes" />
-		<RecipeCard />
+		<RecipeCard title="The pumpkin secrets" desc="Enjoy pumpkin dishes" />
 		<ReactSlickDemo />
-		<SquareBut size="lg" backgroundColor="#FFF2F0">
-			<FruitSVG />
-			FRUITS
-		</SquareBut>
-		<SquareBut size="md" backgroundColor="#FFF8EE">
-			<BurgerSVG />
-		</SquareBut>
-		<SquareBut size="sm" backgroundColor="#FFF8EE">
-			View all
-		</SquareBut>
-		<RectBut size="lg">
-			Track Your Weekly Progress
+		<SquareButton size="lg" backgroundColor="#FFF2F0" title="FRUITS" icon={<FruitSVG />} />
+		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
+		<SquareButton size="sm" backgroundColor="#FFF8EE" title="View all" />
+		<RectangleButton size="lg" title="Track Your Weekly Progress">
 			<RectBut size="sm">
 				Read now
 				<ArrowRightIcon />
 			</RectBut>
-		</RectBut>
-		<RectBut size="md">Get started</RectBut>
-		<RectBut size="sm">Read now</RectBut>
-	</StrictMode>,
+		</RectangleButton>
+		<RectangleButton size="md" title="Get started" />
+		<RectangleButton size="sm" title="Read now" />
+	</StrictMode >,
 	document.getElementById("app")
 );

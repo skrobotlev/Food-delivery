@@ -1,22 +1,13 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
 
-import "../../global.scss";
 
 export interface RectangleButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  children: ReactNode;
-  color?: "primary" | "error" | "warning" | "interest";
+  icon?: any;
+  children?: any;
   title?: string;
-  icon?: "product card" | "arrow";
-  size: "lg" | "md" | "sm";
-}
-
-interface RectangleButtonComponentProps {
-  color?: string;
-  title?: string;
-  icon?: "product card" | "arrow";
   size: "lg" | "md" | "sm";
 }
 
@@ -70,35 +61,20 @@ export const RectBut = styled.button<RectangleButtonProps>`
   border-radius: 30px;
   color: white;
   font-family: "Signika";
+  padding: 10px;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center
 `;
 
-// export const RectBut = styled.button<RectangleButtonProps>`
-//   width: ${({ size }) => (size == "lg" ? "290px" : "290px")};
-//   height: ${({ size }) => (size == "lg" ? "72px" : "72px")}
-//   margin: 20px;
-// 		font-size: 2rem;
-// 		border-radius: 30px;
-// 		border-color: #91C788;
-// 		color: white;
-// 		background-color: #91C788;
-// 		font-family: 'Signika';
-// `;
-
-export const MiniRectButton: React.FC<RectangleButtonComponentProps> = () => {
+const RectangleButton: React.FC<RectangleButtonProps> = ({ title, size, icon, children }) => {
   return (
-    <div></div>
-  );
-};
-
-const RectangleButton: React.FC<RectangleButtonComponentProps> = ({ title, size }) => {
-  return (
-    <div>
-      <button className={`rectangle-btn-${size}`}>{title}</button>
-    </div>
+    <RectBut size={size} title={title} icon={icon}>
+      {title ? title : null}
+      {icon ? icon : null}
+      {children ? children : null}
+    </RectBut>
   );
 };
 

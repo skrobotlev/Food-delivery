@@ -1,9 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, DetailedHTMLProps, HTMLAttributes } from "react";
 import styled from "styled-components";
 
-import "../../global.scss";
-
-interface FavoriteRecipeCardProps {
+interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     title?: string;
     calories?: string;
     icon?: ReactElement;
@@ -38,17 +36,16 @@ display: flex;
     margin: 10px;
 `;
 
+
 const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> =
     ({ title, calories, likeIcon, icon, category }) => {
         return (
             <div className="recipe-element">
                 <i className="like-icon">{likeIcon}</i>
-
                 <h1>
                     {title}
                 </h1>
                 <div className="fv-rc-cd-img">{icon}</div>
-
                 <h2>{calories}</h2>
                 <p className="fv-rc-cd-category">{category}</p>
             </div>

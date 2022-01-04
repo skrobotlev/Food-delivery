@@ -1,38 +1,69 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHandler, ChangeEvent, useEffect } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 
-import "../../global.scss";
-
 interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-    placeholder?: string;
     clearAll?: boolean;
+    children?: any;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
-    const [searchValue, SetSearchValue] = useState("");
+export const Search: React.FC<SearchInputProps> = ({ placeholder }) => {
+    const [searchValue, setSearchValue] = useState("");
 
     const clearInput = () => {
-        SetSearchValue("");
+        setSearchValue("");
     };
 
-    const updateSearchValue = (e) => {
-        const searchWord = e.target.value;
-        SetSearchValue(searchWord);
+    useEffect(() => {
+        if (searchValue) console.log("a");
+    }, [searchValue]);
+
+    const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+        const searchWord = e.currentTarget.value;
+        setSearchValue(searchWord);
     };
     return (
         <div className="search-input">
-
-            {/* <input type="text"></input> */}
-            {/* <SearchIcon className="search-icon" /> */}
             <input className="text-field__input"
-                type="text" placeholder={"       " + placeholder}
+                type="text" placeholder={placeholder}
                 value={searchValue} onChange={updateSearchValue} />
-            {searchValue !== "" ?
-                <CancelIcon className="close-icon" onClick={clearInput} />
-                : <SearchIcon className="search-icon" />}
+            <CancelIcon className="close-icon" onClick={clearInput} />
+            <SearchIcon className="search-icon" />
         </div>
     );
 };
 
-export default SearchInput;
+// const SearchInput: React.FC<SearchInputProps> = ({ placeholder, clearAll }) => {
+// const [searchValue, setSearchValue] = useState("");
+
+// const clearInput = () => {
+//     setSearchValue("");
+// };
+
+// useEffect(() => {
+//     if (searchValue) console.log("a");
+// }, [searchValue]);
+
+// const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+//     const searchWord = e.currentTarget.value;
+//     setSearchValue(searchWord);
+// };
+// return (
+
+//  <input className="text-field__input"
+//     type="text" placeholder={placeholder}
+//     value={searchValue} onChange={updateSearchValue} /> 
+
+// <Search placeholder={placeholder} >
+{/* <CancelIcon className="close-icon" />
+            <SearchIcon className="search-icon" /> */}
+{/* </Search> */ }
+
+        // {/* {searchValue && clearAll ?
+        //     <CancelIcon className="close-icon" onClick={clearInput} />
+        //     : <SearchIcon className="search-icon" />} */}
+
+//     );
+// };
+
+// export default SearchInput;

@@ -1,18 +1,14 @@
-import React from "react";
+import React, { ReactElement, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
 import styled from "styled-components";
-
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
 
 export interface SquareButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  children: ReactNode;
-  // icon?: ReactElement,
+  children?: any;
+  icon?: ReactElement;
   backgroundColor?: string;
   title?: string;
   size: "lg" | "md" | "sm";
 }
-
-
 
 export const SquareBut = styled.button<SquareButtonProps>`
   width: ${(props) => {
@@ -77,12 +73,13 @@ export const SquareBut = styled.button<SquareButtonProps>`
   flex-direction: column;
   `;
 
-// const SquareButton: React.FC<SquareButtonProps> = ({ size }) => {
-//   return (
-//     <div>
-//       <button className={`square-btn-${size}`}></button>
-//     </div>
-//   );
-// };
+const SquareButton: React.FC<SquareButtonProps> = ({ size, title, icon, backgroundColor }) => {
+  return (
+    <SquareBut size={size} icon={icon} title={title} backgroundColor={backgroundColor}>
+      {icon ? icon : null}
+      {title ? title : null}
+    </SquareBut>
+  );
+};
 
-// export default SquareButton;
+export default SquareButton;
