@@ -1,33 +1,49 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-
-import store from "./reducers";
-import { Routes, DynamicRoute } from "./routes";
-import Navbar from "./core/navbar";
 
 import "./global.scss";
-
-export default function App(props: any) {
-	return(
-		<div>
-			<Navbar />
-			<div className="container">
-				<Container routes={props.routes} />
-			</div>
-		</div>
-	);
-}
-
-function Container(props: any) {
-	return props.routes.map((route: any) => <DynamicRoute key={route.path} { ...route }/>);
-}
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { BurgerSVG } from "./icons/burger";
+import FruitSVG from "./icons/strawb";
+import SquareButton, { SquareBut } from "./components/buttons/square-button";
+import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
+import ReactSlickDemo from "./components/slider/slider";
+import RecipeCard from "./components/recipe-cards/recipe-card";
+import { Search } from "./components/searching/search-input";
+import FavorRecCardLike from "./components/images/fav-re-cd-like";
+import FavorRecCardSalad from "./components/images/fav-re-cd-salad";
+import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
+import NoResultsCard from "./components/searching/no-results-card";
+import NoResCardImage from "./components/images/no-res-card";
+import Tabulation from "./components/tabulation/tabulation";
 
 ReactDOM.render(
 	<StrictMode>
-		<Provider store={store}>
-			<Routes />
-		</Provider>
-	</StrictMode>,
+		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
+
+		<RectangleButton size="sm" icon={<ArrowRightIcon />} title="Read now" />
+		<NoResultsCard header="No Results Found"
+			desc="Try searching for a different keywork or tweek your search a little"
+			icon={<NoResCardImage />} />
+
+		<Search clearAll placeholder="Search recipes, articles, people..."></Search>
+		<Tabulation />
+		<FavoriteRecipeCard title="Chopped Spring Ramen" calories="250 kcal"
+			likeIcon={<FavorRecCardLike />} icon={<FavorRecCardSalad />}
+			category="Scallions & tomatoes" />
+		<RecipeCard title="The pumpkin secrets" desc="Enjoy pumpkin dishes" />
+		<ReactSlickDemo />
+		<SquareButton size="lg" backgroundColor="#FFF2F0" title="FRUITS" icon={<FruitSVG />} />
+		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
+		<SquareButton size="sm" backgroundColor="#FFF8EE" title="View all" />
+		<RectangleButton size="lg" title="Track Your Weekly Progress">
+			<RectBut size="sm">
+				Read now
+				<ArrowRightIcon />
+			</RectBut>
+		</RectangleButton>
+		<RectangleButton size="md" title="Get started" />
+		<RectangleButton size="sm" title="Read now" />
+	</StrictMode >,
 	document.getElementById("app")
 );

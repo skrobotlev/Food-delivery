@@ -1,0 +1,51 @@
+
+.slick-dots.line-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    // background-color: #3bb825;
+    }
+    
+    .slick-dots.line-indicator li {
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      border-radius: 5px;
+      background-color: #FF8473;
+      transition: all 0.5s ease-in-out;
+    }
+    
+    // .slick-dots button {
+    // width: 10px;
+    // height: 10px;
+    // background-color: #3bb825;
+    // }
+    
+    .slick-dots.line-indicator li.slick-active {
+      width: 20px;
+      height: 10px;
+      // background-color: #3bb825;
+      }
+    
+      // .line-indicator li {
+      //   border: 2px solid;
+      //   height: 10px;
+      //   width: 10px;
+      //   border-radius: 10px;
+      // }
+    // HEAD CONTAINER & SLAIDER CONTAINER
+    
+    .container {
+      // padding: px;
+      background: beige;
+      margin-top: 2rem;
+      border-radius: 40px;
+      font-family: "Signika";
+      font-weight: bold;
+      max-width: 300px;
+      max-height: 700px;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      text-align: center;
+    }

@@ -1,0 +1,112 @@
+// @import "~slick-carousel/slick/slick.css";
+// @import "~slick-carousel/slick/slick-theme.css";
+// .aws-btn {
+
+//     --slider-height-percentage: 48%;
+//     --slider-transition-duration: 700ms;
+//     --organic-arrow-thickness: 4px;
+//     --organic-arrow-border-radius: 0px;
+//     --organic-arrow-height: 37px;
+//     --organic-arrow-color: #d5d5d5;
+//     --control-button-width: 10%;
+//     --control-button-height: 25%;
+//     --control-button-background: transparent;
+//     --control-bullet-color: #fafafa;
+//     --control-bullet-active-color: #d5d5d5;
+//     --loader-bar-color: #851515;
+//     --loader-bar-height: 6px;
+//     }
+    
+.container {
+    margin: 40px;
+    padding: 40px;
+    // background: #419be0;
+  }
+  
+//   .slick-slide img {
+//     margin: auto;
+//   }
+
+.my-slick-dots
+{
+    position: absolute;
+    bottom: -25px;
+
+    display: block;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    text-align: center;
+}
+.my-slick-dots li
+{
+    position: relative;
+
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+
+    cursor: pointer;
+}
+.my-slick-dots li button
+{
+    font-size: 0;
+    line-height: 0;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+
+    cursor: pointer;
+
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.my-slick-dots li button:hover,
+.my-slick-dots li button:focus
+{
+    outline: none;
+}
+.my-slick-dots li button:hover:before,
+.my-slick-dots li button:focus:before
+{
+    opacity: 1;
+}
+.my-slick-dots li button:before
+{
+    font-family: 'slick';
+    font-size: 6px;
+    line-height: 20px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 20px;
+    height: 20px;
+
+    content: '•';
+    text-align: center;
+
+    opacity: .25;
+    color: black;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.my-slick-dots li.slick-active button:before
+{
+    opacity: .75;
+    color: black;
+}
