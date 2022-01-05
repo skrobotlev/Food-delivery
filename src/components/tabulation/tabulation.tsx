@@ -22,7 +22,7 @@ const Tabulation = () => {
 
     const tabs = ["Food", "Recipes"];
     return (
-        <div className="Tabs">
+        <div className="tabs">
             {/* <ul className="nav">
                 <li className={activeTab === "tab1" ? "active" : ""}
                     onClick={handleTab1}>Food</li>

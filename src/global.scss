@@ -14,7 +14,7 @@ html {
 
 // TABULATION
 
-.Tabs {
+.tabs {
   width: 35%;
   height: auto;
   min-height: 400px;
@@ -131,8 +131,8 @@ justify-content: center;
 
 .container {
   // padding: px;
-  background: beige;
-  margin-top: 2rem;
+  background: white;
+  // margin-top: 2rem;
   border-radius: 40px;
   font-family: "Signika";
   font-weight: bold;
@@ -353,4 +353,9 @@ font-weight: 400;
   text-align: center;
   color: #696969;
   font-weight: 200;
+  }
+
+  .started-page {
+    height: 100vh;
+    width: 100%;
   }
