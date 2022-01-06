@@ -8,7 +8,6 @@ const HomePageContent = styled.div`
   justify-content: space-around;
     /* align-items: center; */
   flex-direction: column;
-  
   height: 100vh;
   width: 100%;
 `;
