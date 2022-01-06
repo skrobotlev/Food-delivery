@@ -54,7 +54,7 @@ export const SquareBut = styled.button<SquareButtonProps>`
     } else if (size == "md") {
       return "1rem";
     } else if (size == "lg") {
-      return "1.5rem";
+      return "1.3rem";
     }
   }};
   color: ${({ size }) => {

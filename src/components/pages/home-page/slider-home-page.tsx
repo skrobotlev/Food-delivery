@@ -51,7 +51,7 @@ const ImageSpan = styled.span`
 
 `;
 
-const ChildrenSpan = styled.span`
+const ChildrenSpan = styled.div`
 
 `;
 
