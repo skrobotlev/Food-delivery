@@ -16,9 +16,16 @@ import FavoriteRecipeCard from "./components/recipe-cards/favorite-recipe-card";
 import NoResultsCard from "./components/searching/no-results-card";
 import NoResCardImage from "./components/images/no-res-card";
 import Tabulation from "./components/tabulation/tabulation";
+import Loader from "./components/pages/loader";
+import GetStartedPage from "./components/pages/get-started";
+import Layout from "./components/pages/layout";
+import HomePage from "./components/pages/home-page/home-page";
 
 ReactDOM.render(
 	<StrictMode>
+		<HomePage />
+		<GetStartedPage />
+		<Loader />
 		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
 
 		<RectangleButton size="sm" icon={<ArrowRightIcon />} title="Read now" />

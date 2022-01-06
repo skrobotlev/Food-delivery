@@ -52,12 +52,12 @@ export const RectBut = styled.button<RectangleButtonProps>`
     if (size == "lg") {
       return "1.2rem";
     } else if (size == "md") {
-      return "2rem";
+      return "1.8rem";
     } else if (size == "sm") {
       return "1.3rem";
     }
   }};
-  margin: 20px;
+  /* margin: 20px; */
   border-radius: 30px;
   color: white;
   font-family: "Signika";
