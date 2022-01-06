@@ -70,6 +70,7 @@ const NavBar = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  width: 335px;
   border-radius: 1px ;
   padding-bottom: 32px;
   /* margin: 45px; */

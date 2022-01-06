@@ -9,63 +9,68 @@ export interface RectangleButtonProps
   children?: any;
   title?: string;
   size: "lg" | "md" | "sm";
+  backgroundColor?: string;
 }
 
 export const RectBut = styled.button<RectangleButtonProps>`
   width: ${(props) => {
-    if (props.size == "sm") {
-      return "164px";
-    } else if (props.size == "md") {
+    if (props.size === "sm") {
+      return "104px";
+    } else if (props.size === "md") {
       return "290px";
-    } else if (props.size == "lg") {
+    } else if (props.size === "lg") {
       return "320px";
     }
   }};
   height: ${({ size }) => {
-    if (size == "sm") {
-      return "64px";
-    } else if (size == "md") {
+    if (size === "sm") {
+      return "32px";
+    } else if (size === "md") {
       return "72px";
-    } else if (size == "lg") {
+    } else if (size === "lg") {
       return "88px";
     }
   }};
-  background-color: ${({ size }) => {
+  background-color: ${({ size, backgroundColor }) => {
     if (size == "lg") {
       return "#9E9BC7";
-    } else if (size == "md") {
+    } else if (size === "md") {
       return "#91C788";
-    } else if (size == "sm") {
+    } else if (size === "sm") {
       return "#FF8473";
+    } else if (size === "sm" &&
+      backgroundColor === "light") {
+      return "#FFFFFF";
     }
   }};
   border-color: ${({ size }) => {
-    if (size == "lg") {
+    if (size === "lg") {
       return "#9E9BC7";
-    } else if (size == "md") {
+    } else if (size === "md") {
       return "#91C788";
-    } else if (size == "sm") {
+    } else if (size === "sm") {
       return "#FF8473";
     }
   }};
   font-size: ${({ size }) => {
-    if (size == "lg") {
+    if (size === "lg") {
       return "1.2rem";
-    } else if (size == "md") {
+    } else if (size === "md") {
       return "1.8rem";
-    } else if (size == "sm") {
-      return "1.3rem";
+    } else if (size === "sm") {
+      return "0.75rem";
     }
   }};
   /* margin: 20px; */
   border-radius: 30px;
   color: white;
   font-family: "Signika";
-  padding: 10px;
+  /* padding: 10px; */
   border: none;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  
 `;
 
 const RectangleButton: React.FC<RectangleButtonProps> = ({ title, size, icon, children }) => {
