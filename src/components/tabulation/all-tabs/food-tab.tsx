@@ -1,6 +1,6 @@
 import React from "react";
 import SquareButton, { SquareBut } from "../../buttons/square-button";
-import { BurgerSVG } from "../../../icons/burger";
+import { BurgerSVG } from "../../buttons/icons/burger";
 
 
 const FoodFavoriteTab = () => {

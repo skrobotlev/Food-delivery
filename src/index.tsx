@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 
 import "./global.scss";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import { BurgerSVG } from "./icons/burger";
-import FruitSVG from "./icons/strawb";
+import { BurgerSVG } from "./components/buttons/icons/burger";
+import FruitSVG from "./components/buttons/icons/strawb";
 import SquareButton, { SquareBut } from "./components/buttons/square-button";
 import RectangleButton, { RectBut } from "./components/buttons/rectangle-button";
 import ReactSlickDemo from "./components/slider/slider";
