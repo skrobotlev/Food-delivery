@@ -20,9 +20,11 @@ import Loader from "./components/pages/loader";
 import GetStartedPage from "./components/pages/get-started";
 import Layout from "./components/pages/layout";
 import HomePage from "./components/pages/home-page/home-page";
+import SearchPage from "./components/pages/search-page/search-page";
 
 ReactDOM.render(
 	<StrictMode>
+		<SearchPage />
 		<HomePage />
 		<GetStartedPage />
 		<Loader />
