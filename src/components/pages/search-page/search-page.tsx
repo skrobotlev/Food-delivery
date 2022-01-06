@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import RectangleButton from "../../buttons/rectangle-button";
 import RecipeCard from "../../recipe-cards/recipe-card";
 import { Search } from "../../searching/search-input";
 import Layout from "../layout";
@@ -23,7 +24,7 @@ margin-top: 25px;
 `;
 
 const LayoutSpan = styled.span`
-padding-top: 20px;
+padding-top: max;
  `;
 
 const SearchPage = () => {
