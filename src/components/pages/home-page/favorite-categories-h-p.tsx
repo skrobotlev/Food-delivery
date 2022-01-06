@@ -6,8 +6,10 @@ import VegetableSvg from "../../buttons/icons/vegetable";
 import SquareButton from "../../buttons/square-button";
 
 const FavoriteCategoriesDiv = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const FavoriteCategories = () => {
@@ -17,7 +19,6 @@ const FavoriteCategories = () => {
             <SquareButton size="lg" backgroundColor="#FFF2F0" title="Vegetables" icon={<VegetableSvg />} />
             <SquareButton size="lg" backgroundColor="#FFF2F0" title="Snacks" icon={<SnackSvg />} />
         </FavoriteCategoriesDiv>
-
     );
 };
 

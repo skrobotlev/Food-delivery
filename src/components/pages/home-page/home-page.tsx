@@ -8,17 +8,24 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
 import FavoriteCategories from "./favorite-categories-h-p";
 
-
 const HomePageContent = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  h3 {
+    padding-right: 35px;
+  }
 `;
 
-
+const FavoritesCardHeader = styled.h3`
+  font-family: "Signika";
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 20px;
+`;
 
 const HomePage = () => {
   return (
@@ -27,11 +34,11 @@ const HomePage = () => {
       <HomePageSlider />
       <BigRectangleButton title="Track Your Weekly Progress">
         <InsideRectBut>
-          Read now
+          View Now
           <ArrowRightIcon />
         </InsideRectBut>
       </BigRectangleButton>
-      <h3>Choose Your Favorites</h3>
+      <FavoritesCardHeader>Choose Your Favorites</FavoritesCardHeader>
       <FavoriteCategories />
       <Layout />
     </HomePageContent>

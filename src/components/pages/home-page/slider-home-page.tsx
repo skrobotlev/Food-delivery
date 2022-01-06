@@ -4,6 +4,7 @@ import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
 import { FirstSlide } from "../../images/slider-home-page";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import styled from "styled-components";
+import FavorRecCardSalad from "../../images/fav-re-cd-salad";
 
 interface SliderCardProps {
     header?: string;
@@ -113,7 +114,10 @@ class HomePageSlider extends React.Component {
                         <RectangleButton size="sm" title="Read now" icon={<ArrowRightIcon fontSize="small" />} />
                     </SliderCard>
 
-                    <SliderCard header="Healthy Recipes" desc="Browse thousands of healthy recipes from all over the world."></SliderCard>
+                    <SliderCard header="Healthy Recipes" desc="Browse thousands of healthy recipes from all over the world."
+                        image={<FavorRecCardSalad />}>
+
+                    </SliderCard>
 
                     <SliderCard header="Track Your Health" desc="With amazing inbuilt tools you can track your progress."></SliderCard>
                 </Slider>
