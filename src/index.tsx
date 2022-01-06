@@ -21,9 +21,11 @@ import GetStartedPage from "./components/pages/get-started";
 import Layout from "./components/pages/layout";
 import HomePage from "./components/pages/home-page/home-page";
 import SearchPage from "./components/pages/search-page/search-page";
+import FavoriteItemsPage from "./components/pages/favorite-items-page/favorite-items-page";
 
 ReactDOM.render(
 	<StrictMode>
+		<FavoriteItemsPage />
 		<SearchPage />
 		<HomePage />
 		<GetStartedPage />

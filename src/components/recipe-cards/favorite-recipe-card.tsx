@@ -10,14 +10,15 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
-  width: 313px;
-  height: 140px;
+ width: 313px;
+  height: 120px;
   border-radius: 2rem;
   margin: 30px;
   background-color: #eff7ee;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
+  font-family: "Signika";
+  display: flex;
+  flex-direction: column;
+  // align-items: flex-end;
 `;
 const LikeIcon = styled.div`
     display: flex;

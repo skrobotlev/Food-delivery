@@ -64,7 +64,7 @@ export const SquareBut = styled.button<SquareButtonProps>`
       return "#1C3418";
     }
   }};
-  margin: 25px;
+  margin-top: 16px;
   font-family: "Signika";
   border: none; 
   display: flex;
