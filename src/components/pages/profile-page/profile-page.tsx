@@ -6,6 +6,7 @@ import {
   RenewPlansIconSvg,
   SettingsIconSvg,
   TermsAndPrivPolIconSvg,
+  VipProfileCrownSvg,
 } from "../../buttons/icons/profile-menu-icons/icons";
 import Layout from "../layout";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -18,7 +19,8 @@ const ProfilePageDiv = styled.div`
   height: 100vh;
   width: 100%;
   font-family: "Signika";
-  /* h1 {
+  padding-top: 50px ;
+  h1 {
     font-size: 16px;
   }
   h2 {
@@ -28,7 +30,7 @@ const ProfilePageDiv = styled.div`
     color: #a1a1a1;
     font-weight: 400;
     font-size: 16px;
-  } */
+  }
 `;
 
 const ProfilePhotoDiv = styled.div`
@@ -42,24 +44,10 @@ const ProfilePhotoDiv = styled.div`
     height: 160px;
     border-radius: 100px;
   }
-`;
-
-const ProfilePageMenu = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  /* align-items: center; */
-`;
-
-const ProfilePageMenuH4 = styled.div`
-  display: flex;
-  /* justify-content: space-around; */
-  align-items: center;
-  width: 295px;
-  i {
-    padding-left: 100px;
-    display: flex;
-    justify-content: flex-end;
+  svg {
+    position: absolute;
+    top: 165px;
+    right: 120px
   }
 `;
 
@@ -67,28 +55,54 @@ const ProfileMenuIcons = styled.div`
   display: flex;
   flex-direction: column;
   width: 50px;
-  /* justify-content: flex-start; */
+ 
+`;
+
+const ProfilePageMenu = styled.div`
+  display: flex;
+  flex-direction: row;
+  
 `;
 
 const ProfileMenuHeaders = styled.div`
   display: flex;
   flex-direction: column;
-  h1 {
+  color:#707070;
+  h5 {
     font-size: 17px;
 line-height: 30px;
+padding-right: 50px;
+  }
+  i {
+    
   }
   
 `;
 
+const ProfilePageMenuH4 = styled.div`
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  width: 300px;
+  justify-content: space-between;
+  padding-top: 28px;
+  i {
+    /* padding-left: 100px;  */
+    display: flex;
+    align-items: flex-start;
+  }
+`;
 
+const LayoutSpan = styled.span`
+display: flex;
+align-items: flex-end;
+justify-content: center;
+padding-top: 140px;
+/* position: absolute; */
+ `;
 
 const ProfilePage = () => {
-  const headers = ["Edit Profile", "Renew Plans", "Settings", "Terms & Privacy Policy", "Log Out"];
-  const arrIconsMenu = [<EditProfileIconSvg />,
-  <RenewPlansIconSvg />,
-  <SettingsIconSvg />,
-  <TermsAndPrivPolIconSvg />,
-  <LogOutIconSvg />];
+
 
   const headersAndIcons = [
     {
@@ -121,36 +135,27 @@ const ProfilePage = () => {
     <ProfilePageDiv>
       <h1>Profile</h1>
       <ProfilePhotoDiv>
-        <img src="https://static.wixstatic.com/media/a27d24_ae7df0679e2743d295b589eacf80c605~mv2.jpg/v1/fill/w_480,h_320,al_c,q_90/a27d24_ae7df0679e2743d295b589eacf80c605~mv2.jpg"></img>
+        <img src="https://www.newartsaxis.net/wp-content/uploads/2021/03/hair-color-for-woman-150x150.jpg"></img>
+        <VipProfileCrownSvg />
       </ProfilePhotoDiv>
       <h2>Shambhavi Mishra</h2>
       <h3>Food blogger</h3>
       <ProfilePageMenu>
-        {/* <ProfileMenuIcons>
-          <EditProfileIconSvg />
-          <RenewPlansIconSvg />
-          <SettingsIconSvg />
-          <TermsAndPrivPolIconSvg />
-          <LogOutIconSvg />
-        </ProfileMenuIcons> */}
         <ProfileMenuHeaders>
           {headersAndIcons.map((item) => (
             <ProfilePageMenuH4>
               <ProfileMenuIcons>
                 {item.icon}
               </ProfileMenuIcons>
-              {item.title}
+              <h5>
+                {item.title}
+              </h5>
               <i> <ArrowForwardIosIcon fontSize="small" /></i>
             </ProfilePageMenuH4>
           ))}
         </ProfileMenuHeaders>
-        {/* <ProfilePageMenuH4>
-                    <EditProfileIconSvg />
-                    Edit profile
-                    <i> <ArrowForwardIosIcon fontSize="small" /></i>
-                </ProfilePageMenuH4> */}
       </ProfilePageMenu>
-      <Layout />
+      <LayoutSpan> <Layout /> </LayoutSpan>
     </ProfilePageDiv>
   );
 };
