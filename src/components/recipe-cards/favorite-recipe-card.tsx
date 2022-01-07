@@ -2,23 +2,23 @@ import React, { ReactElement, DetailedHTMLProps, HTMLAttributes } from "react";
 import styled from "styled-components";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    title?: string;
-    calories?: string;
-    icon?: ReactElement;
-    category?: string;
-    likeIcon?: ReactElement;
+  title?: string;
+  calories?: string;
+  icon?: ReactElement;
+  category?: string;
+  likeIcon?: ReactElement;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   width: 313px;
   height: 120px;
   border-radius: 2rem;
-  margin: 30px;
+  margin: 10px;
   background-color: #eff7ee;
   font-family: "Signika";
   display: flex;
   flex-direction: column;
-  // align-items: flex-end;
+  /* align-items: center; */
   h1 {
     // display: flex;
     position: relative;
@@ -62,15 +62,15 @@ const ImageCard = styled.div`
 `;
 
 const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, icon, category }) => {
-    return (
-        <RecipeElement>
-            <LikeIcon>{likeIcon}</LikeIcon>
-            <h1>{title}</h1>
-            <ImageCard>{icon}</ImageCard>
-            <h2>{calories}</h2>
-            <p>{category}</p>
-        </RecipeElement>
-    );
+  return (
+    <RecipeElement>
+      <LikeIcon>{likeIcon}</LikeIcon>
+      <h1>{title}</h1>
+      <ImageCard>{icon}</ImageCard>
+      <h2>{calories}</h2>
+      <p>{category}</p>
+    </RecipeElement>
+  );
 };
 
 export default FavoriteRecipeCard;

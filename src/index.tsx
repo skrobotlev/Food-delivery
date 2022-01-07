@@ -33,9 +33,7 @@ ReactDOM.render(
 		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
 
 		<RectangleButton size="sm" icon={<ArrowRightIcon />} title="Read now" />
-		<NoResultsCard header="No Results Found"
-			desc="Try searching for a different keywork or tweek your search a little"
-			icon={<NoResCardImage />} />
+
 
 		<Search clearAll placeholder="Search recipes, articles, people..."></Search>
 		<Tabulation />

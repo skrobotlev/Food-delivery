@@ -6,35 +6,46 @@ import Layout from "../layout";
 
 const FavoriteItemsPageDiv = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
   height: 100vh;
   width: 100%;
   
 `;
 
-const FavoriteItemsPageH1 = styled.div`
+const FavoriteItemsPageH1 = styled.h1`
+  display: flex;
+  justify-content: center;
   font-size: 16px;
   font-family: "Signika";
   padding-top: 61px;
 `;
 
 const LayoutSpan = styled.span`
-/* display: flex;
-justify-content: flex-end; */
-padding-top: 100px;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+padding-top: 200px;
+/* position: absolute; */
+ `;
+
+const TabulationSpan = styled.span`
+   display: flex;
+   justify-content: center;
+   /* margin-bottom: 100px; */
  `;
 
 
 const FavoriteItemsPage = () => {
-    return (
-        <FavoriteItemsPageDiv>
-            <FavoriteItemsPageH1>Favorites</FavoriteItemsPageH1>
-            <Tabulation />
-            <RectangleButton size="md" title="Search Recipes" />
-            <LayoutSpan><Layout /></LayoutSpan>
-        </FavoriteItemsPageDiv>
-    );
+  return (
+    <FavoriteItemsPageDiv>
+      <FavoriteItemsPageH1>Favorites</FavoriteItemsPageH1>
+      <TabulationSpan><Tabulation /> </TabulationSpan>
+
+      <LayoutSpan><Layout /></LayoutSpan>
+    </FavoriteItemsPageDiv>
+  );
 };
 
 export default FavoriteItemsPage;

@@ -1,4 +1,6 @@
 import React, { ReactElement, useState } from "react";
+import NoResCardImage from "../images/no-res-card";
+import NoResultsCard from "../searching/no-results-card";
 import FoodFavoriteTab from "./all-tabs/food-tab";
 import RecipeFavoriteCard from "./all-tabs/recipe-tab";
 import TabComponent from "./all-tabs/tab-component";
@@ -15,6 +17,7 @@ const TabsContent = ({ activeIndex, tabs }: TabsContentProps) => {
         </>
     );
 };
+
 
 
 const Tabulation = () => {

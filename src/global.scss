@@ -16,29 +16,31 @@ html {
 
 .tabs {
   width: 324px;
-  height: auto;
-  min-height: 400px;
+  height: 450;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   // background: #b3afa9;
-  margin: 3.5rem auto 1.5rem;
-  padding: 2rem 1rem;
+  // margin: 3.5rem auto 1.5rem;
+  // padding: 2rem 1rem;
   color: #041114;
   border-radius: 2rem;
-  @media (max-width: 769px) {
-    padding: 2rem 0;
+  @media (max-width: 812px) {
+    // padding: 2rem 0;
   }
   // background-color: black;
 }
 
 ul.nav {
   width: 80%;
-  margin: 0 auto 2rem;
+  // margin: 0 auto 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   // border: 1px solid #39A2DB;
   border-radius: 2rem;
   @media (max-width: 768px) {
-    width: 90%;
+    width: 100%;
   }
 }
 
@@ -77,19 +79,6 @@ ul.nav li.active {
 body {
   margin: 0;
 }
-
-// .btn.active {
-//   background-color: #23c9ff;
-//   border: 1px solid #5eb2f2;
-//   box-shadow: 0px 0 2px 0px #c0c0c0;
-// }
-
-// .btn.passive {
-//   background-color: black;
-//   border: 1px solid gray;
-//   box-shadow: 0px 0 2px 0px #c0c0c0;
-// }
-
 
 // SLICK DOTS
 
@@ -181,38 +170,6 @@ justify-content: center;
     
   }
 }
-
-
-
-// RECIPE CARD ON SEARCH PAGE
-// .recipe-card {
-//   background-color: #fcfcfc;
-//   border-radius: 30px;
-//   margin: 30px;
-//   max-width: fit-content;
-//   display: flex;
-//   flex-flow: column;
-//   text-align: center;
-//   font-family: "Signika";
-// }
-// .recipe-card p {
-//   padding-left: 20px;
-// }
-// .recipe-card h1 {
-//   font-size: 1.5rem;
-// }
-// .recipe-card img {
-//   width: 250px;
-//   height: 250px;
-//   // border-radius: 10px;
-// }
-
-
-
-
-
-
-
 
 // SEARCHING =================
 
