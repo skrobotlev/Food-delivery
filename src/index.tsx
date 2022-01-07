@@ -21,9 +21,11 @@ import GetStartedPage from "./components/pages/get-started";
 import Layout from "./components/pages/layout";
 import HomePage from "./components/pages/home-page/home-page";
 import SearchPage from "./components/pages/search-page/search-page";
+import FavoriteItemsPage from "./components/pages/favorite-items-page/favorite-items-page";
 
 ReactDOM.render(
 	<StrictMode>
+		<FavoriteItemsPage />
 		<SearchPage />
 		<HomePage />
 		<GetStartedPage />
@@ -31,9 +33,7 @@ ReactDOM.render(
 		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
 
 		<RectangleButton size="sm" icon={<ArrowRightIcon />} title="Read now" />
-		<NoResultsCard header="No Results Found"
-			desc="Try searching for a different keywork or tweek your search a little"
-			icon={<NoResCardImage />} />
+
 
 		<Search clearAll placeholder="Search recipes, articles, people..."></Search>
 		<Tabulation />
