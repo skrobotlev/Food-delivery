@@ -10,6 +10,7 @@ const FavoriteCategoriesDiv = styled.div`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  /* overflow-x: scroll; */
 `;
 
 const FavoriteCategories = () => {

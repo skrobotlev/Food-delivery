@@ -1,5 +1,6 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch, } from "react-router-dom";
 
 import "./global.scss";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
@@ -18,7 +19,7 @@ import NoResCardImage from "./components/images/no-res-card";
 import Tabulation from "./components/tabulation/tabulation";
 import Loader from "./components/pages/loader";
 import GetStartedPage from "./components/pages/get-started";
-import Layout from "./components/pages/layout";
+import Layout from "./layout";
 import HomePage from "./components/pages/home-page/home-page";
 import SearchPage from "./components/pages/search-page/search-page";
 import FavoriteItemsPage from "./components/pages/favorite-items-page/favorite-items-page";
@@ -26,13 +27,37 @@ import ProfilePage from "./components/pages/profile-page/profile-page";
 
 ReactDOM.render(
 	<StrictMode>
-		<ProfilePage />
-		<FavoriteItemsPage />
-		<SearchPage />
-		<HomePage />
-		<GetStartedPage />
-		<Loader />
-		<SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
+		<Router >
+			<Layout>
+				<Switch>
+					<Route exact path="/home-page" render={HomePage} />
+					<Route exact path="/search" render={SearchPage} />
+					<Route exact path="/favorite-items" component={FavoriteItemsPage} />
+					<Route exact path="/profile" component={ProfilePage} />
+				</Switch>
+			</Layout>
+			<Route exact path="/" component={GetStartedPage} />
+			{/* <Route exact path="/" component={GetStartedPage} />
+			<Layout>
+				<Route exact path="/home-page" component={HomePage} />
+			</Layout>
+			<Layout>
+				<Route exact path="/search" component={SearchPage} />
+			</Layout>
+			<Layout>
+				<Route exact path="/favorite-items" component={FavoriteItemsPage} />
+			</Layout>
+			<Layout>
+				<Route exact path="/profile" component={ProfilePage} />
+			</Layout> */}
+
+		</Router>
+		{/* <FavoriteItemsPage /> */}
+		{/* <SearchPage /> */}
+		{/* <HomePage /> */}
+		{/* <GetStartedPage /> */}
+		{/* <Loader /> */}
+		{/* <SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
 
 		<RectangleButton size="sm" icon={<ArrowRightIcon />} title="Read now" />
 
@@ -54,7 +79,7 @@ ReactDOM.render(
 			</RectBut>
 		</RectangleButton>
 		<RectangleButton size="md" title="Get started" />
-		<RectangleButton size="sm" title="Read now" />
+		<RectangleButton size="sm" title="Read now" /> */}
 	</StrictMode >,
 	document.getElementById("app")
 );

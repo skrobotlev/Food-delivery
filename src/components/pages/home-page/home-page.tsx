@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import RectangleButton, { BigRectangleButton, BigRectBut, RectBut } from "../../buttons/rectangle-button";
-import Layout from "../layout";
+import Layout from "../../../layout";
 import HomePageHeader from "./header-home-page";
 import HomePageSlider from "./slider-home-page";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
 import FavoriteCategories from "./favorite-categories-h-p";
+import { withRouter } from "react-router-dom";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -40,7 +41,6 @@ const HomePage = () => {
       </BigRectangleButton>
       <FavoritesCardHeader>Choose Your Favorites</FavoritesCardHeader>
       <FavoriteCategories />
-      <Layout />
     </HomePageContent>
   );
 };

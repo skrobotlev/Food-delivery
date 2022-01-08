@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import ReactSlickDemo from "../slider/slider";
 import RectangleButton from "../buttons/rectangle-button";
+import { Link, NavLink, withRouter } from "react-router-dom";
 
 const StartPage = styled.div`
   display: flex;
@@ -38,16 +39,16 @@ const LoginLink = styled.div`
 `;
 
 const GetStartedPage = () => {
-    return (
-        <StartPage>
-            <StartPageH1>Kcal</StartPageH1>
-            <ReactSlickDemo />
-            <RectangleButton size="md" title="Get Started"></RectangleButton>
-            <LoginLink>
-                Already Have An Acount? <span>Log In</span>
-            </LoginLink>
-        </StartPage>
-    );
+  return (
+    <StartPage>
+      <StartPageH1>Kcal</StartPageH1>
+      <ReactSlickDemo />
+      <Link to="/home-page"><RectangleButton size="md" title="Get Started" /></Link>
+      <LoginLink>
+        Already Have An Acount? <span>Log In</span>
+      </LoginLink>
+    </StartPage>
+  );
 };
 
 export default GetStartedPage;

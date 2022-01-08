@@ -1,9 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import RectangleButton from "../../buttons/rectangle-button";
 import RecipeCard from "../../recipe-cards/recipe-card";
 import { Search } from "../../searching/search-input";
-import Layout from "../layout";
 import TrandingList from "./tranding-list";
 
 const SearchPageDiv = styled.div`
@@ -35,7 +35,6 @@ const SearchPage = () => {
             <RecipeCard title="The pumpkin secrets" desc="Enjoy pumpkin dishes!" />
             <SearchPageH1>Trending</SearchPageH1>
             <TrandingList />
-            <LayoutSpan> <Layout /> </LayoutSpan>
         </SearchPageDiv>
     );
 };

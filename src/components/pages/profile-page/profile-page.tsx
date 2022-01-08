@@ -8,7 +8,6 @@ import {
   TermsAndPrivPolIconSvg,
   VipProfileCrownSvg,
 } from "../../buttons/icons/profile-menu-icons/icons";
-import Layout from "../layout";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const ProfilePageDiv = styled.div`
@@ -46,8 +45,8 @@ const ProfilePhotoDiv = styled.div`
   }
   svg {
     position: absolute;
-    top: 165px;
-    right: 120px
+    top: 270px;
+    right: 125px;
   }
 `;
 
@@ -93,16 +92,7 @@ const ProfilePageMenuH4 = styled.div`
   }
 `;
 
-const LayoutSpan = styled.span`
-display: flex;
-align-items: flex-end;
-justify-content: center;
-padding-top: 140px;
-/* position: absolute; */
- `;
-
 const ProfilePage = () => {
-
 
   const headersAndIcons = [
     {
@@ -142,8 +132,8 @@ const ProfilePage = () => {
       <h3>Food blogger</h3>
       <ProfilePageMenu>
         <ProfileMenuHeaders>
-          {headersAndIcons.map((item) => (
-            <ProfilePageMenuH4>
+          {headersAndIcons.map((item, idx) => (
+            <ProfilePageMenuH4 key={idx}>
               <ProfileMenuIcons>
                 {item.icon}
               </ProfileMenuIcons>
@@ -155,7 +145,6 @@ const ProfilePage = () => {
           ))}
         </ProfileMenuHeaders>
       </ProfilePageMenu>
-      <LayoutSpan> <Layout /> </LayoutSpan>
     </ProfilePageDiv>
   );
 };
