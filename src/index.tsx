@@ -24,10 +24,16 @@ import HomePage from "./components/pages/home-page/home-page";
 import SearchPage from "./components/pages/search-page/search-page";
 import FavoriteItemsPage from "./components/pages/favorite-items-page/favorite-items-page";
 import ProfilePage from "./components/pages/profile-page/profile-page";
+import AppRouter from "./components/routing/app-router";
 
 ReactDOM.render(
 	<StrictMode>
 		<Router >
+			<Layout>
+				<AppRouter />
+			</Layout>
+		</Router>
+		{/* <Router>
 			<Layout>
 				<Switch>
 					<Route exact path="/home-page" render={HomePage} />
@@ -37,21 +43,7 @@ ReactDOM.render(
 				</Switch>
 			</Layout>
 			<Route exact path="/" component={GetStartedPage} />
-			{/* <Route exact path="/" component={GetStartedPage} />
-			<Layout>
-				<Route exact path="/home-page" component={HomePage} />
-			</Layout>
-			<Layout>
-				<Route exact path="/search" component={SearchPage} />
-			</Layout>
-			<Layout>
-				<Route exact path="/favorite-items" component={FavoriteItemsPage} />
-			</Layout>
-			<Layout>
-				<Route exact path="/profile" component={ProfilePage} />
-			</Layout> */}
-
-		</Router>
+		</Router> */}
 		{/* <FavoriteItemsPage /> */}
 		{/* <SearchPage /> */}
 		{/* <HomePage /> */}

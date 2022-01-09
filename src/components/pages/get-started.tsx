@@ -38,16 +38,22 @@ const LoginLink = styled.div`
   }
 `;
 
+const StyledLink = styled.link`
+  text-decoration: none;
+`;
+
 const GetStartedPage = () => {
   return (
     <StartPage>
       <StartPageH1>Kcal</StartPageH1>
       <ReactSlickDemo />
-      <Link to="/home-page"><RectangleButton size="md" title="Get Started" /></Link>
+      {/* <StyledLink> */}
+      <Link to="/home-page" className="router-link"><RectangleButton size="md" title="Get Started" /></Link>
+      {/* </StyledLink> */}
       <LoginLink>
         Already Have An Acount? <span>Log In</span>
       </LoginLink>
-    </StartPage>
+    </StartPage >
   );
 };
 
