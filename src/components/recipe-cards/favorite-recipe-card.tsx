@@ -10,6 +10,7 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
+position: relative;
   width: 313px;
   height: 120px;
   border-radius: 2rem;
@@ -21,15 +22,15 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   /* align-items: center; */
   h1 {
     // display: flex;
-    position: relative;
-    top: 35px;
+    position: absolute;
+    bottom: 45px;
     left: 150px;
     font-size: 15px;
     font-weight: 600;
   }
   h2 {
     // display: flex;
-    position: relative;
+    position: absolute;
     bottom: 80px;
     left: 150px;
     font-size: 12px;
@@ -37,22 +38,31 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
     font-weight: 600;
   }
   p {
-    position: relative;
-    bottom: 50px;
+    position: absolute;
+    bottom: 10px;
     left: 150px;
     font-size: 12px;
     color: #646464;
     font-weight: 550;
   }
-`;
-const LikeIcon = styled.i`
-  display: flex;
-  justify-content: flex-end;
+  svg {
+    /* display: flex;
+  justify-content: flex-end; */
   // flex-direction: row-reverse;
-  position: relative;
-  top: 10px;
-  right: 20px;
+  position: absolute;
+  top: 40px;
+  right: 220px;
+  }
+
 `;
+// const LikeIcon = styled.i`
+//   display: flex;
+//   justify-content: flex-end;
+//   // flex-direction: row-reverse;
+//   position: relative;
+//   top: 10px;
+//   right: 20px;
+// `;
 
 const ImageCard = styled.div`
   display: flex;
@@ -64,7 +74,7 @@ const ImageCard = styled.div`
 const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, icon, category }) => {
   return (
     <RecipeElement>
-      <LikeIcon>{likeIcon}</LikeIcon>
+      {likeIcon}
       <h1>{title}</h1>
       <ImageCard>{icon}</ImageCard>
       <h2>{calories}</h2>

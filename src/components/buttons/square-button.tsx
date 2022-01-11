@@ -12,16 +12,16 @@ export interface SquareButtonProps
 
 export const SquareBut = styled.button<SquareButtonProps>`
   width: ${(props) => {
-    if (props.size == "sm") {
+    if (props.size === "sm") {
       return "64px";
-    } else if (props.size == "md") {
+    } else if (props.size === "md") {
       return "96px";
-    } else if (props.size == "lg") {
+    } else if (props.size === "lg") {
       return "132px";
     }
   }};
   height: ${({ size }) => {
-    if (size == "sm") {
+    if (size === "sm") {
       return "64px";
     } else if (size == "md") {
       return "96px";
@@ -30,18 +30,19 @@ export const SquareBut = styled.button<SquareButtonProps>`
     }
   }};
   border-radius: ${({ size }) => {
-    if (size == "sm") {
+    if (size === "sm") {
       return "10px";
-    } else if (size == "md") {
+    } else if (size === "md") {
       return "20px";
-    } else if (size == "lg") {
+    } else if (size === "lg") {
       return "30px";
     }
   }};
   background-color: ${({ backgroundColor }) => {
-    if (backgroundColor) {
-      return backgroundColor;
-    } else backgroundColor;
+    if (backgroundColor === "vegan") {
+      return "#EFF7EE";
+    } else if (backgroundColor === "fruits") return "#FFF2F0";
+    else if (backgroundColor === "manyfats") return "#FFF8EB";
   }};
   border-color: ${({ backgroundColor }) => {
     if (backgroundColor) {
@@ -49,18 +50,18 @@ export const SquareBut = styled.button<SquareButtonProps>`
     } else backgroundColor;
   }};
   font-size: ${({ size }) => {
-    if (size == "sm") {
+    if (size === "sm") {
       return "1rem";
     } else if (size == "md") {
       return "1rem";
-    } else if (size == "lg") {
+    } else if (size === "lg") {
       return "1.3rem";
     }
   }};
   color: ${({ size }) => {
-    if (size == "sm") {
+    if (size === "sm") {
       return "#FF8473";
-    } else if (size == "lg") {
+    } else if (size === "lg") {
       return "#1C3418";
     }
   }};

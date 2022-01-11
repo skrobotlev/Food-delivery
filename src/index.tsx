@@ -28,7 +28,7 @@ import AppRouter from "./components/routing/app-router";
 
 ReactDOM.render(
 	<StrictMode>
-		<Router >
+		<Router>
 			<Layout>
 				<AppRouter />
 			</Layout>
@@ -75,3 +75,5 @@ ReactDOM.render(
 	</StrictMode >,
 	document.getElementById("app")
 );
+
+

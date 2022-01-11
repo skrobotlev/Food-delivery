@@ -74,6 +74,9 @@ ul.nav li.active {
   background: #ff9385;
 }
 
+
+
+
 .FirstTab p,
 .SecondTab p {
   font-size: 2rem;
@@ -101,12 +104,6 @@ justify-content: center;
   background-color: #FF8473;
   transition: all 0.5s ease-in-out;
 }
-
-// .slick-dots button {
-// width: 10px;
-// height: 10px;
-// background-color: #3bb825;
-// }
 
 .slick-dots.line-indicator li.slick-active {
   width: 20px;
@@ -146,6 +143,7 @@ justify-content: center;
   height: 170px;
   border-radius: 32px;
   background-color: #FFF8EB;
+  margin-top: 30px;
 }
 
 .home-page-slider-card {
@@ -177,10 +175,12 @@ justify-content: center;
 
 // SEARCHING =================
 
-.search-input {
-display: inline-block;
-position: relative;
-}
+// .search-input {
+//   height: 100vh;
+//   width: 100%;
+// display: inline-block;
+// position: relative;
+// }
 // .search-input .close-icon {
 //   display: flex;
 //  padding-left: 5px;
@@ -192,7 +192,7 @@ position: relative;
   display: flex;
   // justify-content: center;
   // align-items: center;
-  width: 327px;
+  width: 100%;
   max-height: 64px;
   // margin: 30px;
   padding: 15px ;
@@ -216,22 +216,20 @@ position: relative;
 
 }
 
+// .close-icon {
+//   position: absolute;
+//   right: 10px;
+//   bottom:  130px;
+//   cursor: pointer;
+// }
 
-
-.close-icon {
-  position: absolute;
-  right: 10px;
-  bottom:  calc(50% - 12px);
-  cursor: pointer;
-}
-
-.search-icon {
-  // display: block;
-  position: absolute;
-  left: 10px;
-  bottom:  calc(50% - 12px);
-  cursor: pointer;
-}
+// .search-icon {
+//   // display: block;
+//   position: absolute;
+//   left: 10px;
+//   bottom:  130px;
+//   cursor: pointer;
+// }
 
 // NO RESULTS CARD
 

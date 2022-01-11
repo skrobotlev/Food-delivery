@@ -11,10 +11,15 @@ const RecipeFavoriteCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* span {
+    flex-grow: 1;
+      justify-items: flex-end;
+      margin-top: 100px;
+  } */
 `;
 
 const RectangleButtonSpan = styled.span`
-  display: flex;
+  /* display: flex; */
   align-items: flex-end;
 `;
 
@@ -35,14 +40,16 @@ const RecipeFavoriteCard = () => {
                 icon={<FavorRecCardChicken />}
                 category="Chicken & salad"
             />
-            <FavoriteRecipeCard
+            {/* <FavoriteRecipeCard
                 title="Chicken Tandoori"
                 calories="450 kcal"
                 likeIcon={<FavorRecCardLike />}
                 icon={<FavorRecCardChicken />}
                 category="Chicken & salad"
-            />
-
+            /> */}
+            <RectangleButtonSpan>
+                <RectangleButton size="md" title="Search recipes" />
+            </RectangleButtonSpan>
         </RecipeFavoriteCardDiv>
     );
 };

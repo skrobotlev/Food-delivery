@@ -13,16 +13,17 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const ProfilePageDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
   width: 100%;
   font-family: "Signika";
-  padding-top: 50px ;
+  margin-top: 50px ;
   h1 {
     font-size: 16px;
   }
   h2 {
+    margin-top: 24px;
     font-size: 25px;
   }
   h3 {
@@ -35,9 +36,11 @@ const ProfilePageDiv = styled.div`
 const ProfilePhotoDiv = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
   width: 160px;
   height: 160px;
   border-radius: 100px;
+  margin-top: 35px;
   img {
     width: 160px;
     height: 160px;
@@ -45,8 +48,8 @@ const ProfilePhotoDiv = styled.div`
   }
   svg {
     position: absolute;
-    top: 270px;
-    right: 125px;
+    top: 125px;
+    left:  125px;
   }
 `;
 
@@ -69,13 +72,10 @@ const ProfileMenuHeaders = styled.div`
   color:#707070;
   h5 {
     font-size: 17px;
-line-height: 30px;
-padding-right: 50px;
+    line-height: 30px;
+    flex-grow: 1;
+    margin-left: 10px;
   }
-  i {
-    
-  }
-  
 `;
 
 const ProfilePageMenuH4 = styled.div`
@@ -84,7 +84,7 @@ const ProfilePageMenuH4 = styled.div`
   align-items: center;
   width: 300px;
   justify-content: space-between;
-  padding-top: 28px;
+  padding-top: 25px;
   i {
     /* padding-left: 100px;  */
     display: flex;

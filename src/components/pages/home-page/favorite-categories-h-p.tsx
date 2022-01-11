@@ -7,18 +7,32 @@ import SquareButton from "../../buttons/square-button";
 
 const FavoriteCategoriesDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  /* overflow-x: scroll; */
+  overflow-x: scroll;
+  width: 100%;
+  margin-bottom: 66px;
+  margin-top: 24px;
+`;
+
+const ButtonDiv = styled.div`
+  display: inline-block;
+  &:first-of-type {
+    margin-left: 0px;
+  }
+  margin-left: 15px;
 `;
 
 const FavoriteCategories = () => {
     return (
         <FavoriteCategoriesDiv>
-            <SquareButton size="lg" backgroundColor="#FFF2F0" title="Fruits" icon={<FruitSVG />} />
-            <SquareButton size="lg" backgroundColor="#FFF2F0" title="Vegetables" icon={<VegetableSvg />} />
-            <SquareButton size="lg" backgroundColor="#FFF2F0" title="Snacks" icon={<SnackSvg />} />
+            <ButtonDiv>
+                <SquareButton size="lg" backgroundColor="fruits" title="Fruits" icon={<FruitSVG />} />
+            </ButtonDiv>
+            <ButtonDiv>
+                <SquareButton size="lg" backgroundColor="vegan" title="Vegetables" icon={<VegetableSvg />} />
+            </ButtonDiv>
+            <ButtonDiv>
+                <SquareButton size="lg" backgroundColor="manyfats" title="Snacks" icon={<SnackSvg />} />
+            </ButtonDiv>
         </FavoriteCategoriesDiv>
     );
 };

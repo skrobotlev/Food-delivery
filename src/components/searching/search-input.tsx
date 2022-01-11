@@ -1,11 +1,37 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHandler, ChangeEvent, useEffect } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
 
 interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     clearAll?: boolean;
     children?: any;
 }
+
+const SearchInputDiv = styled.div`
+  /* height: 100vh;
+  width: 100%; */
+  display: inline-block;
+  position: relative;
+  margin-top: 90px;
+  width: 100%;
+`;
+
+
+const SearchCloseIcon = styled.i`
+position: absolute;
+  right: 10px;
+  bottom:  15px;
+  cursor: pointer;
+`;
+
+const LoupeSearchIcon = styled.i`
+// display: block;
+  position: absolute;
+  left: 10px;
+  bottom:  15px;
+  cursor: pointer;
+`;
 
 export const Search: React.FC<SearchInputProps> = ({ placeholder }) => {
     const [searchValue, setSearchValue] = useState("");
@@ -23,13 +49,17 @@ export const Search: React.FC<SearchInputProps> = ({ placeholder }) => {
         setSearchValue(searchWord);
     };
     return (
-        <div className="search-input">
+        <SearchInputDiv >
             <input className="text-field__input"
                 type="text" placeholder={placeholder}
                 value={searchValue} onChange={updateSearchValue} />
-            <CancelIcon className="close-icon" onClick={clearInput} />
-            <SearchIcon className="search-icon" />
-        </div>
+            <SearchCloseIcon>
+                <CancelIcon onClick={clearInput} />
+            </SearchCloseIcon>
+            <LoupeSearchIcon>
+                <SearchIcon />
+            </LoupeSearchIcon>
+        </SearchInputDiv>
     );
 };
 

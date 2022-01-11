@@ -48,7 +48,7 @@ const GetStartedPage = () => {
       <StartPageH1>Kcal</StartPageH1>
       <ReactSlickDemo />
       {/* <StyledLink> */}
-      <Link to="/home-page" className="router-link"><RectangleButton size="md" title="Get Started" /></Link>
+      <Link to="/home" className="router-link"><RectangleButton size="md" title="Get Started" /></Link>
       {/* </StyledLink> */}
       <LoginLink>
         Already Have An Acount? <span>Log In</span>

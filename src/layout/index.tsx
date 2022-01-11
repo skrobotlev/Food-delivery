@@ -16,7 +16,7 @@ const Body = styled.div`
   margin-left: 24px;
   margin-right: 24px;
   /* margin-bottom: 96px; */
-  overflow-y: scroll;
+  overflow: hidden;
 `;
 
 export interface LayoutProps {

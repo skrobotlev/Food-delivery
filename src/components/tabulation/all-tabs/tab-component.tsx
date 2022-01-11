@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import cn from "classnames";
 
-
 interface TabComponentProps {
     tabs: string[];
     onActiveChange: (index: number) => void;
@@ -28,16 +27,16 @@ const Tab = ({ title, index, activeTab, onActiveChange }) => {
     );
 };
 
-const TabsComponent: React.FC<TabComponentProps> = ({ tabs, onActiveChange, activeTab }) => {
+const TabComponent: React.FC<TabComponentProps> = ({ tabs, onActiveChange, activeTab }) => {
     return (
         <div>
             <ul className="nav">
                 {tabs && tabs.map((tab, index) => {
-                    return <Tab title={tab} index={index} activeTab={activeTab} onActiveChange={onActiveChange} />;
+                    return <Tab title={tab} index={index} activeTab={activeTab} key={index} onActiveChange={onActiveChange} />;
                 })}
             </ul>
         </div>
     );
 };
 
-export default TabsComponent;
+export default TabComponent;

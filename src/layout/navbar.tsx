@@ -1,13 +1,18 @@
-import React from "react";
+import React, { ReactElement, useEffect, useState, DetailedHTMLProps } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, withRouter, } from "react-router-dom";
-import { Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, withRouter } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import HomePage from "../components/pages/home-page/home-page";
+import { FAVORITES_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE } from "../components/routing/consts";
+import cn from "classnames";
 
+interface NavbarSvgIconProps {
+    activeClass?: boolean;
+}
 
-const HomeIcon = () => {
+export const HomeIcon: React.FC<NavbarSvgIconProps> = ({ activeClass }) => {
     return (
-        <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="30" viewBox="0 0 28 30" fill={activeClass ? "#91C788" : "none"} xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M10.2096 26.6952V22.6062C10.2096 21.5662 11.0575 20.7211 12.108 20.7141H15.9561C17.0116 20.7141 17.8673 21.5612 17.8673 22.6062V22.6062V26.7079C17.8671 27.5909 18.579 28.3126 19.4707 28.3333H22.0361C24.5935 28.3333 26.6666 26.2809 26.6666 23.7491V23.7491V12.1171C26.653 11.1211 26.1806 10.1858 25.3839 9.57737L16.6103 2.58039C15.0732 1.36208 12.8883 1.36208 11.3512 2.58039L2.61601 9.59007C1.81632 10.196 1.34316 11.1329 1.33331 12.1298V23.7491C1.33331 26.2809 3.40648 28.3333 5.96386 28.3333H8.52926C9.44312 28.3333 10.1839 27.5999 10.1839 26.6952V26.6952"
                 stroke="#999999"
@@ -19,18 +24,19 @@ const HomeIcon = () => {
     );
 };
 
-const SearchIcon = () => {
+export const SearchIcon: React.FC<NavbarSvgIconProps> = ({ activeClass }) => {
     return (
-        <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="29" viewBox="0 0 28 29" fill={activeClass ? "#91C788" : "none"} xmlns="http://www.w3.org/2000/svg">
             <circle cx="13.6888" cy="13.6888" r="11.9847" stroke="#999999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M22.0244 22.6468L26.7231 27.3333" stroke="#999999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 };
 
-const LikeIcon = () => {
+export const LikeIcon: React.FC<NavbarSvgIconProps> = ({ activeClass }) => {
+    const [active, setActive] = useState<boolean>(false);
     return (
-        <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="26" viewBox="0 0 28 26" fill={activeClass ? "#91C788" : "none"} xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -42,7 +48,7 @@ const LikeIcon = () => {
             />
             <path
                 d="M19.3334 5.93332C20.76 6.39465 21.768 7.66798 21.8894 9.16265"
-                stroke="#999999"
+                stroke="#ffffff"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -51,9 +57,11 @@ const LikeIcon = () => {
     );
 };
 
-const ProfileIcon = () => {
+export const ProfileIcon: React.FC<NavbarSvgIconProps> = ({ activeClass }) => {
+    const [active, setActive] = useState<boolean>(false);
+
     return (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill={activeClass ? "#91C788" : "none"} xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -76,7 +84,7 @@ const ProfileIcon = () => {
     );
 };
 
-const NavBar = styled.div`
+const NavBarDiv = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -86,47 +94,72 @@ const NavBar = styled.div`
 `;
 
 const NavBarIcon = styled.i`
-    cursor: pointer;
-    
+  cursor: pointer;
 `;
 
-const Navbar = () => {
+interface NavBarIconComponentProps {
+    children?: ReactElement;
+    icon: ReactElement;
+    link: string;
+}
+
+const NavBarIconComponent: React.FC<NavBarIconComponentProps> = ({ children, icon, link }) => {
+    const [active, setActive] = useState<boolean>(false);
+    const location = useLocation();
+
+
+    // USE ROUTER?USE LOCATION
+
+    useEffect(() => {
+        console.log(location.pathname);
+        // console.log(link);
+        if (link === location.pathname) {
+            console.log("ay");
+            setActive(true);
+        } else setActive(false);
+    }, [location.pathname]);
+
     return (
-        // <NavBar>
-        //     <Router>
-        //         <NavBarIcon>
-        //             <HomeIcon />
-        //             <Link to="home-page"></NavLink>
-        //         </NavBarIcon>
-        //         <SearchIcon />
-        //         <LikeIcon />
-        //         <ProfileIcon />
-        //     </Router>
-        // </NavBar>
-        <NavBar>
-            <Link to="/home-page">
-                <NavBarIcon >
-                    <HomeIcon />
-                </NavBarIcon>
-            </Link>
-            <Link to="/search">
-                <NavBarIcon>
-                    <SearchIcon />
-                </NavBarIcon>
-            </Link>
-            <NavBarIcon>
-                <Link to="/favorite-items">
-                    <LikeIcon />
-                </Link>
-            </NavBarIcon>
-            <NavBarIcon>
-                <Link to="/profile">
-                    <ProfileIcon />
-                </Link>
-            </NavBarIcon>
-        </NavBar>
+        <Link to={link}>
+            <NavBarIcon>{React.cloneElement(icon, { activeClass: active })}</NavBarIcon>
+        </Link>
+    );
+};
+
+interface NavBarProps {
+    onActiveChange?: (index: number) => void;
+    activeIcon?: number;
+}
+
+const Navbar: React.FC<NavBarProps> = () => {
+    const [active, setActive] = useState(0);
+
+    const navBarComponents = [
+        {
+            icon: <HomeIcon />,
+            link: HOME_ROUTE,
+        },
+        {
+            icon: <SearchIcon />,
+            link: SEARCH_ROUTE,
+        },
+        {
+            icon: <LikeIcon />,
+            link: FAVORITES_ROUTE,
+        },
+        {
+            icon: <ProfileIcon />,
+            link: PROFILE_ROUTE,
+        },
+    ];
+
+    return (
+        <NavBarDiv>
+            {navBarComponents.map((component) => {
+                return <NavBarIconComponent {...component} key={component.link} />;
+            })}
+        </NavBarDiv>
     );
 };
 
 export default Navbar;
-

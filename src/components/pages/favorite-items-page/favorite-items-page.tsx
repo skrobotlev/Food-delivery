@@ -6,11 +6,10 @@ import Tabulation from "../../tabulation/tabulation";
 const FavoriteItemsPageDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  /* align-items: center; */
+  justify-content: flex-start;
+  align-items: center;
   height: 100vh;
   width: 100%;
-  
 `;
 
 const FavoriteItemsPageH1 = styled.h1`
@@ -23,7 +22,8 @@ const FavoriteItemsPageH1 = styled.h1`
 
 const TabulationSpan = styled.span`
    display: flex;
-   justify-content: center;
+   padding-top: 32px;
+   /* justify-content: center; */
    /* margin-bottom: 100px; */
  `;
 

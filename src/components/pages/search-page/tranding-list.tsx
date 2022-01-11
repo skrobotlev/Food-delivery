@@ -17,7 +17,7 @@ font-weight: 400;
 color: #FF8473;
 padding-top: 16px;
 /* border-bottom: 2px black ; */
-border-bottom: 1px solid #f5f5f5;
+border-bottom: 2px solid #f5f5f5;
 padding-bottom: 10px;
 `;
 

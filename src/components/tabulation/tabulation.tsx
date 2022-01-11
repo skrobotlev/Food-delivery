@@ -26,18 +26,8 @@ const Tabulation = () => {
     const tabs = ["Food", "Recipes"];
     return (
         <div className="tabs">
-            {/* <ul className="nav">
-                <li className={activeTab === "tab1" ? "active" : ""}
-                    onClick={handleTab1}>Food</li>
-                <li className={activeTab === "tab2" ? "active" : ""}
-                    onClick={handleTab2}>Recipes</li>
-            </ul>
-            <div className="outlet">
-                {activeTab === "tab1" ? <FoodFavoriteTab /> : <RecipeFavoriteCard />}
-            </div> */}
             <TabComponent tabs={tabs} onActiveChange={(idx) => setActiveTab(idx)} activeTab={activeTab} />
             <TabsContent tabs={[<FoodFavoriteTab />, <RecipeFavoriteCard />]} activeIndex={activeTab} />
-
         </div>
     );
 };

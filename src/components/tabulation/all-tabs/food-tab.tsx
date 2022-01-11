@@ -15,12 +15,12 @@ const FoodFaboriteTabDiv = styled.div`
 const FoodFavoriteTab = () => {
     return (
         <FoodFaboriteTabDiv>
-            <SquareButton size="md" backgroundColor="#FFF8EE" icon={<BurgerSVG />} />
-            <SquareButton size="md" backgroundColor="#FFF8EE" icon={<MuffinSvg />} />
-            <SquareButton size="md" backgroundColor="#FFF8EE" icon={<CookieSvg />} />
-            <SquareButton size="md" backgroundColor="#FFF8EE" icon={<PizzaSvg />} />
-            <SquareButton size="md" backgroundColor="#FFF8EE" icon={<HotdogSvg />} />
-            <SquareButton size="md" backgroundColor="#FFF8EE" icon={<PlusSvg />} />
+            <SquareButton size="md" backgroundColor="manyfats" icon={<BurgerSVG />} />
+            <SquareButton size="md" backgroundColor="manyfats" icon={<MuffinSvg />} />
+            <SquareButton size="md" backgroundColor="manyfats" icon={<CookieSvg />} />
+            <SquareButton size="md" backgroundColor="manyfats" icon={<PizzaSvg />} />
+            <SquareButton size="md" backgroundColor="manyfats" icon={<HotdogSvg />} />
+            <SquareButton size="md" backgroundColor="manyfats" icon={<PlusSvg />} />
         </FoodFaboriteTabDiv>
     );
 };

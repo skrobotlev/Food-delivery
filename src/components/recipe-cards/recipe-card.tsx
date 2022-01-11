@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 // обернуть divhtmlporps
 interface RecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    title?: string;
-    desc?: string;
-    image?: SVGRectElement;
-    srcImage?: string;
+  title?: string;
+  desc?: string;
+  image?: SVGRectElement;
+  srcImage?: string;
 }
 
 const RecipeCardDiv = styled.div`
@@ -20,6 +20,10 @@ const RecipeCardDiv = styled.div`
   flex-direction: column;
   text-align: flex-start;
   font-family: "Signika";  
+  margin-left: 15px;
+  &:first-of-type {
+    margin-left: 0px;
+  }
   img {
     width: 200px;
   height: 160px;
@@ -37,14 +41,14 @@ const RecipeCardDiv = styled.div`
 // https://vasylivanovich.com.ua/image/cache/import_files/00/006df762efa111eba8230cc47a0c8aea_020dee13f04b11eba8230cc47a0c8aea-1000x1000.jpg
 
 // сделать как и задумано пропсамм
-const RecipeCard: React.FC<RecipeCardProps> = ({ image, title, desc }) => {
-    return (
-        <RecipeCardDiv >
-            <img src="https://user-images.githubusercontent.com/92730840/147400625-e55e86e1-b7ce-4629-8582-7a0edb438ef9.png"></img>
-            <h2>{title}</h2>
-            <p>{desc}</p>
-        </RecipeCardDiv>
-    );
+const RecipeCard: React.FC<RecipeCardProps> = ({ srcImage, title, desc }) => {
+  return (
+    <RecipeCardDiv >
+      <img src={srcImage}></img>
+      <h2>{title}</h2>
+      <p>{desc}</p>
+    </RecipeCardDiv>
+  );
 };
 
 export default RecipeCard;
