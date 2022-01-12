@@ -25,14 +25,20 @@ import SearchPage from "./components/pages/search-page/search-page";
 import FavoriteItemsPage from "./components/pages/favorite-items-page/favorite-items-page";
 import ProfilePage from "./components/pages/profile-page/profile-page";
 import AppRouter from "./components/routing/app-router";
+import LoginPage from "./components/pages/authentication/log-in";
+import RegisterPage from "./components/pages/authentication/registration";
+
+
 
 ReactDOM.render(
 	<StrictMode>
-		<Router>
+		<RegisterPage />
+		<LoginPage />
+		{/* <Router>
 			<Layout>
 				<AppRouter />
 			</Layout>
-		</Router>
+		</Router> */}
 		{/* <Router>
 			<Layout>
 				<Switch>

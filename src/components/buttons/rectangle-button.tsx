@@ -87,7 +87,7 @@ export const BigRectBut = styled.button<RectangleButtonProps>`
   justify-content: center;
   align-items: center;
   span {
-    padding-right: 15px;
+    margin-right: 15px;
   }
 `;
 
