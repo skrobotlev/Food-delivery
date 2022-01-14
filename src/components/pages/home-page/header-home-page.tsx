@@ -33,7 +33,7 @@ line-height: 28px;
 const HomePageHeader: React.FC<HomePageHeaderProps> = ({ name, desc }) => {
     return (
         <HomePageHeaderDiv>
-            <h1>Hello {name},</h1>
+            <h1>Привет, {name},</h1>
             <p>{desc}</p>
         </HomePageHeaderDiv>
     );

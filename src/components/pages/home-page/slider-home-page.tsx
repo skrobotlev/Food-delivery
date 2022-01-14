@@ -110,16 +110,16 @@ class HomePageSlider extends React.Component {
 
                         );
                     })}; */}
-                    <SliderCard header="A R T I C L E" image={<FirstSlide />} desc="The pros and cons of fast food.">
-                        <RectangleButton size="sm" title="Read now" icon={<ArrowRightIcon fontSize="small" />} />
+                    <SliderCard header="A R T I C L E" image={<FirstSlide />} desc="Плюсы и минусы фаст фуда">
+                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />} />
                     </SliderCard>
 
-                    <SliderCard header="Healthy Recipes" desc="Browse thousands of healthy recipes from all over the world."
+                    <SliderCard header="Разнообразные рецепты   " desc="Ищите тысячи рецептов здоровых блюд."
                         image={<FavorRecCardSalad />}>
 
                     </SliderCard>
 
-                    <SliderCard header="Track Your Health" desc="With amazing inbuilt tools you can track your progress."></SliderCard>
+                    <SliderCard header="Следите за своим здоровьем" desc="С помощью внутренних инструментов отслеживайте свой прогресс!"></SliderCard>
                 </Slider>
             </div>
         );

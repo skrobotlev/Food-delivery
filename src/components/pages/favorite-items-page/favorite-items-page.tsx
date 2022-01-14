@@ -30,7 +30,7 @@ const TabulationSpan = styled.span`
 const FavoriteItemsPage = () => {
   return (
     <FavoriteItemsPageDiv>
-      <FavoriteItemsPageH1>Favorites</FavoriteItemsPageH1>
+      <FavoriteItemsPageH1>Избранное</FavoriteItemsPageH1>
       <TabulationSpan><Tabulation /> </TabulationSpan>
     </FavoriteItemsPageDiv>
   );

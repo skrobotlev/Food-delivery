@@ -17,6 +17,7 @@ const Loader = () => {
   const WelcomeH1 = styled.h1`
     color: white;
     font-size: 50px;
+    font-family: "Roboto";
   `;
 
   const Logo = styled.h2`

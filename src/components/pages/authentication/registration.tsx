@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useContext, useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { loginEmailPassword, AuthForm, createUser } from "../../../api/auth";
-import RectangleButton from "../../buttons/rectangle-button";
+import { loginEmailPassword, AuthForm, createUser, createFullUser } from "../../../api/auth";
+import { auth } from "../../../firebase";
+// import { loginTrue, setUser } from "../../../redux/actions";
+import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
+import { observer } from "mobx-react-lite";
+import { Context } from "../../..";
 
 const RegisterPageDiv = styled.div`
   display: flex;
@@ -30,7 +37,7 @@ const RegisterInput = styled.input`
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: 0.5s padding-left;
   &:focus {
-    padding-left: 42px;
+    padding-left: 15px;
   }
 `;
 
@@ -49,17 +56,29 @@ const RegisterFormDiv = styled.div`
     border-color: green;
     margin-bottom: 50px;
   }
+  h2 {
+    width: 80%;
+    text-align: center;
+  }
   button {
     margin-top: 30px;
   }
+  form {
+    width: 80%;
+  }
 `;
 
-interface RegisterForm extends AuthForm {
+export interface RegisterForm {
+  email: string;
+  password: string;
   name: string;
   lastName: string;
 }
 
-const RegisterPage = () => {
+const RegistrationPage = observer(() => {
+  // const dispatch = useDispatch();
+  const { userStore } = useContext(Context);
+  const { push } = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -73,26 +92,49 @@ const RegisterPage = () => {
 
   useEffect(() => {
     setForm({ email, password, name, lastName });
-  }, [email, password]);
+  }, [email, password, name, lastName]);
+
+  useEffect(() => {
+    console.log(userStore._user);
+  }, [userStore._user]);
+
+  // console.log(typeof form);
+
+  const handleRegister = () => {
+    // debugger;
+    createFullUser(form)
+      .then((usr) => {
+        console.log(usr, "user from registration");
+        // userStore.setIsAuth(true);
+        // userStore.setUser(usr);
+        // console.log(user._user);
+        push("/home");
+      });
+  };
+
 
   return (
     <RegisterPageDiv>
       <RegisterFormDiv>
         <h1>ChelFood</h1>
-        <h2>Welcome! Enter your details</h2>
+        <h2>Добро пожаловать! Представьтесь, пожалуйста</h2>
         <form onSubmit={(e) => e.preventDefault()}>
-          <RegisterInput type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="email" />
-          <RegisterInput type="text" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="password" />
-          <RegisterInput type="text" onChange={(e) => setName(e.target.value)} value={name} placeholder="name" />
-          <RegisterInput type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} placeholder="lastname" />
+          <RegisterInput type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
+          <RegisterInput type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
+          <RegisterInput type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Repeat password" />
+          <RegisterInput type="text" onChange={(e) => setName(e.target.value)} value={name} placeholder="Name" />
+          <RegisterInput type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} placeholder="Lastname" />
         </form>
 
-        <RectangleButton size="md" title="Register" onClick={() => createUser(form)} />
-        {/* <button onClick={() => loginEmailPassword(form)}>login</button> */}
-        {/* <button onClick={() => createUser(form)}>register</button> */}
+        <RectBut size="md" title="Register" onClick={() => handleRegister()}>
+          Registration
+        </RectBut>
+        <h2>
+          или <Link to="/login" className="router-link"> войдите </Link>
+        </h2>
       </RegisterFormDiv>
     </RegisterPageDiv>
   );
-};
+});
 
-export default RegisterPage;
+export default RegistrationPage;

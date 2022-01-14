@@ -23,7 +23,7 @@ const TabsContent = ({ activeIndex, tabs }: TabsContentProps) => {
 const Tabulation = () => {
     const [activeTab, setActiveTab] = useState(0);
 
-    const tabs = ["Food", "Recipes"];
+    const tabs = ["Пища", "Рецепты"];
     return (
         <div className="tabs">
             <TabComponent tabs={tabs} onActiveChange={(idx) => setActiveTab(idx)} activeTab={activeTab} />

@@ -14,13 +14,11 @@ interface SliderCardProps {
 
 const SliderCard: React.FC<SliderCardProps> = ({ header, desc, image }) => {
     return (
-        // <div key={header}>
         <div className="container">
             {image}
             <h1>{header}</h1>
             <p>{desc}</p>
         </div>
-        // </div>
     );
 };
 
@@ -42,58 +40,42 @@ class ReactSlickDemo extends React.Component {
         };
         const cards = [
             {
-                header: "Eat Healthy",
-                desc: "Maintaining good health should be the primary focus of everyone.",
+                header: "Здоровое питание",
+                desc: "Забота о своём здоровье должна быть в центре внимания каждого.",
                 image: <StartPageFirstImage />
             },
             {
-                header: "Healthy Recipes",
-                desc: "Browse thousands of healthy recipes from all over the world.",
+                header: "Разнообразные рецепты",
+                desc: "Ищите тысячи рецептов здоровых блюд.",
                 image: <StartPageSecImage />
             },
             {
-                header: "Track Your Health",
-                desc: "With amazing inbuilt tools you can track your progress.",
+                header: "Следите за своим здоровьем",
+                desc: "С помощью внутренних инструментов отслеживайте свой прогресс!",
                 image: <StartPageThirImage />
             }
         ];
         return (
             <div className="container">
                 <Slider {...settings}>
-                    {/* {cards.map(card => {
 
-                        return (
-
-                            <SliderCard key={card.header} header={card.header} image={card.image}
-                                desc={card.desc}>
-                            </SliderCard>
-
-                        );
-                    })}; */}
-                    <SliderCard header="Eat Healthy" image={<StartPageFirstImage />}
-                        desc="Maintaining good health should be the primary focus of everyone.">
+                    <SliderCard header="Здоровое питание" image={<StartPageFirstImage />}
+                        desc="Забота о своём здоровье должна быть в центре внимания каждого.">
 
                     </SliderCard>
 
 
-                    <SliderCard header="Healthy Recipes" image={<StartPageSecImage />}
-                        desc="Browse thousands of healthy recipes from all over the world.">
+                    <SliderCard header="Разнообразные рецепты" image={<StartPageSecImage />}
+                        desc="Ищите тысячи рецептов здоровых блюд.">
 
                     </SliderCard>
 
 
-                    <SliderCard header="Track Your Health" image={<StartPageThirImage />}
-                        desc="With amazing inbuilt tools you can track your progress.">
+                    <SliderCard header="Следите за своим здоровьем" image={<StartPageThirImage />}
+                        desc="С помощью внутренних инструментов отслеживайте свой прогресс!">
 
                     </SliderCard>
-
-                    <div>
-                        <StartPageThirImage />
-                        <h1>Track Your Health</h1>
-                        <p>With amazing inbuilt tools you can track your progress.</p>
-                    </div>
                 </Slider>
-
             </div>
         );
     }

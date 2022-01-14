@@ -24,10 +24,10 @@ padding-bottom: 10px;
 const TrandingList = () => {
     return (
         <TrandingListDiv>
-            <TrandingListH1>best vegetable recipes<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
-            <TrandingListH1>cool season vegetables<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
-            <TrandingListH1>chicken recipes with eggs<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
-            <TrandingListH1>soups<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
+            <TrandingListH1>лучшие рецепты с овощами<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
+            <TrandingListH1>крутые сезонные овощи<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
+            <TrandingListH1>куриные рецепты с яйцами<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
+            <TrandingListH1>супы<MovingIcon style={{ color: "#FF8473" }} /></TrandingListH1>
         </TrandingListDiv>
     );
 };

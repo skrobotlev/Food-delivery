@@ -22,19 +22,19 @@ const ButtonDiv = styled.div`
 `;
 
 const FavoriteCategories = () => {
-    return (
-        <FavoriteCategoriesDiv>
-            <ButtonDiv>
-                <SquareButton size="lg" backgroundColor="fruits" title="Fruits" icon={<FruitSVG />} />
-            </ButtonDiv>
-            <ButtonDiv>
-                <SquareButton size="lg" backgroundColor="vegan" title="Vegetables" icon={<VegetableSvg />} />
-            </ButtonDiv>
-            <ButtonDiv>
-                <SquareButton size="lg" backgroundColor="manyfats" title="Snacks" icon={<SnackSvg />} />
-            </ButtonDiv>
-        </FavoriteCategoriesDiv>
-    );
+  return (
+    <FavoriteCategoriesDiv>
+      <ButtonDiv>
+        <SquareButton size="lg" backgroundColor="fruits" title="Фрукты" icon={<FruitSVG />} />
+      </ButtonDiv>
+      <ButtonDiv>
+        <SquareButton size="lg" backgroundColor="vegan" title="Овощи" icon={<VegetableSvg />} />
+      </ButtonDiv>
+      <ButtonDiv>
+        <SquareButton size="lg" backgroundColor="manyfats" title="Снеки" icon={<SnackSvg />} />
+      </ButtonDiv>
+    </FavoriteCategoriesDiv>
+  );
 };
 
 export default FavoriteCategories;
