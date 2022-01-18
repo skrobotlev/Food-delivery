@@ -11,11 +11,36 @@ html {
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  font-family: "Roboto";
+// * {
+//   box-sizing: border-box;
+//   padding: 0;
+//   margin: 0;
+// }
+
+.validInput {
+  display: flex;
+  width: 100%;
+  height: 45px;
+  margin-top: 15px;
+  padding-left: 10px;
+  font-family: "Balsamiq Sans";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #f4f4f4;
+  // background-clip: padding-box;
+  border: 1px solid #1a9920;
+  border-radius: 30px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: 0.5s padding-left;
+  &:focus {
+    padding-left: 15px;
+  }
+}
+
+.formik-form {
+  width: 100%;
 }
 
 // TABULATION
@@ -56,7 +81,7 @@ ul.nav .tab {
   background: #fff8eb;
   list-style: none;
   text-align: center;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   cursor: pointer;
   transition: all 0.7s;
   border-bottom-left-radius: 2rem;
@@ -126,7 +151,7 @@ justify-content: center;
   background: white;
   // margin-top: 2rem;
   border-radius: 40px;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   font-weight: bold;
   max-width: 300px;
   max-height: 700px;
@@ -155,7 +180,7 @@ justify-content: center;
   height: 170px;
   h1 {
     font-size: 10px;
-    font-family: "Signika";
+    font-family: "Balsamiq Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 10px;
@@ -166,7 +191,7 @@ justify-content: center;
     right: 5px;
   }
   p {
-    font-family: "Signika";
+    font-family: "Balsamiq Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 17px;
@@ -192,29 +217,30 @@ justify-content: center;
 
 .text-field__input {
   display: flex;
-  // justify-content: center;
-  // align-items: center;
   width: 100%;
-  max-height: 64px;
-  // margin: 30px;
-  padding: 15px ;
-  font-family: "Signika";
+  height: 45px;
+  margin-top: 20px;
+  :first-of-type {
+    margin-top: 10px;
+  }
+  padding-left: 15px;
+  font-family: "Balsamiq Sans";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  background-color:#F4F4F4;
+  background-color: #f4f4f4;
   // background-clip: padding-box;
-  border: 1px solid #bdbdbd;
+  border: 1px solid #1a9920;
   border-radius: 30px;
-  // transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  padding-left: 38px;
-  padding-right: 40px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: 0.5s padding-left;
-  &:focus { 
-    padding-left: 42px;
-
+  &:focus {
+    padding-left: 20px;
   }
+}
+.pwd {
+  background-image: none !important;
 
 }
 
@@ -242,7 +268,7 @@ justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
 }
 
 .no-results-card h1 {
@@ -263,3 +289,4 @@ font-weight: 400;
     height: 100vh;
     width: 100%;
   }
+

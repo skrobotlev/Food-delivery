@@ -14,7 +14,7 @@ flex-direction: column;
 margin-top: 90px;
 width: 250px;
 height: 59px;
-font-family: "Signika";
+font-family: "Balsamiq Sans";
 font-style: normal;
 color: #696969;
 font-weight: 400;
@@ -33,7 +33,7 @@ line-height: 28px;
 const HomePageHeader: React.FC<HomePageHeaderProps> = ({ name, desc }) => {
     return (
         <HomePageHeaderDiv>
-            <h1>Привет, {name},</h1>
+            <h1>Привет, {name}!</h1>
             <p>{desc}</p>
         </HomePageHeaderDiv>
     );

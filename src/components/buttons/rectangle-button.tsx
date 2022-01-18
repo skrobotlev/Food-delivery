@@ -62,7 +62,7 @@ export const RectBut = styled.button<RectangleButtonProps>`
   /* margin: 20px; */
   border-radius: 30px;
   color: white;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   /* padding: 10px; */
   border: none;
   display: flex;
@@ -80,7 +80,7 @@ export const BigRectBut = styled.button<RectangleButtonProps>`
   /* margin: 20px; */
   border-radius: 30px;
   color: white;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   /* padding: 10px; */
   border: none;
   display: flex;
@@ -99,7 +99,7 @@ export const InsideRectBut = styled.button<RectangleButtonProps>`
   font-size: 0.75rem;
   border-radius: 30px;
   color: #C6C4DE;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   border: none;
   /* padding-right: 10px; */
   display: flex;

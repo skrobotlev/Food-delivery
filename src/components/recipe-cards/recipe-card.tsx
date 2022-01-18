@@ -19,7 +19,7 @@ const RecipeCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   text-align: flex-start;
-  font-family: "Signika";  
+  font-family: "Balsamiq Sans";  
   margin-left: 15px;
   &:first-of-type {
     margin-left: 0px;

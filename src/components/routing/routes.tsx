@@ -1,5 +1,6 @@
 import React from "react";
 import LoginPage from "../pages/authentication/log-in";
+import PasswordRecovery from "../pages/authentication/password-recovery";
 import RegistrationPage from "../pages/authentication/registration";
 import FavoriteItemsPage from "../pages/favorite-items-page/favorite-items-page";
 import GetStartedPage from "../pages/get-started";
@@ -9,7 +10,7 @@ import ProfilePage from "../pages/profile-page/profile-page";
 import SearchPage from "../pages/search-page/search-page";
 import {
     FAVORITES_ROUTE, GET_STARTED_ROUTE, HOME_ROUTE, LOADER_ROUTE,
-    LOGIN_PAGE, PROFILE_ROUTE,
+    LOGIN_PAGE, PASSWORD_RECOVERY, PROFILE_ROUTE,
     REGISTRATION_PAGE, SEARCH_ROUTE
 } from "./consts";
 
@@ -30,6 +31,10 @@ export const notAuthRoutes = [
     {
         path: LOGIN_PAGE,
         Component: LoginPage
+    },
+    {
+        path: PASSWORD_RECOVERY,
+        Component: PasswordRecovery
     },
 ];
 

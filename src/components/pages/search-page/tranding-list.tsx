@@ -11,7 +11,7 @@ const TrandingListDiv = styled.div`
 
 const TrandingListH1 = styled.h1`
 font-size: 16px;
-font-family: "Signika";
+font-family: "Balsamiq Sans";
 width: 327px;
 font-weight: 400;
 color: #FF8473;

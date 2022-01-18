@@ -1,4 +1,14 @@
-import { getAuth, onAuthStateChanged, connectAuthEmulator, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  connectAuthEmulator,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { useHistory } from "react-router-dom";
 import { RegisterForm } from "../components/pages/authentication/registration";
@@ -13,10 +23,23 @@ interface CreateUserPayload extends AuthForm {
   userId: string;
 }
 
+export const forgotPassword = (email) => {
+  return sendPasswordResetEmail(auth, email, {
+    url: "http://localhost:3000/login",
+  });
+};
+
 export const signOutButton = () => {
   signOut(auth)
     .then(() => {})
     .catch((error) => {});
+};
+
+export const loginWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  return signInWithPopup(auth, provider)
+    .then((user) => console.log(user))
+    .catch((error) => console.log(error));
 };
 
 export const loginEmailPassword = ({ password, email }: AuthForm) => {

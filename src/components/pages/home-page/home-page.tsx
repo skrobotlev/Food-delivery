@@ -14,13 +14,10 @@ const HomePageContent = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-
   /* overflow-y: hidden; */
   height: 100vh;
   width: 100%;
-  h3 {
-    padding-right: 35px;
-  }
+  
 `;
 
 const BigRectButtonDiv = styled.div`
@@ -28,7 +25,7 @@ padding-top: 40px;
 `;
 
 const FavoritesCardHeader = styled.h3`
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   font-weight: 400;
   font-size: 22px;
   margin-top: 24px;

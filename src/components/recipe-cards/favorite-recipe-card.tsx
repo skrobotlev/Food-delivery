@@ -16,7 +16,7 @@ position: relative;
   border-radius: 2rem;
   margin: 10px;
   background-color: #eff7ee;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   display: flex;
   flex-direction: column;
   /* align-items: center; */

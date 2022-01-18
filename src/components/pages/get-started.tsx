@@ -26,7 +26,7 @@ const StartPageH1 = styled.h1`
 `;
 
 const LoginLink = styled.div`
-  font-family: Signika;
+  font-family: Balsamiq Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 17px;

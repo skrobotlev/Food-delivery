@@ -16,7 +16,7 @@ const SearchPageDiv = styled.div`
 `;
 
 const SearchPageH1 = styled.h1`
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   font-size: 22px;
   font-weight: 400;
   margin-top: 25px;

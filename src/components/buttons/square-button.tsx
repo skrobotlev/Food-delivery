@@ -66,7 +66,7 @@ export const SquareBut = styled.button<SquareButtonProps>`
     }
   }};
   margin-top: 16px;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   border: none; 
   display: flex;
   justify-content: center;

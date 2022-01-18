@@ -20,7 +20,7 @@ const ProfilePageDiv = styled.div`
   align-items: center;
   height: 100vh;
   width: 100%;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   margin-top: 50px ;
   h1 {
     font-size: 16px;
@@ -87,7 +87,7 @@ const ProfilePageMenuH4 = styled.div`
   align-items: center;
   width: 300px;
   justify-content: space-between;
-  padding-top: 25px;
+  margin-top: 15px;
   i {
     /* padding-left: 100px;  */
     display: flex;
@@ -130,7 +130,8 @@ const ProfilePage = () => {
     {
       title: "Выйти из профиля",
       icon: <LogOutIconSvg />,
-      arrow: <ArrowForwardIosIcon fontSize="small" />
+      arrow: <ArrowForwardIosIcon fontSize="small" />,
+      // route
     },
   ];
   return (

@@ -11,6 +11,7 @@ import { FAVORITES_ROUTE, HOME_ROUTE, LOADER_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE 
 import { authRoutes, notAuthRoutes } from "./routes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loader from "../pages/loader";
+import { ChakraProvider } from "@chakra-ui/react";
 
 
 const AppRouter = observer(() => {
