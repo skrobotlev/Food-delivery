@@ -56,6 +56,14 @@ export const loginEmailPassword = ({ password, email }: AuthForm) => {
     });
 };
 
+export function writeRecipeData({ header }: any) {
+  return set(ref(database, "recipes/" + header), {
+    header,
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
 function writeFullUserData({ email, uid, name, lastName }: any) {
   return set(ref(database, "fullUsers/" + uid), {
     email,

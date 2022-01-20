@@ -51,15 +51,4 @@ const AppRouter = observer(() => {
     );
 });
 
-// const mapStateToProps = ({ isAuth }) => {
-//     return {
-//         isAuth
-//     };
-// };
-
-// const mapDispatchToProps = () => {
-//     return {
-//         loginTrue
-//     };
-// };
 export default AppRouter;

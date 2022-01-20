@@ -89,27 +89,8 @@ interface PassRecoveryForm {
 const PassRecoveryValidSchema = Yup.object().shape({
   email: Yup.string()
     .email()
-    // .matches(
-    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{8,20}\S$/
-    // )
     .required("Enter valid email-id"),
-  // password: Yup.string()
-  //   // .matches(
-  //   //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])\S$/,
-  //   //   // /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{8,20}\S$/
-  //   //   "One uppercase, one lowercase, one special character and no spaces"
-  //   // )
-  //   .min(8, "Must be min 6")
-  //   .max(20, "Must be mx 20")
-  //   // .required(
-  //   //   "Please valid password. One uppercase, one lowercase, one special character and no spaces"
-  //   // )
-  //   .required("Required"),
-  // // confirmPassword: Yup.string()
-  // //     .required("Required")
-  // //     .test("password-match", "Password musth match", function (value) {
-  // //         return this.parent.password === value;
-  // //     }),
+
 });
 
 const PasswordRecovery = () => {
@@ -117,7 +98,7 @@ const PasswordRecovery = () => {
   const { push } = useHistory();
 
   const handlePasswordRecovery = (email) => {
-    return forgotPassword(email)
+    forgotPassword(email)
       .then((res) => {
         setEmail("");
         setTimeout((res) => {
@@ -138,6 +119,7 @@ const PasswordRecovery = () => {
         onSubmit={(values: PassRecoveryForm, actions) => {
           // createNewUser(values, actions.resetForm);
           setTimeout(() => {
+            console.log(values);
             actions.setSubmitting(false);
           }, 500);
         }}
@@ -161,7 +143,7 @@ const PasswordRecovery = () => {
                       setEmail(e.target.value);
                       handleChange(e);
                     }}
-                    value={email}
+                    value={values.email}
                   />
                   <ErrorMessageDiv>
                     <ErrorMessage
@@ -173,7 +155,6 @@ const PasswordRecovery = () => {
                       )}
                     />
                   </ErrorMessageDiv>
-                  {/* <RecPassInput type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" /> */}
 
                   <RectBut type="submit" size="md" onClick={() => handlePasswordRecovery(email)}>
                     Reset

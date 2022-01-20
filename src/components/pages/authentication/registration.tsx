@@ -23,31 +23,6 @@ const RegisterPageDiv = styled.div`
   height: 100vh;
 `;
 
-const RegisterInput = styled.input`
-  display: flex;
-  width: 100%;
-  height: 45px;
-  margin-top: 30px;
-  :first-of-type {
-    margin-top: 10px;
-  }
-  padding-left: 15px;
-  font-family: "Balsamiq Sans";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #f4f4f4;
-  // background-clip: padding-box;
-  border: 1px solid #1a9920;
-  border-radius: 30px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: 0.5s padding-left;
-  &:focus {
-    padding-left: 20px;
-  }
-`;
-
 const RegisterFormDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -90,7 +65,6 @@ const VisibilityIconComponent = styled.i`
     top: 317px;
     left: 295px;
   }
-
 `;
 
 const VisibilityIconComponent2 = styled.i`
@@ -180,7 +154,6 @@ const RegistrationPage = observer(() => {
     name: Yup.string().required("Пусто").min(3, "Минимум 3 буквы"),
     lastName: Yup.string().required("Пусто").min(3, "Минимум 3 буквы"),
   });
-
   // confirmPassword: Yup.string()
   // .required("Required")
   // .test("password-match", "Password musth match", function (value) {
@@ -192,7 +165,6 @@ const RegistrationPage = observer(() => {
   const visEyeIconHide2 = <VisibilityOffIcon fontSize="medium" onClick={() => setShowRepPass(!showRepPass ? true : false)} />;
   return (
     <RegisterPageDiv>
-      {/* <RegisterFormDiv> */}
       <Formik
         initialValues={{
           email: "",
@@ -318,7 +290,6 @@ const RegistrationPage = observer(() => {
                     }}
                     value={values.lastName}
                   />
-                  {/* <VisibilityIconComponent>{showPass ? visEyeIconHide : visEyeIconShow}</VisibilityIconComponent> */}
                   <ErrorMessageDiv>
                     <ErrorMessage
                       name="lastName"

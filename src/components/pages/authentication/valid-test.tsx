@@ -25,31 +25,6 @@ const LoginPageDiv = styled.div`
   height: 100vh;
 `;
 
-const LoginInput = styled.input`
-  display: flex;
-  width: 100%;
-  height: 45px;
-  margin-top: 30px;
-  :first-of-type {
-    margin-top: 10px;
-  }
-  padding-left: 15px;
-  font-family: "Balsamiq Sans";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #f4f4f4;
-  // background-clip: padding-box;
-  border: 1px solid #1a9920;
-  border-radius: 30px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: 0.5s padding-left;
-  &:focus {
-    padding-left: 20px;
-  }
-`;
-
 const LoginFormDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,7 +32,6 @@ const LoginFormDiv = styled.div`
   align-items: center;
   width: 100%;
   h1 {
-    /* margin-bottom: 100px; */
     font-weight: bold;
     color: green;
     font-family: "Balsamiq Sans";
@@ -108,12 +82,6 @@ const VisibilityIconComponent = styled.i`
   }
 `;
 
-const PasswordComponentDiv = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-`;
-
 const ErrorMessageDiv = styled.div`
   height: 20px;
 `;
@@ -123,18 +91,14 @@ const GoogleAuth = styled.button`
   justify-content: center;
   align-items: center;
   height: 45px;
-  /* width: 30%; */
   font-size: 20px;
   border: 2px solid;
   border-radius: 20px;
-  /* margin-top: 10px; */
   width: 80%;
   background-color: #f5f7f4;
   border-color: #91c788;
   svg {
-    /* padding-left: 5px; */
     color: #91c788;
-    /* bottom: 10px; */
   }
   p {
     margin-bottom: 0px;
@@ -156,38 +120,9 @@ interface IFormStatusProps {
 }
 
 const LoginPageValidSchema = Yup.object().shape({
-    email: Yup.string().email().required("Поле пустое"),
-    // .matches(
-    //     /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])\S$/, "Пароль не подходит"),
-    // /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{8,20}\S$/
-    //   "One uppercase, one lowercase, one special character and no spaces"
-    // )
-    password: Yup.string().min(6, "Минимум 6 симолов").max(20, "Максимум 20 символов"),
-    // .required(
-    //   "Please valid password. One uppercase, one lowercase, one special character and no spaces"
-    // )
-    // .required("Пусто!"),
-    // confirmPassword: Yup.string()
-    //     .required("Required")
-    //     .test("password-match", "Password musth match", function (value) {
-    //         return this.parent.password === value;
-    //     }),
+    email: Yup.string().email().required("Поле пустое!"),
+    password: Yup.string().min(6, "Минимум 6 симолов").max(20, "Максимум 20 символов").required("Поле пустое!Минимум 6 символов"),
 });
-
-// const formStatusProps: IFormStatusProps = {
-//     success: {
-//         message: "Signed up successfully.",
-//         type: "success",
-//     },
-//     duplicate: {
-//         message: "Email-id already exist. Please use different email-id.",
-//         type: "error",
-//     },
-//     error: {
-//         message: "Something went wrong. Please try again.",
-//         type: "error",
-//     },
-// };
 
 const ValidationLoginPage = observer(() => {
     const { userStore } = useContext(Context);
@@ -211,8 +146,7 @@ const ValidationLoginPage = observer(() => {
 
     const handleLogin = () => {
         loginEmailPassword({ email, password }).then((usr) => {
-            // userStore.setIsAuth(true);
-            // userStore.setUser(usr);
+
             {
                 usr ? push("/home") : null;
             }
@@ -223,11 +157,7 @@ const ValidationLoginPage = observer(() => {
         loginWithGoogle().then((usr) => push("/home"));
     };
 
-    // const [displayFormStatus, setDisplayFormStatus] = useState(false);
-    // const [formStatus, setFormStatus] = useState<IFormStatus>({
-    //     message: "",
-    //     type: "",
-    // });
+
 
     const visEyeIconShow = <VisibilityIcon fontSize="medium" onClick={() => setShowPass(showPass ? false : true)} />;
     const visEyeIconHide = <VisibilityOffIcon fontSize="medium" onClick={() => setShowPass(!showPass ? true : false)} />;
@@ -238,9 +168,6 @@ const ValidationLoginPage = observer(() => {
 
     return (
         <LoginPageDiv>
-            {/* <ValidationForm /> */}
-            {/* <LoginFormDiv> */}
-
             <Formik
                 initialValues={{
                     password: "",
@@ -260,18 +187,9 @@ const ValidationLoginPage = observer(() => {
                     return (
                         <Form className="formik-form">
                             <LoginFormDiv>
-                                {/* <Button type="submit" variant="contained" color="secondary" disabled={isSubmitting}>
-                                    Submit
-                                </Button> */}
-                                {/* {displayFormStatus && (
-                                    <div className="formStatus">
-                                        {formStatus.type === "error" ? <p>{formStatus.message}</p> : formStatus.type === "success" ? <p>{formStatus.message}</p> : null}
-                                    </div>
-                                )} */}
-                                <h1> ChelFood</h1>
+                                =<h1> ChelFood</h1>
                                 <h2>Введите логин и пароль</h2>
                                 <form onSubmit={(e) => e.preventDefault()}>
-                                    {/* <Field type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" /> */}
                                     <Field
                                         type="email"
                                         className={`form-control text-field__input ${errors.email && touched.email ? " is-invalid" : ""}`}
@@ -316,17 +234,7 @@ const ValidationLoginPage = observer(() => {
                                             )}
                                         />
                                     </ErrorMessageDiv>
-                                    {/* <ErrorMessage
-                                        name="password"
-                                        render={(msg) => (
-                                            <small className="text-danger">
-                                                <strong>{msg}</strong>
-                                            </small>
-                                        )}
-                                    /> */}
-                                    {/* <LoginInput type={showPass ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" /> */}
                                 </form>
-
                                 <RectBut
                                     type="submit"
                                     size="md"
@@ -342,7 +250,6 @@ const ValidationLoginPage = observer(() => {
                                     <p>Sign up with</p>
                                     <GoogleIcon fontSize="small" />
                                 </GoogleAuth>
-
                                 <h5>
                                     или{" "}
                                     <Link to={REGISTRATION_PAGE} className="router-link">

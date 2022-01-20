@@ -11,7 +11,7 @@ import {
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const ProfilePageDiv = styled.div`
   display: flex;
@@ -131,7 +131,7 @@ const ProfilePage = () => {
       title: "Выйти из профиля",
       icon: <LogOutIconSvg />,
       arrow: <ArrowForwardIosIcon fontSize="small" />,
-      // route
+      callback: signOutButton
     },
   ];
   return (
@@ -143,7 +143,6 @@ const ProfilePage = () => {
       </ProfilePhotoDiv>
       <h2>Эвелина Гузеева</h2>
       <h3>Гастро блогерка</h3>
-      <button onClick={() => signOutButton()}>Выйти</button>
       <ProfilePageMenu>
         <ProfileMenuHeaders>
           {headersAndIcons.map((item, idx) => (
@@ -151,7 +150,7 @@ const ProfilePage = () => {
               <ProfileMenuIcons>
                 {item.icon}
               </ProfileMenuIcons>
-              <h5>
+              <h5 onClick={() => item.callback ? item.callback() : null}>
                 {item.title}
               </h5>
               <i> <ArrowForwardIosIcon fontSize="small" /></i>
