@@ -22,7 +22,7 @@ const HomePageSliderCard = styled.div`
     padding-left: 30px;
   h1 {
     font-size: 10px;
-    font-family: "Signika";
+    font-family: "Balsamiq Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 10px;
@@ -34,12 +34,12 @@ const HomePageSliderCard = styled.div`
     right: 35px; */
   }
   p {
-    font-family: "Signika";
+    font-family: "Balsamiq Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 17px;
     line-height: 24px;
-    width: 130px;
+    width: 120px;
     /* position: relative; */
     
   }  
@@ -47,7 +47,7 @@ const HomePageSliderCard = styled.div`
 
 const ImageSpan = styled.span`
   position: relative;
-  bottom: 120px;
+  bottom: 150px;
   left: 150px;
 
 `;
@@ -80,46 +80,19 @@ class HomePageSlider extends React.Component {
             slidesToScroll: 1,
             infinite: true,
         };
-        // const cards = [
-        //     {
-        //         header: "Eat Healthy",
-        //         desc: "Maintaining good health should be the primary focus of everyone.",
-        //         image: <StartPageFirstImage />
-        //     },
-        //     {
-        //         header: "Healthy Recipes",
-        //         desc: "Browse thousands of healthy recipes from all over the world.",
-        //         image: <StartPageSecImage />
-        //     },
-        //     {
-        //         header: "Track Your Health",
-        //         desc: "With amazing inbuilt tools you can track your progress.",
-        //         image: <StartPageThirImage />
-        //     }
-        // ];
+
         return (
             <div className="home-page-slider">
                 <Slider {...settings}>
-                    {/* {cards.map(card => {
-
-                        return (
-
-                            <SliderCard key={card.header} header={card.header} image={card.image}
-                                desc={card.desc}>
-                            </SliderCard>
-
-                        );
-                    })}; */}
-                    <SliderCard header="A R T I C L E" image={<FirstSlide />} desc="The pros and cons of fast food.">
-                        <RectangleButton size="sm" title="Read now" icon={<ArrowRightIcon fontSize="small" />} />
+                    <SliderCard header="A R T I C L E" image={<FirstSlide />} desc="Плюсы и минусы фаст фуда">
+                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />} />
                     </SliderCard>
 
-                    <SliderCard header="Healthy Recipes" desc="Browse thousands of healthy recipes from all over the world."
+                    <SliderCard header="Разнообразные рецепты   " desc="Ищите тысячи рецептов здоровых блюд."
                         image={<FavorRecCardSalad />}>
-
                     </SliderCard>
 
-                    <SliderCard header="Track Your Health" desc="With amazing inbuilt tools you can track your progress."></SliderCard>
+                    <SliderCard header="Следите за своим здоровьем" desc="С помощью внутренних инструментов отслеживайте свой прогресс!"></SliderCard>
                 </Slider>
             </div>
         );

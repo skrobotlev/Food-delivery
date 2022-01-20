@@ -27,18 +27,18 @@ const RecipeFavoriteCard = () => {
     return (
         <RecipeFavoriteCardDiv>
             <FavoriteRecipeCard
-                title="Chopped Spring Ramen"
+                title="Рубленый свежий рамен"
                 calories="250 kcal"
                 likeIcon={<FavorRecCardLike />}
                 icon={<FavorRecCardSalad />}
-                category="Scallions & tomatoes"
+                category="Зеленый лук и помидоры"
             />
             <FavoriteRecipeCard
-                title="Chicken Tandoori"
+                title="Курица тандури"
                 calories="450 kcal"
                 likeIcon={<FavorRecCardLike />}
                 icon={<FavorRecCardChicken />}
-                category="Chicken & salad"
+                category="Курица и салат"
             />
             {/* <FavoriteRecipeCard
                 title="Chicken Tandoori"
@@ -48,7 +48,7 @@ const RecipeFavoriteCard = () => {
                 category="Chicken & salad"
             /> */}
             <RectangleButtonSpan>
-                <RectangleButton size="md" title="Search recipes" />
+                <RectangleButton size="md" title="Искать рецепты" />
             </RectangleButtonSpan>
         </RecipeFavoriteCardDiv>
     );

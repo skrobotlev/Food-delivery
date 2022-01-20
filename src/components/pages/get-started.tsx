@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import ReactSlickDemo from "../slider/slider";
-import RectangleButton from "../buttons/rectangle-button";
+import RectangleButton, { RectBut } from "../buttons/rectangle-button";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
 const StartPage = styled.div`
@@ -26,15 +26,16 @@ const StartPageH1 = styled.h1`
 `;
 
 const LoginLink = styled.div`
-  font-family: Signika;
+  font-family: Balsamiq Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 17px;
   line-height: 21px;
   /* identical to box height */
   color: #7c7c7c;
-  span {
+  link {
     color: #91c788;
+    text-decoration: none;
   }
 `;
 
@@ -45,13 +46,16 @@ const StyledLink = styled.link`
 const GetStartedPage = () => {
   return (
     <StartPage>
+
       <StartPageH1>Kcal</StartPageH1>
       <ReactSlickDemo />
-      {/* <StyledLink> */}
-      <Link to="/home" className="router-link"><RectangleButton size="md" title="Get Started" /></Link>
-      {/* </StyledLink> */}
+      <Link to="/registration" className="router-link">
+        <RectBut size="md" title="Get Started">
+          Начать
+        </RectBut>
+      </Link>
       <LoginLink>
-        Already Have An Acount? <span>Log In</span>
+        Уже есть аккаунт? <Link to="/login" className="router-link">Войдите</Link>
       </LoginLink>
     </StartPage >
   );

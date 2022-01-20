@@ -106,15 +106,13 @@ interface NavBarIconComponentProps {
 const NavBarIconComponent: React.FC<NavBarIconComponentProps> = ({ children, icon, link }) => {
     const [active, setActive] = useState<boolean>(false);
     const location = useLocation();
-
-
     // USE ROUTER?USE LOCATION
 
     useEffect(() => {
-        console.log(location.pathname);
+        // console.log(location.pathname);
         // console.log(link);
         if (link === location.pathname) {
-            console.log("ay");
+            // console.log("ay");
             setActive(true);
         } else setActive(false);
     }, [location.pathname]);

@@ -9,6 +9,9 @@ import {
   VipProfileCrownSvg,
 } from "../../buttons/icons/profile-menu-icons/icons";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
+import { Link, useHistory } from "react-router-dom";
 
 const ProfilePageDiv = styled.div`
   display: flex;
@@ -17,7 +20,7 @@ const ProfilePageDiv = styled.div`
   align-items: center;
   height: 100vh;
   width: 100%;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   margin-top: 50px ;
   h1 {
     font-size: 16px;
@@ -84,7 +87,7 @@ const ProfilePageMenuH4 = styled.div`
   align-items: center;
   width: 300px;
   justify-content: space-between;
-  padding-top: 25px;
+  margin-top: 15px;
   i {
     /* padding-left: 100px;  */
     display: flex;
@@ -93,43 +96,53 @@ const ProfilePageMenuH4 = styled.div`
 `;
 
 const ProfilePage = () => {
-
+  const { push } = useHistory();
+  const signOutButton = () => {
+    signOut(auth)
+      .then(() => {
+        push("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const headersAndIcons = [
     {
-      title: "Edit Profile",
+      title: "Редактировать профиль",
       icon: <EditProfileIconSvg />,
       arrow: <ArrowForwardIosIcon fontSize="small" />
     },
     {
-      title: "Renew Plans",
+      title: "Обновить планы",
       icon: <RenewPlansIconSvg />,
       arrow: <ArrowForwardIosIcon fontSize="small" />
     },
     {
-      title: "Settings",
+      title: "Настройки",
       icon: <SettingsIconSvg />,
       arrow: <ArrowForwardIosIcon fontSize="small" />
     },
     {
-      title: "Terms & Privacy Policy",
+      title: "Условия и политика конфиденциальности",
       icon: <TermsAndPrivPolIconSvg />,
       arrow: <ArrowForwardIosIcon fontSize="small" />
     },
     {
-      title: "Log Out",
+      title: "Выйти из профиля",
       icon: <LogOutIconSvg />,
-      arrow: <ArrowForwardIosIcon fontSize="small" />
+      arrow: <ArrowForwardIosIcon fontSize="small" />,
+      callback: signOutButton
     },
   ];
   return (
     <ProfilePageDiv>
-      <h1>Profile</h1>
+      <h1>Профиль</h1>
       <ProfilePhotoDiv>
         <img src="https://www.newartsaxis.net/wp-content/uploads/2021/03/hair-color-for-woman-150x150.jpg"></img>
         <VipProfileCrownSvg />
       </ProfilePhotoDiv>
-      <h2>Shambhavi Mishra</h2>
-      <h3>Food blogger</h3>
+      <h2>Эвелина Гузеева</h2>
+      <h3>Гастро блогерка</h3>
       <ProfilePageMenu>
         <ProfileMenuHeaders>
           {headersAndIcons.map((item, idx) => (
@@ -137,7 +150,7 @@ const ProfilePage = () => {
               <ProfileMenuIcons>
                 {item.icon}
               </ProfileMenuIcons>
-              <h5>
+              <h5 onClick={() => item.callback ? item.callback() : null}>
                 {item.title}
               </h5>
               <i> <ArrowForwardIosIcon fontSize="small" /></i>

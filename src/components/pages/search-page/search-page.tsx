@@ -16,7 +16,7 @@ const SearchPageDiv = styled.div`
 `;
 
 const SearchPageH1 = styled.h1`
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   font-size: 22px;
   font-weight: 400;
   margin-top: 25px;
@@ -34,28 +34,28 @@ const RecipeCardsDiv = styled.div`
 `;
 
 const SearchPage = () => {
-    // https://user-images.githubusercontent.com/92730840/147400625-e55e86e1-b7ce-4629-8582-7a0edb438ef9.png
-    // https://vasylivanovich.com.ua/image/cache/import_files/00/006df762efa111eba8230cc47a0c8aea_020dee13f04b11eba8230cc47a0c8aea-1000x1000.jpg
-    return (
-        <SearchPageDiv>
-            <Search />
-            <SearchPageH1>Hot now</SearchPageH1>
-            <RecipeCardsDiv>
-                <RecipeCard
-                    title="The pumpkin secrets"
-                    desc="Enjoy pumpkin dishes!"
-                    srcImage="https://user-images.githubusercontent.com/92730840/147400625-e55e86e1-b7ce-4629-8582-7a0edb438ef9.png"
-                />
-                <RecipeCard
-                    title="Dishes with garbage"
-                    desc="Most ealthy food!"
-                    srcImage="https://vasylivanovich.com.ua/image/cache/import_files/00/006df762efa111eba8230cc47a0c8aea_020dee13f04b11eba8230cc47a0c8aea-1000x1000.jpg"
-                />
-            </RecipeCardsDiv>
-            <SearchPageH1>Trending</SearchPageH1>
-            <TrandingList />
-        </SearchPageDiv>
-    );
+  // https://user-images.githubusercontent.com/92730840/147400625-e55e86e1-b7ce-4629-8582-7a0edb438ef9.png
+  // https://vasylivanovich.com.ua/image/cache/import_files/00/006df762efa111eba8230cc47a0c8aea_020dee13f04b11eba8230cc47a0c8aea-1000x1000.jpg
+  return (
+    <SearchPageDiv>
+      <Search />
+      <SearchPageH1>Популярные категории</SearchPageH1>
+      <RecipeCardsDiv>
+        <RecipeCard
+          title="Тыквенное удовольствие"
+          desc="Вкуси тыквенную сладость!"
+          srcImage="https://user-images.githubusercontent.com/92730840/147400625-e55e86e1-b7ce-4629-8582-7a0edb438ef9.png"
+        />
+        <RecipeCard
+          title="Очень полезная капуста"
+          desc="Ешьте полезные и вкусные салаты!"
+          srcImage="https://vasylivanovich.com.ua/image/cache/import_files/00/006df762efa111eba8230cc47a0c8aea_020dee13f04b11eba8230cc47a0c8aea-1000x1000.jpg"
+        />
+      </RecipeCardsDiv>
+      <SearchPageH1>Тренды</SearchPageH1>
+      <TrandingList />
+    </SearchPageDiv>
+  );
 };
 
 export default SearchPage;

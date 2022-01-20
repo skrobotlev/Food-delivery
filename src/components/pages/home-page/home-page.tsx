@@ -14,13 +14,10 @@ const HomePageContent = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-
   /* overflow-y: hidden; */
   height: 100vh;
   width: 100%;
-  h3 {
-    padding-right: 35px;
-  }
+  
 `;
 
 const BigRectButtonDiv = styled.div`
@@ -28,25 +25,26 @@ padding-top: 40px;
 `;
 
 const FavoritesCardHeader = styled.h3`
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   font-weight: 400;
   font-size: 22px;
   margin-top: 24px;
 `;
 
 const HomePage = () => {
+
   return (
     <HomePageContent>
-      <HomePageHeader desc="Find, track and eat heathy food." name="Shimbhavi" />
+      <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <HomePageSlider />
-      <BigRectButtonDiv> <BigRectangleButton title="Track Your Weekly Progress">
-        <InsideRectBut>
-          View Now
+      <BigRectButtonDiv> <BigRectangleButton title="Следите за своим прогрессом">
+        <InsideRectBut key="1">
+          Смотреть
           <ArrowRightIcon />
         </InsideRectBut>
       </BigRectangleButton>
       </BigRectButtonDiv>
-      <FavoritesCardHeader>Choose Your Favorites</FavoritesCardHeader>
+      <FavoritesCardHeader>Выберите любимые продукты</FavoritesCardHeader>
       <FavoriteCategories />
     </HomePageContent>
   );

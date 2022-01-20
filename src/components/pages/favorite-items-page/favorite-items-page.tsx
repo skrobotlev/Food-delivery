@@ -16,7 +16,7 @@ const FavoriteItemsPageH1 = styled.h1`
   display: flex;
   justify-content: center;
   font-size: 16px;
-  font-family: "Signika";
+  font-family: "Balsamiq Sans";
   padding-top: 61px;
 `;
 
@@ -30,7 +30,7 @@ const TabulationSpan = styled.span`
 const FavoriteItemsPage = () => {
   return (
     <FavoriteItemsPageDiv>
-      <FavoriteItemsPageH1>Favorites</FavoriteItemsPageH1>
+      <FavoriteItemsPageH1>Избранное</FavoriteItemsPageH1>
       <TabulationSpan><Tabulation /> </TabulationSpan>
     </FavoriteItemsPageDiv>
   );

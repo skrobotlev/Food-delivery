@@ -11,12 +11,13 @@ const Loader = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Signika";
+    font-family: "Balsamiq Sans";
   `;
 
   const WelcomeH1 = styled.h1`
     color: white;
     font-size: 50px;
+    font-family: "Balsamiq Sans";
   `;
 
   const Logo = styled.h2`
