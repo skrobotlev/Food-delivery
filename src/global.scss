@@ -51,6 +51,7 @@ html {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  overflow-y: scroll;
   // background: #b3afa9;
   // margin: 3.5rem auto 1.5rem;
   // padding: 2rem 1rem;
@@ -223,7 +224,7 @@ justify-content: center;
   :first-of-type {
     margin-top: 10px;
   }
-  padding-left: 15px;
+  padding-left: 30px;
   font-family: "Balsamiq Sans";
   font-size: 1rem;
   font-weight: 400;
@@ -236,7 +237,7 @@ justify-content: center;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: 0.5s padding-left;
   &:focus {
-    padding-left: 20px;
+    padding-left: 35px;
   }
 }
 .pwd {

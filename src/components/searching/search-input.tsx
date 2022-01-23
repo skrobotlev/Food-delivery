@@ -1,11 +1,13 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHandler, ChangeEvent, useEffect } from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHandler, ChangeEvent, useEffect, useContext } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
+import { Context } from "../../";
 
 interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     clearAll?: boolean;
     children?: any;
+    value?: any;
 }
 
 const SearchInputDiv = styled.div`
@@ -21,7 +23,7 @@ const SearchInputDiv = styled.div`
 const SearchCloseIcon = styled.i`
 position: absolute;
   right: 10px;
-  bottom:  15px;
+  bottom:  10px;
   cursor: pointer;
 `;
 
@@ -29,12 +31,14 @@ const LoupeSearchIcon = styled.i`
 // display: block;
   position: absolute;
   left: 10px;
-  bottom:  15px;
+  bottom:  10px;
   cursor: pointer;
 `;
 
-export const Search: React.FC<SearchInputProps> = ({ placeholder }) => {
+export const SearchInput: React.FC<SearchInputProps> = (value) => {
     const [searchValue, setSearchValue] = useState("");
+    const { userStore } = useContext(Context);
+
 
     const clearInput = () => {
         setSearchValue("");
@@ -44,6 +48,12 @@ export const Search: React.FC<SearchInputProps> = ({ placeholder }) => {
         if (searchValue) console.log("a");
     }, [searchValue]);
 
+    // useEffect(() => {
+    //     if (value) setSearchValue(value);
+    // }, [value]);
+    const handleChange = (e) => {
+        userStore._filter = e.target.value;
+    };
     const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
         const searchWord = e.currentTarget.value;
         setSearchValue(searchWord);
@@ -51,8 +61,8 @@ export const Search: React.FC<SearchInputProps> = ({ placeholder }) => {
     return (
         <SearchInputDiv >
             <input className="text-field__input"
-                type="text" placeholder={placeholder}
-                value={searchValue} onChange={updateSearchValue} />
+                type="text" placeholder="Введите название"
+                value={userStore._filter} onChange={handleChange} />
             <SearchCloseIcon>
                 <CancelIcon onClick={clearInput} />
             </SearchCloseIcon>

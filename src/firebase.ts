@@ -17,6 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const database = getDatabase();
+// database.ref();
 // connectAuthEmulator(auth, "https://localhost:4000");
 
 // export const createUser = createUserWithEmailAndPassword(auth, email, password)

@@ -10,9 +10,14 @@
       "esnext",
       "dom"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "typeRoots" : ["node_modules/@types", "src/types"],
-    "moduleResolution": "node",
+    // "moduleResolution": "node",
     "target": "es5",
+    
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,

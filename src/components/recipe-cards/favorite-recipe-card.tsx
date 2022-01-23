@@ -5,8 +5,9 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   title?: string;
   calories?: string;
   icon?: ReactElement;
-  category?: string;
+  category?: any;
   likeIcon?: ReactElement;
+  bzhu?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -71,14 +72,14 @@ const ImageCard = styled.div`
   left: 30px;
 `;
 
-const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, icon, category }) => {
+const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, icon, category, bzhu }) => {
   return (
     <RecipeElement>
       {likeIcon}
       <h1>{title}</h1>
       <ImageCard>{icon}</ImageCard>
       <h2>{calories}</h2>
-      <p>{category}</p>
+      <p>{bzhu}</p>
     </RecipeElement>
   );
 };

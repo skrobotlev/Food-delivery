@@ -74,9 +74,9 @@ export const SquareBut = styled.button<SquareButtonProps>`
   flex-direction: column;
   `;
 
-const SquareButton: React.FC<SquareButtonProps> = ({ size, title, icon, backgroundColor }) => {
+const SquareButton: React.FC<SquareButtonProps> = ({ size, title, icon, backgroundColor, onClick }) => {
   return (
-    <SquareBut size={size} icon={icon} title={title} backgroundColor={backgroundColor}>
+    <SquareBut size={size} icon={icon} onClick={onClick} title={title} backgroundColor={backgroundColor}>
       {icon ? icon : null}
       {title ? title : null}
     </SquareBut>

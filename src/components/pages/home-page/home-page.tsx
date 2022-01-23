@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import RectangleButton, { BigRectangleButton, BigRectBut, RectBut } from "../../buttons/rectangle-button";
 import Layout from "../../../layout";
@@ -8,6 +8,10 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
 import FavoriteCategories from "./favorite-categories-h-p";
 import { withRouter } from "react-router-dom";
+import { takeDataCat, testData } from "../../../api/categories";
+import { observer } from "mobx-react-lite";
+import { Context } from "../../..";
+// const { takeDataCat } = require("")
 
 const HomePageContent = styled.div`
   display: flex;
@@ -17,11 +21,10 @@ const HomePageContent = styled.div`
   /* overflow-y: hidden; */
   height: 100vh;
   width: 100%;
-  
 `;
 
 const BigRectButtonDiv = styled.div`
-padding-top: 40px;
+  padding-top: 40px;
 `;
 
 const FavoritesCardHeader = styled.h3`
@@ -31,23 +34,52 @@ const FavoritesCardHeader = styled.h3`
   margin-top: 24px;
 `;
 
-const HomePage = () => {
+const HomePage = observer(() => {
+  const { userStore } = useContext(Context);
+
+  const arrr = [];
+  // useEffect(() => {
+  //   takeDataCat("canning").then((val) => {
+  //     const test = val;
+  //     // console.log(test)
+  //     val.map((item) => {
+  //       // console.log(JSON.parse(item).header)
+  //       arrr.push(JSON.parse(item));
+  //     });
+  //     console.log(arrr);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   testData();
+  //   // .then((val) => {
+  //   //   const test = val;
+  //   //   // console.log(test)
+  //   //   val.map((item) => {
+  //   //     // console.log(JSON.parse(item).header)
+  //   //     arrr.push(JSON.parse(item));
+  //   //   });
+  //   //   console.log(arrr);
+  //   // });
+  // }, []);
 
   return (
     <HomePageContent>
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <HomePageSlider />
-      <BigRectButtonDiv> <BigRectangleButton title="Следите за своим прогрессом">
-        <InsideRectBut key="1">
-          Смотреть
-          <ArrowRightIcon />
-        </InsideRectBut>
-      </BigRectangleButton>
+      <BigRectButtonDiv>
+        {" "}
+        <BigRectangleButton title="Следите за своим прогрессом">
+          <InsideRectBut key="1">
+            Смотреть
+            <ArrowRightIcon />
+          </InsideRectBut>
+        </BigRectangleButton>
       </BigRectButtonDiv>
-      <FavoritesCardHeader>Выберите любимые продукты</FavoritesCardHeader>
+      <FavoritesCardHeader>Выберите любимую категорию</FavoritesCardHeader>
       <FavoriteCategories />
     </HomePageContent>
   );
-};
+});
 
 export default HomePage;

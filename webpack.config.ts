@@ -30,7 +30,7 @@ module.exports = (_env, arg) => {
         },
         {
           test: /\.(jpg|png|gif|woff|eot|ttf|svg)/gi,
-		    loader: "file-loader"
+          loader: "file-loader",
         },
         // {
         //   test: /\.(jpg|png|gif|woff|eot|ttf|svg)/gi,
@@ -46,9 +46,28 @@ module.exports = (_env, arg) => {
         //     "sass-loader"
         //   ]
         // },
-      
       ],
     },
+    // target: "node",
+    resolve: {
+      alias: {
+        "@/": path.resolve(__dirname, "./src/"),
+      },
+      extensions: ["", ".js", ".jsx", ".ts", ".tsx"],
+      // fallback: {
+      //   fs: false,
+      //   tls: false,
+      //   net: false,
+      //   path: false,
+      //   zlib: false,
+      //   http: false,
+      //   https: false,
+      //   stream: false,
+      //   crypto: false,
+      //   "crypto-browserify": require.resolve("crypto-browserify"), //if you want to use this module also don't forget npm i crypto-browserify
+      // },
+    },
+
     devServer: {
       port: 3000,
       historyApiFallback: true,
@@ -150,8 +169,8 @@ function configureTypescript() {
       test: /\.js$/,
       use: ["source-map-loader"],
     },
-    
-    // { test: /\.(png|eot|jpg|gif|svg)$/, 
+
+    // { test: /\.(png|eot|jpg|gif|svg)$/,
     //   use: ["file-loader", "url-loader"]
     //   }
   ];
@@ -179,9 +198,7 @@ function configureBundleProcess(isProduction) {
       // maxEntrypointSize: 320 * KB,
       maxEntrypointSize: 600 * KB,
       maxAssetSize: 300 * KB,
-      assetFilter: isProduction
-        ? (file: any) => !/\.map$|vendors/.test(file)
-        : (file: any) => !/\.map$/.test(file),
+      assetFilter: isProduction ? (file: any) => !/\.map$|vendors/.test(file) : (file: any) => !/\.map$/.test(file),
     },
   };
 

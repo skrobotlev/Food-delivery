@@ -1,32 +1,102 @@
 [
   {
-    "header": "Пастрома из курицы"
+    "header": "Кофейно-абрикосовое варенье",
+    "timeToCook": "1 ч",
+    "calories": "259",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "1",
+      "carbs": "64"
+    }
   },
   {
-    "header": "Бутерброды с творожной пастой"
+    "header": "Джем из зелёных помидоров",
+    "timeToCook": "2 ч",
+    "calories": "195",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "0",
+      "carbs": "46"
+    }
   },
   {
-    "header": "Гренки для сладкоежек"
+    "header": "Яблочное повидло с корицей",
+    "timeToCook": "2 ч",
+    "calories": "225",
+    "bzhu": {
+      "proteins": "0",
+      "fat": "0",
+      "carbs": "57"
+    }
   },
   {
-    "header": "Гренки с помидорами"
+    "header": "Клубничный компот",
+    "timeToCook": "1 ч",
+    "calories": "10",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "0",
+      "carbs": "1"
+    }
   },
   {
-    "header": "Салат из морской капусты"
+    "header": "Персиковый компот",
+    "timeToCook": "1 ч",
+    "calories": "68",
+    "bzhu": {
+      "proteins": "0",
+      "fat": "0",
+      "carbs": "17"
+    }
   },
   {
-    "header": "Творожный салат"
+    "header": "Вишнёвый компот",
+    "timeToCook": "30 мин",
+    "calories": "26",
+    "bzhu": {
+      "proteins": "0",
+      "fat": "0",
+      "carbs": "7"
+    }
   },
   {
-    "header": "Итальянский салат с пастромой"
+    "header": "Огурцы малосольные, быстрые",
+    "timeToCook": "30 мин",
+    "calories": "15",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "0",
+      "carbs": "3"
+    }
   },
   {
-    "header": "Салат из молодого горошка"
+    "header": "Огурцы солёные, как у бабушки",
+    "timeToCook": "30 мин",
+    "calories": "15",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "0",
+      "carbs": "3"
+    }
   },
   {
-    "header": "Овощное ассорти "
+    "header": "Огурцы маринованные",
+    "timeToCook": "1 ч",
+    "calories": "18",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "0",
+      "carbs": "4"
+    }
   },
   {
-    "header": "Салат из фасоли со свеклой и яблоками"
+    "header": "Консервирование. Варенье из брусники со специями",
+    "timeToCook": "1 ч",
+    "calories": "153",
+    "bzhu": {
+      "proteins": "1",
+      "fat": "0",
+      "carbs": "38"
+    }
   }
 ]

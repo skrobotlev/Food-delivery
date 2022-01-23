@@ -4,6 +4,10 @@ import ReactSlickDemo from "../slider/slider";
 import RectangleButton, { RectBut } from "../buttons/rectangle-button";
 import { Link, NavLink, withRouter } from "react-router-dom";
 
+// import canningCategory from "../../api/categories";
+// const { canningCategory } = require("../../api/categories");
+// console.log(canningCategory);
+
 const StartPage = styled.div`
   display: flex;
   gap: 16px;

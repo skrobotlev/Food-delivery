@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import FavoriteRecipeCard from "../../recipe-cards/favorite-recipe-card";
 import FavorRecCardLike from "../../images/fav-re-cd-like";
 import FavorRecCardSalad from "../../images/fav-re-cd-salad";
-
 import styled from "styled-components";
 import FavorRecCardChicken from "../../images/fav-re-cd-chicken";
 import RectangleButton from "../../buttons/rectangle-button";
+import { takeDataCat } from "../../../api/categories";
+import { observer } from "mobx-react-lite";
+import { Context } from "../../../";
+// // import { takeDataCat } from "@/api/categories";
+// const takeDataCat = require("./src/api/categories")
 
-const RecipeFavoriteCardDiv = styled.div`
+export const RecipeFavoriteCardDiv = styled.div`
   display: flex;
+  overflow-y: scroll;
   flex-direction: column;
   align-items: center;
+  /* margin-top: 100px; */
+  /* overflow-x: scroll; */
   /* span {
     flex-grow: 1;
       justify-items: flex-end;
@@ -18,28 +25,49 @@ const RecipeFavoriteCardDiv = styled.div`
   } */
 `;
 
-const RectangleButtonSpan = styled.span`
+export const RectangleButtonSpan = styled.span`
   /* display: flex; */
   align-items: flex-end;
 `;
 
-const RecipeFavoriteCard = () => {
+const RecipeResponse = styled.div`
+  /* overflow-y: scroll; */
+`;
+
+const RecipeFavoriteCard = observer(() => {
+    const { userStore } = useContext(Context);
+    // let reciparr = [];
+    // reciparr.push(takeDataIcra("canning", reciparr));
+    // console.log(reciparr)
+
+    // console.log(userStore._category[0]);
+    // catObj = JSON.stringify(userStore._category);
+    // console.log(typeof catObj);
+
+    const handleChange = (e) => {
+        userStore._filter = e.target.value;
+    };
+
     return (
         <RecipeFavoriteCardDiv>
-            <FavoriteRecipeCard
-                title="Рубленый свежий рамен"
-                calories="250 kcal"
-                likeIcon={<FavorRecCardLike />}
-                icon={<FavorRecCardSalad />}
-                category="Зеленый лук и помидоры"
-            />
-            <FavoriteRecipeCard
-                title="Курица тандури"
-                calories="450 kcal"
-                likeIcon={<FavorRecCardLike />}
-                icon={<FavorRecCardChicken />}
-                category="Курица и салат"
-            />
+            {/* <input value={userStore._filter} onChange={handleChange} />
+            {userStore.valFilter().map((recip, idx) => {
+                // console.log(recip);
+                const { carbs, fat, proteins } = recip.bzhu;
+                return (
+                    <RecipeResponse>
+                        <FavoriteRecipeCard
+                            key={idx}
+                            title={recip.header}
+                            calories={recip.calories}
+                            likeIcon={<FavorRecCardLike />}
+                            icon={<FavorRecCardSalad />}
+                            bzhu={`Б${proteins} Ж${fat} У${carbs}`}
+                        />
+                    </RecipeResponse>
+                );
+            })} */}
+
             {/* <FavoriteRecipeCard
                 title="Chicken Tandoori"
                 calories="450 kcal"
@@ -52,6 +80,6 @@ const RecipeFavoriteCard = () => {
             </RectangleButtonSpan>
         </RecipeFavoriteCardDiv>
     );
-};
+});
 
 export default RecipeFavoriteCard;
