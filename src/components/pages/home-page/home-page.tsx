@@ -37,31 +37,8 @@ const FavoritesCardHeader = styled.h3`
 const HomePage = observer(() => {
   const { userStore } = useContext(Context);
 
-  const arrr = [];
-  // useEffect(() => {
-  //   takeDataCat("canning").then((val) => {
-  //     const test = val;
-  //     // console.log(test)
-  //     val.map((item) => {
-  //       // console.log(JSON.parse(item).header)
-  //       arrr.push(JSON.parse(item));
-  //     });
-  //     console.log(arrr);
-  //   });
-  // }, []);
+  // console.log(testData());
 
-  // useEffect(() => {
-  //   testData();
-  //   // .then((val) => {
-  //   //   const test = val;
-  //   //   // console.log(test)
-  //   //   val.map((item) => {
-  //   //     // console.log(JSON.parse(item).header)
-  //   //     arrr.push(JSON.parse(item));
-  //   //   });
-  //   //   console.log(arrr);
-  //   // });
-  // }, []);
 
   return (
     <HomePageContent>
@@ -76,7 +53,7 @@ const HomePage = observer(() => {
           </InsideRectBut>
         </BigRectangleButton>
       </BigRectButtonDiv>
-      <FavoritesCardHeader>Выберите любимую категорию</FavoritesCardHeader>
+      <FavoritesCardHeader>Выберите интересующую категорию</FavoritesCardHeader>
       <FavoriteCategories />
     </HomePageContent>
   );

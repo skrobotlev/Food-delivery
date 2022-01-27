@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged, connectAuthEmulator, signInWithEmailAndPas
 import { getFirestore, collection, getDocs, getDoc } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBYLLHL3VlSNB_L9S7z3Ci9863p4DDo958",
   authDomain: "chelfood-c39f1.firebaseapp.com",
   databaseURL: "https://chelfood-c39f1-default-rtdb.europe-west1.firebasedatabase.app",
@@ -14,11 +14,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const database = getDatabase();
-// database.ref();
-// connectAuthEmulator(auth, "https://localhost:4000");
 
 // export const createUser = createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {

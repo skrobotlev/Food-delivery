@@ -8,6 +8,7 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   category?: any;
   likeIcon?: ReactElement;
   bzhu?: any;
+  image?: string;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -65,19 +66,43 @@ position: relative;
 //   right: 20px;
 // `;
 
+// const ImageCard = styled.div`
+//   display: flex;
+//   position: relative;
+//   bottom: 15px;
+//   left: 30px;
+//   img{
+//     width: 60px;
+//   height: 90px;    
+//   }
+
+// `;
+
 const ImageCard = styled.div`
-  display: flex;
+ display: flex;
+  justify-content: center;
   position: relative;
-  bottom: 15px;
-  left: 30px;
+  width: 120px;
+  height: 90px;
+  border-radius: 100px;
+  margin-top: 15px;
+  margin-left: 15px;
+  img {
+    width: 120px;
+  height: 90px;
+    border-radius: 100px;
+  }
+
 `;
 
-const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, icon, category, bzhu }) => {
+
+const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon,
+  image, icon, category, bzhu }) => {
   return (
     <RecipeElement>
       {likeIcon}
       <h1>{title}</h1>
-      <ImageCard>{icon}</ImageCard>
+      <ImageCard><img src={image} /></ImageCard>
       <h2>{calories}</h2>
       <p>{bzhu}</p>
     </RecipeElement>
