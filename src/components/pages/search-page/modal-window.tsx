@@ -21,7 +21,8 @@ import { RectBut } from "../../../components/buttons/rectangle-button";
 const ModalWindowDiv = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
+  align-items: center;
   height: 80vh;
   width: 100%;
 
@@ -33,7 +34,7 @@ const RecipeValues = styled.div`
   flex-direction: row;
   /* text-align: center; */
   /* align-items: ; */
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   margin-top: 10px;
   background-color: #fff8ee;
@@ -79,21 +80,31 @@ const CloseIconI = styled.i`
 
 const RemAddButton = styled.div``;
 
+const ButtonAndDescDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  p {
+    color: #a9a9a9;
+    text-align: center;
+    width: 90%;
+  }
+`;
+
 interface ModalWindowProps {
     item?: any;
 }
-
-// const modalObject = styled.div`
-//     background-color: beige;
-// `;
 
 const drawerBleeding = 56;
 
 interface Props {
     /**
-       * Injected by the documentation to work in an iframe.
-       * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
-         СПРОСИТЬ */
+         * Injected by the documentation to work in an iframe.
+         * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
+           СПРОСИТЬ */
     window?: () => Window;
 }
 
@@ -153,19 +164,19 @@ const ModalWindow = (props: Props) => {
     const recipCategs = ["proteins", "calories", "fat", "carbs"];
     const valuesROOT = [
         {
-            categ: "proteins",
+            categ: "Proteins",
             recVal: proteins,
         },
         {
-            categ: "calories",
+            categ: "Calories",
             recVal: calories,
         },
         {
-            categ: "fat",
+            categ: "Fat",
             recVal: fat,
         },
         {
-            categ: "carbs",
+            categ: "Carbs",
             recVal: carbs,
         },
     ];
@@ -190,7 +201,10 @@ const ModalWindow = (props: Props) => {
                 container={container}
                 anchor="bottom"
                 open={open}
-                onClose={toggleDrawer(false)}
+                onClose={() => {
+                    toggleDrawer(false);
+                    push(SEARCH_ROUTE);
+                }}
                 onOpen={toggleDrawer(true)}
                 swipeAreaWidth={drawerBleeding}
                 disableSwipeToOpen={false}
@@ -215,13 +229,15 @@ const ModalWindow = (props: Props) => {
                         );
                     })}
                 </RecipeValues>
-                <DescDiv>
+                <ButtonAndDescDiv>
+                    {/* <DescDiv> */}
                     <h3>Описание</h3>
                     <p>{desc}</p>
-                </DescDiv>
-                <RemAddButton>
+                    {/* </DescDiv> */}
+                    {/* <RemAddButton> */}
                     <RectBut size="md">Добавить в избранное</RectBut>
-                </RemAddButton>
+                    {/* </RemAddButton> */}
+                </ButtonAndDescDiv>
             </SwipeableDrawer>
         </Root>
     );

@@ -291,3 +291,32 @@ font-weight: 400;
     width: 100%;
   }
 
+  .paginationBtns {
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .paginationBtns a {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 2px solid #2b2eff;
+    color: #2b2eff;
+    background: white;
+  }
+  
+  .paginationBtns a:hover {
+    background: #2b2eff;
+    color: white;
+    border: 2px solid #c7c7d1;
+    cursor: pointer;
+  }
+  
+  .paginationActive a {
+    color: white;
+    background-color: #2b2eff;
+    border: 2px solid #c7c7d1;
+  }

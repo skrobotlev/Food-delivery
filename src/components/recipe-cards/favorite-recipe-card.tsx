@@ -25,7 +25,7 @@ position: relative;
   h1 {
     // display: flex;
     position: absolute;
-    bottom: 45px;
+    top: 45px;
     left: 150px;
     font-size: 15px;
     font-weight: 600;
@@ -52,8 +52,8 @@ position: relative;
   justify-content: flex-end; */
   // flex-direction: row-reverse;
   position: absolute;
-  top: 40px;
-  right: 220px;
+  top: 10px;
+  left: 280px;
   }
 
 `;

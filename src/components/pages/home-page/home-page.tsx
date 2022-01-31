@@ -2,15 +2,16 @@ import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import RectangleButton, { BigRectangleButton, BigRectBut, RectBut } from "../../buttons/rectangle-button";
 import Layout from "../../../layout";
-import HomePageHeader from "./header-home-page";
-import HomePageSlider from "./slider-home-page";
+import HomePageHeader from "./header";
+import HomePageSlider from "./slider-home";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
-import FavoriteCategories from "./favorite-categories-h-p";
+import FavoriteCategories from "./favorite-categories";
 import { withRouter } from "react-router-dom";
-import { takeDataCat, testData } from "../../../api/categories";
+import { requestCategories, takeDataCat, testData } from "../../../api/categories";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../..";
+import PersistApp from "../search-page/mobx-persist/App";
 // const { takeDataCat } = require("")
 
 const HomePageContent = styled.div`
@@ -36,16 +37,29 @@ const FavoritesCardHeader = styled.h3`
 
 const HomePage = observer(() => {
   const { userStore } = useContext(Context);
-
+  const { categoriesStore } = useContext(Context);
+  const { persist } = useContext(Context);
   // console.log(testData());
-
+  // useEffect(() => {
+  //   // console.log(categoriesStore._salads);
+  //   // console.log(userStore._category);
+  //   const arr = [];
+  //   requestCategories("salads")
+  //     .then((items) => {
+  //       items.map((item) => {
+  //         return arr.push(JSON.parse(item));
+  //       })
+  //       return persist.setObject(arr);
+  //     })
+  //     .then(() => console.log(persist.exper));
+  // }, []);
 
   return (
     <HomePageContent>
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <HomePageSlider />
+      {/* <PersistApp /> */}
       <BigRectButtonDiv>
-        {" "}
         <BigRectangleButton title="Следите за своим прогрессом">
           <InsideRectBut key="1">
             Смотреть

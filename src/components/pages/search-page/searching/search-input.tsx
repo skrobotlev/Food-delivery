@@ -2,7 +2,7 @@ import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHan
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
-import { Context } from "../../";
+import { Context } from "../../../..";
 
 interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     clearAll?: boolean;
@@ -15,7 +15,7 @@ const SearchInputDiv = styled.div`
   width: 100%; */
   display: inline-block;
   position: relative;
-  margin-top: 90px;
+  /* margin-top: 90px; */
   width: 100%;
 `;
 
@@ -42,6 +42,7 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
 
     const clearInput = () => {
         setSearchValue("");
+        userStore._filter = "";
     };
 
     useEffect(() => {

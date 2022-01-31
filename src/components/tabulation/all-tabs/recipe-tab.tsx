@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import FavoriteRecipeCard from "../../recipe-cards/favorite-recipe-card";
-import FavorRecCardLike from "../../images/fav-re-cd-like";
-import FavorRecCardSalad from "../../images/fav-re-cd-salad";
+import FavorRecCardLike from "../../images/heart-like";
+import FavorRecCardSalad from "../../images/salad";
 import styled from "styled-components";
-import FavorRecCardChicken from "../../images/fav-re-cd-chicken";
+import FavorRecCardChicken from "../../images/chicken";
 import RectangleButton from "../../buttons/rectangle-button";
 import { takeDataCat } from "../../../api/categories";
 import { observer } from "mobx-react-lite";
