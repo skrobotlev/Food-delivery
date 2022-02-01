@@ -39,18 +39,6 @@ const SearchPageH1 = styled.h1`
   margin-top: 125px;
 `;
 
-const RecipeCardsDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  overflow-x: scroll;
-  width: 100%;
-  height: 100%;
-  div {
-    margin-left: 15px;
-  }
-`;
-
 export const RecipeResponse = styled.div`
   /* overflow-y: scroll; */
 `;
@@ -71,7 +59,9 @@ const SearchPage = observer(() => {
     userStore._filter = e.target.value;
   };
   return (
-    <SearchPageDiv>
+    <>
+      {/* <SearchPageDiv> */}
+      {/* {<SearchingTESTPAG /> ? <SearchingTESTPAG /> : <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} /> } */}
 
       <SearchPageH1>Поиск</SearchPageH1>
       <SearchingTESTPAG />
@@ -119,7 +109,8 @@ const SearchPage = observer(() => {
           );
         })}
       </RecipeFavoriteCardDiv> */}
-    </SearchPageDiv>
+      {/* </SearchPageDiv> */}
+    </>
   );
 });
 

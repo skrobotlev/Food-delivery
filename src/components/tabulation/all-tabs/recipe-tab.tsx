@@ -16,6 +16,7 @@ export const RecipeFavoriteCardDiv = styled.div`
   overflow-y: scroll;
   flex-direction: column;
   align-items: center;
+  height: 500px;
   /* margin-top: 100px; */
   /* overflow-x: scroll; */
   /* span {

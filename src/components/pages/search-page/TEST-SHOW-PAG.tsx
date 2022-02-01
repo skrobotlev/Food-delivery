@@ -13,105 +13,14 @@ import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import ReactPaginate from "react-paginate";
 import { observer } from "mobx-react-lite";
+import { takeDataCat } from "../../../api/categories";
+import styled from "styled-components";
 
-// const Shower = ({ current }) => {
-//     const { userStore } = useContext(Context);
-//     const { categoriesStore } = useContext(Context);
-//     const { search } = useLocation();
-//     const values = queryString.parse(search);
-//     const { path } = useRouteMatch();
-//     const { push } = useHistory();
-
-//     let showCateg;
-//     if (current === "salads") showCateg = categoriesStore._salads;
-//     if (current === "deserts") showCateg = categoriesStore._deserts;
-//     if (current === "first-dishes") showCateg = categoriesStore._firstDishes;
-//     if (current === "second-dishes") showCateg = categoriesStore._secondDishes;
-//     if (current === "beverages") showCateg = categoriesStore._beverages;
-//     if (current === "canning") showCateg = categoriesStore._canning;
-//     if (current === "sauces") showCateg = categoriesStore._sauces;
-//     const { length } = showCateg;
-//     let pageCount;
-
-//     // console.log(categorFunct(current));
-//     // const categResposne = categorFunct(current)
-//     useEffect(() => {
-//         // console.log(categoriesStore._categoryLength);
-//         categoriesStore.setCategoryLength(length);
-//         // console.log(categoriesStore._categoryLength);
-//         // console.log(length);
-//         pageCount = Math.ceil(categoriesStore._categoryLength / categoriesStore._perPage);
-//         console.log(categoriesStore._currentPage);
-//     }, [categoriesStore._categoryLength, categoriesStore._currentPage]);
-
-//     // useEffect(() => {
-//     //     pageCount = Math.ceil(categoriesStore._categoryLength / categoriesStore._perPage);
-//     // }, [])
-
-//     const pagesVisited = categoriesStore._currentPage * categoriesStore._perPage;
-
-//     const displayItems = showCateg.slice(pagesVisited, pagesVisited + categoriesStore._perPage).map((recip, idx) => {
-//         // console.log(recip);
-//         // console.log(idx);
-//         const { carbs, fat, proteins, img } = recip.bzhu;
-//         return (
-//             <RecipeResponse
-//                 onClick={() => {
-//                     push(MODAL_WINDOW);
-//                     userStore.setModalObject(recip);
-//                     // return console.log(userStore._modalObject);
-//                 }}
-//             >
-//                 <FavoriteRecipeCard key={idx} title={recip.header} calories={recip.calories + " Kcal"} likeIcon={<FavorRecCardLike />} image={recip.img} />
-//             </RecipeResponse>
-//         );
-//     });
-
-
-//     // console.log(pageCount);
-//     const changePage = (selected) => {
-//         categoriesStore.setCurrentPage(selected);
-//     };
-
-//     return (
-// <>
-//     <ReactPaginate
-//         pageCount={pageCount}
-//         onPageChange={changePage}
-//         previousLabel={"Previous"}
-//         nextLabel={"Next"}
-//         containerClassName={"paginationBtns"}
-//         previousLinkClassName={"previousBtns"}
-//         lastLinkClassName={"nextBtn"}
-//         disabledClassName={"paginationDisabled"}
-//         activeClassName={"paginationActive"}
-//     />
-//     {displayItems}
-//     {/* {showCateg.slice(pagesVisited, pagesVisited + categoriesStore._perPage).map((recip, idx) => {
-//         // console.log(recip);
-//         // console.log(idx);
-//         const { carbs, fat, proteins, img } = recip.bzhu;
-//         return (
-//             <RecipeResponse
-//                 onClick={() => {
-//                     push(MODAL_WINDOW);
-//                     userStore.setModalObject(recip);
-//                     // return console.log(userStore._modalObject);
-//                 }}
-//             >
-//                 <FavoriteRecipeCard
-//                     key={idx}
-//                     title={recip.header}
-//                     calories={recip.calories + " Kcal"}
-//                     likeIcon={<FavorRecCardLike />}
-//                     image={recip.img}
-//                 />
-//             </RecipeResponse>
-//         );
-//     })} */}
-// </>
-//     );
-// };
+const PaginationSpan = styled.span`
+  overflow-x: scroll;
+  width: auto;
+  height: auto;
+`;
 
 const SearchingTESTPAG = observer(() => {
     const { userStore } = useContext(Context);
@@ -120,9 +29,6 @@ const SearchingTESTPAG = observer(() => {
     const values = queryString.parse(search);
     const { path } = useRouteMatch();
 
-    const ShowData = ({ category }) => {
-        return <div>{<h1>{category}</h1>}</div>;
-    };
     const { push } = useHistory();
 
     function useQuery() {
@@ -134,8 +40,28 @@ const SearchingTESTPAG = observer(() => {
     useEffect(() => {
         console.log(query.get("category"));
     }, []);
-
     const currCategory = query.get("category");
+
+    useEffect(() => {
+        let arrr = [];
+        takeDataCat(currCategory).then((val) => {
+            // console.log("ahe");
+            val.map((item) => {
+                return arrr.push(JSON.parse(item));
+            });
+            // console.log(userStore._category);
+            // console.log(arrr)
+            //   return arrr;
+            if (currCategory === "salads") categoriesStore.setSalads(arrr);
+            if (currCategory === "deserts") categoriesStore.setDeserts(arrr);
+            if (currCategory === "first-dishes") categoriesStore.setFirstDishes(arrr);
+            if (currCategory === "second-dishes") categoriesStore.setSecondDishes(arrr);
+            if (currCategory === "beverages") categoriesStore.setBeverages(arrr);
+            if (currCategory === "canning") categoriesStore.setCanning(arrr);
+            if (currCategory === "sauces") categoriesStore.setSauces(arrr);
+        });
+    }, []);
+
     let showCateg;
     if (currCategory === "salads") showCateg = categoriesStore._salads;
     if (currCategory === "deserts") showCateg = categoriesStore._deserts;
@@ -146,24 +72,21 @@ const SearchingTESTPAG = observer(() => {
     if (currCategory === "sauces") showCateg = categoriesStore._sauces;
     const { length } = showCateg;
 
-    // console.log(categorFunct(current));
-    // const categResposne = categorFunct(current)
     useEffect(() => {
         // console.log(categoriesStore._categoryLength);
         categoriesStore.setCategoryLength(length);
-        // console.log(categoriesStore._categoryLength);
-        // console.log(length);
-
+        console.log(categoriesStore._categoryLength);
+        console.log(length);
 
         console.log(categoriesStore._currentPage);
-    }, [categoriesStore._categoryLength, categoriesStore._currentPage]);
+    }, [categoriesStore._categoryLength, length]);
 
     // useEffect(() => {
     //     pageCount = Math.ceil(categoriesStore._categoryLength / categoriesStore._perPage);
     // }, [])
 
     const pagesVisited = categoriesStore._currentPage * categoriesStore._perPage;
-    console.log(showCateg)
+    console.log(showCateg);
     const displayItems = showCateg.slice(pagesVisited, pagesVisited + categoriesStore._perPage).map((recip, idx) => {
         // console.log(recip);
         // console.log(idx);
@@ -186,7 +109,6 @@ const SearchingTESTPAG = observer(() => {
         categoriesStore.setCurrentPage(selected);
     };
 
-
     return (
         <SearchPageDiv>
             <SearchInput />
@@ -196,11 +118,10 @@ const SearchingTESTPAG = observer(() => {
                 {/* <ShowData category={query.get("category")} /> */}
 
                 {/* <Shower current={currCategory} /> */}
-
                 <ReactPaginate
                     pageCount={pageCount}
                     onPageChange={changePage}
-                    previousLabel={"Previous"}
+                    previousLabel={"Prev"}
                     nextLabel={"Next"}
                     containerClassName={"paginationBtns"}
                     previousLinkClassName={"previousBtns"}
@@ -209,6 +130,9 @@ const SearchingTESTPAG = observer(() => {
                     activeClassName={"paginationActive"}
                 />
                 {displayItems}
+                {/* <PaginationSpan> */}
+
+                {/* </PaginationSpan> */}
                 {/* {showCateg.slice(pagesVisited, pagesVisited + categoriesStore._perPage).map((recip, idx) => {
                 // console.log(recip);
                 // console.log(idx);
@@ -231,8 +155,6 @@ const SearchingTESTPAG = observer(() => {
                     </RecipeResponse>
                 );
             })} */}
-
-
             </RecipeFavoriteCardDiv>
         </SearchPageDiv>
     );
