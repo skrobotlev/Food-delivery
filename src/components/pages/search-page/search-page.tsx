@@ -18,7 +18,6 @@ import NoResCardImage from "../../images/no-results";
 import { Pagination } from "./pagination/pagination";
 import Searching from "./searching";
 import ReactPaginate from "react-paginate";
-import PaginationApp from "./pagination/react-paginate-basics/src/App";
 import SearchingTESTPAG from "./TEST-SHOW-PAG";
 import { PaginationCOPY } from "./pagination/PAGINATION-MOBX-COPY";
 
@@ -82,7 +81,6 @@ const SearchPage = observer(() => {
         />
       </RecipeCardsDiv> */}
 
-      {/* <PaginationApp /> */}
       {/* <RecipeFavoriteCardDiv>
         {userStore._category.length === 0 ? <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} /> : null}
         {userStore.valFilter().map((recip, idx) => {

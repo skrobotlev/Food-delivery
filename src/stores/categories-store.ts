@@ -16,7 +16,9 @@ export default class CategoriesStore {
   _categoryLength: number;
   _perPage: number;
   _currentPage: any;
+  _currentCategory: any;
   _modalObject: any;
+  _filter: string;
   constructor() {
     this._salads = [];
     this._deserts = [];
@@ -26,10 +28,24 @@ export default class CategoriesStore {
     this._canning = [];
     this._sauces = [];
     this._modalObject = {};
+
+    this._currentCategory = [];
+    this._filter = "";
     this._categoryLength = 0;
     this._perPage = 10;
     this._currentPage = 0;
     makeAutoObservable(this);
+  }
+
+  valFilter() {
+    let matchesFilter = new RegExp(this._filter, "i");
+    return this._currentCategory.filter((rec) => {
+      return matchesFilter.test(rec.header);
+    });
+  }
+
+  setCurrentCategory(items) {
+    this._currentCategory = items;
   }
 
   setSalads(items) {
@@ -100,6 +116,12 @@ export default class CategoriesStore {
   }
   get currentPage() {
     return this._currentPage;
+  }
+  get currentCategory() {
+    return this._currentCategory;
+  }
+  get filter() {
+    return this._filter;
   }
   get perPage() {
     return this._perPage;

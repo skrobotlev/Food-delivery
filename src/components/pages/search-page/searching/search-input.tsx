@@ -38,11 +38,12 @@ const LoupeSearchIcon = styled.i`
 export const SearchInput: React.FC<SearchInputProps> = (value) => {
     const [searchValue, setSearchValue] = useState("");
     const { userStore } = useContext(Context);
+    const { categoriesStore } = useContext(Context);
 
 
     const clearInput = () => {
         setSearchValue("");
-        userStore._filter = "";
+        categoriesStore._filter = "";
     };
 
     useEffect(() => {
@@ -53,7 +54,7 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
     //     if (value) setSearchValue(value);
     // }, [value]);
     const handleChange = (e) => {
-        userStore._filter = e.target.value;
+        categoriesStore._filter = e.target.value;
     };
     const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
         const searchWord = e.currentTarget.value;
@@ -63,7 +64,7 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
         <SearchInputDiv >
             <input className="text-field__input"
                 type="text" placeholder="Введите название"
-                value={userStore._filter} onChange={handleChange} />
+                value={categoriesStore._filter} onChange={handleChange} />
             <SearchCloseIcon>
                 <CancelIcon onClick={clearInput} />
             </SearchCloseIcon>

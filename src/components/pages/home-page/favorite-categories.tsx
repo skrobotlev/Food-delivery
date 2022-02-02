@@ -29,28 +29,30 @@ const FavoriteCategories = () => {
   const { categoriesStore } = useContext(Context);
   const { userStore } = useContext(Context);
   const { push } = useHistory();
+  // const linkToCategory = (category) => {
+  //   let arrr = [];
+  //   return takeDataCat(category).then((val) => {
+  //     // console.log("ahe");
+  //     val.map((item) => {
+  //       return arrr.push(JSON.parse(item));
+  //     });
+  //     // console.log(userStore._category);
+  //     // console.log(arrr)
+  //     //   return arrr;
+  //     if (category === "salads") categoriesStore.setSalads(arrr);
+  //     if (category === "deserts") categoriesStore.setDeserts(arrr);
+  //     if (category === "first-dishes") categoriesStore.setFirstDishes(arrr);
+  //     if (category === "second-dishes") categoriesStore.setSecondDishes(arrr);
+  //     if (category === "beverages") categoriesStore.setBeverages(arrr);
+  //     if (category === "canning") categoriesStore.setCanning(arrr);
+  //     if (category === "sauces") categoriesStore.setSauces(arrr);
+
+  //     // return categoriesStore.set + category + (arrr);
+  //   }).then(() => push(`/search?category=${category}`));
+  // };
   const linkToCategory = (category) => {
-    let arrr = [];
-    return takeDataCat(category).then((val) => {
-      // console.log("ahe");
-      val.map((item) => {
-        return arrr.push(JSON.parse(item));
-      });
-      // console.log(userStore._category);
-      // console.log(arrr)
-      //   return arrr;
-      if (category === "salads") categoriesStore.setSalads(arrr);
-      if (category === "deserts") categoriesStore.setDeserts(arrr);
-      if (category === "first-dishes") categoriesStore.setFirstDishes(arrr);
-      if (category === "second-dishes") categoriesStore.setSecondDishes(arrr);
-      if (category === "beverages") categoriesStore.setBeverages(arrr);
-      if (category === "canning") categoriesStore.setCanning(arrr);
-      if (category === "sauces") categoriesStore.setSauces(arrr);
-
-      // return categoriesStore.set + category + (arrr);
-    }).then(() => push(`/search?category=${category}`));
+    push(`/search?category=${category}`);
   };
-
   return (
     <FavoriteCategoriesDiv>
       <ButtonDiv>
@@ -63,7 +65,13 @@ const FavoriteCategories = () => {
         <SquareButton size="lg" backgroundColor="manyfats" title="Первые блюда" onClick={() => linkToCategory("first-dishes")} icon={<SnackSvg />} />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Вторые блюда" onClick={() => linkToCategory("second-dishes")} icon={<FavorRecCardChicken />} />
+        <SquareButton
+          size="lg"
+          backgroundColor="manyfats"
+          title="Вторые блюда"
+          onClick={() => linkToCategory("second-dishes")}
+          icon={<FavorRecCardChicken />}
+        />
       </ButtonDiv>
       <ButtonDiv>
         <SquareButton size="lg" backgroundColor="manyfats" title="Напитки" onClick={() => linkToCategory("beverages")} icon={<SnackSvg />} />

@@ -12,7 +12,6 @@ import { requestCategories, takeDataCat, testData } from "../../../api/categorie
 import { observer } from "mobx-react-lite";
 import { Context } from "../../..";
 import PersistApp from "../search-page/mobx-persist/App";
-// const { takeDataCat } = require("")
 
 const HomePageContent = styled.div`
   display: flex;
@@ -39,20 +38,6 @@ const HomePage = observer(() => {
   const { userStore } = useContext(Context);
   const { categoriesStore } = useContext(Context);
   const { persist } = useContext(Context);
-  // console.log(testData());
-  // useEffect(() => {
-  //   // console.log(categoriesStore._salads);
-  //   // console.log(userStore._category);
-  //   const arr = [];
-  //   requestCategories("salads")
-  //     .then((items) => {
-  //       items.map((item) => {
-  //         return arr.push(JSON.parse(item));
-  //       })
-  //       return persist.setObject(arr);
-  //     })
-  //     .then(() => console.log(persist.exper));
-  // }, []);
 
   return (
     <HomePageContent>
