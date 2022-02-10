@@ -68,10 +68,10 @@ function writeFullUserData({ email, uid, name, lastName }: any) {
 export const createFullUser = async ({ email, password, name, lastName }: RegisterForm) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // console.log(userCredential);
+      console.log(userCredential);
       const user = userCredential.user;
       const json = user.toJSON();
-      // console.log(json);
+      console.log(json);
       return writeFullUserData({ ...user, email, name, lastName }).then(() => user);
     })
     .catch((error) => {

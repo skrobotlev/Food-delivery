@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { string } from "yup/lib/locale";
 
 // interface UserStoreProps {
 //   _isAuth: boolean;
@@ -18,7 +19,11 @@ export default class CategoriesStore {
   _currentPage: any;
   _currentCategory: any;
   _modalObject: any;
+  _openModal: boolean;
   _filter: string;
+  _keyCATEGORY: any;
+  _nameCurrentCategory: string;
+
   constructor() {
     this._salads = [];
     this._deserts = [];
@@ -28,7 +33,10 @@ export default class CategoriesStore {
     this._canning = [];
     this._sauces = [];
     this._modalObject = {};
+    this._openModal = false;
 
+    this._keyCATEGORY = [];
+    this._nameCurrentCategory = "";
     this._currentCategory = [];
     this._filter = "";
     this._categoryLength = 0;
@@ -37,13 +45,23 @@ export default class CategoriesStore {
     makeAutoObservable(this);
   }
 
+  setNameCurrentCategory(name) {
+    this._nameCurrentCategory = name;
+  }
+
+  setOpenModal(bool) {
+    this._openModal = bool;
+  }
+
   valFilter() {
     let matchesFilter = new RegExp(this._filter, "i");
     return this._currentCategory.filter((rec) => {
       return matchesFilter.test(rec.header);
     });
   }
-
+  setKeyCATEGORY(items) {
+    this._keyCATEGORY = items;
+  }
   setCurrentCategory(items) {
     this._currentCategory = items;
   }
@@ -87,6 +105,16 @@ export default class CategoriesStore {
     this._perPage = num;
   }
 
+  get nameCurrentCategory() {
+    return this._nameCurrentCategory;
+  }
+  get openModal() {
+    return this._openModal;
+  }
+
+  get keyCATEGORY() {
+    return this._keyCATEGORY;
+  }
   get salads() {
     return this._salads;
   }

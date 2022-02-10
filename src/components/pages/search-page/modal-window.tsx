@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
-import { useHistory } from "react-router-dom";
-import { SEARCH_ROUTE } from "../../../components/routing/consts";
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { HOME_ROUTE, SEARCH_ROUTE } from "../../../components/routing/consts";
 import { toJS } from "mobx";
 import { Global } from "@emotion/react";
 import { styled as styledMUI } from "@mui/material/styles";
@@ -17,6 +17,9 @@ import { Context } from "../../../";
 import { RecipeResponse } from "./search-page";
 import FavoriteRecipeCard from "../../../components/recipe-cards/favorite-recipe-card";
 import { RectBut } from "../../../components/buttons/rectangle-button";
+import { auth } from "../../../firebase";
+import { pushNewRecipe, writeNewRecipe } from "../../../api/favorite-recipes";
+// import { writeFavoriteData } from "../../../api/auth";
 
 const ModalWindowDiv = styled.div`
   display: flex;
@@ -102,9 +105,9 @@ const drawerBleeding = 56;
 
 interface Props {
     /**
-         * Injected by the documentation to work in an iframe.
-         * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
-           СПРОСИТЬ */
+             * Injected by the documentation to work in an iframe.
+             * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
+               СПРОСИТЬ */
     window?: () => Window;
 }
 
@@ -115,9 +118,9 @@ const Root = styledMUI("div")(({ theme }) => ({
     // border-top-right-radius: 20px,
 }));
 
-const StyledBox = styledMUI(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
-}));
+// const StyledBox = styledMUI(Box)(({ theme }) => ({
+//     backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
+// }));
 
 const Puller = styledMUI(Box)(({ theme }) => ({
     width: 30,
@@ -137,31 +140,35 @@ const ModalWindow = (props: Props) => {
     const { window } = props;
     const [open, setOpen] = React.useState(false);
     const { userStore } = useContext(Context);
+    const { categoriesStore } = useContext(Context);
     const { push } = useHistory();
     const history = useHistory();
-
-    // const CreateModalObject = () => {
-    //     setOpen(true);
-    // };
+    const { search } = useLocation();
+    const { path } = useRouteMatch();
 
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
         // !open ?
     };
     useEffect(() => {
-        history.location.pathname === "/modal-window" ? setOpen(true) : null;
-        console.log(history.location);
+        history.location.pathname === `/modal-window` ? setOpen(true) : null;
+        // console.log(history.location.pathname + "MODALLLLWIND");
     }, [history.location.pathname]);
     // This is used only for the example
-    const container = window !== undefined ? () => window().document.body : undefined;
+    // const container = window !== undefined ? () => window().document.body : undefined;
 
-    const { bzhu, calories, header, img, timeToCook, desc } = userStore._modalObject;
+    // useEffect(() => {
+    //     if (categoriesStore._modalObject == undefined) push(HOME_ROUTE);
+    //     console.log(categoriesStore._modalObject);
+    //     // !categoriesStore._modalObject ? push(HOME_ROUTE) : null;
+    // }, []);
+
+    const { bzhu, calories, header, img, timeToCook, desc, rkey } = categoriesStore._modalObject;
     const iBzhu = toJS(bzhu);
     const { proteins, carbs, fat } = iBzhu;
-    const recipVals = [proteins, calories, fat, carbs];
+    // const recipVals = [proteins, calories, fat, carbs];
 
-    console.log(iBzhu);
-    const recipCategs = ["proteins", "calories", "fat", "carbs"];
+    // const recipCategs = ["proteins", "calories", "fat", "carbs"];
     const valuesROOT = [
         {
             categ: "Proteins",
@@ -180,8 +187,12 @@ const ModalWindow = (props: Props) => {
             recVal: carbs,
         },
     ];
+    const { uid } = auth.currentUser;
+    // console.log(uid);
+    // console.log(rkey);
     return (
-        <Root>
+        // <Root>
+        <div>
             {/* <CssBaseline /> */}
             <Global
                 styles={{
@@ -198,12 +209,12 @@ const ModalWindow = (props: Props) => {
                 <Button onClick={toggleDrawer(true)}>Open</Button>
             </Box>
             <SwipeableDrawer
-                container={container}
+                // container={container}
                 anchor="bottom"
                 open={open}
                 onClose={() => {
                     toggleDrawer(false);
-                    push(SEARCH_ROUTE);
+                    // push(SEARCH_ROUTE);
                 }}
                 onOpen={toggleDrawer(true)}
                 swipeAreaWidth={drawerBleeding}
@@ -213,12 +224,14 @@ const ModalWindow = (props: Props) => {
                 }}
             >
                 <Puller />
-                <CloseIconI onClick={() => push(SEARCH_ROUTE)}>
+                <CloseIconI onClick={() => history.goBack()}>
+                    {/* <CloseIconI onClick={() => push("/search?category=salads")}> */}
                     <CloseIcon fontSize="large" />
                 </CloseIconI>
                 <ImageDiv>
                     <img src={img} />
                 </ImageDiv>
+                <h3>{header}</h3>
                 <RecipeValues>
                     {valuesROOT.map(({ categ, recVal }) => {
                         return (
@@ -235,11 +248,14 @@ const ModalWindow = (props: Props) => {
                     <p>{desc}</p>
                     {/* </DescDiv> */}
                     {/* <RemAddButton> */}
-                    <RectBut size="md">Добавить в избранное</RectBut>
-                    {/* </RemAddButton> */}
+                    <RectBut size="md" onClick={() => pushNewRecipe(uid, rkey)}>
+                        Добавить в избранное
+                    </RectBut>
+                    {/* </RemAddButton>  */}
                 </ButtonAndDescDiv>
             </SwipeableDrawer>
-        </Root>
+        </div>
+        // </Root>
     );
 };
 

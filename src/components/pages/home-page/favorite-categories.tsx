@@ -8,6 +8,7 @@ import VegetableSvg from "../../buttons/icons/vegetable";
 import SquareButton, { SquareBut } from "../../buttons/square-button";
 import { Context } from "../../..";
 import FavorRecCardChicken from "../../images/chicken";
+import { SoupIcon } from "../../../components/images/soup";
 
 const FavoriteCategoriesDiv = styled.div`
   display: flex;
@@ -29,27 +30,7 @@ const FavoriteCategories = () => {
   const { categoriesStore } = useContext(Context);
   const { userStore } = useContext(Context);
   const { push } = useHistory();
-  // const linkToCategory = (category) => {
-  //   let arrr = [];
-  //   return takeDataCat(category).then((val) => {
-  //     // console.log("ahe");
-  //     val.map((item) => {
-  //       return arrr.push(JSON.parse(item));
-  //     });
-  //     // console.log(userStore._category);
-  //     // console.log(arrr)
-  //     //   return arrr;
-  //     if (category === "salads") categoriesStore.setSalads(arrr);
-  //     if (category === "deserts") categoriesStore.setDeserts(arrr);
-  //     if (category === "first-dishes") categoriesStore.setFirstDishes(arrr);
-  //     if (category === "second-dishes") categoriesStore.setSecondDishes(arrr);
-  //     if (category === "beverages") categoriesStore.setBeverages(arrr);
-  //     if (category === "canning") categoriesStore.setCanning(arrr);
-  //     if (category === "sauces") categoriesStore.setSauces(arrr);
 
-  //     // return categoriesStore.set + category + (arrr);
-  //   }).then(() => push(`/search?category=${category}`));
-  // };
   const linkToCategory = (category) => {
     push(`/search?category=${category}`);
   };
@@ -62,7 +43,7 @@ const FavoriteCategories = () => {
         <SquareButton size="lg" backgroundColor="vegan" title="Салаты" onClick={() => linkToCategory("salads")} icon={<VegetableSvg />} />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Первые блюда" onClick={() => linkToCategory("first-dishes")} icon={<SnackSvg />} />
+        <SquareButton size="lg" backgroundColor="manyfats" title="Первые блюда" onClick={() => linkToCategory("first-dishes")} icon={<SoupIcon />} />
       </ButtonDiv>
       <ButtonDiv>
         <SquareButton

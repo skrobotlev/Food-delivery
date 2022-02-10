@@ -1,5 +1,5 @@
 import { action, makeAutoObservable, observable } from "mobx";
-import { persist } from "mobx-persist";
+import { create, persist } from "mobx-persist";
 
 // interface UserStoreProps {
 //   _isAuth: boolean;
@@ -11,10 +11,15 @@ export class PersistStore {
   @persist @observable categoryLength = 0;
   @persist @observable currentPage = 1;
   @persist @observable perPage = 3;
+  @persist @observable nameCateg = "";
   constructor() {
     makeAutoObservable(this);
   }
 
+  @action
+  setNameCateg(name) {
+    this.nameCateg = name;
+  }
   @action
   setObject(obj) {
     this.category = obj;
@@ -24,11 +29,15 @@ export class PersistStore {
     this.currentPage = page;
   }
 }
-
+// const hydrate = create(); // use default options
+// const persistStore = new PersistStore();
+// hydrate("cart", persistStore);
 export default class UserStore {
   _isAuth: boolean;
   _user: any;
   _favoriteRecipes: any;
+  _dbSearching: any;
+  _dbResponse: any;
 
   _category: any;
   _filter: string;
@@ -43,6 +52,8 @@ export default class UserStore {
     this._isAuth = false;
     this._user = {};
     this._favoriteRecipes = [];
+    this._dbSearching = [];
+    this._dbResponse = [];
 
     this._salads = [];
     this._category = [];
@@ -55,12 +66,20 @@ export default class UserStore {
     makeAutoObservable(this);
   }
 
-  setSalads(items) {
-    this._salads = items;
+  setDbResponse(res) {
+    this._dbResponse = res;
   }
 
-  get salads() {
-    return this._salads;
+  setDbSearching(res) {
+    this._dbSearching = res;
+  }
+
+  setFavoriteRecipes(recip) {
+    this._favoriteRecipes = recip;
+  }
+
+  setSalads(items) {
+    this._salads = items;
   }
 
   setIsAuth(bool) {
@@ -99,12 +118,27 @@ export default class UserStore {
     // this.valFilter()
   }
 
+  getDbSearching() {
+    return this._dbSearching;
+  }
+  get salads() {
+    return this._salads;
+  }
+
   get isAuth() {
     return this._isAuth;
   }
 
   get user() {
     return this._user;
+  }
+
+  get dbResponse() {
+    return this._dbResponse;
+  }
+
+  get favoriteRecipes() {
+    return this._favoriteRecipes;
   }
 
   get category() {

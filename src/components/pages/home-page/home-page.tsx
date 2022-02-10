@@ -43,7 +43,6 @@ const HomePage = observer(() => {
     <HomePageContent>
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <HomePageSlider />
-      {/* <PersistApp /> */}
       <BigRectButtonDiv>
         <BigRectangleButton title="Следите за своим прогрессом">
           <InsideRectBut key="1">

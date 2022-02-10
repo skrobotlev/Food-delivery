@@ -1,7 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { observer } from "mobx-react-lite";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
 import { BrowserRouter, Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Context } from "../..";
 import { auth } from "../../firebase";
@@ -11,7 +10,6 @@ import { FAVORITES_ROUTE, HOME_ROUTE, LOADER_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE 
 import { authRoutes, notAuthRoutes } from "./routes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loader from "../pages/loader";
-import { ChakraProvider } from "@chakra-ui/react";
 
 
 const AppRouter = observer(() => {

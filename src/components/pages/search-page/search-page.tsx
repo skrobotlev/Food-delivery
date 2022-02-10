@@ -4,7 +4,7 @@ import FavorRecCardSalad from "../../images/salad";
 import FavoriteRecipeCard from "../../../components/recipe-cards/favorite-recipe-card";
 import { RecipeFavoriteCardDiv, RectangleButtonSpan } from "../../../components/tabulation/all-tabs/recipe-tab";
 import React, { useContext, useEffect } from "react";
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory, useLocation, useRouteMatch, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import RectangleButton from "../../buttons/rectangle-button";
 import RecipeCard from "../../recipe-cards/recipe-card";
@@ -20,6 +20,7 @@ import Searching from "./searching";
 import ReactPaginate from "react-paginate";
 import SearchingTESTPAG from "./TEST-SHOW-PAG";
 import { PaginationCOPY } from "./pagination/PAGINATION-MOBX-COPY";
+import ModalWindow from "./modal-window";
 
 export const SearchPageDiv = styled.div`
   display: flex;
@@ -46,17 +47,25 @@ const SearchInputDiv = styled.div``;
 
 const SearchPage = observer(() => {
   const { userStore } = useContext(Context);
+  const history = useHistory();
+  const { categoriesStore } = useContext(Context);
+
   const { push } = useHistory();
   const { length } = userStore._category;
-
+  const { search } = useLocation();
+  const { path } = useRouteMatch();
   // useEffect(() => {
-  //   // console.log(userStore._category);  
+  //   // console.log(userStore._category);
   //   userStore.setCategoryLength(length);
   // }, [userStore._category, userStore._category.length,]);
-
+  // useEffect(() => {
+  //   console.log(search);
+  //   console.log(path);
+  // }, [search, path]);
   const handleChange = (e) => {
     userStore._filter = e.target.value;
   };
+  // console.log(path, "======", search);
   return (
     <>
       {/* <SearchPageDiv> */}
@@ -64,6 +73,11 @@ const SearchPage = observer(() => {
 
       <SearchPageH1>Поиск</SearchPageH1>
       <SearchingTESTPAG />
+      {/* {categoriesStore._currentCategory !== [] ? < ModalWindow /> : null} */}
+
+      {/* {history.location.pathname === `${path}${search}&modal=show`
+        ? (< ModalWindow />) : null} */}
+      {/* < ModalWindow /> */}
       {/* <Searching /> */}
       {/* <PaginationCOPY /> */}
       {/* <Pagination /> */}

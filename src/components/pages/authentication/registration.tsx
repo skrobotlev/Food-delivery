@@ -102,7 +102,6 @@ interface IRegisterForm {
 }
 
 const RegistrationPage = observer(() => {
-  // const dispatch = useDispatch();
   const { userStore } = useContext(Context);
   const { push } = useHistory();
   const [email, setEmail] = useState("");
@@ -127,6 +126,7 @@ const RegistrationPage = observer(() => {
   useEffect(() => {
     console.log(userStore._user);
   }, [userStore._user]);
+
 
   const handleRegister = () => {
     createFullUser(form).then((usr) => {
@@ -159,6 +159,7 @@ const RegistrationPage = observer(() => {
   // .test("password-match", "Password musth match", function (value) {
   //     return this.parent.password === value;
   // }),
+  // debugger;
   const visEyeIconShow = <VisibilityIcon fontSize="medium" onClick={() => setShowPass(showPass ? false : true)} />;
   const visEyeIconHide = <VisibilityOffIcon fontSize="medium" onClick={() => setShowPass(!showPass ? true : false)} />;
   const visEyeIconShow2 = <VisibilityIcon fontSize="medium" onClick={() => setShowRepPass(showRepPass ? false : true)} />;
@@ -175,16 +176,17 @@ const RegistrationPage = observer(() => {
         }}
         onSubmit={(values: IRegisterForm, actions) => {
           // createNewUser(values, actions.resetForm);
-          setTimeout(() => {
-            actions.setSubmitting(false);
-          }, 500);
+          // console.log("SIMBIT")
+          // setTimeout(() => {
+          //   actions.setSubmitting(false);
+          // }, 5000);
         }}
         validationSchema={RegisterPageValidSchema}
       >
         {(props: FormikProps<IRegisterForm>) => {
           const { values, touched, errors, handleBlur, handleChange, isSubmitting } = props;
           return (
-            <Form className="formik-form">
+            <Form onSubmit={(e) => e.preventDefault()} className="formik-form">
               <RegisterFormDiv>
                 <h1> ChelFood</h1>
                 <h2>Введите логин и пароль</h2>
@@ -263,7 +265,7 @@ const RegistrationPage = observer(() => {
                     placeholder="Name"
                     name="name"
                     onChange={(e) => {
-                      setRepeatPassword(e.target.value);
+                      setName(e.target.value);
                       handleChange(e);
                     }}
                     value={values.name}
@@ -286,7 +288,8 @@ const RegistrationPage = observer(() => {
                     placeholder="Last name"
                     name="lastName"
                     onChange={(e) => {
-                      setLastName(e.target.value), handleChange(e);
+                      setLastName(e.target.value);
+                      handleChange(e);
                     }}
                     value={values.lastName}
                   />
@@ -301,9 +304,7 @@ const RegistrationPage = observer(() => {
                     />
                   </ErrorMessageDiv>
 
-                  <RectBut size="md" title="Register" onClick={() => handleRegister()}>
-                    Registration
-                  </RectBut>
+
                   <h3>
                     или{" "}
                     <Link to="/login" className="router-link">
@@ -317,7 +318,9 @@ const RegistrationPage = observer(() => {
           );
         }}
       </Formik>
-
+      <RectBut size="md" title="Register" onClick={() => handleRegister()}>
+        Registration
+      </RectBut>
       {/* ========================================================================================= */}
       {/* <h1>ChelFood</h1>
       <h2>Заполните форму</h2>

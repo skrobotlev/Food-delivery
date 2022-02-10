@@ -1,5 +1,6 @@
 import React, { ReactElement, DetailedHTMLProps, HTMLAttributes } from "react";
 import styled from "styled-components";
+import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
@@ -9,10 +10,11 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   likeIcon?: ReactElement;
   bzhu?: any;
   image?: string;
+  timeToCook?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
-position: relative;
+  position: relative;
   width: 313px;
   height: 120px;
   border-radius: 2rem;
@@ -36,7 +38,16 @@ position: relative;
     bottom: 80px;
     left: 150px;
     font-size: 12px;
-    color:#6CB663;
+    color: #6cb663;
+    font-weight: 600;
+  }
+  h3 {
+    // display: flex;
+    position: absolute;
+    bottom: -5px;
+    left: 150px;
+    font-size: 15px;
+    /* color:#6CB663; */
     font-weight: 600;
   }
   p {
@@ -47,24 +58,20 @@ position: relative;
     color: #646464;
     font-weight: 550;
   }
-  svg {
-    /* display: flex;
+  /* svg {
+  position: absolute;
+  top: 10px;
+  left: 280px;
+  } */
+`;
+const LikeIcon = styled.i`
+  /* display: flex;
   justify-content: flex-end; */
   // flex-direction: row-reverse;
   position: absolute;
   top: 10px;
   left: 280px;
-  }
-
 `;
-// const LikeIcon = styled.i`
-//   display: flex;
-//   justify-content: flex-end;
-//   // flex-direction: row-reverse;
-//   position: relative;
-//   top: 10px;
-//   right: 20px;
-// `;
 
 // const ImageCard = styled.div`
 //   display: flex;
@@ -73,13 +80,13 @@ position: relative;
 //   left: 30px;
 //   img{
 //     width: 60px;
-//   height: 90px;    
+//   height: 90px;
 //   }
 
 // `;
 
 const ImageCard = styled.div`
- display: flex;
+  display: flex;
   justify-content: center;
   position: relative;
   width: 120px;
@@ -89,22 +96,25 @@ const ImageCard = styled.div`
   margin-left: 15px;
   img {
     width: 120px;
-  height: 90px;
+    height: 90px;
     border-radius: 100px;
   }
-
 `;
 
-
-const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon,
-  image, icon, category, bzhu }) => {
+const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, image, icon, category, bzhu, timeToCook }) => {
   return (
     <RecipeElement>
-      {likeIcon}
+      <LikeIcon> {likeIcon}</LikeIcon>
       <h1>{title}</h1>
-      <ImageCard><img src={image} /></ImageCard>
+      <ImageCard>
+        <img src={image} />
+      </ImageCard>
       <h2>{calories}</h2>
       <p>{bzhu}</p>
+      <h3>
+        <AccessAlarmsIcon fontSize="small" />
+        {timeToCook}
+      </h3>
     </RecipeElement>
   );
 };
