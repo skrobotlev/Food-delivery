@@ -85,7 +85,9 @@ class HomePageSlider extends React.Component {
             <div className="home-page-slider">
                 <Slider {...settings}>
                     <SliderCard header="A R T I C L E" image={<FirstSlide />} desc="Плюсы и минусы фаст фуда">
-                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />} />
+                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />}
+                        // onClick={() => <a href="https://www.sport-express.ru/zozh/news/fast-fud-vred-ili-polza-dlya-cheloveka-plyusy-i-minusy-chto-eto-mozhno-li-pitatsya-1747780/" />}
+                        />
                     </SliderCard>
 
                     <SliderCard header="Разнообразные рецепты   " desc="Ищите тысячи рецептов здоровых блюд."

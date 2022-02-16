@@ -6,104 +6,80 @@ import { observer } from "mobx-react-lite";
 import styled from "styled-components";
 import { auth } from "../../firebase";
 import { Context } from "../../";
-import { searchingOnDb, getFavoriteRecipes } from "../../api/favorite-recipes";
+import { searchingOnDb, getFavoriteRecipes, updateRecipes, currentSnapRecipes, writeNewRecipe } from "../../api/favorite-recipes";
 import { RecipeResponse } from "../pages/search-page/search-page";
 import FavoriteRecipeCard from "../recipe-cards/favorite-recipe-card";
 import FavorRecCardLike from "../images/heart-like";
 import { RecipeFavoriteCardDiv } from "./all-tabs/recipe-tab";
 import { MODAL_WINDOW } from "../routing/consts";
 
-const PaginationSpan = styled.span`
-  overflow-x: scroll;
-  width: auto;
-  height: auto;
-`;
-
 const FavoriteRecipeList = observer(() => {
     const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
     const { push } = useHistory();
     const { uid } = auth.currentUser;
-    // const categories = ["TEST", "beverages", "canning", "deserts", "first-dishes", "salads", "sauces", "second-dishes"];
     let keysRec = [];
     let recRec = [];
-    useEffect(() => {
-        getFavoriteRecipes(uid)
-            .then((res) => {
-                console.log(res, "resKEYS");
-                keysRec.push(res);
-                // console.log(keysRec, "KEYSrec");
-                userStore.setFavoriteRecipes(res);
-            })
-            .then(() => {
-                // console.log(userStore._favoriteRecipes);
-                // keysRec = userStore._favoriteRecipes;
-                console.log(keysRec, "-flat");
-                console.log(keysRec.flat(), "flat");
-                searchingOnDb(keysRec.flat())
-                    .then((res) => {
-                        res.forEach((element) => {
-                            console.log(element, "elem");
-                        });
-                        console.log(res, "res");
-                        userStore.setDbResponse(res);
-                        console.log(userStore._dbResponse);
+    // useEffect(() => {
+    //     getFavoriteRecipes(uid)
+    //         .then((res) => {
+    //             console.log(res, "resKEYS");
+    //             keysRec.push(res);
+    //             // console.log(keysRec, "KEYSrec");
+    //             userStore.setFavoriteRecipes(res);
+    //         })
+    //         .then(() => {
+    //             // console.log(userStore._favoriteRecipes);
+    //             // keysRec = userStore._favoriteRecipes;
+    //             searchingOnDb(keysRec.flat())
+    //                 .then((res) => {
+    //                     // res.forEach((element) => {
+    //                     //     console.log(element, "elem");
+    //                     // });
+    //                     // writeNewRecipe(uid, res);
+    //                     console.log(res, "res");
+    //                     userStore.setDbResponse(res);
+    //                     console.log(userStore._dbResponse);
 
-                        return res;
-                        // res.forEach((itm) => console.log(itm, 'ITM'))
-                    })
-                    .then((finRes) => {
-                        // console.log(finRes.length);
-                        // finRes
-                        console.log(userStore._dbResponse);
-                        // const { img, header } = finRes[0];
-                        // const values = Object.values(finRes[0]);
-                        // const keys = Object.keys(finRes[0]);
-                        // console.log(img, header, "finRES")
-                    });
+    //                     return res;
+    //                     // res.forEach((itm) => console.log(itm, 'ITM'))
+    //                 });
+    //         });
+    // }, []);
 
-                // userStore.setDbSearching(EXPEr(keysRec));
-                // console.log(userStore._dbSearching)
-                // experRes = EXPEr(keysRec);
-                // console.log(experRes, "EXPERRES");
-                // experRes.map((res) => console.log(res, "resEXPres"))
-            });
-        // keysRec = userStore._favoriteRecipes;
-        // console.log(keysRec, "-flat");
-        // console.log(keysRec.map(itms => console.log(itms)), "flat");
-        // EXPEr(keysRec.flat()).then((res) => {
-        //     console.log(res);
-        //     // res.forEach((itm) => console.log(itm, 'ITM'))
-        // });
-    }, []);
+    // useEffect(() => {
+    //     console.log(currentSnapRecipes(uid).then((rec) => console.log(rec)));
+    // }, []);
     // console.log(keysRec);
-    const showFavorites = userStore._dbResponse.map((resp, idx) => {
+
+    const recipeClickFunc = (resp) => {
+        categoriesStore.setModalObject({
+            recipe: resp.recipe,
+            id: resp.id,
+            recipeId: resp.recipeId,
+        });
+        console.log(categoriesStore.modalObject, "favModOb");
+        push(`${MODAL_WINDOW}`);
+        //     // addQuery("modal", idx);
+    };
+
+    const showFavorites = userStore.dbResponse.map((resp, idx) => {
         // console.log(resp, "RESPONSE jsx");
         return (
-            <RecipeResponse
-                onClick={() => {
-                    categoriesStore.setModalObject(resp);
-                    push(`${MODAL_WINDOW}`);
-                    // addQuery("modal", idx);
-                    return console.log(categoriesStore._modalObject);
-                }}
-            >
+            <RecipeResponse onClick={() => recipeClickFunc(resp)}>
                 <FavoriteRecipeCard
-                    timeToCook={resp.timeToCook}
+                    timeToCook={resp.recipe.timeToCook}
                     key={idx}
-                    title={resp.header}
-                    calories={resp.calories + " Kcal"}
+                    title={resp.recipe.header}
+                    calories={resp.recipe.calories + " Kcal"}
                     likeIcon={<FavorRecCardLike />}
-                    image={resp.img}
+                    recipeId={resp.recipeId}
+                    image={resp.recipe.img}
                 />
             </RecipeResponse>
         );
     });
-    return (
-        <RecipeFavoriteCardDiv>
-            {showFavorites}
-        </RecipeFavoriteCardDiv>
-    );
+    return <RecipeFavoriteCardDiv>{showFavorites}</RecipeFavoriteCardDiv>;
 
     // useEffect(() => {
     //     testData(currCategory).then((fullCateg) => {

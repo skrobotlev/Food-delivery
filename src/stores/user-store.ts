@@ -38,6 +38,7 @@ export default class UserStore {
   _favoriteRecipes: any;
   _dbSearching: any;
   _dbResponse: any;
+  _currentTab: number;
 
   _category: any;
   _filter: string;
@@ -46,16 +47,17 @@ export default class UserStore {
   _currentItems: any;
   _currentPage: any;
   _perPage: any;
-  _salads: any;
 
   constructor() {
     this._isAuth = false;
     this._user = {};
     this._favoriteRecipes = [];
+
+    this._currentTab = 0;
+
     this._dbSearching = [];
     this._dbResponse = [];
 
-    this._salads = [];
     this._category = [];
     this._categoryLength = 0;
     this._currentPage = 1;
@@ -65,6 +67,53 @@ export default class UserStore {
     this._modalObject = {};
     makeAutoObservable(this);
   }
+
+  setCurrentTab(tab) {
+    this._currentTab = tab;
+  }
+
+  deleteRecipe(header) {
+    const recipeIndexAtId = this.dbResponse.findIndex((rec) => {
+      return rec.recipe.header === header;
+    });
+    if (recipeIndexAtId > -1) {
+      this.dbResponse.splice(recipeIndexAtId, 1);
+    }
+  }
+
+  addRecipe(recId, recipe) {
+    const recipeIndexRecId = this.dbResponse.findIndex((rec) => {
+      return rec.recipeId === recId;
+    });
+    if (recipeIndexRecId === -1) {
+      this.dbResponse.push(recipe);
+    }
+  }
+  // deleteRecipe(recId) {
+  //   const recipeIndexAtId = this.dbResponse.findIndex((rec) => {
+  //     console.log(rec, "rID");
+  //     console.log(rec.id, "rID", recId, "pID");
+  //     return rec.id === recId;
+  //   });
+  //   console.log(recipeIndexAtId, "recipeIndexAtId");
+  //   if (recipeIndexAtId > -1) {
+  //     this.dbResponse.splice(recipeIndexAtId, 1);
+  //   }
+  // }
+
+  // addRecipe(recId, recipe) {
+  //   // this.dbResponse.push(recipe);
+  //   const recipeIndexRecId = this.dbResponse.findIndex((rec) => {
+  //     console.log(rec, "rID");
+  //     console.log(rec.recipeId, "rID", recId, "pID");
+  //     return rec.recipeId === recId;
+  //   });
+  //   console.log(recipeIndexRecId, "recipeIndexAtId");
+  //   if (recipeIndexRecId === -1) {
+  //     this.dbResponse.push(recipe);
+  //     // this.dbResponse.splice(recipeIndexAtId, 1);
+  //   }
+  // }
 
   setDbResponse(res) {
     this._dbResponse = res;
@@ -76,10 +125,6 @@ export default class UserStore {
 
   setFavoriteRecipes(recip) {
     this._favoriteRecipes = recip;
-  }
-
-  setSalads(items) {
-    this._salads = items;
   }
 
   setIsAuth(bool) {
@@ -121,9 +166,6 @@ export default class UserStore {
   getDbSearching() {
     return this._dbSearching;
   }
-  get salads() {
-    return this._salads;
-  }
 
   get isAuth() {
     return this._isAuth;
@@ -133,12 +175,20 @@ export default class UserStore {
     return this._user;
   }
 
+  get currentTab() {
+    return this._currentTab;
+  }
+
   get dbResponse() {
     return this._dbResponse;
   }
 
   get favoriteRecipes() {
     return this._favoriteRecipes;
+  }
+
+  get favoriteRecipesKeys() {
+    return this._favoriteRecipes.map((recipe) => recipe.id);
   }
 
   get category() {

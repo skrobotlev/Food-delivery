@@ -43,6 +43,9 @@ export const SquareBut = styled.button<SquareButtonProps>`
       return "#EFF7EE";
     } else if (backgroundColor === "fruits") return "#FFF2F0";
     else if (backgroundColor === "manyfats") return "#FFF8EB";
+    else if (backgroundColor === "beverages") return "#dcf1fd";
+    else if (backgroundColor === "deserts") return "#eed1ba";
+    else if (backgroundColor === "sauces") return "#fc9887";
   }};
   border-color: ${({ backgroundColor }) => {
     if (backgroundColor) {

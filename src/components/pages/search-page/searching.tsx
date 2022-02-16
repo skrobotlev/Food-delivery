@@ -1,7 +1,6 @@
 import { SearchInput } from "./searching/search-input";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RecipeFavoriteCardDiv } from "../../../components/tabulation/all-tabs/recipe-tab";
-import { Pagination } from "./pagination/pagination";
 import { Context } from "../../../";
 import NoResultsCard from "./searching/no-results-card";
 import NoResCardImage from "../../images/no-results";
@@ -13,8 +12,10 @@ import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import ReactPaginate from "react-paginate";
 import { observer } from "mobx-react-lite";
-import { takeDataCat } from "../../../api/categories";
+import { takeDataCat, testData } from "../../../api/categories";
 import styled from "styled-components";
+import { auth } from "../../../firebase";
+import ModalWindow from "./modal-window";
 
 const PaginationSpan = styled.span`
   overflow-x: scroll;
@@ -25,9 +26,12 @@ const PaginationSpan = styled.span`
 const Searching = observer(() => {
     const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
+    const { persist } = useContext(Context);
     const { search } = useLocation();
-    const values = queryString.parse(search);
     const { path } = useRouteMatch();
+    const history = useHistory();
+
+    const values = queryString.parse(search);
 
     const { push } = useHistory();
 
@@ -37,125 +41,131 @@ const Searching = observer(() => {
         return React.useMemo(() => new URLSearchParams(search), [search]);
     }
     let query = useQuery();
-    useEffect(() => {
-        console.log(query.get("category"));
-    }, []);
-    const currCategory = query.get("category");
-
-    useEffect(() => {
-        let arrr = [];
-        takeDataCat(currCategory).then((val) => {
-            // console.log("ahe");
-            val.map((item) => {
-                return arrr.push(JSON.parse(item));
-            });
-            // console.log(userStore._category);
-            // console.log(arrr)
-            //   return arrr;
-            if (currCategory === "salads") categoriesStore.setSalads(arrr);
-            if (currCategory === "deserts") categoriesStore.setDeserts(arrr);
-            if (currCategory === "first-dishes") categoriesStore.setFirstDishes(arrr);
-            if (currCategory === "second-dishes") categoriesStore.setSecondDishes(arrr);
-            if (currCategory === "beverages") categoriesStore.setBeverages(arrr);
-            if (currCategory === "canning") categoriesStore.setCanning(arrr);
-            if (currCategory === "sauces") categoriesStore.setSauces(arrr);
+    const addQuery = (key, value) => {
+        let pathname = location.pathname;
+        // console.log(pathname, "ADDQUERYpathname");
+        // returns path: '/app/books'
+        let searchParams = new URLSearchParams(location.search);
+        // returns the existing query string: '?type=fiction&author=fahid'
+        searchParams.set(key, value);
+        history.push({
+            pathname: pathname,
+            search: searchParams.toString(),
         });
-    }, []);
+    };
+    useEffect(() => {
+        categoriesStore.setNameCurrentCategory(query.get("category"));
+        console.log(categoriesStore._nameCurrentCategory, "NAMcurrCATEG");
+    }, [categoriesStore._nameCurrentCategory]);
+    const currCategory = categoriesStore._nameCurrentCategory;
 
-    let showCateg;
-    if (currCategory === "salads") showCateg = categoriesStore._salads;
-    if (currCategory === "deserts") showCateg = categoriesStore._deserts;
-    if (currCategory === "first-dishes") showCateg = categoriesStore._firstDishes;
-    if (currCategory === "second-dishes") showCateg = categoriesStore._secondDishes;
-    if (currCategory === "beverages") showCateg = categoriesStore._beverages;
-    if (currCategory === "canning") showCateg = categoriesStore._canning;
-    if (currCategory === "sauces") showCateg = categoriesStore._sauces;
+    useEffect(() => {
+        testData(currCategory).then((fullCateg) => {
+            let responseArr = [];
+            // const values = Object.values(fullCateg[0]);
+            // const keys = Object.keys(fullCateg[0]);
+            const enterArr = Object.entries(fullCateg[0]);
+            // console.log(enterArr, "enterARR");
+            enterArr.map((items: any) => {
+                const pars = JSON.parse(items[1]);
+                const { bzhu, calories, header, img, timeToCook, desc } = pars;
+
+                responseArr.push({
+                    img: img,
+                    header: header,
+                    bzhu: bzhu,
+                    desc: desc,
+                    calories: calories,
+                    timeToCook: timeToCook,
+                    category: currCategory,
+                    rkey: items[0],
+                });
+            });
+
+            categoriesStore.setCurrentCategory(responseArr);
+        });
+    }, [currCategory]);
+
+    // const { uid } = auth.currentUser;
+    // console.log(uid)
+    let showCateg = categoriesStore.currentCategory;
     const { length } = showCateg;
 
     useEffect(() => {
-        // console.log(categoriesStore._categoryLength);
         categoriesStore.setCategoryLength(length);
-        console.log(categoriesStore._categoryLength);
-        console.log(length);
+    }, [categoriesStore.categoryLength, length]);
 
-        console.log(categoriesStore._currentPage);
-    }, [categoriesStore._categoryLength, length]);
+    useEffect(() => {
+        console.log(categoriesStore.currentPage);
+    }, [categoriesStore.currentPage]);
 
-    // useEffect(() => {
-    //     pageCount = Math.ceil(categoriesStore._categoryLength / categoriesStore._perPage);
-    // }, [])
+    const recipeClickFunc = (recip) => {
+        categoriesStore.setModalObject({
+            recipe: recip,
+            id: "",
+            recipeId: recip.rkey,
+        });
+        console.log(categoriesStore.modalObject, "modOBj");
 
-    const pagesVisited = categoriesStore._currentPage * categoriesStore._perPage;
-    console.log(showCateg);
-    const displayItems = showCateg.slice(pagesVisited, pagesVisited + categoriesStore._perPage).map((recip, idx) => {
-        // console.log(recip);
-        // console.log(idx);
-        const { carbs, fat, proteins, img } = recip.bzhu;
-        return (
-            <RecipeResponse
-                onClick={() => {
-                    push(MODAL_WINDOW);
-                    userStore.setModalObject(recip);
-                    // return console.log(userStore._modalObject);
-                }}
-            >
-                <FavoriteRecipeCard key={idx} title={recip.header} calories={recip.calories + " Kcal"} likeIcon={<FavorRecCardLike />} image={recip.img} />
-            </RecipeResponse>
-        );
-    });
-    const pageCount = Math.ceil(categoriesStore._categoryLength / categoriesStore._perPage);
+        push(`${MODAL_WINDOW}`);
+        // addQuery("modal", idx);
+    };
+
+    const pagesVisited = categoriesStore.currentPage * categoriesStore.perPage;
+    // console.log(showCateg);
+    const displayItems = categoriesStore
+        .valFilter()
+        .slice(pagesVisited, pagesVisited + categoriesStore.perPage)
+        .map((recip, idx) => {
+            const { category } = recip;
+            console.log(category, "categ");
+            const { carbs, fat, proteins, img } = recip.bzhu;
+
+            return (
+                <RecipeResponse
+                    onClick={() => recipeClickFunc(recip)}
+                >
+                    <FavoriteRecipeCard
+                        timeToCook={recip.timeToCook}
+                        key={idx}
+                        title={recip.header}
+                        calories={recip.calories + " Kcal"}
+                        likeIcon={<FavorRecCardLike />}
+                        image={recip.img}
+                    />
+                </RecipeResponse>
+            );
+        });
+    const pageCount = Math.ceil(categoriesStore.categoryLength / categoriesStore.perPage);
     // console.log(pageCount);
     const changePage = ({ selected }) => {
         categoriesStore.setCurrentPage(selected);
+        // console.log(selected);
     };
 
     return (
         <SearchPageDiv>
             <SearchInput />
-            <RecipeFavoriteCardDiv>
-                {/* {!userStore._category ? <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} /> : null} */}
-
-                {/* <ShowData category={query.get("category")} /> */}
-
-                {/* <Shower current={currCategory} /> */}
-                <ReactPaginate
-                    pageCount={pageCount}
-                    onPageChange={changePage}
-                    previousLabel={"Prev"}
-                    nextLabel={"Next"}
-                    containerClassName={"paginationBtns"}
-                    previousLinkClassName={"previousBtns"}
-                    lastLinkClassName={"nextBtn"}
-                    disabledClassName={"paginationDisabled"}
-                    activeClassName={"paginationActive"}
-                />
-                {displayItems}
-                {/* <PaginationSpan> */}
-
-                {/* </PaginationSpan> */}
-                {/* {showCateg.slice(pagesVisited, pagesVisited + categoriesStore._perPage).map((recip, idx) => {
-                // console.log(recip);
-                // console.log(idx);
-                const { carbs, fat, proteins, img } = recip.bzhu;
-                return (
-                    <RecipeResponse
-                        onClick={() => {
-                            push(MODAL_WINDOW);
-                            userStore.setModalObject(recip);
-                            // return console.log(userStore._modalObject);
-                        }}
-                    >
-                        <FavoriteRecipeCard
-                            key={idx}
-                            title={recip.header}
-                            calories={recip.calories + " Kcal"}
-                            likeIcon={<FavorRecCardLike />}
-                            image={recip.img}
-                        />
-                    </RecipeResponse>
-                );
-            })} */}
-            </RecipeFavoriteCardDiv>
+            {categoriesStore.currentCategory.length === 0 ? (
+                <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
+            ) : (
+                <RecipeFavoriteCardDiv>
+                    <ReactPaginate
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        previousLabel={"Prev"}
+                        nextLabel={"Next"}
+                        containerClassName={"paginationBtns"}
+                        pageRangeDisplayed={1}
+                        marginPagesDisplayed={1}
+                        previousLinkClassName={"previousBtns"}
+                        lastLinkClassName={"nextBtn"}
+                        disabledClassName={"paginationDisabled"}
+                        activeClassName={"paginationActive"}
+                    />
+                    {displayItems}
+                </RecipeFavoriteCardDiv>
+            )}
         </SearchPageDiv>
     );
 });

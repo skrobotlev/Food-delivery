@@ -8,7 +8,11 @@ import VegetableSvg from "../../buttons/icons/vegetable";
 import SquareButton, { SquareBut } from "../../buttons/square-button";
 import { Context } from "../../..";
 import FavorRecCardChicken from "../../images/chicken";
-import { SoupIcon } from "../../../components/images/soup";
+import { SoupSvg } from "../../../components/images/soup";
+import CakeSvg from "../../../components/images/cake";
+import CanningSvg from "../../../components/images/canning";
+import BeveragesSvg from "../../../components/images/beverages";
+import { SaucesSvg } from "../../../components/images/sauces";
 
 const FavoriteCategoriesDiv = styled.div`
   display: flex;
@@ -36,14 +40,14 @@ const FavoriteCategories = () => {
   };
   return (
     <FavoriteCategoriesDiv>
-      <ButtonDiv>
+      {/* <ButtonDiv>
         <SquareButton size="lg" backgroundColor="fruits" title="TEST" onClick={() => linkToCategory("TEST")} icon={<FruitSVG />} />
-      </ButtonDiv>
+      </ButtonDiv> */}
       <ButtonDiv>
         <SquareButton size="lg" backgroundColor="vegan" title="Салаты" onClick={() => linkToCategory("salads")} icon={<VegetableSvg />} />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Первые блюда" onClick={() => linkToCategory("first-dishes")} icon={<SoupIcon />} />
+        <SquareButton size="lg" backgroundColor="manyfats" title="Первые блюда" onClick={() => linkToCategory("first-dishes")} icon={<SoupSvg />} />
       </ButtonDiv>
       <ButtonDiv>
         <SquareButton
@@ -55,16 +59,16 @@ const FavoriteCategories = () => {
         />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Напитки" onClick={() => linkToCategory("beverages")} icon={<SnackSvg />} />
+        <SquareButton size="lg" backgroundColor="beverages" title="Напитки" onClick={() => linkToCategory("beverages")} icon={<BeveragesSvg />} />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Консервирование" onClick={() => linkToCategory("canning")} icon={<SnackSvg />} />
+        <SquareButton size="lg" backgroundColor="manyfats" title="Соленья, консервы" onClick={() => linkToCategory("canning")} icon={<CanningSvg />} />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Десерты" onClick={() => linkToCategory("deserts")} icon={<SnackSvg />} />
+        <SquareButton size="lg" backgroundColor="deserts" title="Десерты" onClick={() => linkToCategory("deserts")} icon={<CakeSvg />} />
       </ButtonDiv>
       <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="manyfats" title="Соусы" onClick={() => linkToCategory("sauces")} icon={<SnackSvg />} />
+        <SquareButton size="lg" backgroundColor="sauces" title="Соусы" onClick={() => linkToCategory("sauces")} icon={<SaucesSvg />} />
       </ButtonDiv>
     </FavoriteCategoriesDiv>
   );

@@ -11,6 +11,8 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   bzhu?: any;
   image?: string;
   timeToCook?: any;
+  favKey?: any;
+  recipeId?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`

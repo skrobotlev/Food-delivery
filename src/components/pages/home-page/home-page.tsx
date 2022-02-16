@@ -1,17 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import RectangleButton, { BigRectangleButton, BigRectBut, RectBut } from "../../buttons/rectangle-button";
-import Layout from "../../../layout";
 import HomePageHeader from "./header";
 import HomePageSlider from "./slider-home";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
 import FavoriteCategories from "./favorite-categories";
-import { withRouter } from "react-router-dom";
-import { requestCategories, takeDataCat, testData } from "../../../api/categories";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../..";
-import PersistApp from "../search-page/mobx-persist/App";
+import { getFavoriteRecipes, searchingOnDb } from "../../../api/favorite-recipes";
+import { auth } from "../../../firebase";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -38,6 +36,31 @@ const HomePage = observer(() => {
   const { userStore } = useContext(Context);
   const { categoriesStore } = useContext(Context);
   const { persist } = useContext(Context);
+  const { uid } = auth.currentUser;
+
+  useEffect(() => {
+    getFavoriteRecipes(uid).then((res) => {
+      const favoriteRecipeIds = Object.entries(res).reduce((array, item: any) => {
+        const recipe = {
+          id: item[0],
+          recipeId: item[1].recipeId,
+          categories: item[1].category,
+        };
+        array.push(recipe);
+        return array;
+      }, []);
+      console.log(favoriteRecipeIds, "favRecIDS");
+      searchingOnDb(favoriteRecipeIds)
+        .then((res) => {
+          let elmg;
+          console.log(res, "res");
+          userStore.setDbResponse(res);
+
+          console.log(userStore.dbResponse);
+          // return res;
+        });
+    });
+  }, []);
 
   return (
     <HomePageContent>

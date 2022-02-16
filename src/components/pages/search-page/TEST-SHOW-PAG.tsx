@@ -1,7 +1,6 @@
 import { SearchInput } from "./searching/search-input";
 import React, { useContext, useEffect, useState } from "react";
 import { RecipeFavoriteCardDiv } from "../../../components/tabulation/all-tabs/recipe-tab";
-import { Pagination } from "./pagination/pagination";
 import { Context } from "../../../";
 import NoResultsCard from "./searching/no-results-card";
 import NoResCardImage from "../../images/no-results";
@@ -13,7 +12,7 @@ import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import ReactPaginate from "react-paginate";
 import { observer } from "mobx-react-lite";
-import { categoriesWithKey, takeDataCat, testData } from "../../../api/categories";
+import { takeDataCat, testData } from "../../../api/categories";
 import styled from "styled-components";
 import { auth } from "../../../firebase";
 import ModalWindow from "./modal-window";
@@ -55,72 +54,22 @@ const SearchingTESTPAG = observer(() => {
         });
     };
     useEffect(() => {
-        // console.log(query);
-        // console.log(query.get("modal"));
-        // console.log(query.get("category"));
         categoriesStore.setNameCurrentCategory(query.get("category"));
         console.log(categoriesStore._nameCurrentCategory, "NAMcurrCATEG");
     }, [categoriesStore._nameCurrentCategory]);
     const currCategory = categoriesStore._nameCurrentCategory;
 
-    // const currCategory = query.get("category");
-    // testData(currCategory).then((fullCateg) => {
-    //     const resArr = [];
-    //     let finalArr = [];
-
-    //     const values = Object.values(fullCateg[0]);
-    //     const keys = Object.keys(fullCateg[0]);
-
-    //     resArr.push({
-    //         keys: keys,
-    //         values: values,
-    //     });
-
-    //     resArr.map((items) => {
-    //         const { values, keys } = items;
-    //         let resVals;
-
-    //         values.map((val, id) => {
-    //             keys.map((key, idx) => {
-    //                 resVals = JSON.parse(val);
-    //                 if (id === idx) {
-    //                     return resVals.rkey = key;
-    //                 }
-    //             });
-    //             console.log(resVals)
-    //             finalArr.push(resVals);
-    //         });
-
-    //     });
-    // categoriesStore.setCurrentCategory(finalArr);
-    // console.log(categoriesStore._currentCategory);
-    // });
-
-    // console.log(categoriesStore._keyCATEGORY);
-    useEffect(() => {
-        // console.log(categoriesStore.currentCategory);
-        // console.log(categoriesStore._currentCategory[0]);
-    }, [categoriesStore.currentCategory]);
-    // !!!!!!!!!!!! OR TAKEDATACAT!!!!!!!!!!!!!
-
     useEffect(() => {
         testData(currCategory).then((fullCateg) => {
-            let resArr = [];
-            let finalArr = [];
             let responseArr = [];
             const values = Object.values(fullCateg[0]);
             const keys = Object.keys(fullCateg[0]);
-            // console.log(Object.entries(fullCateg[0]));
             const enterArr = Object.entries(fullCateg[0]);
+            // console.log(enterArr, "enterARR");
             enterArr.map((items: any) => {
-                // console.log(items[1])
-                // console.log(JSON.parse(items[1]))
-                // const str = JSON.stringify(items[1])
-                // console.log(str)
                 const pars = JSON.parse(items[1]);
-
                 const { bzhu, calories, header, img, timeToCook, desc } = pars;
-                // console.log(pars)
+
                 responseArr.push({
                     img: img,
                     header: header,
@@ -128,65 +77,47 @@ const SearchingTESTPAG = observer(() => {
                     desc: desc,
                     calories: calories,
                     timeToCook: timeToCook,
+                    category: currCategory,
                     rkey: items[0],
                 });
-                // items.map((item) => {
-                //     // console.log(item)
-                // })
             });
-            // console.log(responseArr);
 
             categoriesStore.setCurrentCategory(responseArr);
-            categoriesStore.setModalObject(categoriesStore._currentCategory[0]);
         });
     }, [currCategory]);
 
-    // useEffect(() => {
-    //     categoriesStore.setModalObject(categoriesStore._currentCategory[0]);
-    // }, [categoriesStore._currentCategory]);
-    // useEffect(() => {
-    //     let arrr = [];
-    //     categoriesWithKey(currCategory).then((val) => {
-    //         // console.log(val);
-    //         val.map((item) => {
-    //             return arrr.push(JSON.parse(item));
-    //         });
-    //         // console.log(arrr);
-    //         // console.log(userStore._category);
-    //         // console.log(arrr)
-    //         //   return arrr;
-    //         return categoriesStore.setCurrentCategory(arrr);
-    //     });
-    // }, [currCategory]);
     // const { uid } = auth.currentUser;
     // console.log(uid)
-    let showCateg = categoriesStore._currentCategory;
+    let showCateg = categoriesStore.currentCategory;
     const { length } = showCateg;
 
     useEffect(() => {
         categoriesStore.setCategoryLength(length);
-    }, [categoriesStore._categoryLength, length]);
+    }, [categoriesStore.categoryLength, length]);
 
-    const pagesVisited = categoriesStore._currentPage * categoriesStore._perPage;
+    const pagesVisited = categoriesStore.currentPage * categoriesStore.perPage;
     // console.log(showCateg);
     const displayItems = categoriesStore
         .valFilter()
-        .slice(pagesVisited, pagesVisited + categoriesStore._perPage)
+        .slice(pagesVisited, pagesVisited + categoriesStore.perPage)
         .map((recip, idx) => {
-            const { rkey } = recip;
-            // console.log(rkey, "TYPEOFKEYY");
-            // console.log(idx);
+            const { category } = recip;
+            console.log(category, "categ");
             const { carbs, fat, proteins, img } = recip.bzhu;
-            // console.log(search)
-            // categoriesStore.setModalObject(recip);
-            // console.log(categoriesStore._modalObject)
+
             return (
                 <RecipeResponse
                     onClick={() => {
-                        categoriesStore.setModalObject(recip);
+                        categoriesStore.setModalObject({
+                            recipe: recip,
+                            id: "",
+                            recipeId: recip.rkey
+                        });
+                        console.log(categoriesStore.modalObject, "modOBj");
+
                         push(`${MODAL_WINDOW}`);
                         // addQuery("modal", idx);
-                        return console.log(categoriesStore._modalObject);
+                        // return console.log(categoriesStore._modalObject);
                     }}
                 >
                     <FavoriteRecipeCard
@@ -200,7 +131,7 @@ const SearchingTESTPAG = observer(() => {
                 </RecipeResponse>
             );
         });
-    const pageCount = Math.ceil(categoriesStore._categoryLength / categoriesStore._perPage);
+    const pageCount = Math.ceil(categoriesStore.categoryLength / categoriesStore.perPage);
     // console.log(pageCount);
     const changePage = ({ selected }) => {
         categoriesStore.setCurrentPage(selected);
@@ -213,7 +144,7 @@ const SearchingTESTPAG = observer(() => {
             {/* {history.location.pathname === `${path}${search}&modal=show`
         ? (< ModalWindow />) : null} */}
             {/* {categoriesStore._currentCategory !== [] ? < ModalWindow /> : null} */}
-            {categoriesStore._currentCategory.length === 0 ? (
+            {categoriesStore.currentCategory.length === 0 ? (
                 <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
             ) : (
                 <RecipeFavoriteCardDiv>
@@ -233,9 +164,6 @@ const SearchingTESTPAG = observer(() => {
                     {displayItems}
                 </RecipeFavoriteCardDiv>
             )}
-            {/* {categoriesStore._currentCategory !== [] ? (< ModalWindow />) : (
-                <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
-            )} */}
         </SearchPageDiv>
     );
 });

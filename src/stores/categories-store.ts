@@ -35,8 +35,7 @@ export default class CategoriesStore {
     this._modalObject = {};
     this._openModal = false;
 
-    this._keyCATEGORY = [];
-    this._nameCurrentCategory = "";
+    this._nameCurrentCategory = "TEST";
     this._currentCategory = [];
     this._filter = "";
     this._categoryLength = 0;
@@ -59,9 +58,7 @@ export default class CategoriesStore {
       return matchesFilter.test(rec.header);
     });
   }
-  setKeyCATEGORY(items) {
-    this._keyCATEGORY = items;
-  }
+
   setCurrentCategory(items) {
     this._currentCategory = items;
   }
@@ -112,9 +109,6 @@ export default class CategoriesStore {
     return this._openModal;
   }
 
-  get keyCATEGORY() {
-    return this._keyCATEGORY;
-  }
   get salads() {
     return this._salads;
   }

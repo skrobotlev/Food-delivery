@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
@@ -18,8 +18,7 @@ import { RecipeResponse } from "./search-page";
 import FavoriteRecipeCard from "../../../components/recipe-cards/favorite-recipe-card";
 import { RectBut } from "../../../components/buttons/rectangle-button";
 import { auth } from "../../../firebase";
-import { pushNewRecipe, writeNewRecipe } from "../../../api/favorite-recipes";
-// import { writeFavoriteData } from "../../../api/auth";
+import { pushNewRecipe, removeFavoriteRecipe, updateRecipes, writeNewRecipe } from "../../../api/favorite-recipes";
 
 const ModalWindowDiv = styled.div`
   display: flex;
@@ -64,24 +63,14 @@ const ImageDiv = styled.div`
     border-radius: 50px;
   }
 `;
-
-const DescDiv = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-top: 30px;
-  p {
-    color: #a9a9a9;
-  }
+const HeaderH3 = styled.h3`
+    text-align: center;
 `;
 
 const CloseIconI = styled.i`
   margin-top: 10px;
   margin-left: 10px;
 `;
-
-const RemAddButton = styled.div``;
 
 const ButtonAndDescDiv = styled.div`
   width: 100%;
@@ -105,9 +94,9 @@ const drawerBleeding = 56;
 
 interface Props {
     /**
-             * Injected by the documentation to work in an iframe.
-             * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
-               СПРОСИТЬ */
+                     * Injected by the documentation to work in an iframe.
+                     * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
+                       СПРОСИТЬ */
     window?: () => Window;
 }
 
@@ -117,10 +106,6 @@ const Root = styledMUI("div")(({ theme }) => ({
     // borderTopLeftRadius: "10vh",
     // border-top-right-radius: 20px,
 }));
-
-// const StyledBox = styledMUI(Box)(({ theme }) => ({
-//     backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
-// }));
 
 const Puller = styledMUI(Box)(({ theme }) => ({
     width: 30,
@@ -139,12 +124,48 @@ const currentRecipe = styled.div`
 const ModalWindow = (props: Props) => {
     const { window } = props;
     const [open, setOpen] = React.useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
     const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
     const { push } = useHistory();
     const history = useHistory();
-    const { search } = useLocation();
-    const { path } = useRouteMatch();
+    const { uid } = auth.currentUser;
+    // const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category, } = categoriesStore._modalObject.recipe;
+    const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category } = categoriesStore.modalObject.recipe;
+    const { id, recipeId } = categoriesStore._modalObject;
+    // const iBzhu = toJS(bzhu);
+    const { proteins, carbs, fat } = bzhu;
+    let res;
+    // ЛОГИКА ФУНКЦИИ ОБНОВЛЕНИЯ ХРАНИЛИЩА
+    //
+    useEffect(() => {
+        console.log(isFavorite, "isFavor");
+    }, [isFavorite]);
+
+    useEffect(() => {
+        res = userStore.dbResponse.findIndex((rec) => {
+            // console.log(rec, "rID");
+            // console.log(rec.recipe.header, "rID", header, "pID");
+            return rec.recipe.header === header;
+        });
+        res > -1 ? setIsFavorite(true) : setIsFavorite(false);
+        console.log(res);
+    }, [res, isFavorite]);
+    const mobxUpdRec = (recId, recipe, header) => {
+
+        if (isFavorite) {
+            userStore.deleteRecipe(header);
+            console.log("DELLLL");
+            setIsFavorite(false);
+            removeFavoriteRecipe(uid, id, null);
+        } else {
+            userStore.addRecipe(recId, recipe);
+            console.log("ADDD");
+            setIsFavorite(true);
+            pushNewRecipe(uid, { category: category, recipeId: recipeId });
+        }
+        // isFavorite ? userStore.deleteRecipe(header) : userStore.addRecipe(recId, recipe);
+    };
 
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
@@ -157,18 +178,17 @@ const ModalWindow = (props: Props) => {
     // This is used only for the example
     // const container = window !== undefined ? () => window().document.body : undefined;
 
+    useEffect(() => {
+        // console.log(categoriesStore.modalObject, "currModObj");
+        proteins === undefined ? push(HOME_ROUTE) : null;
+        // console.log(recipeId, "recipeId");
+    }, []);
+
     // useEffect(() => {
-    //     if (categoriesStore._modalObject == undefined) push(HOME_ROUTE);
-    //     console.log(categoriesStore._modalObject);
+    //     console.log(id + "id", rkey + "rkey", recipeId + "recipId");
     //     // !categoriesStore._modalObject ? push(HOME_ROUTE) : null;
     // }, []);
 
-    const { bzhu, calories, header, img, timeToCook, desc, rkey } = categoriesStore._modalObject;
-    const iBzhu = toJS(bzhu);
-    const { proteins, carbs, fat } = iBzhu;
-    // const recipVals = [proteins, calories, fat, carbs];
-
-    // const recipCategs = ["proteins", "calories", "fat", "carbs"];
     const valuesROOT = [
         {
             categ: "Proteins",
@@ -187,12 +207,11 @@ const ModalWindow = (props: Props) => {
             recVal: carbs,
         },
     ];
-    const { uid } = auth.currentUser;
-    // console.log(uid);
-    // console.log(rkey);
+
+    // const addObj;
     return (
-        // <Root>
-        <div>
+        <Root>
+            {/* <div> */}
             {/* <CssBaseline /> */}
             <Global
                 styles={{
@@ -231,7 +250,7 @@ const ModalWindow = (props: Props) => {
                 <ImageDiv>
                     <img src={img} />
                 </ImageDiv>
-                <h3>{header}</h3>
+                <HeaderH3>{header}</HeaderH3>
                 <RecipeValues>
                     {valuesROOT.map(({ categ, recVal }) => {
                         return (
@@ -243,19 +262,15 @@ const ModalWindow = (props: Props) => {
                     })}
                 </RecipeValues>
                 <ButtonAndDescDiv>
-                    {/* <DescDiv> */}
                     <h3>Описание</h3>
                     <p>{desc}</p>
-                    {/* </DescDiv> */}
-                    {/* <RemAddButton> */}
-                    <RectBut size="md" onClick={() => pushNewRecipe(uid, rkey)}>
-                        Добавить в избранное
+                    <RectBut size="md" onClick={() => mobxUpdRec(rkey, categoriesStore.modalObject, header)}>
+                        {!isFavorite ? "Добавить в избранное" : "Удалить из избранного"}
                     </RectBut>
-                    {/* </RemAddButton>  */}
                 </ButtonAndDescDiv>
             </SwipeableDrawer>
-        </div>
-        // </Root>
+            {/* </div> */}
+        </Root>
     );
 };
 

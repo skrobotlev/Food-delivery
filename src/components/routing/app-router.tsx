@@ -44,6 +44,7 @@ const AppRouter = observer(() => {
                     return <Route key={path} path={path} component={Component} exact />;
                 })}
             </Layout>
+            {/* {user ? <Redirect to={HOME_ROUTE} /> : <Redirect to={LOADER_ROUTE} />} */}
             <Redirect to={LOADER_ROUTE} />
         </Switch>
     );
