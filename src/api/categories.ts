@@ -1,6 +1,9 @@
-import { ref, child, get, query, orderByChild, orderByKey, orderByValue, equalTo, limitToFirst } from "firebase/database";
+import { ref, child, get, query, orderByChild, orderByKey, orderByValue, equalTo, limitToFirst, limitToLast, update } from "firebase/database";
 import { startAt } from "firebase/firestore";
+import { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { json } from "stream/consumers";
+import { Context } from "..";
 import { database } from "../firebase";
 
 export const takeDataCat = (category): Promise<any> => {
@@ -12,7 +15,7 @@ export const takeDataCat = (category): Promise<any> => {
         snapshot.forEach((valueSnap) => {
           children.push(valueSnap.val());
         });
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
         return children;
       } else {
         console.log("No data available");
@@ -23,38 +26,51 @@ export const takeDataCat = (category): Promise<any> => {
     });
 };
 
-export const testData = () => {
-  // const refer = ref(database); // tslint:disable-next-line
+export const testData = (category) => {
+  const refer = ref(database); // tslint:disable-next-line
+  return get(child(refer, `/categories/${category}`))
+    .then((snapshot) => {
+      // console.log(snapshot.val());
+      if (snapshot.exists()) {
+        const children = [];
 
-  // const testRequest = query(ref(database, "fullUsers"), limitToFirst(6));
-  const testRequest = query(ref(database, "categories/TEST"), limitToFirst(6));
-  // const testRequest = query(ref(database, "fullUsers"), orderByKey());
-
-  get(testRequest).then((snapshot) => {
-    // console.log(snapshot.toJSON());
-    console.log(snapshot.val());
-  });
-  // get(testRequest).then((snapshot) => {
-  //   console.log(snapshot);
-  // });
-  console.log(testRequest);
-  // return testRequest;
-  // mostViewedPosts();
-  // return get(child(refer, `/categories/${category}`))
-  //   .then((snapshot) => {
-  //     if (snapshot.exists()) {
-  //       const children = [];
-  //       snapshot.forEach((valueSnap) => {
-  //         children.push(valueSnap.val());
-  //       });
-  //       console.log(snapshot.val());
-  //       return children;
-  //     } else {
-  //       console.log("No data available");
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
+        children.push(snapshot.val());
+        // snapshot.forEach((items) => {
+        //   children.push(items.val());
+        // });
+        // children.push({
+        //   key: snapshot.key,
+        //   data: snapshot.val(),
+        // });
+        //   // children.push(valueSnap.val());
+        // });
+        // console.log(snapshot.val());
+        return children;
+      } else {
+        console.log("No data available");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
-// testData();
+
+export const requestCategories = (category): Promise<any> => {
+  const refer = ref(database); // tslint:disable-next-line
+  return get(child(refer, `/categories/${category}`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const children = [];
+        snapshot.forEach((valueSnap) => {
+          children.push(valueSnap.val());
+        });
+        // console.log(snapshot.val());
+        return children;
+      } else {
+        console.log("No data available");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};

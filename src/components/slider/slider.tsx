@@ -2,9 +2,9 @@ import React, { ReactElement } from "react";
 import Slider from "react-slick";
 import "../../global.scss";
 
-import StartPageSecImage from "../images/st-pg-sec-img";
-import StartPageFirstImage from "../images/st-pg-first-img";
-import StartPageThirImage from "../images/st-pg-thir-img";
+import StartPageSecImage from "../images/start-page-second";
+import StartPageFirstImage from "../images/start-page-first";
+import StartPageThirImage from "../images/start-page-third";
 
 interface SliderCardProps {
     header: string;

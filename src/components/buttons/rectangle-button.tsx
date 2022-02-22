@@ -54,7 +54,7 @@ export const RectBut = styled.button<RectangleButtonProps>`
     if (size === "lg") {
       return "1.2rem";
     } else if (size === "md") {
-      return "28px";
+      return "25px";
     } else if (size === "sm") {
       return "0.75rem";
     }

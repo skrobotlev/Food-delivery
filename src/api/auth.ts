@@ -56,14 +56,6 @@ export const loginEmailPassword = ({ password, email }: AuthForm) => {
     });
 };
 
-export function writeRecipeData({ header }: any) {
-  return set(ref(database, "recipes/" + header), {
-    header,
-  }).catch((error) => {
-    console.log(error);
-  });
-}
-
 function writeFullUserData({ email, uid, name, lastName }: any) {
   return set(ref(database, "fullUsers/" + uid), {
     email,
@@ -76,10 +68,10 @@ function writeFullUserData({ email, uid, name, lastName }: any) {
 export const createFullUser = async ({ email, password, name, lastName }: RegisterForm) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // console.log(userCredential);
+      console.log(userCredential);
       const user = userCredential.user;
       const json = user.toJSON();
-      // console.log(json);
+      console.log(json);
       return writeFullUserData({ ...user, email, name, lastName }).then(() => user);
     })
     .catch((error) => {

@@ -1,17 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import RectangleButton, { BigRectangleButton, BigRectBut, RectBut } from "../../buttons/rectangle-button";
-import Layout from "../../../layout";
-import HomePageHeader from "./header-home-page";
-import HomePageSlider from "./slider-home-page";
+import HomePageHeader from "./header";
+import HomePageSlider from "./slider-home";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
-import FavoriteCategories from "./favorite-categories-h-p";
-import { withRouter } from "react-router-dom";
-import { takeDataCat, testData } from "../../../api/categories";
+import FavoriteCategories from "./favorite-categories";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../..";
-// const { takeDataCat } = require("")
+import { getFavoriteRecipes, searchingOnDb } from "../../../api/favorite-recipes";
+import { auth } from "../../../firebase";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -36,39 +34,39 @@ const FavoritesCardHeader = styled.h3`
 
 const HomePage = observer(() => {
   const { userStore } = useContext(Context);
+  const { categoriesStore } = useContext(Context);
+  const { persist } = useContext(Context);
+  const { uid } = auth.currentUser;
 
-  const arrr = [];
-  // useEffect(() => {
-  //   takeDataCat("canning").then((val) => {
-  //     const test = val;
-  //     // console.log(test)
-  //     val.map((item) => {
-  //       // console.log(JSON.parse(item).header)
-  //       arrr.push(JSON.parse(item));
-  //     });
-  //     console.log(arrr);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getFavoriteRecipes(uid).then((res) => {
+      const favoriteRecipeIds = Object.entries(res).reduce((array, item: any) => {
+        const recipe = {
+          id: item[0],
+          recipeId: item[1].recipeId,
+          categories: item[1].category,
+        };
+        array.push(recipe);
+        return array;
+      }, []);
+      // console.log(favoriteRecipeIds, "favRecIDS");
+      searchingOnDb(favoriteRecipeIds)
+        .then((res) => {
+          let elmg;
+          console.log(res, "res");
+          userStore.setDbResponse(res);
 
-  // useEffect(() => {
-  //   testData();
-  //   // .then((val) => {
-  //   //   const test = val;
-  //   //   // console.log(test)
-  //   //   val.map((item) => {
-  //   //     // console.log(JSON.parse(item).header)
-  //   //     arrr.push(JSON.parse(item));
-  //   //   });
-  //   //   console.log(arrr);
-  //   // });
-  // }, []);
+          console.log(userStore.dbResponse);
+          // return res;
+        });
+    });
+  }, []);
 
   return (
     <HomePageContent>
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <HomePageSlider />
       <BigRectButtonDiv>
-        {" "}
         <BigRectangleButton title="Следите за своим прогрессом">
           <InsideRectBut key="1">
             Смотреть
@@ -76,7 +74,7 @@ const HomePage = observer(() => {
           </InsideRectBut>
         </BigRectangleButton>
       </BigRectButtonDiv>
-      <FavoritesCardHeader>Выберите любимую категорию</FavoritesCardHeader>
+      <FavoritesCardHeader>Выберите интересующую категорию</FavoritesCardHeader>
       <FavoriteCategories />
     </HomePageContent>
   );

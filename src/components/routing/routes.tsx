@@ -7,10 +7,11 @@ import GetStartedPage from "../pages/get-started";
 import HomePage from "../pages/home-page/home-page";
 import Loader from "../pages/loader";
 import ProfilePage from "../pages/profile-page/profile-page";
+import ModalWindow from "../pages/search-page/modal-window";
 import SearchPage from "../pages/search-page/search-page";
 import {
     FAVORITES_ROUTE, GET_STARTED_ROUTE, HOME_ROUTE, LOADER_ROUTE,
-    LOGIN_PAGE, PASSWORD_RECOVERY, PROFILE_ROUTE,
+    LOGIN_PAGE, MODAL_WINDOW, PASSWORD_RECOVERY, PROFILE_ROUTE,
     REGISTRATION_PAGE, SEARCH_ROUTE
 } from "./consts";
 
@@ -54,6 +55,10 @@ export const authRoutes = [
     {
         path: PROFILE_ROUTE,
         Component: ProfilePage
+    },
+    {
+        path: MODAL_WINDOW,
+        Component: ModalWindow
     }
 
 ];

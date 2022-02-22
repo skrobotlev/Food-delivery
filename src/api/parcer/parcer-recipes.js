@@ -1,5 +1,5 @@
 // import writeRecipeData from "./api/auth";
-// const writeRecipeData = require("./auth");
+const writeRecipeData = require("../parcer/parcer-folder/dbWorker");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
@@ -23,13 +23,24 @@ async function scrapeData(url) {
     listItems.each((idx, el) => {
       // Object holding data for each country/jurisdiction
       const recipe = {};
-      // Select the text content of a and span elements
-      // Store the textcontent in the above object
       // recipe.header = $(el).children(".title").children("a").text();
       // recipe.img = $(".recipe_preview", el).contents("src");
-      recipe.img = $("img", el).attr("currentSrc");
+      recipe.img = "https://daily-menu.ru" + $("img", el).attr("src");
+      // /([\/])([a-z_0-9.]*|[0-9]*)/gm !!!!!!!!!!!!!!!!!!!=========================!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //  БОЛЬШИЕ БУКВЫ A-Z НЕ ЗАБЫТЬ ПРОВЕРИТЬ, ЧТОБЫ ВСЕ JPG БЫЛИ ВЗЯТЫ
+      // console.log(recipe.img.match(/([\/])([a-z_0-9.]*|[0-9]*)/gm).toString());
+      // recipe.img
+      //   .match(/([\/])([a-z_0-9.]*|[0-9]*)/gm)
+      //   .toString()
+      //   .replace(",", "");
+      recipe.desc = $(".recipe_content", el)
+        .children("p")
+        .last()
+        .text()
+        .replace(/(\s{3,50})/g, " ");
+      // .match(/(:?[а-я]+(\s)([а-я]+),)|(\s)([а-я]+)/);
 
-      console.log(recipe.img);
+      // console.log(recipe.desc);
       recipe.header = $(".title", el).children("a").text();
       // console.log(JSON.stringify(recipe.header));
       // const bzhu = $(".recipe_content", el)[0].firstChild;
@@ -60,13 +71,13 @@ async function scrapeData(url) {
       };
 
       recipes.push(recipe); // Populate countries array with country data //   recipe.iso3 = $(el).children("span").text();
-
-      // const writeDataFunc = writeRecipeData(recipe.header);
-      // writeDataFunc();
+      // console.log(recipe);
     });
     // Logs countries array to the console
     // console.log(recipes);
-    saveData(recipes);
+    // saveData(recipes);
+    // console.log(recipes);
+    // writeRecipeData(recipes);
 
     // fs.writeFile("coutries.json", JSON.stringify(recipes, null, 2), "utf8", (err) => {
     //   if (err) {
@@ -97,7 +108,7 @@ async function scrapeData(url) {
 }
 // Invoke the above function
 for (let i = 1; i <= 10; i++) {
-  let url = `https://daily-menu.ru/dailymenu/recipes/filter?group_6%5B0%5D=93&DailymenuRecipes_page=${i}`;
+  let url = `https://daily-menu.ru/dailymenu/recipes/filter?group_6%5B0%5D=39&DailymenuRecipes_page=${i}`;
   scrapeData(url);
 }
 // let urlSCR = `https://daily-menu.ru/dailymenu/recipes/filter?group_6%5B0%5D=93&DailymenuRecipes_page=1`;

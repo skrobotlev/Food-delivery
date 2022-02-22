@@ -4,7 +4,7 @@ import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
 import { FirstSlide } from "../../images/slider-home-page";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import styled from "styled-components";
-import FavorRecCardSalad from "../../images/fav-re-cd-salad";
+import FavorRecCardSalad from "../../images/salad";
 
 interface SliderCardProps {
     header?: string;
@@ -18,7 +18,7 @@ const HomePageSliderCard = styled.div`
   // flex-wrap: column;
   width: 320px;
   height: 170px;
-  padding-top: 30px;
+  padding-top: 20px;
     padding-left: 30px;
   h1 {
     font-size: 10px;
@@ -85,7 +85,9 @@ class HomePageSlider extends React.Component {
             <div className="home-page-slider">
                 <Slider {...settings}>
                     <SliderCard header="A R T I C L E" image={<FirstSlide />} desc="Плюсы и минусы фаст фуда">
-                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />} />
+                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />}
+                        // onClick={() => <a href="https://www.sport-express.ru/zozh/news/fast-fud-vred-ili-polza-dlya-cheloveka-plyusy-i-minusy-chto-eto-mozhno-li-pitatsya-1747780/" />}
+                        />
                     </SliderCard>
 
                     <SliderCard header="Разнообразные рецепты   " desc="Ищите тысячи рецептов здоровых блюд."

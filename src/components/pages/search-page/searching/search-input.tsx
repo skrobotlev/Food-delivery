@@ -2,7 +2,7 @@ import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHan
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
-import { Context } from "../../";
+import { Context } from "../../../..";
 
 interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     clearAll?: boolean;
@@ -15,7 +15,7 @@ const SearchInputDiv = styled.div`
   width: 100%; */
   display: inline-block;
   position: relative;
-  margin-top: 90px;
+  /* margin-top: 90px; */
   width: 100%;
 `;
 
@@ -38,10 +38,12 @@ const LoupeSearchIcon = styled.i`
 export const SearchInput: React.FC<SearchInputProps> = (value) => {
     const [searchValue, setSearchValue] = useState("");
     const { userStore } = useContext(Context);
+    const { categoriesStore } = useContext(Context);
 
 
     const clearInput = () => {
         setSearchValue("");
+        categoriesStore._filter = "";
     };
 
     useEffect(() => {
@@ -52,7 +54,7 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
     //     if (value) setSearchValue(value);
     // }, [value]);
     const handleChange = (e) => {
-        userStore._filter = e.target.value;
+        categoriesStore._filter = e.target.value;
     };
     const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
         const searchWord = e.currentTarget.value;
@@ -62,7 +64,7 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
         <SearchInputDiv >
             <input className="text-field__input"
                 type="text" placeholder="Введите название"
-                value={userStore._filter} onChange={handleChange} />
+                value={categoriesStore._filter} onChange={handleChange} />
             <SearchCloseIcon>
                 <CancelIcon onClick={clearInput} />
             </SearchCloseIcon>

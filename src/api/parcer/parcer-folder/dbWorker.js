@@ -2,6 +2,7 @@ const { parentPort } = require("worker_threads");
 const admin = require("firebase-admin");
 var serviceAccount = require("./serviceAccountKey.json");
 const { getDatabase } = require("firebase-admin/database");
+const { set, ref } = require("firebase/database");
 
 let firebaseConfig = {
   apiKey: "AIzaSyBYLLHL3VlSNB_L9S7z3Ci9863p4DDo958",
@@ -20,7 +21,7 @@ const db = getDatabase();
 // const refSalads = db.ref("categories/first-dishes");
 // const refSecDish = db.ref("categories/second-dishes");
 
-const ref = db.ref("categories/TEST");
+// const ref = db.ref("categories/TEST2");
 
 // module.exports = takeData = () => {
 //   ref.once("value").then(function (snapshot) {
@@ -63,6 +64,22 @@ const ref = db.ref("categories/TEST");
 // export const saveData = (array) => {
 //   ref.set(JSON.stringify(array));
 // };
+// module.exports = writeRecipeData = (recip) => {
+//   recip.forEach((item, idx) => {
+//     const { header, img, timeToCook, desc, bzhu } = item;
+//     console.log(item);
+//   //   return set(ref(db, "/categories/TEST2", ++idx), {
+//   //     img,
+//   //     desc,
+//   //     timeToCook,
+//   //     bzhu,
+//   //   }).catch((error) => {
+//   //     console.log(error);
+//   //   });
+//   // });
+//   }
+// };
+
 module.exports = saveData = (array) => {
   // ref.set(JSON.stringify(array));
   array.forEach((element) => {
