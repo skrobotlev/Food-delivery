@@ -10,17 +10,16 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
-import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Context } from "../../../";
 import { RecipeResponse } from "./search-page";
 import FavoriteRecipeCard from "../../../components/recipe-cards/favorite-recipe-card";
 import { RectBut } from "../../../components/buttons/rectangle-button";
 import { auth } from "../../../firebase";
-import { pushNewRecipe, removeFavoriteRecipe, updateRecipes, writeNewRecipe } from "../../../api/favorite-recipes";
+import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, searchingOnDb, updateRecipes, writeNewRecipe } from "../../../api/favorite-recipes";
+import { observer } from "mobx-react-lite";
 
-const ModalWindowDiv = styled.div`
+export const ModalWindowDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,7 +30,7 @@ const ModalWindowDiv = styled.div`
   background-color: #91c788;
 `;
 
-const RecipeValues = styled.div`
+export const RecipeValues = styled.div`
   display: flex;
   flex-direction: row;
   /* text-align: center; */
@@ -41,20 +40,21 @@ const RecipeValues = styled.div`
   margin-top: 10px;
   background-color: #fff8ee;
   h1 {
-    font-size: 24px;
+    font-size: 20px;
     color: #ff8473;
   }
   h2 {
     color: #ff8473;
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
-const ValuesRecipes = styled.div`
+export const ValuesRecipes = styled.div`
   text-align: center;
   width: auto;
+
 `;
 
-const ImageDiv = styled.div`
+export const ImageDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -63,16 +63,19 @@ const ImageDiv = styled.div`
     border-radius: 50px;
   }
 `;
-const HeaderH3 = styled.h3`
-    text-align: center;
+export const HeaderH3 = styled.h3`
+  text-align: center;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
-const CloseIconI = styled.i`
+export const CloseIconI = styled.i`
   margin-top: 10px;
   margin-left: 10px;
 `;
 
-const ButtonAndDescDiv = styled.div`
+export const ButtonAndDescDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -94,17 +97,21 @@ const drawerBleeding = 56;
 
 interface Props {
     /**
-                     * Injected by the documentation to work in an iframe.
-                     * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
-                       СПРОСИТЬ */
+                       * Injected by the documentation to work in an iframe.
+                       * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
+                         СПРОСИТЬ */
     window?: () => Window;
 }
 
 const Root = styledMUI("div")(({ theme }) => ({
-    height: "100%",
+    height: "60%",
     backgroundColor: theme.palette.mode === "light" ? grey[100] : theme.palette.background.default,
     // borderTopLeftRadius: "10vh",
     // border-top-right-radius: 20px,
+    // display: "flex",
+    // flexDirection: "column",
+    // justifyContent: "center",
+    // alignItems: "center",
 }));
 
 const Puller = styledMUI(Box)(({ theme }) => ({
@@ -121,7 +128,7 @@ const currentRecipe = styled.div`
   background-color: beige;
 `;
 
-const ModalWindow = (props: Props) => {
+const ModalWindow = observer((props: Props) => {
     const { window } = props;
     const [open, setOpen] = React.useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -131,40 +138,89 @@ const ModalWindow = (props: Props) => {
     const history = useHistory();
     const { uid } = auth.currentUser;
     // const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category, } = categoriesStore._modalObject.recipe;
-    const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category } = categoriesStore.modalObject.recipe;
-    const { id, recipeId } = categoriesStore._modalObject;
+    const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, } = categoriesStore.modalObject.recipe;
+    const { id, recipeId, categories } = categoriesStore._modalObject;
     // const iBzhu = toJS(bzhu);
     const { proteins, carbs, fat } = bzhu;
     let res;
-    // ЛОГИКА ФУНКЦИИ ОБНОВЛЕНИЯ ХРАНИЛИЩА
-    //
+    let currentKey;
+    let currentId;
+
+    const updateModalObj = (recipeId) => {
+        let currentKey = userStore.dbResponse.findIndex((rec) => {
+            return rec.recipeId === recipeId;
+        });
+        currentKey > -1 ? categoriesStore.setModalObject(userStore.dbResponse[currentKey]) : null;
+        console.log(userStore.dbResponse[currentKey], "rkey==recipeId157");
+        console.log("UPDATEmodOBJ");
+    };
+
+    useEffect(() => {
+        currentId = id;
+        console.log(currentId, "currId");
+    }, [id]);
+
+    // useEffect(() => {
+    //     currentKey = userStore.dbResponse.findIndex((rec) => {
+    //         return rec.recipeId === recipeId;
+    //     });
+    //     currentKey > -1 ? categoriesStore.setModalObject(userStore.dbResponse[currentKey]) : null;
+    //     console.log(userStore.dbResponse[currentKey], "rkey==recipeId157");
+    //     console.log("UPDATEmodOBJ");
+    //     console.log(categoriesStore.modalObject, "rkey==recipeId160");
+    // }, [categoriesStore.modalObject, currentKey]);
+
+    const requestUpdateStorage = () => {
+        getFavoriteRecipes(uid).then((res) => {
+            const favoriteRecipeIds = Object.entries(res).reduce((array, item: any) => {
+                const recipe = {
+                    id: item[0],
+                    recipeId: item[1].recipeId,
+                    categories: item[1].category,
+                };
+                array.push(recipe);
+                return array;
+            }, []);
+            console.log(favoriteRecipeIds, "favRecIDS");
+            searchingOnDb(favoriteRecipeIds)
+                .then((res) => {
+                    let elmg;
+                    console.log(res, "res");
+                    userStore.setDbResponse(res);
+
+                    console.log(userStore.dbResponse);
+                    console.log("REQUESTupdSTORAGE");
+                    // return res;
+                }).then(() => updateModalObj(recipeId));
+        });
+    };
+
     useEffect(() => {
         console.log(isFavorite, "isFavor");
     }, [isFavorite]);
 
     useEffect(() => {
         res = userStore.dbResponse.findIndex((rec) => {
-            // console.log(rec, "rID");
-            // console.log(rec.recipe.header, "rID", header, "pID");
             return rec.recipe.header === header;
         });
         res > -1 ? setIsFavorite(true) : setIsFavorite(false);
-        console.log(res);
+        console.log(res, "resIsFavor");
     }, [res, isFavorite]);
-    const mobxUpdRec = (recId, recipe, header) => {
 
+    const updRecipStor = (recId, recipe, header) => {
         if (isFavorite) {
             userStore.deleteRecipe(header);
             console.log("DELLLL");
             setIsFavorite(false);
             removeFavoriteRecipe(uid, id, null);
-        } else {
+            console.log(userStore.dbResponse, "currModObj");
+        } else if (!isFavorite) {
             userStore.addRecipe(recId, recipe);
             console.log("ADDD");
             setIsFavorite(true);
-            pushNewRecipe(uid, { category: category, recipeId: recipeId });
+            pushNewFavoriteRecipe(uid, { category: categories, recipeId: recipeId });
+            requestUpdateStorage();
         }
-        // isFavorite ? userStore.deleteRecipe(header) : userStore.addRecipe(recId, recipe);
     };
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -172,51 +228,41 @@ const ModalWindow = (props: Props) => {
         // !open ?
     };
     useEffect(() => {
-        history.location.pathname === `/modal-window` ? setOpen(true) : null;
+        // history.location.pathname === `/modal-window` ? setOpen(true) : null;
+        categoriesStore.openModal ? setOpen(true) : setOpen(false);
         // console.log(history.location.pathname + "MODALLLLWIND");
-    }, [history.location.pathname]);
+    }, [categoriesStore.openModal]);
     // This is used only for the example
     // const container = window !== undefined ? () => window().document.body : undefined;
 
-    useEffect(() => {
-        // console.log(categoriesStore.modalObject, "currModObj");
-        proteins === undefined ? push(HOME_ROUTE) : null;
-        // console.log(recipeId, "recipeId");
-    }, []);
-
-    // useEffect(() => {
-    //     console.log(id + "id", rkey + "rkey", recipeId + "recipId");
-    //     // !categoriesStore._modalObject ? push(HOME_ROUTE) : null;
-    // }, []);
-
     const valuesROOT = [
         {
-            categ: "Proteins",
+            categ: "Белки",
             recVal: proteins,
         },
         {
-            categ: "Calories",
+            categ: "Калории",
             recVal: calories,
         },
         {
-            categ: "Fat",
+            categ: "Жиры",
             recVal: fat,
         },
         {
-            categ: "Carbs",
+            categ: "Углеводы",
             recVal: carbs,
         },
     ];
 
     // const addObj;
     return (
-        <Root>
+        <Root onClick={() => setOpen(false)}>
             {/* <div> */}
             {/* <CssBaseline /> */}
             <Global
                 styles={{
                     ".MuiDrawer-root > .MuiPaper-root": {
-                        height: `calc(90% - ${drawerBleeding}px)`,
+                        height: `calc(92% - ${drawerBleeding}px)`,
                         overflow: "visible",
                         borderTopLeftRadius: "30px",
                         borderTopRightRadius: "30px",
@@ -224,26 +270,41 @@ const ModalWindow = (props: Props) => {
                 }}
             />
 
-            <Box sx={{ textAlign: "center", pt: 16 }}>
+            {/* <Box sx={{ textAlign: "center", pt: 16 }}>
                 <Button onClick={toggleDrawer(true)}>Open</Button>
-            </Box>
+            </Box> */}
             <SwipeableDrawer
                 // container={container}
                 anchor="bottom"
-                open={open}
+                open={categoriesStore.openModal}
                 onClose={() => {
                     toggleDrawer(false);
-                    // push(SEARCH_ROUTE);
+                    categoriesStore.setOpenModal(false);
                 }}
-                onOpen={toggleDrawer(true)}
+                onOpen={() => {
+                    toggleDrawer(true);
+                    categoriesStore.setOpenModal(true);
+                }}
+                closeAfterTransition={true}
                 swipeAreaWidth={drawerBleeding}
                 disableSwipeToOpen={false}
                 ModalProps={{
                     keepMounted: true,
                 }}
+                transitionDuration={
+                    {
+                        enter: 400,
+                        exit: 400
+                    }
+                }
             >
                 <Puller />
-                <CloseIconI onClick={() => history.goBack()}>
+                <CloseIconI
+                    onClick={() => {
+                        toggleDrawer(false);
+                        categoriesStore.setOpenModal(false);
+                    }}
+                >
                     {/* <CloseIconI onClick={() => push("/search?category=salads")}> */}
                     <CloseIcon fontSize="large" />
                 </CloseIconI>
@@ -264,14 +325,14 @@ const ModalWindow = (props: Props) => {
                 <ButtonAndDescDiv>
                     <h3>Описание</h3>
                     <p>{desc}</p>
-                    <RectBut size="md" onClick={() => mobxUpdRec(rkey, categoriesStore.modalObject, header)}>
+                    <RectBut size="md" onClick={() => updRecipStor(recipeId, categoriesStore.modalObject, header)}>
                         {!isFavorite ? "Добавить в избранное" : "Удалить из избранного"}
                     </RectBut>
                 </ButtonAndDescDiv>
             </SwipeableDrawer>
             {/* </div> */}
-        </Root>
+        </Root >
     );
-};
+});
 
 export default ModalWindow;

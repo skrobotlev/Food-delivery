@@ -20,6 +20,7 @@ export default class CategoriesStore {
   _currentCategory: any;
   _modalObject: any;
   _openModal: boolean;
+  _heartLikeRecipe: any;
   _filter: string;
   _keyCATEGORY: any;
   _nameCurrentCategory: string;
@@ -32,16 +33,35 @@ export default class CategoriesStore {
     this._beverages = [];
     this._canning = [];
     this._sauces = [];
-    this._modalObject = {};
+    this._modalObject = {
+      categories: "first-dishes",
+      id: "-Mw1bYh6q7IPtTK3c2qT",
+      recipe: {
+        bzhu: { proteins: "1", fat: "1", carbs: "5" },
+        calories: "33",
+        desc: "Потребуется: вода, картофель, фасоль печеная в томатном соусе, вешенки свежие, морковь, лук репчатый, масло подсолнечное, соль поваренная пищевая",
+        header: "Быстрый фасолевый суп с грибами",
+        img: "https://daily-menu.ru/public/modules/dailymenu/dailymenurecipes/12427/thumb_2865a6ccc6ec2d6ac8d728ee360b4e1d.jpg",
+        timeToCook: "30 мин",
+      },
+      recipeId: "-MuQ3zjGiQTHGqN7-Nia",
+    };
     this._openModal = false;
+    this._heartLikeRecipe= {};
 
-    this._nameCurrentCategory = "TEST";
+
+    this._nameCurrentCategory = "";
     this._currentCategory = [];
     this._filter = "";
     this._categoryLength = 0;
     this._perPage = 10;
     this._currentPage = 0;
     makeAutoObservable(this);
+  }
+
+  setHeartLikeRecipe(rec) {
+    this._heartLikeRecipe = rec;
+    // this.valFilter()
   }
 
   setNameCurrentCategory(name) {
@@ -100,6 +120,11 @@ export default class CategoriesStore {
 
   setPerPage(num) {
     this._perPage = num;
+  }
+
+  get heartLikeRecipe() {
+    return this._heartLikeRecipe;
+    // this.valFilter()
   }
 
   get nameCurrentCategory() {

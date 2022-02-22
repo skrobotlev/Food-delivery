@@ -12,6 +12,10 @@ import FavoriteRecipeCard from "../recipe-cards/favorite-recipe-card";
 import FavorRecCardLike from "../images/heart-like";
 import { RecipeFavoriteCardDiv } from "./all-tabs/recipe-tab";
 import { MODAL_WINDOW } from "../routing/consts";
+import ModalWindow from "../pages/search-page/modal-window";
+
+
+
 
 const FavoriteRecipeList = observer(() => {
     const { userStore } = useContext(Context);
@@ -59,7 +63,8 @@ const FavoriteRecipeList = observer(() => {
             recipeId: resp.recipeId,
         });
         console.log(categoriesStore.modalObject, "favModOb");
-        push(`${MODAL_WINDOW}`);
+        categoriesStore.setOpenModal(true);
+        // push(`${MODAL_WINDOW}`);
         //     // addQuery("modal", idx);
     };
 
@@ -79,7 +84,9 @@ const FavoriteRecipeList = observer(() => {
             </RecipeResponse>
         );
     });
-    return <RecipeFavoriteCardDiv>{showFavorites}</RecipeFavoriteCardDiv>;
+    return (<RecipeFavoriteCardDiv>{showFavorites}
+        {categoriesStore.openModal ? <ModalWindow /> : null}
+    </RecipeFavoriteCardDiv>);
 
     // useEffect(() => {
     //     testData(currCategory).then((fullCateg) => {

@@ -26,12 +26,12 @@ export const writeNewRecipe = (uid, valKey) => {
 export const removeFavoriteRecipe = (uid, id, valKey) => {
   const updates = {};
   // updates["/posts/" + newPostKey] = postData;
-  updates[`/fullUsers/${uid}/favorites/${id}/`] = valKey;
+  updates[`/fullUsers/${uid}/favorites/${id}`] = valKey;
   console.log(updates);
   return update(ref(database), updates);
 };
 
-export const pushNewRecipe = (uid, valKey) => {
+export const pushNewFavoriteRecipe = (uid, valKey) => {
   // const refer = ref(database);
   // Get a key for a new Post.
   // const newPostKey = push(child(ref(database), 'posts')).key;

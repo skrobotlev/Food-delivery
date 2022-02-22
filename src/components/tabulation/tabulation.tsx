@@ -30,11 +30,11 @@ const Tabulation = () => {
     //     setr ? setActiveTab(1) : null;
     // }, [setr]);
 
-    const tabs = ["Пища", "Рецепты"];
+    const tabs = ["Рецепты", "Пища"];
     return (
         <div className="tabs">
             <TabComponent tabs={tabs} onActiveChange={(idx) => setActiveTab(idx)} activeTab={activeTab} />
-            <TabsContent tabs={[<FoodFavoriteTab />, <RecipeFavoriteCard />]} activeIndex={activeTab} />
+            <TabsContent tabs={[<RecipeFavoriteCard />, <FoodFavoriteTab />]} activeIndex={activeTab} />
         </div>
     );
 };

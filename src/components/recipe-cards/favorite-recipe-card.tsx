@@ -1,6 +1,10 @@
-import React, { ReactElement, DetailedHTMLProps, HTMLAttributes } from "react";
+import React, { ReactElement, DetailedHTMLProps, HTMLAttributes, useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
+import { Context } from "../../";
+import cn from "classnames";
+import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, searchingOnDb } from "../../api/favorite-recipes";
+import { auth } from "../..//firebase";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
@@ -13,6 +17,9 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   timeToCook?: any;
   favKey?: any;
   recipeId?: any;
+  clickFunc?: any;
+  rkey?: any;
+  recip?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -72,7 +79,7 @@ const LikeIcon = styled.i`
   // flex-direction: row-reverse;
   position: absolute;
   top: 10px;
-  left: 280px;
+  left: 270px;
 `;
 
 // const ImageCard = styled.div`
@@ -103,10 +110,85 @@ const ImageCard = styled.div`
   }
 `;
 
-const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, likeIcon, image, icon, category, bzhu, timeToCook }) => {
+const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, rkey, recip, likeIcon, image, icon, category, bzhu, timeToCook }) => {
+  const [active, setActive] = useState(false);
+  const { userStore } = useContext(Context);
+  const { categoriesStore } = useContext(Context);
+  const { uid } = auth.currentUser;
+  // let header = title;
+  let res;
+  let numCurrId;
+  let currId;
+
+  useEffect(() => {
+    res = userStore.dbResponse.findIndex((rec) => {
+      console.log(rec, "recRECIPE")
+      return rec.recipe.header === title;
+    });
+
+    // !active
+    console.log(res);
+    res > -1 ? setActive(true) : setActive(false);
+  });
+  // useEffect(() => {
+  //   active ? res = userStore.dbResponse.findIndex((rec) => {
+  //     return rec.recipe.header === title;
+  //   }) : res = null;
+  //   console.log(res);
+  //   res > -1 ? setActive(true) : setActive(false);
+  // });
+
+  const requestUpdateStorage = () => {
+    getFavoriteRecipes(uid).then((ress) => {
+      const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
+        const recipe = {
+          id: item[0],
+          recipeId: item[1].recipeId,
+          categories: item[1].category,
+        };
+        array.push(recipe);
+        return array;
+      }, []);
+      // console.log(favoriteRecipeIds, "favRecIDS");
+      searchingOnDb(favoriteRecipeIds)
+        .then((result) => {
+          let elmg;
+          console.log(res, "res");
+          userStore.setDbResponse(result);
+
+          console.log(userStore.dbResponse);
+          // console.log("REQUESTupdSTORAGE");
+          // return res;
+        });
+    });
+  };
+
+
+
+  const updRecipStor = (header, recId, recipe) => {
+    console.log(recipe, "dbresCURRID");
+    // categoriesStore.setOpenModal(false);
+    if (active) {
+      currId = userStore.dbResponse[res].id;
+      console.log(currId, "dbresCURRID");
+      userStore.deleteRecipe(header);
+      console.log("DELLLL");
+      setActive(false);
+      removeFavoriteRecipe(uid, currId, null);
+      console.log(userStore.dbResponse, "currModObj");
+    } else if (!active) {
+      userStore.addRecipe(recId, recipe);
+      console.log("ADDD");
+      setActive(true);
+      console.log(category, "cat", rkey, "rkey");
+      pushNewFavoriteRecipe(uid, { category: category, recipeId: rkey });
+      requestUpdateStorage();
+    }
+  };
+
   return (
     <RecipeElement>
-      <LikeIcon> {likeIcon}</LikeIcon>
+      <LikeIcon onClick={() => updRecipStor(title, rkey, categoriesStore.heartLikeRecipe)}>{React.cloneElement(likeIcon, { activeClass: active })}</LikeIcon>
       <h1>{title}</h1>
       <ImageCard>
         <img src={image} />

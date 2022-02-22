@@ -89,31 +89,6 @@ export default class UserStore {
       this.dbResponse.push(recipe);
     }
   }
-  // deleteRecipe(recId) {
-  //   const recipeIndexAtId = this.dbResponse.findIndex((rec) => {
-  //     console.log(rec, "rID");
-  //     console.log(rec.id, "rID", recId, "pID");
-  //     return rec.id === recId;
-  //   });
-  //   console.log(recipeIndexAtId, "recipeIndexAtId");
-  //   if (recipeIndexAtId > -1) {
-  //     this.dbResponse.splice(recipeIndexAtId, 1);
-  //   }
-  // }
-
-  // addRecipe(recId, recipe) {
-  //   // this.dbResponse.push(recipe);
-  //   const recipeIndexRecId = this.dbResponse.findIndex((rec) => {
-  //     console.log(rec, "rID");
-  //     console.log(rec.recipeId, "rID", recId, "pID");
-  //     return rec.recipeId === recId;
-  //   });
-  //   console.log(recipeIndexRecId, "recipeIndexAtId");
-  //   if (recipeIndexRecId === -1) {
-  //     this.dbResponse.push(recipe);
-  //     // this.dbResponse.splice(recipeIndexAtId, 1);
-  //   }
-  // }
 
   setDbResponse(res) {
     this._dbResponse = res;
