@@ -15,9 +15,9 @@ const FavoriteItemsPageDiv = styled.div`
 const FavoriteItemsPageH1 = styled.h1`
   display: flex;
   justify-content: center;
-  font-size: 16px;
+  font-size: 22px;
   font-family: "Balsamiq Sans";
-  padding-top: 61px;
+  padding-top: 30px;
 `;
 
 const TabulationSpan = styled.span`

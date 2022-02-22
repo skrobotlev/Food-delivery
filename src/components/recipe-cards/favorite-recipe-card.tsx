@@ -23,19 +23,33 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
-  position: relative;
-  width: 313px;
+  /* position: relative; */
+  width: 100%;
+  /* width: 100%; */
   height: 120px;
   border-radius: 2rem;
-  margin: 10px;
+  margin: 10px 0px 0px 0px;
   background-color: #eff7ee;
   font-family: "Balsamiq Sans";
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   /* align-items: center; */
+  display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 30px;
+    grid-template-areas:
+        "img h2 icon"
+        "img h2 ."
+        "img h1 h1"
+        "img h3 .";
+    justify-items: flex-start;
+    h1,h2,h3 {
+      padding-left: 5px;
+    }
   h1 {
     // display: flex;
-    position: absolute;
+    grid-area: h1;
+    /* position: absolute; */
     top: 45px;
     left: 150px;
     font-size: 15px;
@@ -43,29 +57,25 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   }
   h2 {
     // display: flex;
-    position: absolute;
+    grid-area: h2;
+    padding-top: 10px;
+    /* position: absolute; */
     bottom: 80px;
     left: 150px;
-    font-size: 12px;
+    font-size: 15px;
     color: #6cb663;
     font-weight: 600;
   }
   h3 {
+    grid-area: h3;
+
     // display: flex;
-    position: absolute;
-    bottom: -5px;
+    /* position: absolute; */
+    /* bottom: -5px; */
     left: 150px;
     font-size: 15px;
     /* color:#6CB663; */
     font-weight: 600;
-  }
-  p {
-    position: absolute;
-    bottom: 10px;
-    left: 150px;
-    font-size: 12px;
-    color: #646464;
-    font-weight: 550;
   }
   /* svg {
   position: absolute;
@@ -77,10 +87,21 @@ const LikeIcon = styled.i`
   /* display: flex;
   justify-content: flex-end; */
   // flex-direction: row-reverse;
-  position: absolute;
+  grid-area: icon;
+padding-right: 12px;
+  /* position: absolute; */
   top: 10px;
   left: 270px;
 `;
+
+const TimeToCookSpan = styled.span`
+grid-area: h3;
+      font-size: 15px;
+    /* color:#6CB663; */
+    font-weight: 600;
+    align-items: baseline;
+
+`
 
 // const ImageCard = styled.div`
 //   display: flex;
@@ -95,9 +116,9 @@ const LikeIcon = styled.i`
 // `;
 
 const ImageCard = styled.div`
-  display: flex;
-  justify-content: center;
-  position: relative;
+  /* display: flex;
+  justify-content: center; */
+  /* position: relative; */
   width: 120px;
   height: 90px;
   border-radius: 100px;
@@ -122,7 +143,7 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories
 
   useEffect(() => {
     res = userStore.dbResponse.findIndex((rec) => {
-      console.log(rec, "recRECIPE")
+      // console.log(rec, "recRECIPE")
       return rec.recipe.header === title;
     });
 
@@ -170,17 +191,17 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories
     // categoriesStore.setOpenModal(false);
     if (active) {
       currId = userStore.dbResponse[res].id;
-      console.log(currId, "dbresCURRID");
+      // console.log(currId, "dbresCURRID");
       userStore.deleteRecipe(header);
       console.log("DELLLL");
       setActive(false);
       removeFavoriteRecipe(uid, currId, null);
-      console.log(userStore.dbResponse, "currModObj");
+      // console.log(userStore.dbResponse, "currModObj");
     } else if (!active) {
       userStore.addRecipe(recId, recipe);
       console.log("ADDD");
       setActive(true);
-      console.log(category, "cat", rkey, "rkey");
+      // console.log(category, "cat", rkey, "rkey");
       pushNewFavoriteRecipe(uid, { category: category, recipeId: rkey });
       requestUpdateStorage();
     }
@@ -194,11 +215,11 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories
         <img src={image} />
       </ImageCard>
       <h2>{calories}</h2>
-      <p>{bzhu}</p>
-      <h3>
+      {/* <p>{bzhu}</p> */}
+      <TimeToCookSpan>
         <AccessAlarmsIcon fontSize="small" />
         {timeToCook}
-      </h3>
+      </TimeToCookSpan>
     </RecipeElement>
   );
 };

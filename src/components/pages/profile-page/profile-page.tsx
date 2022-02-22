@@ -21,9 +21,9 @@ const ProfilePageDiv = styled.div`
   height: 100vh;
   width: 100%;
   font-family: "Balsamiq Sans";
-  margin-top: 50px ;
+  margin-top: 30px ;
   h1 {
-    font-size: 16px;
+    font-size: 22px;
   }
   h2 {
     margin-top: 24px;

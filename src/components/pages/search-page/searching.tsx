@@ -46,18 +46,6 @@ const Searching = observer(() => {
         return React.useMemo(() => new URLSearchParams(search), [search]);
     }
     let query = useQuery();
-    const addQuery = (key, value) => {
-        let pathname = location.pathname;
-        // console.log(pathname, "ADDQUERYpathname");
-        // returns path: '/app/books'
-        let searchParams = new URLSearchParams(location.search);
-        // returns the existing query string: '?type=fiction&author=fahid'
-        searchParams.set(key, value);
-        history.push({
-            pathname: pathname,
-            search: searchParams.toString(),
-        });
-    };
     let res;
     let resHeader;
 
@@ -99,27 +87,6 @@ const Searching = observer(() => {
     let showCateg = categoriesStore.currentCategory;
     const { length } = showCateg;
 
-    const updateLikeHearts = (header) => {
-        res = userStore.dbResponse.findIndex((rec) => {
-            return rec.recipe.header === header;
-        });
-        console.log(res, "resEXP");
-        res > -1 ? setActive(true) : setActive(false);
-    };
-
-    // useEffect(() => {
-    //     !categoriesStore.openModal ? updateLikeHearts(resHeader) : null;
-    // }, [res, active, categoriesStore.openModal]);
-    // useEffect(() => {
-    //     res = userStore.dbResponse.findIndex((rec) => {
-    //         // console.log(rec, "rID");
-    //         // console.log(rec.recipe.header, "rID", header, "pID");
-    //         return rec.recipe.header === resHeader;
-    //     });
-    //     console.log(res, "resEXP");
-    //     res > -1 ? setActive(true) : setActive(false);
-    // }, []);
-
     useEffect(() => {
         categoriesStore.setCategoryLength(length);
     }, [categoriesStore.categoryLength, length]);
@@ -129,55 +96,32 @@ const Searching = observer(() => {
     // }, [categoriesStore.currentPage]);
 
     let currentKey;
-    // const updateModalObj = (recip) => {
-    //     currentKey = userStore.dbResponse.findIndex((rec) => {
-    //         return rec.recipeId === recip.rkey;
-    //     });
-    //     currentKey > -1 ? categoriesStore.setModalObject(userStore.dbResponse[currentKey]) : null;
-    //     console.log(userStore.dbResponse[currentKey], "rkey==recipeId157");
-    //     console.log("UPDATEmodOBJ");
-    // };
     const recipeClickFunc = (recip) => {
         currentKey = userStore.dbResponse.findIndex((rec) => {
             return rec.recipeId === recip.rkey;
         });
-        const setterObj = {
+        let setterObj = {
             recipe: recip,
             id: "",
             recipeId: recip.rkey,
             categories: recip.category,
         };
+
         if (currentKey > -1) categoriesStore.setModalObject(userStore.dbResponse[currentKey]);
         else categoriesStore.setModalObject(setterObj);
+        // currentKey > -1
+        //     ? categoriesStore.setModalObject(userStore.dbResponse[currentKey])
+        //     : categoriesStore.setModalObject({
+        //         recipe: recip,
+        //         id: "",
+        //         recipeId: recip.rkey,
+        //         categories: recip.category,
+        //     });
         categoriesStore.setHeartLikeRecipe(setterObj);
-
         console.log(userStore.dbResponse[currentKey], "rkey==recipeId157SEARCHING");
         console.log(categoriesStore.modalObject, "modOBj");
         categoriesStore.setOpenModal(true);
     };
-    // const recipeClickFunc = (recip) => {
-    //     currentKey = userStore.dbResponse.findIndex((rec) => {
-    //         return rec.recipeId === recip.rkey;
-    //     });
-    //     // if(currKey) переделать
-    //     currentKey > -1
-    //         ? categoriesStore.setModalObject(userStore.dbResponse[currentKey])
-    //         : categoriesStore.setModalObject({
-    //             recipe: recip,
-    //             id: "",
-    //             recipeId: recip.rkey,
-    //             categories: recip.category,
-    //         });
-    //     categoriesStore.setHeartLikeRecipe({
-    //         recipe: recip,
-    //         id: "",
-    //         recipeId: recip.rkey,
-    //         categories: recip.category,
-    //     });
-    //     console.log(userStore.dbResponse[currentKey], "rkey==recipeId157SEARCHING");
-    //     console.log(categoriesStore.modalObject, "modOBj");
-    //     categoriesStore.setOpenModal(true);
-    // };
 
     const pagesVisited = categoriesStore.currentPage * categoriesStore.perPage;
     // console.log(showCateg);
@@ -249,46 +193,42 @@ const Searching = observer(() => {
     return (
         <SearchPageDiv>
             <SearchInput />
-            {
-                categoriesStore.valFilter() == "" ? (
-                    <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
-                ) : (
-                    <RecipeFavoriteCardDiv>
-
-
-
-                        {_DATA.currentData().map((recip, idx) => {
-                            return (
-                                // <RecipeResponse >
-                                <RecipeResponse onClick={() => recipeClickFunc(recip)}>
-                                    <FavoriteRecipeCard
-                                        timeToCook={recip.timeToCook}
-                                        key={idx}
-                                        title={recip.header}
-                                        calories={recip.calories + " Kcal"}
-                                        likeIcon={<FavorRecCardLike activeClass={active} />}
-                                        image={recip.img}
-                                        rkey={recip.rkey}
-                                        category={recip.category}
-                                        recip={recip}
-                                    />
-                                </RecipeResponse>
-                            );
-                        })}
-                        <Pagination
-                            count={pageCount}
-                            size="large"
-                            page={page}
-                            siblingCount={0}
-                            shape="rounded"
-                            classes={{
-                                // root: classes.root,
-                                ul: classes.ul,
-                            }}
-                            onChange={handleChange}
-                        />
-                    </RecipeFavoriteCardDiv>
-                )}
+            {categoriesStore.valFilter() == "" ? (
+                <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
+            ) : (
+                <RecipeFavoriteCardDiv>
+                    {_DATA.currentData().map((recip, idx) => {
+                        return (
+                            // <RecipeResponse >
+                            <RecipeResponse onClick={() => recipeClickFunc(recip)}>
+                                <FavoriteRecipeCard
+                                    timeToCook={recip.timeToCook}
+                                    key={idx}
+                                    title={recip.header}
+                                    calories={recip.calories + " Kcal"}
+                                    likeIcon={<FavorRecCardLike activeClass={active} />}
+                                    image={recip.img}
+                                    rkey={recip.rkey}
+                                    category={recip.category}
+                                    recip={recip}
+                                />
+                            </RecipeResponse>
+                        );
+                    })}
+                    <Pagination
+                        count={pageCount}
+                        size="large"
+                        page={page}
+                        siblingCount={0}
+                        shape="rounded"
+                        classes={{
+                            // root: classes.root,
+                            ul: classes.ul,
+                        }}
+                        onChange={handleChange}
+                    />
+                </RecipeFavoriteCardDiv>
+            )}
             {/* {displayItems == "" ? (
                 <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
             ) : (

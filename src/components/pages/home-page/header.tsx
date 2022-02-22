@@ -11,7 +11,7 @@ const HomePageHeaderDiv = styled.div`
 display: flex;
 justify-content: center;
 flex-direction: column;
-margin-top: 90px;
+margin-top: 50px;
 width: 250px;
 height: 59px;
 font-family: "Balsamiq Sans";

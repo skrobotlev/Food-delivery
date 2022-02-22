@@ -21,7 +21,7 @@ const SearchPageH1 = styled.h1`
   font-family: "Balsamiq Sans";
   font-size: 22px;
   font-weight: 400;
-  margin-top: 85px;
+  margin-top: 30px;
   text-align: center;
 `;
 

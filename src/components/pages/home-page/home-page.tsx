@@ -49,7 +49,7 @@ const HomePage = observer(() => {
         array.push(recipe);
         return array;
       }, []);
-      console.log(favoriteRecipeIds, "favRecIDS");
+      // console.log(favoriteRecipeIds, "favRecIDS");
       searchingOnDb(favoriteRecipeIds)
         .then((res) => {
           let elmg;

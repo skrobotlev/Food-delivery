@@ -64,8 +64,6 @@ const FavoriteRecipeList = observer(() => {
         });
         console.log(categoriesStore.modalObject, "favModOb");
         categoriesStore.setOpenModal(true);
-        // push(`${MODAL_WINDOW}`);
-        //     // addQuery("modal", idx);
     };
 
     const showFavorites = userStore.dbResponse.map((resp, idx) => {
