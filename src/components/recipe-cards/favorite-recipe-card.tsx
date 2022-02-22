@@ -15,7 +15,6 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   bzhu?: any;
   image?: string;
   timeToCook?: any;
-  favKey?: any;
   recipeId?: any;
   clickFunc?: any;
   rkey?: any;
@@ -35,17 +34,19 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   /* flex-direction: column; */
   /* align-items: center; */
   display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 30px;
-    grid-template-areas:
-        "img h2 icon"
-        "img h2 ."
-        "img h1 h1"
-        "img h3 .";
-    justify-items: flex-start;
-    h1,h2,h3 {
-      padding-left: 5px;
-    }
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 30px;
+  grid-template-areas:
+    "img h2 icon"
+    "img h2 ."
+    "img h1 h1"
+    "img h3 .";
+  justify-items: flex-start;
+  h1,
+  h2,
+  h3 {
+    padding-left: 5px;
+  }
   h1 {
     // display: flex;
     grid-area: h1;
@@ -88,20 +89,20 @@ const LikeIcon = styled.i`
   justify-content: flex-end; */
   // flex-direction: row-reverse;
   grid-area: icon;
-padding-right: 12px;
+  padding-right: 12px;
+  padding-top: 2px;
   /* position: absolute; */
   top: 10px;
   left: 270px;
 `;
 
 const TimeToCookSpan = styled.span`
-grid-area: h3;
-      font-size: 15px;
-    /* color:#6CB663; */
-    font-weight: 600;
-    align-items: baseline;
-
-`
+  grid-area: h3;
+  font-size: 15px;
+  /* color:#6CB663; */
+  font-weight: 600;
+  align-items: baseline;
+`;
 
 // const ImageCard = styled.div`
 //   display: flex;
@@ -131,18 +132,28 @@ const ImageCard = styled.div`
   }
 `;
 
-const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories, rkey, recip, likeIcon, image, icon, category, bzhu, timeToCook }) => {
+const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({
+  title,
+  calories,
+  rkey,
+  recip,
+  likeIcon,
+  image,
+  icon,
+  category,
+  bzhu,
+  timeToCook,
+}) => {
   const [active, setActive] = useState(false);
   const { userStore } = useContext(Context);
   const { categoriesStore } = useContext(Context);
   const { uid } = auth.currentUser;
   // let header = title;
   let res;
-  let numCurrId;
   let currId;
 
   useEffect(() => {
-    res = userStore.dbResponse.findIndex((rec) => {
+    res = userStore.favoriteRecipesDb.findIndex((rec) => {
       // console.log(rec, "recRECIPE")
       return rec.recipe.header === title;
     });
@@ -152,7 +163,7 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories
     res > -1 ? setActive(true) : setActive(false);
   });
   // useEffect(() => {
-  //   active ? res = userStore.dbResponse.findIndex((rec) => {
+  //   active ? res = userStore.favoriteRecipesDb.findIndex((rec) => {
   //     return rec.recipe.header === title;
   //   }) : res = null;
   //   console.log(res);
@@ -170,38 +181,27 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories
         array.push(recipe);
         return array;
       }, []);
-      // console.log(favoriteRecipeIds, "favRecIDS");
-      searchingOnDb(favoriteRecipeIds)
-        .then((result) => {
-          let elmg;
-          console.log(res, "res");
-          userStore.setDbResponse(result);
-
-          console.log(userStore.dbResponse);
-          // console.log("REQUESTupdSTORAGE");
-          // return res;
-        });
+      searchingOnDb(favoriteRecipeIds).then((result) => {
+        let elmg;
+        console.log(res, "res");
+        userStore.setfavoriteRecipesDb(result);
+        console.log(userStore.favoriteRecipesDb, "updStorage");
+      });
     });
   };
 
-
-
   const updRecipStor = (header, recId, recipe) => {
     console.log(recipe, "dbresCURRID");
-    // categoriesStore.setOpenModal(false);
     if (active) {
-      currId = userStore.dbResponse[res].id;
-      // console.log(currId, "dbresCURRID");
+      currId = userStore.favoriteRecipesDb[res].id;
       userStore.deleteRecipe(header);
       console.log("DELLLL");
       setActive(false);
       removeFavoriteRecipe(uid, currId, null);
-      // console.log(userStore.dbResponse, "currModObj");
     } else if (!active) {
       userStore.addRecipe(recId, recipe);
       console.log("ADDD");
       setActive(true);
-      // console.log(category, "cat", rkey, "rkey");
       pushNewFavoriteRecipe(uid, { category: category, recipeId: rkey });
       requestUpdateStorage();
     }
@@ -209,7 +209,9 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({ title, calories
 
   return (
     <RecipeElement>
-      <LikeIcon onClick={() => updRecipStor(title, rkey, categoriesStore.heartLikeRecipe)}>{React.cloneElement(likeIcon, { activeClass: active })}</LikeIcon>
+      <LikeIcon onClick={() => updRecipStor(title, rkey, categoriesStore.heartLikeRecipe)}>
+        {React.cloneElement(likeIcon, { activeClass: active })}
+      </LikeIcon>
       <h1>{title}</h1>
       <ImageCard>
         <img src={image} />

@@ -3,7 +3,6 @@ import FavoriteRecipeCard from "../../recipe-cards/favorite-recipe-card";
 import FavorRecCardLike from "../../images/heart-like";
 import FavorRecCardSalad from "../../images/salad";
 import styled from "styled-components";
-import FavorRecCardChicken from "../../images/chicken";
 import RectangleButton from "../../buttons/rectangle-button";
 import { takeDataCat } from "../../../api/categories";
 import { observer } from "mobx-react-lite";

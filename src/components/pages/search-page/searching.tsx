@@ -35,6 +35,7 @@ const Searching = observer(() => {
     const { path } = useRouteMatch();
     const history = useHistory();
     const [active, setActive] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const values = queryString.parse(search);
 
@@ -91,13 +92,9 @@ const Searching = observer(() => {
         categoriesStore.setCategoryLength(length);
     }, [categoriesStore.categoryLength, length]);
 
-    // useEffect(() => {
-    //     // console.log(categoriesStore.currentPage);
-    // }, [categoriesStore.currentPage]);
-
     let currentKey;
-    const recipeClickFunc = (recip) => {
-        currentKey = userStore.dbResponse.findIndex((rec) => {
+    const recipeClickFunc = (recip, e) => {
+        currentKey = userStore.favoriteRecipesDb.findIndex((rec) => {
             return rec.recipeId === recip.rkey;
         });
         let setterObj = {
@@ -106,21 +103,23 @@ const Searching = observer(() => {
             recipeId: recip.rkey,
             categories: recip.category,
         };
+        console.log(e.target.tagName, "e-target");
+        categoriesStore.setHeartLikeRecipe({
+            recipe: recip,
+            id: "",
+            recipeId: recip.rkey,
+            categories: recip.category,
+        });
+        if (e.target.tagName === "path") return e.stopPropagation();
 
-        if (currentKey > -1) categoriesStore.setModalObject(userStore.dbResponse[currentKey]);
+        if (currentKey > -1) categoriesStore.setModalObject(userStore.favoriteRecipesDb[currentKey]);
         else categoriesStore.setModalObject(setterObj);
-        // currentKey > -1
-        //     ? categoriesStore.setModalObject(userStore.dbResponse[currentKey])
-        //     : categoriesStore.setModalObject({
-        //         recipe: recip,
-        //         id: "",
-        //         recipeId: recip.rkey,
-        //         categories: recip.category,
-        //     });
-        categoriesStore.setHeartLikeRecipe(setterObj);
-        console.log(userStore.dbResponse[currentKey], "rkey==recipeId157SEARCHING");
+
+        // categoriesStore.setHeartLikeRecipe(setterObj); ???????????????????????????????/
+        console.log(userStore.favoriteRecipesDb[currentKey], "rkey==recipeId157SEARCHING");
         console.log(categoriesStore.modalObject, "modOBj");
-        categoriesStore.setOpenModal(true);
+        // categoriesStore.setOpenModal(true);
+        setOpenModal(true);
     };
 
     const pagesVisited = categoriesStore.currentPage * categoriesStore.perPage;
@@ -133,8 +132,8 @@ const Searching = observer(() => {
             // console.log(category, "categ");
 
             return (
-                <RecipeResponse onClick={() => recipeClickFunc(recip)}>
-                    {/* <RecipeResponse> */}
+                // <RecipeResponse onClick={() => recipeClickFunc(recip)}>
+                <RecipeResponse>
 
                     <FavoriteRecipeCard
                         timeToCook={recip.timeToCook}
@@ -165,22 +164,7 @@ const Searching = observer(() => {
                 fontFamily: "Balsamiq Sans",
             },
         },
-        // root: {
-        //     "& .MuiPagination-root": {
-        //         marginTop: "10px",
-        //         backgroundColod: "red"
-        //     },
-        // },
-        // root: {
-        //     '& ul > li:not(:first-child):not(:last-child) > button:not(.Mui-selected)': {
-        //         backgroundColor: 'transparent',
-        //         color: '#19D5C6',
-        //     },
         ul: {
-            // "& .MuiPagination-ul": {
-            //     fontFamily: "Balsamiq Sans"
-
-            // },
             "& .Mui-selected": {
                 color: "#fff",
                 backgroundColor: "#1a9920 !important",
@@ -200,13 +184,13 @@ const Searching = observer(() => {
                     {_DATA.currentData().map((recip, idx) => {
                         return (
                             // <RecipeResponse >
-                            <RecipeResponse onClick={() => recipeClickFunc(recip)}>
+                            <RecipeResponse onClick={(e) => recipeClickFunc(recip, e)}>
                                 <FavoriteRecipeCard
                                     timeToCook={recip.timeToCook}
                                     key={idx}
                                     title={recip.header}
                                     calories={recip.calories + " Kcal"}
-                                    likeIcon={<FavorRecCardLike activeClass={active} />}
+                                    likeIcon={<FavorRecCardLike />}
                                     image={recip.img}
                                     rkey={recip.rkey}
                                     category={recip.category}
@@ -220,7 +204,7 @@ const Searching = observer(() => {
                         size="large"
                         page={page}
                         siblingCount={0}
-                        shape="rounded"
+                        shape="circular"
                         classes={{
                             // root: classes.root,
                             ul: classes.ul,
@@ -275,7 +259,9 @@ const Searching = observer(() => {
                     />
                 </RecipeFavoriteCardDiv>
             )} */}
-            {categoriesStore.openModal ? <ModalWindow /> : null}
+            {/* {categoriesStore.openModal ? <ModalWindow /> : null} */}
+            {openModal ? <ModalWindow openMod={openModal} closeMod={setOpenModal} /> : null}
+
         </SearchPageDiv>
     );
 });

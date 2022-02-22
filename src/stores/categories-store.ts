@@ -7,13 +7,6 @@ import { string } from "yup/lib/locale";
 // }
 
 export default class CategoriesStore {
-  _salads: any;
-  _deserts: any;
-  _firstDishes: any;
-  _secondDishes: any;
-  _beverages: any;
-  _canning: any;
-  _sauces: any;
   _categoryLength: number;
   _perPage: number;
   _currentPage: any;
@@ -26,13 +19,6 @@ export default class CategoriesStore {
   _nameCurrentCategory: string;
 
   constructor() {
-    this._salads = [];
-    this._deserts = [];
-    this._firstDishes = [];
-    this._secondDishes = [];
-    this._beverages = [];
-    this._canning = [];
-    this._sauces = [];
     this._modalObject = {
       categories: "first-dishes",
       id: "-Mw1bYh6q7IPtTK3c2qT",
@@ -47,8 +33,7 @@ export default class CategoriesStore {
       recipeId: "-MuQ3zjGiQTHGqN7-Nia",
     };
     this._openModal = false;
-    this._heartLikeRecipe= {};
-
+    this._heartLikeRecipe = {};
 
     this._nameCurrentCategory = "";
     this._currentCategory = [];
@@ -61,7 +46,6 @@ export default class CategoriesStore {
 
   setHeartLikeRecipe(rec) {
     this._heartLikeRecipe = rec;
-    // this.valFilter()
   }
 
   setNameCurrentCategory(name) {
@@ -81,28 +65,6 @@ export default class CategoriesStore {
 
   setCurrentCategory(items) {
     this._currentCategory = items;
-  }
-
-  setSalads(items) {
-    this._salads = items;
-  }
-  setDeserts(items) {
-    this._deserts = items;
-  }
-  setFirstDishes(items) {
-    this._firstDishes = items;
-  }
-  setSecondDishes(items) {
-    this._secondDishes = items;
-  }
-  setBeverages(items) {
-    this._beverages = items;
-  }
-  setCanning(items) {
-    this._canning = items;
-  }
-  setSauces(items) {
-    this._sauces = items;
   }
 
   setModalObject(obj) {
@@ -134,27 +96,6 @@ export default class CategoriesStore {
     return this._openModal;
   }
 
-  get salads() {
-    return this._salads;
-  }
-  get deserts() {
-    return this._deserts;
-  }
-  get firstDishes() {
-    return this._firstDishes;
-  }
-  get secondDishes() {
-    return this._secondDishes;
-  }
-  get beverages() {
-    return this._beverages;
-  }
-  get canning() {
-    return this._canning;
-  }
-  get sauces() {
-    return this._sauces;
-  }
   get modalObject() {
     return this._modalObject;
   }

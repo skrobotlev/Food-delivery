@@ -16,7 +16,14 @@ import { RecipeResponse } from "./search-page";
 import FavoriteRecipeCard from "../../../components/recipe-cards/favorite-recipe-card";
 import { RectBut } from "../../../components/buttons/rectangle-button";
 import { auth } from "../../../firebase";
-import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, searchingOnDb, updateRecipes, writeNewRecipe } from "../../../api/favorite-recipes";
+import {
+    getFavoriteRecipes,
+    pushNewFavoriteRecipe,
+    removeFavoriteRecipe,
+    searchingOnDb,
+    updateRecipes,
+    writeNewRecipe,
+} from "../../../api/favorite-recipes";
 import { observer } from "mobx-react-lite";
 
 export const ModalWindowDiv = styled.div`
@@ -51,7 +58,6 @@ export const RecipeValues = styled.div`
 export const ValuesRecipes = styled.div`
   text-align: center;
   width: auto;
-
 `;
 
 export const ImageDiv = styled.div`
@@ -97,10 +103,12 @@ const drawerBleeding = 56;
 
 interface Props {
     /**
-                       * Injected by the documentation to work in an iframe.
-                       * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
-                         СПРОСИТЬ */
-    window?: () => Window;
+                         * Injected by the documentation to work in an iframe.
+                         * You won't need it on your project. !!!!!??????!?!?!?!????!?!?
+                           СПРОСИТЬ */
+    // window?: () => Window;
+    openMod?: boolean;
+    closeMod?: any;
 }
 
 const Root = styledMUI("div")(({ theme }) => ({
@@ -124,12 +132,8 @@ const Puller = styledMUI(Box)(({ theme }) => ({
     left: "calc(50% - 15px)",
 }));
 
-const currentRecipe = styled.div`
-  background-color: beige;
-`;
-
 const ModalWindow = observer((props: Props) => {
-    const { window } = props;
+    const { openMod, closeMod } = props;
     const [open, setOpen] = React.useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
     const { userStore } = useContext(Context);
@@ -137,21 +141,19 @@ const ModalWindow = observer((props: Props) => {
     const { push } = useHistory();
     const history = useHistory();
     const { uid } = auth.currentUser;
-    // const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category, } = categoriesStore._modalObject.recipe;
-    const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, } = categoriesStore.modalObject.recipe;
+    const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey } = categoriesStore.modalObject.recipe;
     const { id, recipeId, categories } = categoriesStore._modalObject;
     // const iBzhu = toJS(bzhu);
     const { proteins, carbs, fat } = bzhu;
     let res;
-    let currentKey;
     let currentId;
 
     const updateModalObj = (recipeId) => {
-        let currentKey = userStore.dbResponse.findIndex((rec) => {
+        let currentKey = userStore.favoriteRecipesDb.findIndex((rec) => {
             return rec.recipeId === recipeId;
         });
-        currentKey > -1 ? categoriesStore.setModalObject(userStore.dbResponse[currentKey]) : null;
-        console.log(userStore.dbResponse[currentKey], "rkey==recipeId157");
+        currentKey > -1 ? categoriesStore.setModalObject(userStore.favoriteRecipesDb[currentKey]) : null;
+        console.log(userStore.favoriteRecipesDb[currentKey], "rkey==recipeId157");
         console.log("UPDATEmodOBJ");
     };
 
@@ -159,16 +161,6 @@ const ModalWindow = observer((props: Props) => {
         currentId = id;
         console.log(currentId, "currId");
     }, [id]);
-
-    // useEffect(() => {
-    //     currentKey = userStore.dbResponse.findIndex((rec) => {
-    //         return rec.recipeId === recipeId;
-    //     });
-    //     currentKey > -1 ? categoriesStore.setModalObject(userStore.dbResponse[currentKey]) : null;
-    //     console.log(userStore.dbResponse[currentKey], "rkey==recipeId157");
-    //     console.log("UPDATEmodOBJ");
-    //     console.log(categoriesStore.modalObject, "rkey==recipeId160");
-    // }, [categoriesStore.modalObject, currentKey]);
 
     const requestUpdateStorage = () => {
         getFavoriteRecipes(uid).then((res) => {
@@ -186,12 +178,13 @@ const ModalWindow = observer((props: Props) => {
                 .then((res) => {
                     let elmg;
                     console.log(res, "res");
-                    userStore.setDbResponse(res);
+                    userStore.setfavoriteRecipesDb(res);
 
-                    console.log(userStore.dbResponse);
+                    console.log(userStore.favoriteRecipesDb);
                     console.log("REQUESTupdSTORAGE");
                     // return res;
-                }).then(() => updateModalObj(recipeId));
+                })
+                .then(() => updateModalObj(recipeId));
         });
     };
 
@@ -200,7 +193,7 @@ const ModalWindow = observer((props: Props) => {
     }, [isFavorite]);
 
     useEffect(() => {
-        res = userStore.dbResponse.findIndex((rec) => {
+        res = userStore.favoriteRecipesDb.findIndex((rec) => {
             return rec.recipe.header === header;
         });
         res > -1 ? setIsFavorite(true) : setIsFavorite(false);
@@ -213,7 +206,7 @@ const ModalWindow = observer((props: Props) => {
             console.log("DELLLL");
             setIsFavorite(false);
             removeFavoriteRecipe(uid, id, null);
-            console.log(userStore.dbResponse, "currModObj");
+            console.log(userStore.favoriteRecipesDb, "currModObj");
         } else if (!isFavorite) {
             userStore.addRecipe(recId, recipe);
             console.log("ADDD");
@@ -223,15 +216,27 @@ const ModalWindow = observer((props: Props) => {
         }
     };
 
-    const toggleDrawer = (newOpen: boolean) => () => {
+    // const toggleDrawer = (newOpen: boolean) => () => {
+    //     setOpen(newOpen);
+    //     // setTimeout(() => alert('aye'), 400);
+
+    //     // !open ?
+    // };
+    const toggleDrawer = (newOpen: boolean) => {
         setOpen(newOpen);
-        // !open ?
+        setTimeout(() => closeMod(newOpen), 350);
     };
+    // useEffect(() => {
+    //     // history.location.pathname === `/modal-window` ? setOpen(true) : null;
+    //     categoriesStore.openModal ? setOpen(true) : setOpen(false);
+    //     // console.log(history.location.pathname + "MODALLLLWIND");
+    // }, [categoriesStore.openModal]);
     useEffect(() => {
         // history.location.pathname === `/modal-window` ? setOpen(true) : null;
-        categoriesStore.openModal ? setOpen(true) : setOpen(false);
-        // console.log(history.location.pathname + "MODALLLLWIND");
-    }, [categoriesStore.openModal]);
+        openMod ? setOpen(true) : setOpen(false);
+        console.log(openMod + "MODALLLLWIND");
+    }, [openMod]);
+
     // This is used only for the example
     // const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -254,11 +259,8 @@ const ModalWindow = observer((props: Props) => {
         },
     ];
 
-    // const addObj;
     return (
-        <Root onClick={() => setOpen(false)}>
-            {/* <div> */}
-            {/* <CssBaseline /> */}
+        <Root>
             <Global
                 styles={{
                     ".MuiDrawer-root > .MuiPaper-root": {
@@ -269,21 +271,15 @@ const ModalWindow = observer((props: Props) => {
                     },
                 }}
             />
-
-            {/* <Box sx={{ textAlign: "center", pt: 16 }}>
-                <Button onClick={toggleDrawer(true)}>Open</Button>
-            </Box> */}
             <SwipeableDrawer
                 // container={container}
                 anchor="bottom"
-                open={categoriesStore.openModal}
+                open={open}
                 onClose={() => {
                     toggleDrawer(false);
-                    categoriesStore.setOpenModal(false);
                 }}
                 onOpen={() => {
                     toggleDrawer(true);
-                    categoriesStore.setOpenModal(true);
                 }}
                 closeAfterTransition={true}
                 swipeAreaWidth={drawerBleeding}
@@ -291,21 +287,16 @@ const ModalWindow = observer((props: Props) => {
                 ModalProps={{
                     keepMounted: true,
                 }}
-                transitionDuration={
-                    {
-                        enter: 400,
-                        exit: 400
-                    }
-                }
+                transitionDuration={{
+                    enter: 400,
+                    exit: 400,
+                }}
             >
                 <Puller />
                 <CloseIconI
                     onClick={() => {
                         toggleDrawer(false);
-                        categoriesStore.setOpenModal(false);
-                    }}
-                >
-                    {/* <CloseIconI onClick={() => push("/search?category=salads")}> */}
+                    }}>
                     <CloseIcon fontSize="large" />
                 </CloseIconI>
                 <ImageDiv>
@@ -331,7 +322,7 @@ const ModalWindow = observer((props: Props) => {
                 </ButtonAndDescDiv>
             </SwipeableDrawer>
             {/* </div> */}
-        </Root >
+        </Root>
     );
 });
 

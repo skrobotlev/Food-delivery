@@ -18,8 +18,8 @@ const FavoriteCategoriesDiv = styled.div`
   display: flex;
   overflow-x: scroll;
   width: 100%;
-  margin-bottom: 66px;
-  margin-top: 5px;
+  /* margin-bottom: 66px; */
+  margin-top: 15px;
 `;
 
 const ButtonDiv = styled.div`

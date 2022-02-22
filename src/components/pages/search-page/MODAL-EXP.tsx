@@ -54,7 +54,7 @@ export default function FullScreenDialog() {
     }, [isFavorite]);
 
     useEffect(() => {
-        res = userStore.dbResponse.findIndex((rec) => {
+        res = userStore.favoriteRecipesDb.findIndex((rec) => {
             // console.log(rec, "rID");
             // console.log(rec.recipe.header, "rID", header, "pID");
             return rec.recipe.header === header;

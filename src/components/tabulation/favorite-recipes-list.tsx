@@ -14,14 +14,13 @@ import { RecipeFavoriteCardDiv } from "./all-tabs/recipe-tab";
 import { MODAL_WINDOW } from "../routing/consts";
 import ModalWindow from "../pages/search-page/modal-window";
 
-
-
-
 const FavoriteRecipeList = observer(() => {
     const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
     const { push } = useHistory();
     const { uid } = auth.currentUser;
+    const [openModal, setOpenModal] = useState(false);
+
     let keysRec = [];
     let recRec = [];
     // useEffect(() => {
@@ -42,8 +41,8 @@ const FavoriteRecipeList = observer(() => {
     //                     // });
     //                     // writeNewRecipe(uid, res);
     //                     console.log(res, "res");
-    //                     userStore.setDbResponse(res);
-    //                     console.log(userStore._dbResponse);
+    //                     userStore.setfavoriteRecipesDb(res);
+    //                     console.log(userStore._favoriteRecipesDb);
 
     //                     return res;
     //                     // res.forEach((itm) => console.log(itm, 'ITM'))
@@ -63,10 +62,11 @@ const FavoriteRecipeList = observer(() => {
             recipeId: resp.recipeId,
         });
         console.log(categoriesStore.modalObject, "favModOb");
-        categoriesStore.setOpenModal(true);
+        // categoriesStore.setOpenModal(true);
+        setOpenModal(true);
     };
 
-    const showFavorites = userStore.dbResponse.map((resp, idx) => {
+    const showFavorites = userStore.favoriteRecipesDb.map((resp, idx) => {
         // console.log(resp, "RESPONSE jsx");
         return (
             <RecipeResponse onClick={() => recipeClickFunc(resp)}>
@@ -83,7 +83,7 @@ const FavoriteRecipeList = observer(() => {
         );
     });
     return (<RecipeFavoriteCardDiv>{showFavorites}
-        {categoriesStore.openModal ? <ModalWindow /> : null}
+        {openModal ? <ModalWindow openMod={openModal} closeMod={setOpenModal} /> : null}
     </RecipeFavoriteCardDiv>);
 
     // useEffect(() => {

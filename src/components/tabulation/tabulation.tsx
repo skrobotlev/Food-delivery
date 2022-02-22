@@ -23,7 +23,7 @@ const Tabulation = () => {
     const { uid } = auth.currentUser;
     const history = useHistory();
     const { userStore } = useContext(Context);
-    let setr = userStore.dbResponse;
+    let setr = userStore.favoriteRecipesDb;
 
 
     // useEffect(() => {

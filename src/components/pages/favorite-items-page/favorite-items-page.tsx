@@ -22,7 +22,7 @@ const FavoriteItemsPageH1 = styled.h1`
 
 const TabulationSpan = styled.span`
    display: flex;
-   padding-top: 32px;
+   padding-top: 12px;
    /* justify-content: center; */
    /* margin-bottom: 100px; */
  `;

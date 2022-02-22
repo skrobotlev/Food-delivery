@@ -29,7 +29,7 @@ const FavoritesCardHeader = styled.h3`
   font-family: "Balsamiq Sans";
   font-weight: 400;
   font-size: 22px;
-  margin-top: 24px;
+  margin-top: 35px;
 `;
 
 const HomePage = observer(() => {
@@ -54,9 +54,9 @@ const HomePage = observer(() => {
         .then((res) => {
           let elmg;
           console.log(res, "res");
-          userStore.setDbResponse(res);
+          userStore.setfavoriteRecipesDb(res);
 
-          console.log(userStore.dbResponse);
+          console.log(userStore.favoriteRecipesDb);
           // return res;
         });
     });
