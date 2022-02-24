@@ -8,7 +8,7 @@ import { takeDataCat } from "../../../api/categories";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../../";
 import FavoriteRecipeList from "../favorite-recipes-list";
-import { SEARCH_ROUTE } from "../../../components/routing/consts";
+import { SEARCH_ROUTE } from "../../routing/consts";
 import { useHistory } from "react-router-dom";
 // // import { takeDataCat } from "@/api/categories";
 // const takeDataCat = require("./src/api/categories")

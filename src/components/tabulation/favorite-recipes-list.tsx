@@ -55,12 +55,15 @@ const FavoriteRecipeList = observer(() => {
     // }, []);
     // console.log(keysRec);
 
-    const recipeClickFunc = (resp) => {
+    const recipeClickFunc = (resp, e) => {
+        if (e.target.tagName === "path") return e.stopPropagation();
+
         categoriesStore.setModalObject({
             recipe: resp.recipe,
             id: resp.id,
             recipeId: resp.recipeId,
         });
+
         console.log(categoriesStore.modalObject, "favModOb");
         // categoriesStore.setOpenModal(true);
         setOpenModal(true);
@@ -69,7 +72,7 @@ const FavoriteRecipeList = observer(() => {
     const showFavorites = userStore.favoriteRecipesDb.map((resp, idx) => {
         // console.log(resp, "RESPONSE jsx");
         return (
-            <RecipeResponse onClick={() => recipeClickFunc(resp)}>
+            <RecipeResponse onClick={(e) => recipeClickFunc(resp, e)}>
                 <FavoriteRecipeCard
                     timeToCook={resp.recipe.timeToCook}
                     key={idx}

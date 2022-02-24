@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 
 export interface RectangleButtonProps
@@ -101,7 +100,6 @@ export const InsideRectBut = styled.button<RectangleButtonProps>`
   color: #C6C4DE;
   font-family: "Balsamiq Sans";
   border: none;
-  /* padding-right: 10px; */
   display: flex;
   justify-content: center;
   align-items: center;

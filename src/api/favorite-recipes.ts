@@ -2,22 +2,8 @@ import { child, equalTo, get, onValue, orderByChild, orderByKey, orderByValue, p
 import { database } from "../firebase";
 
 export const writeNewRecipe = (uid, valKey) => {
-  // A post entry.
-  // const postData = {
-  //   author: username,
-  //   uid: uid,
-  //   body: body,
-  //   title: title,
-  //   starCount: 0,
-  //   authorPic: picture,
-  // };
-
-  // Get a key for a new Post.
-  // const newPostKey = push(child(ref(database), 'posts')).key;
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
   const updates = {};
-  // updates["/posts/" + newPostKey] = postData;
+
   updates["/fullUsers/" + uid + "/rkey/"] = valKey;
   console.log(updates);
   return update(ref(database), updates);
@@ -25,24 +11,13 @@ export const writeNewRecipe = (uid, valKey) => {
 
 export const removeFavoriteRecipe = (uid, id, valKey) => {
   const updates = {};
-  // updates["/posts/" + newPostKey] = postData;
+
   updates[`/fullUsers/${uid}/favorites/${id}`] = valKey;
   console.log(updates);
   return update(ref(database), updates);
 };
 
 export const pushNewFavoriteRecipe = (uid, valKey) => {
-  // const refer = ref(database);
-  // Get a key for a new Post.
-  // const newPostKey = push(child(ref(database), 'posts')).key;
-  //   refer.ref(database, "/fullUsers/");
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  //   const updates = {};
-  //   // // updates["/posts/" + newPostKey] = postData;
-  //   updates["/fullUsers/" + uid + "/favorites/"] = valKey;
-
-  // return update(ref(database), updates);
-  //   return push(child(ref(database)valKey);
   console.log(valKey);
   return push(ref(database, `/fullUsers/${uid}/favorites`), valKey);
 };
@@ -66,9 +41,6 @@ export const currentSnapRecipes = async (uid) => {
   await onValue(testRequest, (snap) => {
     let resArr = [];
     resArr.push(snap.val());
-    // console.log(resArr.filter((val) => val !== val));
-    // console.log(unique(resArr), "resARR");
-    // return resArr.filter((val) => val !== val);
   });
 };
 
@@ -109,40 +81,7 @@ export const searchingOnDb = async (arr) => {
 export const getFavoriteRecipes = (uid) => {
   const refer = ref(database);
   const testRequest = query(ref(database, `/fullUsers/${uid}/favorites`));
-  //   get(testRequest).then((res) => {
-  //     console.log(res.val());
-  //   });
-  // onValue(testRequest, (snapshot) => {
-  //   // let resArr = [];
-  //   // // resArr.push(snap.val());
-  //   // if (snapshot.exists()) {
-  //   //   let children;
 
-  //   //   console.log(snapshot.val(), "SHANPSHOTvalonVALUE");
-  //   //   // snapshot.forEach((valueSnap) => {
-  //   //   //   let pars;
-  //   //   //   // console.log(valueSnap.key, "getFAVREC");
-  //   //   //   pars = valueSnap.val();
-  //   //   //   children.push({ ...pars, fkey: valueSnap.key });
-  //   //   //   console.log(children, "CHILDRED");
-  //   //   // });
-  //   //   // console.log(snapshot.val());
-  //   //   return (children = snapshot.val());
-  //   // } else {
-  //   //   console.log("No data available");
-  //   // }
-  //   return get(child(refer, `/fullUsers/${uid}/favorites`)).then((snapshot) => {
-  //     if (snapshot.exists()) {
-  //       let children;
-
-  //       console.log(snapshot.val(), "SHANPSHOTvalGET");
-  //       return (children = snapshot.val());
-  //     }
-  //     // console.log(resArr.filter((val) => val !== val));
-  //     // console.log(unique(resArr), "resARR");
-  //     // return resArr.filter((val) => val !== val);
-  //   });
-  // });
   return get(child(refer, `/fullUsers/${uid}/favorites`))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -156,34 +95,3 @@ export const getFavoriteRecipes = (uid) => {
       console.error(error);
     });
 };
-
-// export const getFavoriteRecipes = (uid) => {
-//   const refer = ref(database);
-//   //   const testRequest = query(ref(database, `/fullUsers/${uid}/favorites`), orderByKey());
-//   //   get(testRequest).then((res) => {
-//   //     console.log(res.val());
-//   //   });
-//   return get(child(refer, `/fullUsers/${uid}/favorites`))
-//     .then((snapshot) => {
-//       // const { key } = snapshot._node.children._root;
-//       //   console.log(snapshot.val());
-//       // console.log(Object.keys(snapshot.val()));
-//       if (snapshot.exists()) {
-//         const children = [];
-
-//         snapshot.forEach((valueSnap) => {
-//           console.log(valueSnap.key, "getFAVREC");
-
-//           children.push(valueSnap.val());
-//           console.log(children, "CHILDRED");
-//         });
-//         // console.log(snapshot.val());
-//         return children;
-//       } else {
-//         console.log("No data available");
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// };

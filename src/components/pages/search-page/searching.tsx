@@ -1,12 +1,11 @@
 import { SearchInput } from "./searching/search-input";
 import React, { useContext, useEffect, useState } from "react";
-import { RecipeFavoriteCardDiv } from "../../../components/tabulation/all-tabs/recipe-tab";
+import { RecipeFavoriteCardDiv } from "@/components/tabulation/all-tabs/recipe-tab";
 import { Context } from "../../../";
 import NoResultsCard from "./searching/no-results-card";
 import NoResCardImage from "../../images/no-results";
 import { RecipeResponse, SearchPageDiv } from "./search-page";
-import { MODAL_WINDOW } from "../../../components/routing/consts";
-import FavoriteRecipeCard from "../../../components/recipe-cards/favorite-recipe-card";
+import FavoriteRecipeCard from "@/components/recipe-cards/favorite-recipe-card";
 import FavorRecCardLike from "../../images/heart-like";
 import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
@@ -14,10 +13,9 @@ import ReactPaginate from "react-paginate";
 import { observer } from "mobx-react-lite";
 import { takeDataCat, testData } from "../../../api/categories";
 import styled from "styled-components";
-import { auth } from "../../../firebase";
+import { auth } from "@/firebase";
 import ModalWindow from "./modal-window";
 import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { makeStyles } from "@material-ui/core/styles";
 import usePagination from "./pagination-logic";
 
@@ -34,9 +32,8 @@ const Searching = observer(() => {
     const { search } = useLocation();
     const { path } = useRouteMatch();
     const history = useHistory();
-    const [active, setActive] = useState(false);
+    const [activeHeart, setActiveHeart] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-
     const values = queryString.parse(search);
 
     const { push } = useHistory();
@@ -54,7 +51,7 @@ const Searching = observer(() => {
         categoriesStore.setNameCurrentCategory(query.get("category"));
         console.log(categoriesStore._nameCurrentCategory, "NAMcurrCATEG");
     }, [categoriesStore._nameCurrentCategory]);
-    const currCategory = categoriesStore._nameCurrentCategory;
+    let currCategory = categoriesStore._nameCurrentCategory;
 
     useEffect(() => {
         testData(currCategory).then((fullCateg) => {
@@ -64,7 +61,21 @@ const Searching = observer(() => {
             const enterArr = Object.entries(fullCateg[0]);
             // console.log(enterArr, "enterARR");
             enterArr.map((items: any) => {
-                const pars = JSON.parse(items[1]);
+                // const pars = JSON.parse(JSON.stringify(items[1]));
+                // СПРОСИТЬ ПОЧЕМУ ЗДЕСЬ ОШИБКУ ВЫДАЁТ, ВСЁ ПРАВИЛЬНО ЖЕ ПО ПРИЁМУ И ОБРАБОТКЕ ДАННЫХ
+                // let pars = JSON.parse(items[1]);
+                console.log(items, items[1]);
+                let pars;
+                try {
+                    // Parse a JSON
+                    // pars = JSON.parse(items[1]);
+                    if (typeof items[1] == "string") pars = JSON.parse(items[1]);
+                } catch (e) {
+                    // console.log(e);
+                }
+
+                console.log(typeof items[1]);
+                console.log(typeof pars, "!!PROBLEM!PARS!!!");
                 const { bzhu, calories, header, img, timeToCook, desc } = pars;
                 resHeader = header;
                 responseArr.push({
@@ -124,28 +135,28 @@ const Searching = observer(() => {
 
     const pagesVisited = categoriesStore.currentPage * categoriesStore.perPage;
     // console.log(showCateg);
-    const displayItems = categoriesStore
-        .valFilter()
-        .slice(pagesVisited, pagesVisited + categoriesStore.perPage)
-        .map((recip, idx) => {
-            const { category } = recip;
-            // console.log(category, "categ");
+    // const displayItems = categoriesStore
+    //     .valFilter()
+    //     .slice(pagesVisited, pagesVisited + categoriesStore.perPage)
+    //     .map((recip, idx) => {
+    //         const { category } = recip;
+    //         // console.log(category, "categ");
 
-            return (
-                // <RecipeResponse onClick={() => recipeClickFunc(recip)}>
-                <RecipeResponse>
+    //         return (
+    //             // <RecipeResponse onClick={() => recipeClickFunc(recip)}>
+    //             <RecipeResponse>
 
-                    <FavoriteRecipeCard
-                        timeToCook={recip.timeToCook}
-                        key={idx}
-                        title={recip.header}
-                        calories={recip.calories + " Kcal"}
-                        likeIcon={<FavorRecCardLike activeClass={active} />}
-                        image={recip.img}
-                    />
-                </RecipeResponse>
-            );
-        });
+    //                 <FavoriteRecipeCard
+    //                     timeToCook={recip.timeToCook}
+    //                     key={idx}
+    //                     title={recip.header}
+    //                     calories={recip.calories + " Kcal"}
+    //                     likeIcon={<FavorRecCardLike activeClass={active} />}
+    //                     image={recip.img}
+    //                 />
+    //             </RecipeResponse>
+    //         );
+    //     });
     const pageCount = Math.ceil(categoriesStore.categoryLength / categoriesStore.perPage);
     // console.log(pageCount);
     const changePage = ({ selected }) => {
@@ -195,6 +206,8 @@ const Searching = observer(() => {
                                     rkey={recip.rkey}
                                     category={recip.category}
                                     recip={recip}
+                                // activeClassHeart={activeHeart}
+                                // changeActiveClass={setActiveHeart}
                                 />
                             </RecipeResponse>
                         );
@@ -261,7 +274,6 @@ const Searching = observer(() => {
             )} */}
             {/* {categoriesStore.openModal ? <ModalWindow /> : null} */}
             {openModal ? <ModalWindow openMod={openModal} closeMod={setOpenModal} /> : null}
-
         </SearchPageDiv>
     );
 });

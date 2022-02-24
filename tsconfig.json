@@ -1,7 +1,7 @@
 {
   "include": [
     "src"
-  ],
+, "routing"  ],
   "compilerOptions": {
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -10,9 +10,9 @@
       "esnext",
       "dom"
     ],
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["*"]
     },
     "typeRoots" : ["node_modules/@types", "src/types"],
     // "moduleResolution": "node",

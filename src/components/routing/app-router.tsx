@@ -5,7 +5,6 @@ import { BrowserRouter, Switch, Route, Redirect, useHistory } from "react-router
 import { Context } from "../..";
 import { auth } from "../../firebase";
 import Layout from "../../layout";
-// import { loginTrue } from "../../redux/actions";
 import { FAVORITES_ROUTE, HOME_ROUTE, LOADER_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE } from "./consts";
 import { authRoutes, notAuthRoutes } from "./routes";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -16,11 +15,9 @@ const AppRouter = observer(() => {
     const { userStore } = useContext(Context);
     const history = useHistory();
     const [user, loading, error] = useAuthState(auth);
-    // const { path } = authRoutes;
 
     useEffect(() => {
         const { pathname } = history.location;
-        // if (user) userStore.setUser(user), userStore.setIsAuth(true);
 
         if (!loading) {
             if (user) userStore.setUser(user), userStore.setIsAuth(true);
@@ -44,7 +41,6 @@ const AppRouter = observer(() => {
                     return <Route key={path} path={path} component={Component} exact />;
                 })}
             </Layout>
-            {/* {user ? <Redirect to={HOME_ROUTE} /> : <Redirect to={LOADER_ROUTE} />} */}
             <Redirect to={LOADER_ROUTE} />
         </Switch>
     );

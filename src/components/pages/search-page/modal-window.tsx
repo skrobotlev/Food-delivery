@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { HOME_ROUTE, SEARCH_ROUTE } from "../../../components/routing/consts";
+import { HOME_ROUTE, SEARCH_ROUTE } from "../../routing/consts";
 import { toJS } from "mobx";
 import { Global } from "@emotion/react";
 import { styled as styledMUI } from "@mui/material/styles";

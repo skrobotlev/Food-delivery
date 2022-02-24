@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Context } from "../../..";
 import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle } from "../../../api/auth";
-import { auth } from "../../../firebase";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -14,7 +13,6 @@ import { useForm } from "react-hook-form";
 import ValidationForm from "./validation";
 import { Formik, Form, FormikProps, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Grid, TextField, Button, makeStyles, createStyles, Theme } from "@material-ui/core";
 
 const LoginPageDiv = styled.div`
   display: flex;

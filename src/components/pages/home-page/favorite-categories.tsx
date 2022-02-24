@@ -1,11 +1,8 @@
-import { takeDataCat, testData } from "../../../api/categories";
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import SnackSvg from "../../buttons/icons/snack";
-import FruitSVG from "../../buttons/icons/strawb";
 import VegetableSvg from "../../buttons/icons/vegetable";
-import SquareButton, { SquareBut } from "../../buttons/square-button";
+import SquareButton from "../../buttons/square-button";
 import { Context } from "../../..";
 import FavorRecCardChicken from "../../images/chicken";
 import { SoupSvg } from "../../../components/images/soup";
@@ -18,7 +15,6 @@ const FavoriteCategoriesDiv = styled.div`
   display: flex;
   overflow-x: scroll;
   width: 100%;
-  /* margin-bottom: 66px; */
   margin-top: 15px;
 `;
 

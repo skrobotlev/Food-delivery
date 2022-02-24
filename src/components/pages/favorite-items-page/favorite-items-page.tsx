@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import RectangleButton from "../../buttons/rectangle-button";
 import Tabulation from "../../tabulation/tabulation";
 
 const FavoriteItemsPageDiv = styled.div`
@@ -23,8 +22,6 @@ const FavoriteItemsPageH1 = styled.h1`
 const TabulationSpan = styled.span`
    display: flex;
    padding-top: 12px;
-   /* justify-content: center; */
-   /* margin-bottom: 100px; */
  `;
 
 const FavoriteItemsPage = () => {

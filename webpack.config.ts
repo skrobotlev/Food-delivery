@@ -51,7 +51,7 @@ module.exports = (_env, arg) => {
     // target: "node",
     resolve: {
       alias: {
-        "@/": path.resolve(__dirname, "./src/"),
+        "@": path.resolve(__dirname, "src"),
       },
       extensions: ["", ".js", ".jsx", ".ts", ".tsx"],
       // fallback: {
@@ -184,7 +184,7 @@ function configureTypescript() {
 function configureBundleProcess(isProduction) {
   const KB = 1024;
   const bundleConfig: Configuration = {
-    resolve: { extensions: [".ts", ".tsx", ".js"] },
+    // resolve: { extensions: [".ts", ".tsx", ".js"] },
     optimization: {
       splitChunks: {
         chunks: "all",

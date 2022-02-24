@@ -7,7 +7,6 @@ interface HomePageHeaderProps {
 }
 
 const HomePageHeaderDiv = styled.div`
-/* position: absolute; */
 display: flex;
 justify-content: center;
 flex-direction: column;

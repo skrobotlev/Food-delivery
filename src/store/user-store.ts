@@ -1,11 +1,6 @@
 import { action, makeAutoObservable, observable } from "mobx";
 import { create, persist } from "mobx-persist";
 
-// interface UserStoreProps {
-//   _isAuth: boolean;
-//   _user: any;
-// }
-
 export class PersistStore {
   @persist("object") @observable category = [];
   @persist @observable categoryLength = 0;
@@ -29,9 +24,7 @@ export class PersistStore {
     this.currentPage = page;
   }
 }
-// const hydrate = create(); // use default options
-// const persistStore = new PersistStore();
-// hydrate("cart", persistStore);
+
 export default class UserStore {
   _isAuth: boolean;
   _user: any;
@@ -95,7 +88,6 @@ export default class UserStore {
 
   setModalObject(obj) {
     this._modalObject = obj;
-    // this.valFilter()
   }
 
   get isAuth() {

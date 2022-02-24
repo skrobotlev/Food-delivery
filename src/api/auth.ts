@@ -45,9 +45,7 @@ export const loginWithGoogle = () => {
 export const loginEmailPassword = ({ password, email }: AuthForm) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // console.log(userCredential);
       const user = userCredential.user;
-      // console.log(user);
       return user;
     })
     .catch((error) => {
@@ -93,7 +91,6 @@ export const createUser = ({ email, password }: AuthForm) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      // console.log(user);
       writeUserData(user);
     })
     .catch((error) => {

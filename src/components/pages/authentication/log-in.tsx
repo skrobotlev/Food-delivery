@@ -10,11 +10,8 @@ import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
 import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { PASSWORD_RECOVERY, REGISTRATION_PAGE } from "../../routing/consts";
-import { useForm } from "react-hook-form";
-import ValidationForm from "./validation";
 import { Formik, Form, FormikProps, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Grid, TextField, Button, makeStyles, createStyles, Theme } from "@material-ui/core";
 
 const LoginPageDiv = styled.div`
   display: flex;

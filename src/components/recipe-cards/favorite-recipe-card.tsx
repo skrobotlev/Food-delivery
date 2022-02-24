@@ -19,6 +19,8 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   clickFunc?: any;
   rkey?: any;
   recip?: any;
+  activeClass?: boolean;
+  changeActiveClass?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -143,7 +145,10 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({
   category,
   bzhu,
   timeToCook,
+  activeClass,
+  changeActiveClass
 }) => {
+  // ПЕРЕДАВАТЬ ACTIVE ИЗ SEARCHING КАК У МОДАЛКИ!!!!!!!!!!
   const [active, setActive] = useState(false);
   const { userStore } = useContext(Context);
   const { categoriesStore } = useContext(Context);
@@ -154,11 +159,9 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({
 
   useEffect(() => {
     res = userStore.favoriteRecipesDb.findIndex((rec) => {
-      // console.log(rec, "recRECIPE")
+      // console.log(rec, "recRECIPE");
       return rec.recipe.header === title;
     });
-
-    // !active
     console.log(res);
     res > -1 ? setActive(true) : setActive(false);
   });
@@ -191,13 +194,14 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = ({
   };
 
   const updRecipStor = (header, recId, recipe) => {
-    console.log(recipe, "dbresCURRID");
+    console.log(userStore.favoriteRecipesDb[res], "dbresCURRID");
     if (active) {
       currId = userStore.favoriteRecipesDb[res].id;
       userStore.deleteRecipe(header);
       console.log("DELLLL");
       setActive(false);
       removeFavoriteRecipe(uid, currId, null);
+      requestUpdateStorage();
     } else if (!active) {
       userStore.addRecipe(recId, recipe);
       console.log("ADDD");
