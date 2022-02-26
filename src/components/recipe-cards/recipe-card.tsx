@@ -38,9 +38,7 @@ const RecipeCardDiv = styled.div`
       margin-left: 10px;
   }
 `;
-// https://vasylivanovich.com.ua/image/cache/import_files/00/006df762efa111eba8230cc47a0c8aea_020dee13f04b11eba8230cc47a0c8aea-1000x1000.jpg
 
-// сделать как и задумано пропсамм
 const RecipeCard: React.FC<RecipeCardProps> = ({ srcImage, title, desc }) => {
   return (
     <RecipeCardDiv >

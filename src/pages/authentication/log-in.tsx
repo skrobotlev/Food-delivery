@@ -1,12 +1,11 @@
 import { observer } from "mobx-react-lite";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Context } from "@/store";
-import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle } from "../../../api/auth";
-import { auth } from "../../../firebase";
+import { loginEmailPassword, AuthForm, loginWithGoogle } from "@/api/auth";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
+import { RectBut } from "@/components/buttons/rectangle-button";
 import GoogleIcon from "@mui/icons-material/Google";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { PASSWORD_RECOVERY, REGISTRATION_PAGE } from "@/router/consts";

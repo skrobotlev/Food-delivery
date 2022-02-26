@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { loginEmailPassword, AuthForm, createUser, createFullUser } from "../../../api/auth";
+import { createFullUser } from "@/api/auth";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
+import { RectBut } from "@/components/buttons/rectangle-button";
 import { observer } from "mobx-react-lite";
 import { Context } from "@/store";
 
@@ -151,7 +151,12 @@ const RegistrationPage = observer(() => {
     name: Yup.string().required("Пусто").min(3, "Минимум 3 буквы"),
     lastName: Yup.string().required("Пусто").min(3, "Минимум 3 буквы"),
   });
-
+  // confirmPassword: Yup.string()
+  // .required("Required")
+  // .test("password-match", "Password musth match", function (value) {
+  //     return this.parent.password === value;
+  // }),
+  // debugger;
   const visEyeIconShow = <VisibilityIcon fontSize="medium" onClick={() => setShowPass(showPass ? false : true)} />;
   const visEyeIconHide = <VisibilityOffIcon fontSize="medium" onClick={() => setShowPass(!showPass ? true : false)} />;
   const visEyeIconShow2 = <VisibilityIcon fontSize="medium" onClick={() => setShowRepPass(showRepPass ? false : true)} />;
@@ -167,7 +172,11 @@ const RegistrationPage = observer(() => {
           lastName: "",
         }}
         onSubmit={(values: IRegisterForm, actions) => {
-
+          // createNewUser(values, actions.resetForm);
+          // console.log("SIMBIT")
+          // setTimeout(() => {
+          //   actions.setSubmitting(false);
+          // }, 5000);
         }}
         validationSchema={RegisterPageValidSchema}
       >
@@ -292,6 +301,7 @@ const RegistrationPage = observer(() => {
                     />
                   </ErrorMessageDiv>
 
+
                   <h3>
                     или{" "}
                     <Link to="/login" className="router-link">
@@ -308,6 +318,26 @@ const RegistrationPage = observer(() => {
       <RectBut size="md" title="Register" onClick={() => handleRegister()}>
         Registration
       </RectBut>
+      {/* ========================================================================================= */}
+      {/* <h1>ChelFood</h1>
+      <h2>Заполните форму</h2>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <RegisterInput type="text" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
+        <RegisterInput type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
+        <RegisterInput type="password" onChange={(e) => setRepeatPassword(e.target.value)} value={repeatPassword} placeholder="Repeat password" />
+
+        <RegisterInput type="text" onChange={(e) => setName(e.target.value)} value={name} placeholder="Name" />
+        <RegisterInput type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} placeholder="Last name" />
+      </form>
+
+      <RectBut size="md" title="Register" onClick={() => handleRegister()}>
+        Registration
+      </RectBut>
+      <h3>
+        или <Link to="/login" className="router-link"> войдите </Link>
+      </h3> */}
+
+      {/* </RegisterFormDiv> */}
     </RegisterPageDiv>
   );
 });

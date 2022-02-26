@@ -1,7 +1,4 @@
 import {
-  getAuth,
-  onAuthStateChanged,
-  connectAuthEmulator,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -10,9 +7,8 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { ref, set } from "firebase/database";
-import { useHistory } from "react-router-dom";
-import { RegisterForm } from "../components/pages/authentication/registration";
-import { auth, database } from "../firebase";
+import { RegisterForm } from "@/pages/authentication/registration";
+import { auth, database } from "@/firebase";
 
 export interface AuthForm {
   email: string;
@@ -63,6 +59,7 @@ function writeFullUserData({ email, uid, name, lastName }: any) {
     console.log(error);
   });
 }
+
 export const createFullUser = async ({ email, password, name, lastName }: RegisterForm) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -87,6 +84,7 @@ function writeUserData({ email, uid }: any) {
     console.log(error);
   });
 }
+
 export const createUser = ({ email, password }: AuthForm) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

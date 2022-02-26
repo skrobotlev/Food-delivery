@@ -1,24 +1,20 @@
-import React, { createContext, StrictMode } from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch, } from "react-router-dom";
-import "./global.scss";
-import AppRouter from "./components/routing/app-router";
-import UserStore, { PersistStore } from "./store/user-store";
-import CategoriesStore from "./store/categories-store";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ContextProvider } from "./store";
 
-export const Context = createContext(null);
+import "./global.scss";
+import AppRouter from "./router";
 
 ReactDOM.render(
 	<StrictMode>
-		<Context.Provider value={{
-			userStore: new UserStore(),
-			categoriesStore: new CategoriesStore(),
-			persist: new PersistStore()
-		}}>
+		<ContextProvider>
 			<Router>
 				<AppRouter />
 			</Router>
-		</Context.Provider>
+		</ContextProvider>
 	</StrictMode >,
 	document.getElementById("app")
 );
+
+

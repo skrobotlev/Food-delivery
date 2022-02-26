@@ -1,22 +1,16 @@
 import { makeAutoObservable } from "mobx";
-import { string } from "yup/lib/locale";
-
-// interface UserStoreProps {
-//   _isAuth: boolean;
-//   _user: any;
-// }
 
 export default class CategoriesStore {
-  _categoryLength: number;
-  _perPage: number;
-  _currentPage: any;
-  _currentCategory: any;
-  _modalObject: any;
-  _openModal: boolean;
-  _heartLikeRecipe: any;
-  _filter: string;
-  _keyCATEGORY: any;
-  _nameCurrentCategory: string;
+  private _categoryLength: number;
+  private _perPage: number;
+  private _currentPage: any;
+  private _currentCategory: any;
+  private _modalObject: any;
+  private _openModal: boolean;
+  private _heartLikeRecipe: any;
+  private _filter: string;
+  private _keyCATEGORY: any;
+  private _nameCurrentCategory: string;
 
   constructor() {
     this._modalObject = {
@@ -44,6 +38,10 @@ export default class CategoriesStore {
     makeAutoObservable(this);
   }
 
+  set filter(val) {
+    this._filter = val;
+  }
+
   setHeartLikeRecipe(rec) {
     this._heartLikeRecipe = rec;
   }
@@ -63,6 +61,10 @@ export default class CategoriesStore {
     });
   }
 
+  set currentCategory(items) {
+    this._currentCategory = items;
+  }
+
   setCurrentCategory(items) {
     this._currentCategory = items;
   }
@@ -72,11 +74,11 @@ export default class CategoriesStore {
     // this.valFilter()
   }
 
-  setCategoryLength(num) {
+  set categoryLength(num) {
     this._categoryLength = num;
   }
 
-  setCurrentPage(num) {
+  set currentPage(num) {
     this._currentPage = num;
   }
 

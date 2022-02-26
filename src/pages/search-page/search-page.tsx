@@ -1,6 +1,6 @@
 import { Context } from "@/store";
-import React, { useContext, useEffect } from "react";
-import { useHistory, useLocation, useRouteMatch, withRouter } from "react-router-dom";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import Searching from "./searching";
@@ -9,6 +9,8 @@ export const SearchPageDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* overflow-y: scroll; */
+  /* margin-left: 25px; */
   height: 100vh;
   width: 100%;
 `;
@@ -27,6 +29,10 @@ export const RecipeResponse = styled.div`
 
 
 const SearchPage = observer(() => {
+  const { userStore } = useContext(Context);
+  const history = useHistory();
+  const { categoriesStore } = useContext(Context);
+
   return (
     <>
       <SearchPageH1>Поиск</SearchPageH1>

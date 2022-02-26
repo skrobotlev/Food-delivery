@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle, forgotPassword } from "../../../api/auth";
-import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
+import { forgotPassword } from "@/api/auth";
+import { RectBut } from "@/components/buttons/rectangle-button";
 import { LOGIN_PAGE } from "@/router/consts";
 import { Formik, Form, FormikProps, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -11,11 +11,15 @@ const RecPassPageDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* align-items: center; */
   width: 100%;
   height: 100vh;
   h3,
   h2 {
+    /* display: flex;  */
     font-size: 15px;
+    /* align-items: flex-end; */
+    /* text-align: end; */
   }
   h3 {
     text-align: end;
@@ -35,6 +39,7 @@ const RecPassInput = styled.input`
   line-height: 1.5;
   color: #212529;
   background-color: #f4f4f4;
+  // background-clip: padding-box;
   border: 1px solid #1a9920;
   border-radius: 30px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -51,6 +56,7 @@ const RecPassFormDiv = styled.div`
   align-items: center;
   width: 100%;
   h1 {
+    /* margin-bottom: 100px; */
     font-weight: bold;
     color: green;
     font-family: "Balsamiq Sans";
@@ -107,6 +113,7 @@ const PasswordRecovery = () => {
           email: "",
         }}
         onSubmit={(values: PassRecoveryForm, actions) => {
+          // createNewUser(values, actions.resetForm);
           setTimeout(() => {
             console.log(values);
             actions.setSubmitting(false);

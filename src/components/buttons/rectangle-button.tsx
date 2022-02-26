@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
@@ -100,6 +100,7 @@ export const InsideRectBut = styled.button<RectangleButtonProps>`
   color: #C6C4DE;
   font-family: "Balsamiq Sans";
   border: none;
+  /* padding-right: 10px; */
   display: flex;
   justify-content: center;
   align-items: center;

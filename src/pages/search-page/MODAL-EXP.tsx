@@ -1,24 +1,16 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { ButtonAndDescDiv, CloseIconI, HeaderH3, ImageDiv, RecipeValues, ValuesRecipes } from "./modal-window";
 import { useHistory } from "react-router-dom";
-import { RectBut } from "../../../components/buttons/rectangle-button";
+import { RectBut } from "@/components/buttons/rectangle-button";
 import { useContext, useEffect, useState } from "react";
-import { Context } from "../../../";
-import { pushNewFavoriteRecipe, removeFavoriteRecipe } from "../../../api/favorite-recipes";
-import { auth } from "../../../firebase";
+import { Context } from "@/store";
+import { pushNewFavoriteRecipe, removeFavoriteRecipe } from "@/api/favorite-recipes";
+import { auth } from "@/firebase";
 import styled from "styled-components";
 
 const Transition = React.forwardRef(function Transition(
@@ -44,7 +36,7 @@ export default function FullScreenDialog() {
     const { uid } = auth.currentUser;
     // const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category, } = categoriesStore._modalObject.recipe;
     const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey, category } = categoriesStore.modalObject.recipe;
-    const { id, recipeId } = categoriesStore._modalObject;
+    const { id, recipeId } = categoriesStore.modalObject;
     // const iBzhu = toJS(bzhu);
     const { proteins, carbs, fat } = bzhu;
     let res;

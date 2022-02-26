@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import Slider from "react-slick";
-import "../../global.scss";
+import "@/global.scss";
 
 import StartPageSecImage from "../images/start-page-second";
 import StartPageFirstImage from "../images/start-page-first";

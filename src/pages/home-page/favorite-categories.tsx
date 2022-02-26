@@ -1,20 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import VegetableSvg from "../../buttons/icons/vegetable";
-import SquareButton from "../../buttons/square-button";
+import VegetableSvg from "@/components/buttons/icons/vegetable";
+import SquareButton from "@/components/buttons/square-button";
 import { Context } from "@/store";
-import FavorRecCardChicken from "../../images/chicken";
-import { SoupSvg } from "../../../components/images/soup";
-import CakeSvg from "../../../components/images/cake";
-import CanningSvg from "../../../components/images/canning";
-import BeveragesSvg from "../../../components/images/beverages";
-import { SaucesSvg } from "../../../components/images/sauces";
+import FavorRecCardChicken from "@/components/images/chicken";
+import { SoupSvg } from "@/components/images/soup";
+import CakeSvg from "@/components/images/cake";
+import CanningSvg from "@/components/images/canning";
+import BeveragesSvg from "@/components/images/beverages";
+import { SaucesSvg } from "@/components/images/sauces";
 
 const FavoriteCategoriesDiv = styled.div`
   display: flex;
   overflow-x: scroll;
   width: 100%;
+  /* margin-bottom: 66px; */
   margin-top: 15px;
 `;
 
@@ -27,6 +28,8 @@ const ButtonDiv = styled.div`
 `;
 
 const FavoriteCategories = () => {
+  const { categoriesStore } = useContext(Context);
+  const { userStore } = useContext(Context);
   const { push } = useHistory();
 
   const linkToCategory = (category) => {
@@ -34,6 +37,9 @@ const FavoriteCategories = () => {
   };
   return (
     <FavoriteCategoriesDiv>
+      {/* <ButtonDiv>
+        <SquareButton size="lg" backgroundColor="fruits" title="TEST" onClick={() => linkToCategory("TEST")} icon={<FruitSVG />} />
+      </ButtonDiv> */}
       <ButtonDiv>
         <SquareButton size="lg" backgroundColor="vegan" title="Салаты" onClick={() => linkToCategory("salads")} icon={<VegetableSvg />} />
       </ButtonDiv>

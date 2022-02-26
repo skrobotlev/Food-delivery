@@ -1,6 +1,6 @@
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import cn from "classnames";
-import { Context } from "../../../";
+import { Context } from "@/store";
 
 interface TabComponentProps {
     tabs: string[];
@@ -10,7 +10,6 @@ interface TabComponentProps {
 
 const Tab = ({ title, index, activeTab, onActiveChange }) => {
     const [active, setActive] = useState<boolean>(false);
-    const { userStore } = useContext(Context);
 
     useEffect(() => {
         if (active) onActiveChange(index);

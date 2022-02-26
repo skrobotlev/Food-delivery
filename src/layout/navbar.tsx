@@ -1,10 +1,7 @@
-import React, { ReactElement, useEffect, useState, DetailedHTMLProps } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, withRouter } from "react-router-dom";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import HomePage from "../components/pages/home-page/home-page";
-import { FAVORITES_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE } from "../components/routing/consts";
-import cn from "classnames";
+import { Link, useLocation } from "react-router-dom";
+import { FAVORITES_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE } from "@/router/consts";
 
 interface NavbarSvgIconProps {
     activeClass?: boolean;
@@ -106,13 +103,9 @@ interface NavBarIconComponentProps {
 const NavBarIconComponent: React.FC<NavBarIconComponentProps> = ({ children, icon, link }) => {
     const [active, setActive] = useState<boolean>(false);
     const location = useLocation();
-    // USE ROUTER?USE LOCATION
 
     useEffect(() => {
-        // console.log(location.pathname);
-        // console.log(link);
         if (link === location.pathname) {
-            // console.log("ay");
             setActive(true);
         } else setActive(false);
     }, [location.pathname]);

@@ -2,12 +2,12 @@ import { currentSnapRecipes, updateRecipes } from "../../api/favorite-recipes";
 import { auth } from "../../firebase";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import NoResCardImage from "../images/no-results";
-import NoResultsCard from "../pages/search-page/searching/no-results-card";
+import NoResultsCard from "../../pages/search-page/searching/no-results-card";
 import FoodFavoriteTab from "./all-tabs/food-tab";
 import RecipeFavoriteCard from "./all-tabs/recipe-tab";
 import TabComponent from "./all-tabs/tab-component";
 import { useHistory } from "react-router-dom";
-import { Context } from "../../";
+import { Context } from "@/store";
 
 interface TabsContentProps {
     tabs: ReactElement[];
@@ -20,15 +20,6 @@ const TabsContent = ({ activeIndex, tabs }: TabsContentProps) => {
 
 const Tabulation = () => {
     const [activeTab, setActiveTab] = useState(0);
-    const { uid } = auth.currentUser;
-    const history = useHistory();
-    const { userStore } = useContext(Context);
-    let setr = userStore.favoriteRecipesDb;
-
-
-    // useEffect(() => {
-    //     setr ? setActiveTab(1) : null;
-    // }, [setr]);
 
     const tabs = ["Рецепты", "Пища"];
     return (

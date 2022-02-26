@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEventHandler, ChangeEvent, useEffect, useContext } from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes, useState, ChangeEvent, useEffect, useContext } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
@@ -28,6 +28,7 @@ position: absolute;
 `;
 
 const LoupeSearchIcon = styled.i`
+// display: block;
   position: absolute;
   left: 10px;
   bottom:  10px;
@@ -49,6 +50,9 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
         if (searchValue) console.log("a");
     }, [searchValue]);
 
+    // useEffect(() => {
+    //     if (value) setSearchValue(value);
+    // }, [value]);
     const handleChange = (e) => {
         categoriesStore.filter = e.target.value;
     };
@@ -70,3 +74,38 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
         </SearchInputDiv>
     );
 };
+
+// const SearchInput: React.FC<SearchInputProps> = ({ placeholder, clearAll }) => {
+// const [searchValue, setSearchValue] = useState("");
+
+// const clearInput = () => {
+//     setSearchValue("");
+// };
+
+// useEffect(() => {
+//     if (searchValue) console.log("a");
+// }, [searchValue]);
+
+// const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+//     const searchWord = e.currentTarget.value;
+//     setSearchValue(searchWord);
+// };
+// return (
+
+//  <input className="text-field__input"
+//     type="text" placeholder={placeholder}
+//     value={searchValue} onChange={updateSearchValue} /> 
+
+// <Search placeholder={placeholder} >
+{/* <CancelIcon className="close-icon" />
+            <SearchIcon className="search-icon" /> */}
+{/* </Search> */ }
+
+        // {/* {searchValue && clearAll ?
+        //     <CancelIcon className="close-icon" onClick={clearInput} />
+        //     : <SearchIcon className="search-icon" />} */}
+
+//     );
+// };
+
+// export default SearchInput;

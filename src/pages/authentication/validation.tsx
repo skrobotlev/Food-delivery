@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import { Grid, TextField, Button, makeStyles, createStyles, Theme } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { Formik, Form, FormikProps, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -8,6 +8,88 @@ const StyledValidForm = styled.form`
   max-width: 500px;
   margin: 0 auto;
 `;
+
+// const isText = RegExp(/^[A-Z ]{3,}$/i);
+// const isEmail = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+
+// const initialValues = {
+//   name: {
+//     value: "",
+//     error: ""
+//   },
+//   email: {
+//     value: "",
+//     error: ""
+//   }
+// };
+
+// const validationShcema = {
+//   name: {
+//     required: true,
+//     validator: {
+//       regEx: isText,
+//       error: "Please enter a valid name."
+//     }
+//   },
+//   email: {
+//     required: true,
+//     validator: {
+//       regEx: isEmail,
+//       error: "Please enter a valid email address."
+//     }
+//   }
+// };
+
+// const handleCallback = values => {
+//   console.log(values);
+// };
+
+// export const ValidationForm = () => {
+
+//   const { state, disabled, handleChange, handleSubmit } = useFormValidation(
+//     initialValues,
+//     validationShcema,
+//     handleCallback
+//   );
+
+//   const { name, email } = state;
+
+//   return (
+//     <form onSubmit={handleSubmit} noValidate>
+//       <div className="form-group">
+//         <input
+//           type="text"
+//           name="name"
+//           autoComplete="name"
+//           placeholder="Name"
+//           onChange={handleChange}
+//           value={name.value}
+//           className={`form-control ${name.error ? "is-invalid" : name.value ? " is-valid" : ""
+//             } `}
+//         />
+//         {name.error && <div className="invalid-feedback">{name.error}</div>}
+//       </div>
+//       <div className="form-group">
+//         <input
+//           type="email"
+//           name="email"
+//           autoComplete="email"
+//           placeholder="Email"
+//           onChange={handleChange}
+//           value={email.value}
+//           className={`form-control ${email.error ? "is-invalid" : email.value ? " is-valid" : ""
+//             } `}
+//         />
+//         {email.error && <div className="invalid-feedback">{email.error}</div>}
+//       </div>
+//       <button className="btn btn-primary" type="submit" disabled={disabled}>
+//         Submit
+//       </button>
+//     </form>
+//   );
+// };
+
+const ValidationTextField = styled.input``;
 
 const ValidationDiv = styled.div`
   display: flex;
@@ -62,6 +144,25 @@ const ValidationForm = () => {
     message: "",
     type: "",
   });
+
+  // const createNewUser = async (data: ISignUpForm, resetForm: Function) => {
+  //   try {
+  //     // API call integration will be here. Handle success / error response accordingly.
+  //     if (data) {
+  //       setFormStatus(formStatusProps.success);
+  //       resetForm({});
+  //     }
+  //   } catch (error) {
+  //     const response = error.response;
+  //     if (response.data === "user already exist" && response.status === 400) {
+  //       setFormStatus(formStatusProps.duplicate);
+  //     } else {
+  //       setFormStatus(formStatusProps.error);
+  //     }
+  //   } finally {
+  //     setDisplayFormStatus(true);
+  //   }
+  // };
 
   return (
     <ValidationDiv>
@@ -138,6 +239,8 @@ const ValidationForm = () => {
           }}
         </Formik>
       </ValidateFormDiv>
+      {/* <App /> */}
+      {/* <ValidationSchemaExample /> */}
     </ValidationDiv>
   );
 };

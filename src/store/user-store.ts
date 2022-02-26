@@ -1,5 +1,5 @@
-import { action, makeAutoObservable, observable } from "mobx";
-import { create, persist } from "mobx-persist";
+import { action, computed, makeAutoObservable, observable, toJS } from "mobx";
+import { persist } from "mobx-persist";
 
 export class PersistStore {
   @persist("object") @observable category = [];
@@ -26,14 +26,14 @@ export class PersistStore {
 }
 
 export default class UserStore {
-  _isAuth: boolean;
-  _user: any;
-  _favoriteRecipes: any;
+  private _isAuth: boolean;
+  private _user: any;
+  private _favoriteRecipes: any;
 
-  _favoriteRecipesDb: any;
+  private _favoriteRecipesDb: any;
 
-  _modalObject: any;
-  _categoryLength: any;
+  private _modalObject: any;
+  private _categoryLength: any;
 
   constructor() {
     this._isAuth = false;
@@ -66,19 +66,24 @@ export default class UserStore {
     }
   }
 
-  setfavoriteRecipesDb(res) {
+  set favoriteRecipesDb(res) {
     this._favoriteRecipesDb = res;
   }
 
-  setFavoriteRecipes(recip) {
-    this._favoriteRecipes = recip;
+  @computed
+  get favoriteRecipesHashTable() {
+    const arr = toJS(this.favoriteRecipesDb);
+    return arr.reduce((acc, recipe) => {
+      acc[recipe.recipeId] = true;
+      return acc;
+    }, {});
   }
 
-  setIsAuth(bool) {
+  set isAuth(bool: boolean) {
     this._isAuth = bool;
   }
 
-  setUser(user) {
+  set user(user) {
     this._user = user;
   }
 
@@ -88,6 +93,7 @@ export default class UserStore {
 
   setModalObject(obj) {
     this._modalObject = obj;
+    // this.valFilter()
   }
 
   get isAuth() {

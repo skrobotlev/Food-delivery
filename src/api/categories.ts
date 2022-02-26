@@ -1,8 +1,8 @@
-import { ref, child, get, query, orderByChild, orderByKey, orderByValue, equalTo, limitToFirst, limitToLast, update } from "firebase/database";
-import { database } from "../firebase";
+import { ref, child, get } from "firebase/database";
+import { database } from "@/firebase";
 
 export const takeDataCat = (category): Promise<any> => {
-  const refer = ref(database); // tslint:disable-next-line
+  const refer = ref(database);
   return get(child(refer, `/categories/${category}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -21,12 +21,14 @@ export const takeDataCat = (category): Promise<any> => {
 };
 
 export const testData = (category) => {
-  const refer = ref(database); // tslint:disable-next-line
+  const refer = ref(database);
   return get(child(refer, `/categories/${category}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
         const children = [];
+
         children.push(snapshot.val());
+
         return children;
       } else {
         console.log("No data available");
@@ -38,7 +40,7 @@ export const testData = (category) => {
 };
 
 export const requestCategories = (category): Promise<any> => {
-  const refer = ref(database); // tslint:disable-next-line
+  const refer = ref(database);
   return get(child(refer, `/categories/${category}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -46,7 +48,6 @@ export const requestCategories = (category): Promise<any> => {
         snapshot.forEach((valueSnap) => {
           children.push(valueSnap.val());
         });
-        // console.log(snapshot.val());
         return children;
       } else {
         console.log("No data available");

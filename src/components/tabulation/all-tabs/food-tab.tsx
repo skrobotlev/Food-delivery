@@ -1,5 +1,5 @@
 import React from "react";
-import SquareButton, { SquareBut } from "../../buttons/square-button";
+import SquareButton from "../../buttons/square-button";
 import { BurgerSVG } from "../../buttons/icons/burger";
 import { CookieSvg, HotdogSvg, MuffinSvg, PizzaSvg, PlusSvg } from "../../buttons/icons/favorite-items-icons";
 import styled from "styled-components";

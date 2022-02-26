@@ -1,11 +1,11 @@
-import { child, equalTo, get, onValue, orderByChild, orderByKey, orderByValue, push, query, ref, update } from "firebase/database";
-import { database } from "../firebase";
+import { child, get, onValue, push, query, ref, update } from "firebase/database";
+import { database } from "@/firebase";
 
 export const writeNewRecipe = (uid, valKey) => {
   const updates = {};
 
   updates["/fullUsers/" + uid + "/rkey/"] = valKey;
-  console.log(updates);
+
   return update(ref(database), updates);
 };
 
@@ -13,12 +13,11 @@ export const removeFavoriteRecipe = (uid, id, valKey) => {
   const updates = {};
 
   updates[`/fullUsers/${uid}/favorites/${id}`] = valKey;
-  console.log(updates);
+
   return update(ref(database), updates);
 };
 
 export const pushNewFavoriteRecipe = (uid, valKey) => {
-  console.log(valKey);
   return push(ref(database, `/fullUsers/${uid}/favorites`), valKey);
 };
 
@@ -40,6 +39,7 @@ export const currentSnapRecipes = async (uid) => {
 
   await onValue(testRequest, (snap) => {
     let resArr = [];
+
     resArr.push(snap.val());
   });
 };
@@ -94,4 +94,36 @@ export const getFavoriteRecipes = (uid) => {
     .catch((error) => {
       console.error(error);
     });
+};
+
+export const requestUpdateStorage = (uid, userStore) => {
+  return getFavoriteRecipes(uid).then((ress) => {
+    const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
+      const recipe = {
+        id: item[0],
+        recipeId: item[1].recipeId,
+        categories: item[1].category,
+      };
+      array.push(recipe);
+      return array;
+    }, []);
+    return searchingOnDb(favoriteRecipeIds).then((result) => {
+      let elmg;
+      console.log(result, "res");
+      userStore.favoriteRecipesDb = result;
+      console.log(userStore.favoriteRecipesDb, "updStorage");
+    });
+  });
+};
+const updateModalObj = (recipeId, userStore, categoriesStore) => {
+  let currentKey = userStore.favoriteRecipesDb.findIndex((rec) => {
+    return rec.recipeId === recipeId;
+  });
+  currentKey > -1 ? categoriesStore.setModalObject(userStore.favoriteRecipesDb[currentKey]) : null;
+  console.log(userStore.favoriteRecipesDb[currentKey], "rkey==recipeId157");
+  console.log("UPDATEmodOBJ");
+};
+
+export const updateModalRecipe = (uid, recipeId, userStore, categoriesStore) => {
+  requestUpdateStorage(uid, userStore).then(() => updateModalObj(recipeId, userStore, categoriesStore));
 };

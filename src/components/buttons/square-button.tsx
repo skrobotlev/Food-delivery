@@ -1,4 +1,4 @@
-import React, { ReactElement, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import React, { ReactElement, ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import styled from "styled-components";
 
 export interface SquareButtonProps

@@ -3,19 +3,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { RecipeFavoriteCardDiv } from "@/components/tabulation/all-tabs/recipe-tab";
 import { Context } from "@/store";
 import NoResultsCard from "./searching/no-results-card";
-import NoResCardImage from "../../images/no-results";
+import NoResCardImage from "@/components/images/no-results";
 import { RecipeResponse, SearchPageDiv } from "./search-page";
 import FavoriteRecipeCard from "@/components/recipe-cards/favorite-recipe-card";
-import FavorRecCardLike from "../../images/heart-like";
-import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import FavorRecCardLike from "@/components/images/heart-like";
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import queryString from "query-string";
 import { observer } from "mobx-react-lite";
-import { takeDataCat, testData } from "../../../api/categories";
+import { testData } from "@/api/categories";
 import styled from "styled-components";
 import ModalWindow from "./modal-window";
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
 import usePagination from "./pagination-logic";
+import { toJS } from "mobx";
 
 const PaginationSpan = styled.span`
   overflow-x: scroll;
@@ -26,11 +27,13 @@ const PaginationSpan = styled.span`
 const Searching = observer(() => {
     const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
+    // const { persist } = useContext(Context);
     const { search } = useLocation();
     const { path } = useRouteMatch();
     const history = useHistory();
-    const [activeHeart, setActiveHeart] = useState(false);
+    const [active, setActive] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+
     const values = queryString.parse(search);
 
     const { push } = useHistory();
@@ -46,9 +49,9 @@ const Searching = observer(() => {
 
     useEffect(() => {
         categoriesStore.setNameCurrentCategory(query.get("category"));
-        console.log(categoriesStore.nameCurrentCategory, "NAMcurrCATEG");
+        // console.log(categoriesStore.nameCurrentCategory, "NAMcurrCATEG");
     }, [categoriesStore.nameCurrentCategory]);
-    let currCategory = categoriesStore.nameCurrentCategory;
+    const currCategory = categoriesStore.nameCurrentCategory;
 
     useEffect(() => {
         testData(currCategory).then((fullCateg) => {
@@ -58,22 +61,17 @@ const Searching = observer(() => {
             const enterArr = Object.entries(fullCateg[0]);
             // console.log(enterArr, "enterARR");
             enterArr.map((items: any) => {
-                // const pars = JSON.parse(JSON.stringify(items[1]));
-                // СПРОСИТЬ ПОЧЕМУ ЗДЕСЬ ОШИБКУ ВЫДАЁТ, ВСЁ ПРАВИЛЬНО ЖЕ ПО ПРИЁМУ И ОБРАБОТКЕ ДАННЫХ
-                // let pars = JSON.parse(items[1]);
-                console.log(items, items[1]);
                 let pars;
-                try {
-                    // Parse a JSON
-                    // pars = JSON.parse(items[1]);
-                    if (typeof items[1] == "string") pars = JSON.parse(items[1]);
-                } catch (e) {
-                    // console.log(e);
-                }
-
-                console.log(typeof items[1]);
-                console.log(typeof pars, "!!PROBLEM!PARS!!!");
+                // if (typeof items[1] == "string") console.log(JSON.parse(items[1]), "itms");
+                if (typeof items[1] == "string") pars = JSON.parse(items[1]);
+                // console.log(items[1], "itms");
+                // console.log(toJS(items[1]))
+                // const pars = items[1];
+                // const pars = JSON.parse(items[1]);
                 const { bzhu, calories, header, img, timeToCook, desc } = pars;
+                // console.log(bzhu);
+                // const { bzhu, calories, header, img, timeToCook, desc } = toJS(items[1]);
+
                 resHeader = header;
                 responseArr.push({
                     img: img,
@@ -87,7 +85,7 @@ const Searching = observer(() => {
                 });
             });
 
-            categoriesStore.setCurrentCategory(responseArr);
+            categoriesStore.currentCategory = responseArr;
         });
     }, [currCategory]);
 
@@ -111,7 +109,7 @@ const Searching = observer(() => {
             recipeId: recip.rkey,
             categories: recip.category,
         };
-        console.log(e.target.tagName, "e-target");
+        // console.log(e.target.tagName, "e-target");
         categoriesStore.setHeartLikeRecipe({
             recipe: recip,
             id: "",
@@ -132,32 +130,33 @@ const Searching = observer(() => {
 
     const pagesVisited = categoriesStore.currentPage * categoriesStore.perPage;
     // console.log(showCateg);
-    // const displayItems = categoriesStore
-    //     .valFilter()
-    //     .slice(pagesVisited, pagesVisited + categoriesStore.perPage)
-    //     .map((recip, idx) => {
-    //         const { category } = recip;
-    //         // console.log(category, "categ");
+    const displayItems = categoriesStore
+        .valFilter()
+        .slice(pagesVisited, pagesVisited + categoriesStore.perPage)
+        .map((recip, idx) => {
+            const { category } = recip;
+            // console.log(category, "categ");
 
-    //         return (
-    //             // <RecipeResponse onClick={() => recipeClickFunc(recip)}>
-    //             <RecipeResponse>
+            return (
+                // <RecipeResponse onClick={() => recipeClickFunc(recip)}>
+                <RecipeResponse>
 
-    //                 <FavoriteRecipeCard
-    //                     timeToCook={recip.timeToCook}
-    //                     key={idx}
-    //                     title={recip.header}
-    //                     calories={recip.calories + " Kcal"}
-    //                     likeIcon={<FavorRecCardLike activeClass={active} />}
-    //                     image={recip.img}
-    //                 />
-    //             </RecipeResponse>
-    //         );
-    //     });
+                    <FavoriteRecipeCard
+                        timeToCook={recip.timeToCook}
+                        key={idx}
+                        title={recip.header}
+                        calories={recip.calories + " Kcal"}
+                        likeIcon={<FavorRecCardLike activeClass={active} />}
+                        image={recip.img}
+                    />
+                </RecipeResponse>
+            );
+        });
     const pageCount = Math.ceil(categoriesStore.categoryLength / categoriesStore.perPage);
     // console.log(pageCount);
     const changePage = ({ selected }) => {
-        categoriesStore.currentPage = selected;
+        categoriesStore.currentPage(selected);
+        // console.log(selected);
     };
 
     const _DATA = usePagination(categoriesStore.valFilter(), categoriesStore.perPage);
@@ -190,6 +189,7 @@ const Searching = observer(() => {
                 <RecipeFavoriteCardDiv>
                     {_DATA.currentData().map((recip, idx) => {
                         return (
+                            // <RecipeResponse >
                             <RecipeResponse onClick={(e) => recipeClickFunc(recip, e)}>
                                 <FavoriteRecipeCard
                                     timeToCook={recip.timeToCook}
@@ -201,6 +201,8 @@ const Searching = observer(() => {
                                     rkey={recip.rkey}
                                     category={recip.category}
                                     recip={recip}
+                                    recipeId={recip.rkey}
+
                                 />
                             </RecipeResponse>
                         );
@@ -219,7 +221,55 @@ const Searching = observer(() => {
                     />
                 </RecipeFavoriteCardDiv>
             )}
+            {/* {displayItems == "" ? (
+                <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
+            ) : (
+                <RecipeFavoriteCardDiv>
+                    {displayItems}
+                    <ReactPaginate
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        previousLabel="<"
+                        nextLabel=">"
+                        breakLabel="..."
+                        breakClassName="break-me"
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={1}
+                        // subContainerClassName="pages pagination"
+                        breakLinkClassName="page-link"
+                        containerClassName="paginationBtns"
+                        disabledClassName="disabled"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        activeClassName="active"
+
+                    // МОЁ !!!!!!!!!!
+                    // previousLabel={"<"}
+                    // nextLabel={">"}
+                    // containerClassName={"paginationBtns"}
+                    // pageRangeDisplayed={1}
+                    // marginPagesDisplayed={1}
+                    // // previousLinkClassName={"previousBtns"}
+                    // // pageLinkClassName={"nextBtn"}
+                    // // activeClassName={"paginationActive"}
+                    // breakLinkClassName="page-link"
+                    // pageClassName="page-item"
+                    // pageLinkClassName="page-link"
+                    // previousClassName="page-item"
+                    // previousLinkClassName="page-link"
+                    // nextClassName="page-item"
+                    // nextLinkClassName="page-link"
+                    // activeClassName="paginationActive"
+                    />
+                </RecipeFavoriteCardDiv>
+            )} */}
+            {/* {categoriesStore.openModal ? <ModalWindow /> : null} */}
             {openModal ? <ModalWindow openMod={openModal} closeMod={setOpenModal} /> : null}
+
         </SearchPageDiv>
     );
 });
