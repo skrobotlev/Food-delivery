@@ -42,6 +42,10 @@ export default class CategoriesStore {
     this._filter = val;
   }
 
+  set heartLikeRecipe(rec) {
+    this._heartLikeRecipe = rec;
+  }
+
   setHeartLikeRecipe(rec) {
     this._heartLikeRecipe = rec;
   }
@@ -67,6 +71,11 @@ export default class CategoriesStore {
 
   setCurrentCategory(items) {
     this._currentCategory = items;
+  }
+
+  set modalObject(obj) {
+    this._modalObject = obj;
+    // this.valFilter()
   }
 
   setModalObject(obj) {

@@ -20,7 +20,7 @@ export const takeDataCat = (category): Promise<any> => {
     });
 };
 
-export const testData = (category) => {
+export const requestCurrentCategory = (category) => {
   const refer = ref(database);
   return get(child(refer, `/categories/${category}`))
     .then((snapshot) => {

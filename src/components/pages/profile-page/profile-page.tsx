@@ -10,7 +10,7 @@ import {
 } from "../../buttons/icons/profile-menu-icons/icons";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth } from "@/firebase";
 import { Link, useHistory } from "react-router-dom";
 
 const ProfilePageDiv = styled.div`

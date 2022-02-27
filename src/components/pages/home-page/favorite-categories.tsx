@@ -5,11 +5,11 @@ import VegetableSvg from "../../buttons/icons/vegetable";
 import SquareButton from "../../buttons/square-button";
 import { Context } from "@/store";
 import FavorRecCardChicken from "../../images/chicken";
-import { SoupSvg } from "../../../components/images/soup";
-import CakeSvg from "../../../components/images/cake";
-import CanningSvg from "../../../components/images/canning";
-import BeveragesSvg from "../../../components/images/beverages";
-import { SaucesSvg } from "../../../components/images/sauces";
+import { SoupSvg } from "@/components/images/soup";
+import CakeSvg from "@/components/images/cake";
+import CanningSvg from "@/components/images/canning";
+import BeveragesSvg from "@/components/images/beverages";
+import { SaucesSvg } from "@/components/images/sauces";
 
 const FavoriteCategoriesDiv = styled.div`
   display: flex;

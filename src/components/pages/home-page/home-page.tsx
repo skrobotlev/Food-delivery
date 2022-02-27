@@ -7,16 +7,16 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { InsideRectBut } from "../../buttons/rectangle-button";
 import FavoriteCategories from "./favorite-categories";
 import { observer } from "mobx-react-lite";
-import { Context } from "../../..";
-import { getFavoriteRecipes, searchingOnDb } from "../../../api/favorite-recipes";
-import { auth } from "../../../firebase";
+import { Context } from "@/store";
+import { getFavoriteRecipes, searchingOnDb } from "@/api/favorite-recipes";
+import { auth } from "@/firebase";
+import useRequest from "@/hooks/useRequestDb";
 
 const HomePageContent = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  /* overflow-y: hidden; */
   height: 100vh;
   width: 100%;
 `;
@@ -34,33 +34,9 @@ const FavoritesCardHeader = styled.h3`
 
 const HomePage = observer(() => {
   const { userStore } = useContext(Context);
-  const { categoriesStore } = useContext(Context);
-  const { persist } = useContext(Context);
   const { uid } = auth.currentUser;
 
-  useEffect(() => {
-    getFavoriteRecipes(uid).then((res) => {
-      const favoriteRecipeIds = Object.entries(res).reduce((array, item: any) => {
-        const recipe = {
-          id: item[0],
-          recipeId: item[1].recipeId,
-          categories: item[1].category,
-        };
-        array.push(recipe);
-        return array;
-      }, []);
-      // console.log(favoriteRecipeIds, "favRecIDS");
-      searchingOnDb(favoriteRecipeIds)
-        .then((res) => {
-          let elmg;
-          console.log(res, "res");
-          userStore.setfavoriteRecipesDb(res);
-
-          console.log(userStore.favoriteRecipesDb);
-          // return res;
-        });
-    });
-  }, []);
+  useRequest(uid, userStore);
 
   return (
     <HomePageContent>

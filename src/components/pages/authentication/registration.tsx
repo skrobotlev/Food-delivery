@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { loginEmailPassword, AuthForm, createUser, createFullUser } from "../../../api/auth";
+import { loginEmailPassword, AuthForm, createUser, createFullUser } from "@/api/auth";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import RectangleButton, { RectBut } from "../../buttons/rectangle-button";

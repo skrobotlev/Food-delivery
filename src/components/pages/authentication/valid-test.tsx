@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Context } from "@/store";
-import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle } from "../../../api/auth";
+import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle } from "@/api/auth";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
 import GoogleIcon from "@mui/icons-material/Google";

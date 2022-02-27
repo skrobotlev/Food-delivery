@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle, forgotPassword } from "../../../api/auth";
+import { loginEmailPassword, AuthForm, createUser, signOutButton, loginWithGoogle, forgotPassword } from "@/api/auth";
 import RectangleButton, { RectBut } from "../../buttons/rectangle-button";
 import { LOGIN_PAGE } from "@/router/consts";
 import { Formik, Form, FormikProps, Field, ErrorMessage } from "formik";
