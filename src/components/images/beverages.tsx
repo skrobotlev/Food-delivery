@@ -2,7 +2,7 @@ import React from "react";
 
 const BeveragesSvg = () => {
     return (
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 85 85" enable-background="new 0 0 85 85" xmlSpace="preserve">  <image id="image0" width="85" height="85" x="0" y="0"
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="75px" height="75px" viewBox="0 0 85 85" enableBackground="new 0 0 85 85" xmlSpace="preserve">  <image id="image0" width="85" height="85" x="0" y="0"
             href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAABVCAYAAAA49ahaAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
     AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAP
     gElEQVR42u2da5BcxXXHf9333nnvWyutHishYQFCgC0CsspQCQIKklRkKB4KIGInilWVSmwniEoV

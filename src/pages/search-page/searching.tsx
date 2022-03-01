@@ -52,10 +52,6 @@ const Searching = observer(() => {
             let responseArr = [];
             const enterArr = Object.entries(fullCateg[0]);
             enterArr.map((items: any) => {
-                // const pars = JSON.parse(JSON.stringify(items[1]));
-                // СПРОСИТЬ ПОЧЕМУ ЗДЕСЬ ОШИБКУ ВЫДАЁТ, ВСЁ ПРАВИЛЬНО ЖЕ ПО ПРИЁМУ И ОБРАБОТКЕ ДАННЫХ
-                // let pars = JSON.parse(items[1]);
-                // console.log(items, items[1]);
                 let pars;
                 try {
                     if (typeof items[1] == "string") pars = JSON.parse(items[1]);
@@ -153,6 +149,7 @@ const Searching = observer(() => {
                                     category={recip.category}
                                     recip={recip}
                                     recipeId={recip.rkey}
+                                    bzhu={recip.bzhu}
 
                                 />
                             </RecipeResponse>

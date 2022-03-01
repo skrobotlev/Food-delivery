@@ -125,15 +125,6 @@ const ModalWindow = observer((props: Props) => {
     let res;
     let currentId;
 
-    // useEffect(() => {
-    //     currentId = id;
-    //     console.log(currentId, "currId");
-    // }, [id]);
-
-    // useEffect(() => {
-    //     console.log(isFavorite, "isFavor");
-    // }, [isFavorite]);
-
     useEffect(() => {
         res = userStore.favoriteRecipesDb.findIndex((rec) => {
             return rec.recipe.header === header;

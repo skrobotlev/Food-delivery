@@ -1,6 +1,5 @@
 import React, { DetailedHTMLProps, HTMLAttributes, ReactElement } from "react";
 
-// тоже обернуть divhtmlprops
 interface NoResultsCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     icon?: ReactElement;
     header?: string;

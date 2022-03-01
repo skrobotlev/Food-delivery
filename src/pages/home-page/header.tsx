@@ -7,7 +7,9 @@ interface HomePageHeaderProps {
 }
 
 const HomePageHeaderDiv = styled.div`
-/* position: absolute; */
+@media screen and(min-width: 450px) {
+    width: 100%;
+}
 display: flex;
 justify-content: center;
 flex-direction: column;
@@ -21,7 +23,6 @@ font-weight: 400;
 font-size: 18px;
 line-height: 20px;
 text-align: center;
-/* letter-spacing: -0.24px; */
 h1 {
     font-weight: 600;
     color:#91C788;

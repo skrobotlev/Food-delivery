@@ -145,7 +145,7 @@ const Navbar: React.FC<NavBarProps> = () => {
     ];
 
     return (
-        <NavBarDiv>
+        <NavBarDiv className="wrapper-navbar">
             {navBarComponents.map((component) => {
                 return <NavBarIconComponent {...component} key={component.link} />;
             })}

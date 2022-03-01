@@ -15,22 +15,19 @@ interface SliderCardProps {
 
 const HomePageSliderCard = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 30px;
+    grid-template-columns: 1fr 1fr 2fr ;
+    /* grid-template-rows: 30px; */
     grid-template-areas:
-        "p h1 img "
-        "p h1 img"
-        "p h1 img"
-        "button h1 img"; 
+        ". . img"
+        ". p img"
+        ". children img"
+        ". . img"; 
   align-items: center;
-  /* justify-items: center; */
-  width: 320px;
+  width: 100%;
+  /* width: 320px; */
   height: 170px;
-  /* padding-top: 20px; */
-    /* padding-left: 30px; */
   h1 {
       grid-area: h1;
-      /* align-items: center; */
     font-size: 10px;
     font-family: "Balsamiq Sans";
     font-style: normal;
@@ -47,22 +44,42 @@ const HomePageSliderCard = styled.div`
     font-size: 17px;
     line-height: 24px;
     width: 120px;
-    /* position: relative; */
   } 
-  .home-slider-button-span{
+  .home-slider-children{
+    grid-area: children;
+  }
+  /* .home-slider-button-span{
     grid-area: button;
 
-  }
+  } */
   .home-slider-image {
       grid-area: img;
   }
+  @media screen and (min-width: 450px) {
+    width: 100%;
+    height: 170px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr ;
+    /* grid-template-rows: 30px; */
+    grid-template-areas:
+        ". . img"
+        ". p img"
+        ". children img"
+        ". . img"; 
+  align-items: center;
+
+h1{
+    grid-area: h1;
+    font-size: 25px;
+}
+p {
+      grid-area: p;
+}
+
+}
 `;
 
 const ImageSpan = styled.span`
-  /* position: relative; */
-  /* bottom: 150px;
-  left: 150px; */
-
 `;
 
 const ChildrenSpan = styled.div`
@@ -73,10 +90,10 @@ const SliderCard: React.FC<SliderCardProps> = ({ header, desc, image, children }
     return (
         <HomePageSliderCard>
 
-            <h1>{header}</h1>
+            {/* <h1>{header}</h1> */}
             <p>{desc}</p>
-            <ChildrenSpan>{children}</ChildrenSpan>
-            <ImageSpan>{image}</ImageSpan>
+            <ChildrenSpan className="home-slider-children">{children}</ChildrenSpan>
+            <ImageSpan className="home-slider-image">{image}</ImageSpan>
         </HomePageSliderCard>
     );
 };
@@ -105,9 +122,12 @@ class HomePageSlider extends React.Component {
 
                     <SliderCard header="Разнообразные рецепты   " desc="Ищите тысячи рецептов здоровых блюд."
                         image={<FavorRecCardSalad />}>
+                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />} />
                     </SliderCard>
 
-                    <SliderCard header="Следите за своим здоровьем" desc="С помощью внутренних инструментов отслеживайте свой прогресс!"></SliderCard>
+                    <SliderCard header="Следите за своим здоровьем" desc="С помощью внутренних инструментов отслеживайте свой прогресс!">
+                        <RectangleButton size="sm" title="Читать" icon={<ArrowRightIcon fontSize="small" />} />
+                    </SliderCard>
                 </Slider>
             </div>
         );

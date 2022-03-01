@@ -16,7 +16,6 @@ const HomePageContent = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  /* overflow-y: hidden; */
   height: 100vh;
   width: 100%;
 `;
@@ -30,12 +29,16 @@ const FavoritesCardHeader = styled.h3`
   font-weight: 400;
   font-size: 22px;
   margin-top: 35px;
+  @media screen and (min-width: 450px) {
+    font-family: "Balsamiq Sans";
+  font-weight: 600;
+  font-size: 28px;
+  margin-top: 35px;
+  }
 `;
 
 const HomePage = observer(() => {
   const { userStore } = useContext(Context);
-  const { categoriesStore } = useContext(Context);
-  // const { persist } = useContext(Context);
   const { uid } = auth.currentUser;
 
   useEffect(() => {
@@ -49,7 +52,6 @@ const HomePage = observer(() => {
         array.push(recipe);
         return array;
       }, []);
-      // console.log(favoriteRecipeIds, "favRecIDS");
       searchingOnDb(favoriteRecipeIds)
         .then((res) => {
           let elmg;
@@ -57,7 +59,6 @@ const HomePage = observer(() => {
           userStore.favoriteRecipesDb = res;
 
           console.log(userStore.favoriteRecipesDb);
-          // return res;
         });
     });
   }, []);
@@ -67,7 +68,7 @@ const HomePage = observer(() => {
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <HomePageSlider />
       <BigRectButtonDiv>
-        <BigRectangleButton title="Следите за своим прогрессом">
+        <BigRectangleButton title="Следите за своим прогрессом ">
           <InsideRectBut key="1">
             Смотреть
             <ArrowRightIcon />

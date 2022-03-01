@@ -11,11 +11,8 @@ interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInp
 }
 
 const SearchInputDiv = styled.div`
-  /* height: 100vh;
-  width: 100%; */
   display: inline-block;
   position: relative;
-  /* margin-top: 90px; */
   width: 100%;
 `;
 
@@ -28,7 +25,6 @@ position: absolute;
 `;
 
 const LoupeSearchIcon = styled.i`
-// display: block;
   position: absolute;
   left: 10px;
   bottom:  10px;
@@ -37,7 +33,6 @@ const LoupeSearchIcon = styled.i`
 
 export const SearchInput: React.FC<SearchInputProps> = (value) => {
     const [searchValue, setSearchValue] = useState("");
-    const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
 
 
@@ -50,9 +45,7 @@ export const SearchInput: React.FC<SearchInputProps> = (value) => {
         if (searchValue) console.log("a");
     }, [searchValue]);
 
-    // useEffect(() => {
-    //     if (value) setSearchValue(value);
-    // }, [value]);
+
     const handleChange = (e) => {
         categoriesStore.filter = e.target.value;
     };

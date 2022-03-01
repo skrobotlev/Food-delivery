@@ -12,7 +12,7 @@ const CanningSvg = () => {
             width="75px"
             height="97px"
             viewBox="0 0 75 97"
-            enable-background="new 0 0 75 97"
+            enableBackground="new 0 0 75 97"
             xmlSpace="preserve"
         >
             {" "}

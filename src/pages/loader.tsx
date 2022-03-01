@@ -25,7 +25,6 @@ const Loader = () => {
     bottom: 50px;
     width: 100%;
     text-align: center;
-    /* left:  */
     font-weight: 800;
     font-size: 25px;
     line-height: 20px;

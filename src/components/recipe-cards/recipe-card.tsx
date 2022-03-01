@@ -2,7 +2,6 @@ import React, { DetailedHTMLProps, HTMLAttributes } from "react";
 import styled from "styled-components";
 
 
-// обернуть divhtmlporps
 interface RecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
   desc?: string;

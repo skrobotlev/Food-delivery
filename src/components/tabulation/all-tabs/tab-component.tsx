@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import cn from "classnames";
-import { Context } from "@/store";
 
 interface TabComponentProps {
     tabs: string[];

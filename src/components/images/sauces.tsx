@@ -12,7 +12,7 @@ export const SaucesSvg = () => {
             width="75px"
             height="75px"
             viewBox="0 0 80 80"
-            enable-background="new 0 0 80 80"
+            enableBackground="new 0 0 80 80"
             xmlSpace="preserve"
         >
             {" "}

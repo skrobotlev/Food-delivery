@@ -21,7 +21,7 @@ const ProfilePageDiv = styled.div`
   height: 100vh;
   width: 100%;
   font-family: "Balsamiq Sans";
-  margin-top: 30px ;
+  margin-top: 30px;
   h1 {
     font-size: 22px;
   }
@@ -33,6 +33,15 @@ const ProfilePageDiv = styled.div`
     color: #a1a1a1;
     font-weight: 400;
     font-size: 16px;
+  }
+  @media screen and (min-width: 450px) {
+    h1,
+    h2 {
+      font-size: 30px;
+    }
+    h5{ 
+      font-size: 20px;
+    }
   }
 `;
 
@@ -52,7 +61,7 @@ const ProfilePhotoDiv = styled.div`
   svg {
     position: absolute;
     top: 125px;
-    left:  125px;
+    left: 125px;
   }
 `;
 
@@ -60,36 +69,41 @@ const ProfileMenuIcons = styled.div`
   display: flex;
   flex-direction: column;
   width: 50px;
- 
 `;
 
 const ProfilePageMenu = styled.div`
   display: flex;
   flex-direction: row;
-  
 `;
 
 const ProfileMenuHeaders = styled.div`
   display: flex;
   flex-direction: column;
-  color:#707070;
+  color: #707070;
+  
   h5 {
     font-size: 17px;
     line-height: 30px;
     flex-grow: 1;
     margin-left: 10px;
   }
+  @media screen and (min-width: 450px) {
+    h5 {
+    font-size: 20px;
+    line-height: 30px;
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+  }
 `;
 
 const ProfilePageMenuH4 = styled.div`
   display: flex;
-  /* justify-content: space-around; */
   align-items: center;
   width: 300px;
   justify-content: space-between;
   margin-top: 15px;
   i {
-    /* padding-left: 100px;  */
     display: flex;
     align-items: flex-start;
   }
@@ -110,28 +124,28 @@ const ProfilePage = () => {
     {
       title: "Редактировать профиль",
       icon: <EditProfileIconSvg />,
-      arrow: <ArrowForwardIosIcon fontSize="small" />
+      arrow: <ArrowForwardIosIcon fontSize="small" />,
     },
     {
       title: "Обновить планы",
       icon: <RenewPlansIconSvg />,
-      arrow: <ArrowForwardIosIcon fontSize="small" />
+      arrow: <ArrowForwardIosIcon fontSize="small" />,
     },
     {
       title: "Настройки",
       icon: <SettingsIconSvg />,
-      arrow: <ArrowForwardIosIcon fontSize="small" />
+      arrow: <ArrowForwardIosIcon fontSize="small" />,
     },
     {
       title: "Условия и политика конфиденциальности",
       icon: <TermsAndPrivPolIconSvg />,
-      arrow: <ArrowForwardIosIcon fontSize="small" />
+      arrow: <ArrowForwardIosIcon fontSize="small" />,
     },
     {
       title: "Выйти из профиля",
       icon: <LogOutIconSvg />,
       arrow: <ArrowForwardIosIcon fontSize="small" />,
-      callback: signOutButton
+      callback: signOutButton,
     },
   ];
   return (
@@ -147,13 +161,12 @@ const ProfilePage = () => {
         <ProfileMenuHeaders>
           {headersAndIcons.map((item, idx) => (
             <ProfilePageMenuH4 key={idx}>
-              <ProfileMenuIcons>
-                {item.icon}
-              </ProfileMenuIcons>
-              <h5 onClick={() => item.callback ? item.callback() : null}>
-                {item.title}
-              </h5>
-              <i> <ArrowForwardIosIcon fontSize="small" /></i>
+              <ProfileMenuIcons>{item.icon}</ProfileMenuIcons>
+              <h5 onClick={() => (item.callback ? item.callback() : null)}>{item.title}</h5>
+              <i>
+                {" "}
+                <ArrowForwardIosIcon fontSize="small" />
+              </i>
             </ProfilePageMenuH4>
           ))}
         </ProfileMenuHeaders>

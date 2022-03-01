@@ -17,6 +17,11 @@ const FavoriteCategoriesDiv = styled.div`
   width: 100%;
   /* margin-bottom: 66px; */
   margin-top: 15px;
+  @media screen and (min-width: 450px) {
+  width: 80%;
+  /* margin-bottom: 66px; */
+  margin-top: 15px; 
+  }
 `;
 
 const ButtonDiv = styled.div`
@@ -28,8 +33,6 @@ const ButtonDiv = styled.div`
 `;
 
 const FavoriteCategories = () => {
-  const { categoriesStore } = useContext(Context);
-  const { userStore } = useContext(Context);
   const { push } = useHistory();
 
   const linkToCategory = (category) => {
@@ -37,9 +40,7 @@ const FavoriteCategories = () => {
   };
   return (
     <FavoriteCategoriesDiv>
-      {/* <ButtonDiv>
-        <SquareButton size="lg" backgroundColor="fruits" title="TEST" onClick={() => linkToCategory("TEST")} icon={<FruitSVG />} />
-      </ButtonDiv> */}
+
       <ButtonDiv>
         <SquareButton size="lg" backgroundColor="vegan" title="Салаты" onClick={() => linkToCategory("salads")} icon={<VegetableSvg />} />
       </ButtonDiv>

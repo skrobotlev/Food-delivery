@@ -31,7 +31,6 @@ const LoginLink = styled.div`
   font-weight: normal;
   font-size: 17px;
   line-height: 21px;
-  /* identical to box height */
   color: #7c7c7c;
   link {
     color: #91c788;

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { auth } from "@/firebase";
 import { Context } from "@/store";
@@ -42,6 +41,7 @@ const FavoriteRecipeList = observer(() => {
                     likeIcon={<FavorRecCardLike />}
                     recipeId={resp.recipeId}
                     image={resp.recipe.img}
+                    bzhu={resp.recipe.bzhu}
                 />
             </RecipeResponse>
         );

@@ -18,23 +18,6 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const database = getDatabase();
 
-// export const createUser = createUserWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ..
-//   });
-// const db = getFirestore(app);
-// db.collection("todos").getDocs();
-// const todosCol = collection(db, "todos");
-// const snapshot = await getDocs(todosCol);
-
-// Detect auth state
 onAuthStateChanged(auth, (user) => {
   if (user !== null) {
     console.log("logged in!");

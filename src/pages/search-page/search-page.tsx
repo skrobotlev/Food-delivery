@@ -1,6 +1,4 @@
-import { Context } from "@/store";
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import Searching from "./searching";
@@ -9,8 +7,6 @@ export const SearchPageDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* overflow-y: scroll; */
-  /* margin-left: 25px; */
   height: 100vh;
   width: 100%;
 `;
@@ -24,14 +20,10 @@ const SearchPageH1 = styled.h1`
 `;
 
 export const RecipeResponse = styled.div`
-  /* overflow-y: scroll; */
 `;
 
 
 const SearchPage = observer(() => {
-  const { userStore } = useContext(Context);
-  const history = useHistory();
-  const { categoriesStore } = useContext(Context);
 
   return (
     <>

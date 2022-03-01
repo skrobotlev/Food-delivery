@@ -58,11 +58,9 @@ export const RectBut = styled.button<RectangleButtonProps>`
       return "0.75rem";
     }
   }};
-  /* margin: 20px; */
   border-radius: 30px;
   color: white;
   font-family: "Balsamiq Sans";
-  /* padding: 10px; */
   border: none;
   display: flex;
   justify-content: center;
@@ -72,15 +70,16 @@ export const RectBut = styled.button<RectangleButtonProps>`
 
 export const BigRectBut = styled.button<RectangleButtonProps>`
   width: 320px;
+  @media screen and (min-width: 450px) {
+    width: 100%;
+}
   height: 88px;
   background-color: #9E9BC7;
   border-color: #9E9BC7;
   font-size: 1.2rem;
-  /* margin: 20px; */
   border-radius: 30px;
   color: white;
   font-family: "Balsamiq Sans";
-  /* padding: 10px; */
   border: none;
   display: flex;
   justify-content: center;
@@ -100,14 +99,13 @@ export const InsideRectBut = styled.button<RectangleButtonProps>`
   color: #C6C4DE;
   font-family: "Balsamiq Sans";
   border: none;
-  /* padding-right: 10px; */
   display: flex;
   justify-content: center;
   align-items: center;
   
 `;
 
-export const BigRectangleButton: React.FC<RectangleButtonProps> = ({ title, icon, children }) => {
+export const BigRectangleButton: React.FC<RectangleButtonProps> = ({ title, icon, children }: any) => {
   return (
     <BigRectBut title={title} icon={icon}>
       {title ? title : null}
