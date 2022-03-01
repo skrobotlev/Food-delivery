@@ -7,6 +7,13 @@ const Wrapper = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
+/* 
+  @media screen and (min-width: 450px) {
+    width: 50%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  } */
   /* flex-direction: column;
   justify-content: space-between; */
 `;

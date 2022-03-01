@@ -118,23 +118,21 @@ const ModalWindow = observer((props: Props) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const { userStore } = useContext(Context);
     const { categoriesStore } = useContext(Context);
-    const { push } = useHistory();
     const { uid } = auth.currentUser;
     const { bzhu, calories, header, img, timeToCook, desc, rkey, favKey } = categoriesStore.modalObject.recipe;
     const { id, recipeId, categories } = categoriesStore.modalObject;
-    // const iBzhu = toJS(bzhu);
     const { proteins, carbs, fat } = bzhu;
     let res;
     let currentId;
 
-    useEffect(() => {
-        currentId = id;
-        console.log(currentId, "currId");
-    }, [id]);
+    // useEffect(() => {
+    //     currentId = id;
+    //     console.log(currentId, "currId");
+    // }, [id]);
 
-    useEffect(() => {
-        console.log(isFavorite, "isFavor");
-    }, [isFavorite]);
+    // useEffect(() => {
+    //     console.log(isFavorite, "isFavor");
+    // }, [isFavorite]);
 
     useEffect(() => {
         res = userStore.favoriteRecipesDb.findIndex((rec) => {

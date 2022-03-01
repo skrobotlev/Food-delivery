@@ -50,6 +50,9 @@ export default class CategoriesStore {
     this._heartLikeRecipe = rec;
   }
 
+  set nameCurrentCategory(name) {
+    this._nameCurrentCategory = name;
+  }
   setNameCurrentCategory(name) {
     this._nameCurrentCategory = name;
   }

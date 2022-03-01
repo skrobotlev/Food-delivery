@@ -14,13 +14,23 @@ interface SliderCardProps {
 }
 
 const HomePageSliderCard = styled.div`
-   // display: flex;
-  // flex-wrap: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30px;
+    grid-template-areas:
+        "p h1 img "
+        "p h1 img"
+        "p h1 img"
+        "button h1 img"; 
+  align-items: center;
+  /* justify-items: center; */
   width: 320px;
   height: 170px;
-  padding-top: 20px;
-    padding-left: 30px;
+  /* padding-top: 20px; */
+    /* padding-left: 30px; */
   h1 {
+      grid-area: h1;
+      /* align-items: center; */
     font-size: 10px;
     font-family: "Balsamiq Sans";
     font-style: normal;
@@ -28,12 +38,9 @@ const HomePageSliderCard = styled.div`
     font-size: 10px;
     line-height: 14px;
     color: #FF806E;
-    
-    /* position: absolute;
-    top: 20px;
-    right: 35px; */
   }
   p {
+      grid-area: p;
     font-family: "Balsamiq Sans";
     font-style: normal;
     font-weight: 600;
@@ -41,14 +48,20 @@ const HomePageSliderCard = styled.div`
     line-height: 24px;
     width: 120px;
     /* position: relative; */
-    
-  }  
+  } 
+  .home-slider-button-span{
+    grid-area: button;
+
+  }
+  .home-slider-image {
+      grid-area: img;
+  }
 `;
 
 const ImageSpan = styled.span`
-  position: relative;
-  bottom: 150px;
-  left: 150px;
+  /* position: relative; */
+  /* bottom: 150px;
+  left: 150px; */
 
 `;
 

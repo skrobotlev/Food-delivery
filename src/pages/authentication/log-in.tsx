@@ -71,10 +71,18 @@ const LoginFormDiv = styled.div`
 `;
 
 const VisibilityIconComponent = styled.i`
+ position: relative;
   svg {
-    position: absolute;
-    top: 400px;
-    left: 298px;
+    position: relative;
+    bottom: 2.4rem;
+    left: 96%;
+  }
+  @media screen and (max-width: 450px) {
+    svg {
+    position: relative;
+    bottom: 2.4rem;
+    left: 16rem;
+  }
   }
 `;
 
@@ -167,6 +175,7 @@ const LoginPage = observer(() => {
           email: "",
         }}
         onSubmit={(values: ISignInForm, actions) => {
+
           setTimeout(() => {
             actions.setSubmitting(false);
             console.log(values);
