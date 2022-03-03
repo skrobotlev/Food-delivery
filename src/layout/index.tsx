@@ -7,7 +7,6 @@ const CenterDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 100px; */
   } 
   display: flex;
   align-items: center;
@@ -19,13 +18,9 @@ const Wrapper = styled.div`
   height: 85vh;
   display: grid;
   grid-template-rows: 1fr;
-  /* grid-template-areas: ; */
-  /* align-items: center; */
-.wrapper-navbar {
-  /* background-color: aqua; */
-}
+
   @media screen and (max-width: 450px) {
-    width: 100%;
+  width: 100%;
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;

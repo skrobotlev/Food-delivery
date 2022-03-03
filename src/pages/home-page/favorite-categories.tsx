@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import VegetableSvg from "@/components/buttons/icons/vegetable";
 import SquareButton from "@/components/buttons/square-button";
-import { Context } from "@/store";
 import FavorRecCardChicken from "@/components/images/chicken";
 import { SoupSvg } from "@/components/images/soup";
 import CakeSvg from "@/components/images/cake";
@@ -15,11 +14,9 @@ const FavoriteCategoriesDiv = styled.div`
   display: flex;
   overflow-x: scroll;
   width: 100%;
-  /* margin-bottom: 66px; */
   margin-top: 15px;
   @media screen and (min-width: 450px) {
-  width: 80%;
-  /* margin-bottom: 66px; */
+  width: 75%;
   margin-top: 15px; 
   }
 `;

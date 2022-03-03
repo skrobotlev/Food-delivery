@@ -2,18 +2,19 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import RectangleButton from "../../buttons/rectangle-button";
 import { observer } from "mobx-react-lite";
-import { Context } from "@/store";
 import FavoriteRecipeList from "../favorite-recipes-list";
 import { SEARCH_ROUTE } from "@/router/consts";
 import { useHistory } from "react-router-dom";
 
 export const RecipeFavoriteCardDiv = styled.div`
   display: flex;
-  overflow-y: scroll;
   overflow-x: hidden;
   flex-direction: column;
   align-items: center;
   height: 600px;
+  @media screen and (max-width: 450px) {
+    height: 70vh;
+  }
 `;
 
 export const RectangleButtonSpan = styled.span`

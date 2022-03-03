@@ -9,8 +9,6 @@ const StyledValidForm = styled.form`
   margin: 0 auto;
 `;
 
-const ValidationTextField = styled.input``;
-
 const ValidationDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -90,7 +88,7 @@ const ValidationForm = () => {
               //   "One uppercase, one lowercase, one special character and no spaces"
               // )
               .min(8, "Must be min 8")
-              .max(20, "Must be mx 20")
+              .max(20, "Must be max 20")
               // .required(
               //   "Please valid password. One uppercase, one lowercase, one special character and no spaces"
               // )

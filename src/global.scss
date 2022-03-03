@@ -57,7 +57,7 @@ p{
   display: flex;
   justify-content: center;
   flex-direction: column;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   // background: #b3afa9;
   // margin: 3.5rem auto 1.5rem;
   // padding: 2rem 1rem;
@@ -93,6 +93,9 @@ ul.nav .tab {
   transition: all 0.7s;
   border-bottom-left-radius: 2rem;
   border-top-left-radius: 2rem;
+  @media screen and (min-width: 450px) {
+    font-size: 20px;
+  }
 }
 
 ul.nav li:nth-child(2) {
@@ -233,7 +236,7 @@ justify-content: center;
   :first-of-type {
     margin-top: 10px;
   }
-  padding-left: 30px;
+  padding-left: 45px;
   font-family: "Balsamiq Sans";
   font-size: 1rem;
   font-weight: 400;
@@ -246,8 +249,15 @@ justify-content: center;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: 0.5s padding-left;
   &:focus {
-    padding-left: 35px;
+    padding-left: 65px;
   }
+@media screen and (min-width: 450px) {
+  font-size: 1.3rem;
+  padding-left: 50px;
+  &:focus {
+    padding-left: 75px;
+  }
+}
 }
 .pwd {
   background-image: none !important;

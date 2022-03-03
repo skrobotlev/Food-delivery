@@ -10,6 +10,9 @@ const FoodFaboriteTabDiv = styled.div`
       flex-wrap: wrap;
       justify-content: space-between;
       width: 316px;
+      @media screen and (min-width: 450px) {
+        width: 100%;
+      }
 `;
 
 const FoodFavoriteTab = () => {

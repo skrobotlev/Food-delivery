@@ -17,8 +17,11 @@ import usePagination from "./pagination-logic";
 import useSearchingUpd from "@/hooks/useSearchingUpd";
 import { requestCurrentCategory } from "@/api/categories";
 
-const PaginationSpan = styled.span`
-  overflow-x: scroll;
+const ModalDiv = styled.div`
+position: relative;
+align-items: center;
+  /* overflow-x: scroll; */
+  background-color: blue;
   width: auto;
   height: auto;
 `;
@@ -38,11 +41,6 @@ const Searching = observer(() => {
     categoriesStore.nameCurrentCategory = query.get("category");
     let currentCategory = categoriesStore.nameCurrentCategory;
     // useSearchingUpd(categoriesStore, currentCategory);
-    console.log(currentCategory);
-    // if (currentCategory !== "") {
-    //     console.log("AYE");
-    //     useSearchingUpd(categoriesStore, currentCategory);
-    // }
 
     useEffect(() => {
         requestCurrentCategory(currentCategory).then((fullCateg) => {
@@ -54,7 +52,7 @@ const Searching = observer(() => {
             enterArr.map((items: any) => {
                 let pars;
                 try {
-                    if (typeof items[1] == "string") pars = JSON.parse(items[1]);
+                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
                 } catch (e) {
                     console.log(e);
                 }
@@ -90,12 +88,13 @@ const Searching = observer(() => {
             recipeId: recip.rkey,
             categories: recip.category,
         };
-        categoriesStore.heartLikeRecipe = ({
-            recipe: recip,
-            id: "",
-            recipeId: recip.rkey,
-            categories: recip.category,
-        });
+        // categoriesStore.heartLikeRecipe = ({
+        //     recipe: recip,
+        //     id: "",
+        //     recipeId: recip.rkey,
+        //     categories: recip.category,
+        // });
+        categoriesStore.heartLikeRecipe = setterObj;
         if (e.target.tagName === "path") return e.stopPropagation();
 
         if (currentKey > -1) categoriesStore.modalObject = userStore.favoriteRecipesDb[currentKey];
@@ -115,12 +114,19 @@ const Searching = observer(() => {
         root: {
             "& .MuiPagination-ul": {
                 fontFamily: "Balsamiq Sans",
+                fontSize: "25px"
             },
         },
         ul: {
+
+            "& .MuiButtonBase-root": {
+                color: "#fff",
+                backgroundColor: "#1a9920 ",
+                fontFamily: "Balsamiq Sans",
+            },
             "& .Mui-selected": {
                 color: "#fff",
-                backgroundColor: "#1a9920 !important",
+                backgroundColor: "#bb9733 !important",
                 fontFamily: "Balsamiq Sans",
             },
         },
@@ -130,7 +136,7 @@ const Searching = observer(() => {
     return (
         <SearchPageDiv>
             <SearchInput />
-            {categoriesStore.valFilter() == "" ? (
+            {categoriesStore.valFilter() === "" ? (
                 <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
             ) : (
                 <RecipeFavoriteCardDiv>
@@ -169,9 +175,9 @@ const Searching = observer(() => {
                     />
                 </RecipeFavoriteCardDiv>
             )}
-
-            {openModal ? <ModalWindow openMod={openModal} closeMod={setOpenModal} /> : null}
-
+            <ModalDiv>
+                {openModal ? <ModalWindow openMod={openModal} closeMod={setOpenModal} /> : null}
+            </ModalDiv>
         </SearchPageDiv>
     );
 });

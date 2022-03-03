@@ -10,13 +10,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Context } from "@/store";
 import { RectBut } from "@/components/buttons/rectangle-button";
 import { auth } from "@/firebase";
-import {
-    getFavoriteRecipes,
-    pushNewFavoriteRecipe,
-    removeFavoriteRecipe,
-    searchingOnDb,
-    updateModalRecipe,
-} from "@/api/favorite-recipes";
+import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, searchingOnDb, updateModalRecipe } from "@/api/favorite-recipes";
 import { observer } from "mobx-react-lite";
 
 export const ModalWindowDiv = styled.div`
@@ -44,6 +38,11 @@ export const RecipeValues = styled.div`
     color: #ff8473;
     font-size: 20px;
   }
+  @media screen and (min-width: 450px) {
+      h1,h2 {
+          font-size: 30px;
+      }
+  }
 `;
 export const ValuesRecipes = styled.div`
   text-align: center;
@@ -64,6 +63,11 @@ export const HeaderH3 = styled.h3`
   width: 100%;
   padding-left: 5px;
   padding-right: 5px;
+  @media screen and (min-width: 450px) {
+      
+          font-size: 30px;
+      
+  }
 `;
 
 export const CloseIconI = styled.i`
@@ -83,6 +87,17 @@ export const ButtonAndDescDiv = styled.div`
     text-align: center;
     width: 90%;
   }
+  @media screen and (min-width: 450px) {
+      h3 {
+          font-size: 30px;
+      }
+      p{
+          font-size: 25px;
+      }
+      button {
+          margin-top: 25px;
+      }
+  }
 `;
 
 interface ModalWindowProps {
@@ -98,8 +113,11 @@ interface Props {
 
 const Root = styledMUI("div")(({ theme }) => ({
     height: "60%",
+    // "@media(minWidth: 450px)": {
+    //     width: "40%",
+    // },
+    // width: "40%",
     backgroundColor: theme.palette.mode === "light" ? grey[100] : theme.palette.background.default,
-
 }));
 
 const Puller = styledMUI(Box)(({ theme }) => ({
@@ -188,11 +206,15 @@ const ModalWindow = observer((props: Props) => {
                         overflow: "visible",
                         borderTopLeftRadius: "30px",
                         borderTopRightRadius: "30px",
+                        "@media (min-width: 450px)": {
+                            width: "40%",
+                            position: "fixed",
+                            left: "30%",
+                        },
                     },
                 }}
             />
             <SwipeableDrawer
-                // container={container}
                 anchor="bottom"
                 open={open}
                 onClose={() => {
@@ -216,7 +238,8 @@ const ModalWindow = observer((props: Props) => {
                 <CloseIconI
                     onClick={() => {
                         toggleDrawer(false);
-                    }}>
+                    }}
+                >
                     <CloseIcon fontSize="large" />
                 </CloseIconI>
                 <ImageDiv>
@@ -241,7 +264,6 @@ const ModalWindow = observer((props: Props) => {
                     </RectBut>
                 </ButtonAndDescDiv>
             </SwipeableDrawer>
-            {/* </div> */}
         </Root>
     );
 });

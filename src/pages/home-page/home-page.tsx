@@ -31,7 +31,7 @@ const FavoritesCardHeader = styled.h3`
   margin-top: 35px;
   @media screen and (min-width: 450px) {
     font-family: "Balsamiq Sans";
-  font-weight: 600;
+  font-weight: 500;
   font-size: 28px;
   margin-top: 35px;
   }
@@ -57,7 +57,6 @@ const HomePage = observer(() => {
           let elmg;
           console.log(res, "res");
           userStore.favoriteRecipesDb = res;
-
           console.log(userStore.favoriteRecipesDb);
         });
     });

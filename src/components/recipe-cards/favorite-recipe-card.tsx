@@ -2,7 +2,7 @@ import React, { ReactElement, DetailedHTMLProps, HTMLAttributes, useState, useCo
 import styled from "styled-components";
 import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import { Context } from "@/store";
-import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, requestUpdateStorage, searchingOnDb } from "@/api/favorite-recipes";
+import { pushNewFavoriteRecipe, removeFavoriteRecipe, requestUpdateStorage, searchingOnDb } from "@/api/favorite-recipes";
 import { auth } from "@/firebase";
 import { observer } from "mobx-react-lite";
 import useStore from "@/hooks/useStore";
@@ -22,7 +22,6 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   recip?: any;
 }
 
-interface BzhuRecipeProps { }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   width: 100%;
@@ -48,23 +47,18 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   }
   h1 {
     grid-area: h1;
-    top: 45px;
-    left: 150px;
     font-size: 15px;
     font-weight: 600;
   }
   h2 {
     grid-area: h2;
     padding-top: 10px;
-    bottom: 80px;
-    left: 150px;
     font-size: 15px;
     color: #6cb663;
     font-weight: 600;
   }
   h3 {
     grid-area: h3;
-    left: 150px;
     font-size: 15px;
     font-weight: 600;
   }
@@ -73,7 +67,7 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
     grid-template-areas:
       "img h2 icon"
       "img h2   ."
-      "img h1  bzhu"
+      "img h1  ."
       "img h3 bzhu";
     font-family: "Balsamiq Sans";
 
@@ -99,10 +93,16 @@ const TimeToCookSpan = styled.span`
   align-items: baseline;
 `;
 
+const TimeToCookH = styled.h5`
+  grid-area: h3;
+  /* font-size: 15px; */
+  font-weight: 600;
+  align-items: baseline;
+`;
+
 const BzhuRecip = styled.span`
   grid-area: bzhu;
   align-items: baseline;
-  /* font-size: 15px; */
   display: grid;
   /* grid-row: 1; */
   h4 {
@@ -111,6 +111,7 @@ const BzhuRecip = styled.span`
     grid-row: 1;
     font-size: 15px;
     padding-right: 5px;
+    color: #6eb62a;
   }
   @media screen and (min-width: 450px) {
     h4{
@@ -143,42 +144,11 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     let favRecs = userStore.favoriteRecipesDb;
     let recipesHash = userStore.favoriteRecipesHashTable;
     const { proteins, fat, carbs } = bzhu;
-    // console.log(bzhu);
-    // const requestUpdateStorage = () => {
-    //   getFavoriteRecipes(uid).then((ress) => {
-    //     const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
-    //       const recipe = {
-    //         id: item[0],
-    //         recipeId: item[1].recipeId,
-    //         categories: item[1].category,
-    //       };
-    //       array.push(recipe);
-    //       return array;
-    //     }, []);
-    //     searchingOnDb(favoriteRecipeIds).then((result) => {
-    //       let elmg;
-    //       console.log(result, "res");
-    //       userStore.favoriteRecipesDb = result;
-    //       console.log(userStore.favoriteRecipesDb, "updStorage");
-    //     });
-    //   });
-    // };
 
     useStore(recipesHash, recipeId, active, setActive, favRecs);
-    // useEffect(() => {
-    //   console.log(recipesHash);
-    //   if (recipesHash[recipeId]) setActive(true);
-    //   else setActive(false);
-    // }, [favRecs, active]);
-
-    // useEffect(() => {
-    //   requestUpdateStorage();
-
-    // }, [active]);
 
     const updRecipesStores = (header, recId, recipe) => {
       console.log(recipe, "dbresCURRID");
-      // console.log(res, userStore.favoriteRecipesDb, "updRecStorEXACT");
       let res = favRecs.findIndex((rec) => {
         return rec.recipe.header === title;
       });
@@ -214,10 +184,12 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
           <h4>Ж:{fat}</h4>
           <h4>У:{carbs}</h4>
         </BzhuRecip>
-        <TimeToCookSpan>
+        {/* <TimeToCookSpan> */}
+        <TimeToCookH>
           <AccessAlarmsIcon fontSize="small" />
           {timeToCook}
-        </TimeToCookSpan>
+        </TimeToCookH>
+        {/* </TimeToCookSpan> */}
       </RecipeElement>
     );
   }

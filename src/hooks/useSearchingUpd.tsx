@@ -14,7 +14,7 @@ export default function useSearchingUpd(categoriesStore, currentCategory) {
                 // console.log(items, items[1]);
                 let pars;
                 try {
-                    if (typeof items[1] == "string") pars = JSON.parse(items[1]);
+                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
                 } catch (e) {
                     console.log(e);
                 }
@@ -37,5 +37,5 @@ export default function useSearchingUpd(categoriesStore, currentCategory) {
             const { length } = categoriesStore.currentCategory;
             categoriesStore.categoryLength = length;
         });
-    }, []);
+    }, [currentCategory]);
 }
