@@ -10,6 +10,8 @@ import { observer } from "mobx-react-lite";
 import { Context } from "@/store";
 import { getFavoriteRecipes, searchingOnDb } from "@/api/favorite-recipes";
 import { auth } from "@/firebase";
+import { useHistory } from "react-router-dom";
+import { CALENDAR_CALC } from "@/router/consts";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -22,6 +24,19 @@ const HomePageContent = styled.div`
 
 const BigRectButtonDiv = styled.div`
   padding-top: 40px;
+`;
+
+const PcStyleDiv = styled.div`
+ display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 10vh;
+  width: 100%;
+  margin: 10%;
+  @media screen and (min-width: 1650px) {
+   justify-content: space-evenly;
+  }
 `;
 
 const FavoritesCardHeader = styled.h3`
@@ -40,6 +55,7 @@ const FavoritesCardHeader = styled.h3`
 const HomePage = observer(() => {
   const { userStore } = useContext(Context);
   const { uid } = auth.currentUser;
+  const { push } = useHistory();
 
   useEffect(() => {
     getFavoriteRecipes(uid).then((res) => {
@@ -65,15 +81,18 @@ const HomePage = observer(() => {
   return (
     <HomePageContent>
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
-      <HomePageSlider />
-      <BigRectButtonDiv>
-        <BigRectangleButton title="Следите за своим прогрессом ">
+      <PcStyleDiv>
+        <HomePageSlider />
+        {/* </PcStyleDiv> */}
+        {/* <BigRectButtonDiv> */}
+        <BigRectangleButton title="Следите за своим прогрессом " onClick={() => push(CALENDAR_CALC)}>
           <InsideRectBut key="1">
             Смотреть
             <ArrowRightIcon />
           </InsideRectBut>
         </BigRectangleButton>
-      </BigRectButtonDiv>
+        {/* </BigRectButtonDiv> */}
+      </PcStyleDiv>
       <FavoritesCardHeader>Выберите интересующую категорию</FavoritesCardHeader>
       <FavoriteCategories />
     </HomePageContent>

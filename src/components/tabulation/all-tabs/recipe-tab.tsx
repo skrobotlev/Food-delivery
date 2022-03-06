@@ -11,7 +11,7 @@ export const RecipeFavoriteCardDiv = styled.div`
   overflow-x: hidden;
   flex-direction: column;
   align-items: center;
-  height: 600px;
+  height: 66vh;
   @media screen and (max-width: 450px) {
     height: 70vh;
   }

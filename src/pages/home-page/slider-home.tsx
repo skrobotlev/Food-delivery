@@ -104,6 +104,30 @@ const HomePageSliderCard = styled.div`
     }
     
   }
+  @media screen and (min-width: 1650px) {
+    /* align-items: flex-end; */
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-areas:
+      "p . img"
+      "p . img"
+      "p children img"
+      "p children img";
+    p {
+      grid-area: p;
+      font-size: 21px;
+      padding-left: 20%;
+      width: 120px;
+    }
+    svg{
+      height: 100px;
+      width: 100px;
+      margin-left: 5%;
+    }
+    button {
+      margin-bottom: 20%;
+    }
+    
+  }
 `;
 
 const ImageSpan = styled.span``;
@@ -142,7 +166,7 @@ class HomePageSlider extends React.Component {
               size="sm"
               title="Читать"
               // icon={<ArrowRightIcon fontSize="small" viewBox="0 0 15 15" />}
-              onClick={() => <a href="https://www.sport-express.ru/zozh/news/fast-fud-vred-ili-polza-dlya-cheloveka-plyusy-i-minusy-chto-eto-mozhno-li-pitatsya-1747780/" />}
+              onClick={() => <a type="btn" className="btn" href="https://www.sport-express.ru/zozh/news/fast-fud-vred-ili-polza-dlya-cheloveka-plyusy-i-minusy-chto-eto-mozhno-li-pitatsya-1747780/" />}
             />
           </SliderCard>
 

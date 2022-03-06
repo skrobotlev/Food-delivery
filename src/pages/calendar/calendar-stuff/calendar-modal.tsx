@@ -13,6 +13,8 @@ import { auth } from "@/firebase";
 import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, searchingOnDb, updateModalRecipe } from "@/api/favorite-recipes";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/hooks/useStore";
+import CalendarCategories from "../calendar-categories";
+import CaloriesResult from "../calendar-categories-result";
 
 export const ModalWindowDiv = styled.div`
   display: flex;
@@ -114,59 +116,24 @@ interface Props {
 
 const Root = styledMUI("div")(({ theme }) => ({
     height: "60%",
-    // "@media(minWidth: 450px)": {
-    //     width: "40%",
-    // },
-    // width: "40%",
     backgroundColor: theme.palette.mode === "light" ? grey[100] : theme.palette.background.default,
 }));
 
 const Puller = styledMUI(Box)(({ theme }) => ({
     width: 30,
     height: 6,
-    backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[900],
+    // backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[900],
     borderRadius: 3,
     position: "absolute",
     top: 8,
     left: "calc(50% - 15px)",
 }));
 
-const ModalWindow = observer((props: Props) => {
+const CalendarModal = observer((props: Props) => {
     const { openMod, closeMod } = props;
     const [open, setOpen] = React.useState(false);
-    const [isFavorite, setIsFavorite] = useState(false);
-    const { userStore, categoriesStore } = useStore();
+    const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
-    const { bzhu, calories, header, img, timeToCook, desc, rkey, } = categoriesStore.modalObject.recipe;
-    const { id, recipeId, categories } = categoriesStore.modalObject;
-    const { proteins, carbs, fat } = bzhu;
-    let res;
-    let currentId;
-
-    useEffect(() => {
-        res = userStore.favoriteRecipesDb.findIndex((rec) => {
-            return rec.recipe.header === header;
-        });
-        res > -1 ? setIsFavorite(true) : setIsFavorite(false);
-        console.log(res, "resIsFavor");
-    }, [res, isFavorite]);
-
-    const updRecipStor = (recId, recipe, header) => {
-        if (isFavorite) {
-            userStore.deleteRecipe(header);
-            console.log("DELLLL");
-            setIsFavorite(false);
-            removeFavoriteRecipe(uid, id, null);
-            console.log(userStore.favoriteRecipesDb, "currModObj");
-            updateModalRecipe(uid, recipeId, userStore, categoriesStore);
-        } else if (!isFavorite) {
-            userStore.addRecipe(recId, recipe);
-            console.log("ADDD");
-            setIsFavorite(true);
-            pushNewFavoriteRecipe(uid, { category: categories, recipeId: recipeId });
-            updateModalRecipe(uid, recipeId, userStore, categoriesStore);
-        }
-    };
 
     const toggleDrawer = (newOpen: boolean) => {
         setOpen(newOpen);
@@ -178,24 +145,7 @@ const ModalWindow = observer((props: Props) => {
         console.log(openMod + "MODALLLLWIND");
     }, [openMod]);
 
-    const valuesROOT = [
-        {
-            categ: "Белки",
-            recVal: proteins,
-        },
-        {
-            categ: "Калории",
-            recVal: calories,
-        },
-        {
-            categ: "Жиры",
-            recVal: fat,
-        },
-        {
-            categ: "Углеводы",
-            recVal: carbs,
-        },
-    ];
+
 
     return (
         <Root>
@@ -242,30 +192,12 @@ const ModalWindow = observer((props: Props) => {
                 >
                     <CloseIcon fontSize="large" />
                 </CloseIconI>
-                <ImageDiv>
-                    <img src={img} />
-                </ImageDiv>
-                <HeaderH3>{header}</HeaderH3>
-                <RecipeValues>
-                    {valuesROOT.map(({ categ, recVal }) => {
-                        return (
-                            <ValuesRecipes>
-                                <h1>{categ}</h1>
-                                <h2>{recVal}</h2>
-                            </ValuesRecipes>
-                        );
-                    })}
-                </RecipeValues>
-                <ButtonAndDescDiv>
-                    <h3>Описание</h3>
-                    <p>{desc}</p>
-                    <RectBut size="md" onClick={() => updRecipStor(recipeId, categoriesStore.modalObject, header)}>
-                        {!isFavorite ? "Добавить в избранное" : "Удалить из избранного"}
-                    </RectBut>
-                </ButtonAndDescDiv>
+                <CalendarCategories />
+                <CaloriesResult />
+
             </SwipeableDrawer>
         </Root>
     );
 });
 
-export default ModalWindow;
+export default CalendarModal;

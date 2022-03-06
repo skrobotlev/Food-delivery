@@ -8,3 +8,4 @@ export const REGISTRATION_PAGE = "/registration";
 export const LOGIN_PAGE = "/login";
 export const PASSWORD_RECOVERY = "/password-recovery";
 export const MODAL_WINDOW = "/modal-window";
+export const CALENDAR_CALC = "/calendar-calc";

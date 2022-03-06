@@ -73,6 +73,9 @@ export const BigRectBut = styled.button<RectangleButtonProps>`
   @media screen and (min-width: 450px) {
     width: 100%;
 }
+@media screen and (min-width: 1650px) {
+    width: 25%;
+}
   height: 88px;
   background-color: #9E9BC7;
   border-color: #9E9BC7;

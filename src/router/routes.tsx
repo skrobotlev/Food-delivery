@@ -1,6 +1,7 @@
 import LoginPage from "@/pages/authentication/log-in";
 import PasswordRecovery from "@/pages/authentication/password-recovery";
 import RegistrationPage from "@/pages/authentication/registration";
+import CalendarCalc from "@/pages/calendar/calendar";
 import FavoriteItemsPage from "@/pages/favorite-items-page/favorite-items-page";
 import GetStartedPage from "@/pages/get-started";
 import HomePage from "@/pages/home-page/home-page";
@@ -9,6 +10,8 @@ import ProfilePage from "@/pages/profile-page/profile-page";
 import ModalWindow from "@/pages/search-page/modal-window";
 import SearchPage from "@/pages/search-page/search-page";
 import {
+
+    CALENDAR_CALC,
     FAVORITES_ROUTE, GET_STARTED_ROUTE, HOME_ROUTE, LOADER_ROUTE,
     LOGIN_PAGE, MODAL_WINDOW, PASSWORD_RECOVERY, PROFILE_ROUTE,
     REGISTRATION_PAGE, SEARCH_ROUTE
@@ -58,6 +61,10 @@ export const authRoutes = [
     {
         path: MODAL_WINDOW,
         Component: ModalWindow
-    }
+    },
+    {
+        path: CALENDAR_CALC,
+        Component: CalendarCalc
+    },
 
 ];

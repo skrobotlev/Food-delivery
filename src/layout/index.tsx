@@ -24,7 +24,13 @@ const Wrapper = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
-  } 
+  }
+  @media screen and (min-width: 1200px) {
+  width: 70%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  }  
 `;
 
 const Body = styled.div`

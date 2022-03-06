@@ -13,7 +13,10 @@ interface SearchInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInp
 const SearchInputDiv = styled.div`
   display: inline-block;
   position: relative;
-  width: 100%;
+  width: 82%;
+  @media screen and (min-width: 1650px) {
+    width: 73%;
+  }
 `;
 
 

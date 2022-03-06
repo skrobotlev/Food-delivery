@@ -8,20 +8,20 @@ import { observer } from "mobx-react-lite";
 import useRecipesHash, { useStore } from "@/hooks/useStore";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  title?: string;
-  calories?: string;
-  icon?: ReactElement;
-  category?: any;
-  likeIcon?: ReactElement;
-  bzhu?: any;
-  image?: string;
-  timeToCook?: any;
-  recipeId?: any;
-  clickFunc?: any;
-  rkey?: any;
-  recip?: any;
+    title?: string;
+    calories?: string;
+    icon?: ReactElement;
+    category?: any;
+    likeIcon?: ReactElement;
+    bzhu?: any;
+    image?: string;
+    timeToCook?: any;
+    recipeId?: any;
+    clickFunc?: any;
+    rkey?: any;
+    recip?: any;
+    closeSearch?: any;
 }
-
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   width: 100%;
@@ -77,7 +77,6 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
       padding-left: 5px;
       font-size: 18px;
     }
-    
   }
 `;
 const LikeIcon = styled.i`
@@ -114,7 +113,7 @@ const BzhuRecip = styled.span`
     color: #6eb62a;
   }
   @media screen and (min-width: 450px) {
-    h4{
+    h4 {
       font-size: 20px;
     }
   }
@@ -133,65 +132,46 @@ const ImageCard = styled.div`
   }
 `;
 
-const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
-  ({ title, calories, rkey, recip, likeIcon, image, icon, category, bzhu, timeToCook, recipeId }) => {
-    const [active, setActive] = useState(false);
-    const { userStore, categoriesStore } = useStore();
-    const { uid } = auth.currentUser;
-    // let header = title;
-    let currId;
-    let favRecs = userStore.favoriteRecipesDb;
-    let recipesHash = userStore.favoriteRecipesHashTable;
-    const { proteins, fat, carbs } = bzhu;
+const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
+    ({ title, calories, rkey, recip, likeIcon, image, icon, closeSearch, category, bzhu, timeToCook, recipeId }) => {
+        const [active, setActive] = useState(false);
+        const { userStore, categoriesStore, caloriesStore } = useStore();
 
-    useRecipesHash(recipesHash, recipeId, active, setActive, favRecs);
+        const { proteins, fat, carbs } = bzhu;
+        const handleAddRecipe = () => {
+            caloriesStore.heartLikeRecipe = recip;
+            console.log(caloriesStore.heartLikeRecipe);
+            caloriesStore.addRecipe(recipeId, caloriesStore.heartLikeRecipe);
+            closeSearch(false);
+            console.log(caloriesStore.breakfast, "brkfst");
+        };
+        // console.log(recipeId, rkey);
+        // useRecipesHash(recipesHash, recipeId, active, setActive, favRecs);
 
-    const updRecipesStores = (header, recId, recipe) => {
-      let res = favRecs.findIndex((rec) => {
-        return rec.recipe.header === title;
-      });
-      if (active) {
-        // console.log(res, "deleteRES");
-        currId = userStore.favoriteRecipesDb[res].id;
-        userStore.deleteRecipe(header);
-        console.log("DELLLL");
-        setActive(false);
-        removeFavoriteRecipe(uid, currId, null);
-        updateFavoritesStorage(uid, userStore);
-      } else if (!active) {
-        userStore.addRecipe(recId, recipe);
-        console.log("ADDD");
-        setActive(true);
-        pushNewFavoriteRecipe(uid, { category: category, recipeId: rkey });
-        updateFavoritesStorage(uid, userStore);
-      }
-    };
-
-    return (
-      <RecipeElement>
-
-        <LikeIcon onClick={() => updRecipesStores(title, rkey, categoriesStore.heartLikeRecipe)}>
-          {React.cloneElement(likeIcon, { activeClass: active })}
-        </LikeIcon>
-        <h1>{title}</h1>
-        <ImageCard>
-          <img src={image} />
-        </ImageCard>
-        <h2>{calories}</h2>
-        <BzhuRecip className="bzhu-recip">
-          <h4>Б:{proteins}</h4>
-          <h4>Ж:{fat}</h4>
-          <h4>У:{carbs}</h4>
-        </BzhuRecip>
-        {/* <TimeToCookSpan> */}
-        <TimeToCookH>
-          <AccessAlarmsIcon fontSize="small" />
-          {timeToCook}
-        </TimeToCookH>
-        {/* </TimeToCookSpan> */}
-      </RecipeElement>
-    );
-  }
+        return (
+            <RecipeElement>
+                {/* <LikeIcon onClick={() => closeSearch(false)}> */}
+                <LikeIcon onClick={() => handleAddRecipe()}>
+                    {React.cloneElement(likeIcon, { activeClass: active })}</LikeIcon>
+                <h1>{title}</h1>
+                <ImageCard>
+                    <img src={image} />
+                </ImageCard>
+                <h2>{calories}</h2>
+                <BzhuRecip className="bzhu-recip">
+                    <h4>Б:{proteins}</h4>
+                    <h4>Ж:{fat}</h4>
+                    <h4>У:{carbs}</h4>
+                </BzhuRecip>
+                {/* <TimeToCookSpan> */}
+                <TimeToCookH>
+                    <AccessAlarmsIcon fontSize="small" />
+                    {timeToCook}
+                </TimeToCookH>
+                {/* </TimeToCookSpan> */}
+            </RecipeElement>
+        );
+    }
 );
 
-export default FavoriteRecipeCard;
+export default CalendarRecipeCard;

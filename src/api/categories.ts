@@ -39,7 +39,7 @@ export const requestCurrentCategory = (category) => {
     });
 };
 
-export const requestCategories = (category): Promise<any> => {
+export const requestModalCategory = (category): Promise<any> => {
   const refer = ref(database);
   return get(child(refer, `/categories/${category}`))
     .then((snapshot) => {

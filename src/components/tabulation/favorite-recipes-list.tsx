@@ -8,24 +8,23 @@ import FavorRecCardLike from "../images/heart-like";
 import { RecipeFavoriteCardDiv } from "./all-tabs/recipe-tab";
 import ModalWindow from "@/pages/search-page/modal-window";
 import useRequestDb from "@/hooks/useRequestDb";
+import { useStore } from "@/hooks/useStore";
 
 const FavoriteRecipeList = observer(() => {
-    const { userStore } = useContext(Context);
-    const { categoriesStore } = useContext(Context);
+    const { userStore, categoriesStore } = useStore();
     const [openModal, setOpenModal] = useState(false);
     const { uid } = auth.currentUser;
-
 
     useRequestDb(uid, userStore);
 
     const recipeClickFunc = (resp, e) => {
         if (e.target.tagName === "path") return e.stopPropagation();
 
-        categoriesStore.setModalObject({
+        categoriesStore.modalObject = {
             recipe: resp.recipe,
             id: resp.id,
             recipeId: resp.recipeId,
-        });
+        };
         console.log(categoriesStore.modalObject, "favModOb");
         setOpenModal(true);
     };

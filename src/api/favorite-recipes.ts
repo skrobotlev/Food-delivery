@@ -96,7 +96,7 @@ export const getFavoriteRecipes = (uid) => {
     });
 };
 
-export const requestUpdateStorage = (uid, userStore) => {
+export const updateFavoritesStorage = (uid, userStore) => {
   return getFavoriteRecipes(uid).then((ress) => {
     const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
       const recipe = {
@@ -125,5 +125,5 @@ const updateModalObj = (recipeId, userStore, categoriesStore) => {
 };
 
 export const updateModalRecipe = (uid, recipeId, userStore, categoriesStore) => {
-  requestUpdateStorage(uid, userStore).then(() => updateModalObj(recipeId, userStore, categoriesStore));
+  updateFavoritesStorage(uid, userStore).then(() => updateModalObj(recipeId, userStore, categoriesStore));
 };

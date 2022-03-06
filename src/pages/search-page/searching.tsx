@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import usePagination from "./pagination-logic";
 import useSearchingUpd from "@/hooks/useSearchingUpd";
 import { requestCurrentCategory } from "@/api/categories";
+import { useStore } from "@/hooks/useStore";
 
 const ModalDiv = styled.div`
 position: relative;
@@ -27,8 +28,7 @@ align-items: center;
 `;
 
 const Searching = observer(() => {
-    const { userStore } = useContext(Context);
-    const { categoriesStore } = useContext(Context);
+    const { userStore, categoriesStore } = useStore();
     const [openModal, setOpenModal] = useState(false);
 
     function useQuery() {
@@ -44,7 +44,7 @@ const Searching = observer(() => {
 
     useEffect(() => {
         requestCurrentCategory(currentCategory).then((fullCateg) => {
-            categoriesStore.setNameCurrentCategory(query.get("category"));
+            categoriesStore.nameCurrentCategory = query.get("category");
             const currentCategory = categoriesStore.nameCurrentCategory;
 
             let responseArr = [];
