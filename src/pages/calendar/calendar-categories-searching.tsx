@@ -16,11 +16,12 @@ import CalendarRecipeCard from "./calendar-stuff/calendar-recipe-card";
 interface CaloriesResultProps {
     category?: string;
     closeSearch?: any;
+    meal?: any;
 }
 
 const CalendarCategoriesDiv = styled.div``;
 
-const CaloriesResult: React.FC<CaloriesResultProps> = observer(({ closeSearch }) => {
+const CaloriesColumnSearching: React.FC<CaloriesResultProps> = observer(({ closeSearch, meal }) => {
     const { userStore, categoriesStore, caloriesStore } = useStore();
     let currentCategory = caloriesStore.nameCaloriesCategory;
     useEffect(() => {
@@ -63,6 +64,10 @@ const CaloriesResult: React.FC<CaloriesResultProps> = observer(({ closeSearch })
         DialogSearchingColumnData.jump(p);
     };
 
+    useEffect(() => {
+        console.log(meal, "meall");
+    });
+
     // const classes = useStyles();
     let [page, setPage] = useState(1);
     return (
@@ -87,6 +92,7 @@ const CaloriesResult: React.FC<CaloriesResultProps> = observer(({ closeSearch })
                                     recipeId={recip.rkey}
                                     bzhu={recip.bzhu}
                                     closeSearch={closeSearch}
+                                    meal={meal}
                                 />
                             </RecipeResponse>
                         );
@@ -109,4 +115,4 @@ const CaloriesResult: React.FC<CaloriesResultProps> = observer(({ closeSearch })
     );
 });
 
-export default CaloriesResult;
+export default CaloriesColumnSearching;

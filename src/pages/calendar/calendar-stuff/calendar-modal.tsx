@@ -14,7 +14,7 @@ import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, search
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/hooks/useStore";
 import CalendarCategories from "../calendar-categories";
-import CaloriesResult from "../calendar-categories-result";
+import CaloriesResult from "../calendar-categories-searching";
 
 export const ModalWindowDiv = styled.div`
   display: flex;

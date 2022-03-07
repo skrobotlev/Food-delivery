@@ -71,13 +71,67 @@ export default class CaloriesStore {
     this._currentPage = num;
   }
 
-  addRecipe(recId, recipe) {
+  addRecipeBreakfast(recId, recipe) {
     const recipeIndexRecId = this._breakfast.findIndex((rec) => {
       return rec.recipeId === recId;
     });
     if (recipeIndexRecId === -1) {
       this._breakfast.push(recipe);
     }
+  }
+
+  addRecipeLunch(recId, recipe) {
+    const recipeIndexRecId = this._lunch.findIndex((rec) => {
+      return rec.recipeId === recId;
+    });
+    if (recipeIndexRecId === -1) {
+      this._lunch.push(recipe);
+    }
+  }
+
+  addRecipeDinner(recId, recipe) {
+    const recipeIndexRecId = this._dinner.findIndex((rec) => {
+      return rec.recipeId === recId;
+    });
+    if (recipeIndexRecId === -1) {
+      this._dinner.push(recipe);
+    }
+  }
+
+  get sumCaloriesDinner() {
+    return this.calculateSumCaloriesDinner();
+  }
+
+  calculateSumCaloriesDinner() {
+    let sum = 0;
+    this._dinner.map((recip) => {
+      sum += +recip.calories;
+    });
+    return sum;
+  }
+
+  get sumCaloriesLunch() {
+    return this.calculateSumCaloriesLunch();
+  }
+
+  calculateSumCaloriesLunch() {
+    let sum = 0;
+    this._lunch.map((recip) => {
+      sum += +recip.calories;
+    });
+    return sum;
+  }
+
+  get sumCaloriesBreak() {
+    return this.calculateSumCaloriesBreak();
+  }
+
+  calculateSumCaloriesBreak() {
+    let sum = 0;
+    this._breakfast.map((recip) => {
+      sum += +recip.calories;
+    });
+    return sum;
   }
 
   valFilter() {

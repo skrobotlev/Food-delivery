@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useStore } from "@/hooks/useStore";
 import { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 interface ModalMenuProps {
     closeSearch?: any;
@@ -29,6 +30,35 @@ const ModalMenu: React.FC<ModalMenuProps> = ({ closeSearch, meal }) => {
         console.log();
     });
 
+    const useStyles = makeStyles(() => ({
+        // root: {
+        //     "& .MuiPagination-ul": {
+        //         fontFamily: "Balsamiq Sans",
+        //         fontSize: "25px"
+        //     },
+        // },
+        li: {
+            "& .MuiMenuItem-root": {
+                color: "#fff",
+                backgroundColor: "#1a9920 ",
+                fontFamily: "Balsamiq Sans",
+            },
+        },
+        ul: {
+            "& .MuiMenuItem-root": {
+                color: "#fff",
+                backgroundColor: "#1a9920 ",
+                fontFamily: "Balsamiq Sans",
+            },
+            "& .Mui-selected": {
+                color: "#fff",
+                backgroundColor: "#bb9733 !important",
+                fontFamily: "Balsamiq Sans",
+            },
+        },
+    }));
+    const classes = useStyles();
+
     return (
         <div>
             <Button
@@ -38,6 +68,12 @@ const ModalMenu: React.FC<ModalMenuProps> = ({ closeSearch, meal }) => {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
+                classes={
+                    {
+                        // root: classes.root,
+                        // ul: classes.ul,
+                    }
+                }
             >
                 Выберите категорию
             </Button>
@@ -60,5 +96,5 @@ const ModalMenu: React.FC<ModalMenuProps> = ({ closeSearch, meal }) => {
             </Menu>
         </div>
     );
-}
+};
 export default ModalMenu;

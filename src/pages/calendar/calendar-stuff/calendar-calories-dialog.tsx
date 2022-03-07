@@ -5,36 +5,40 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import CalendarModal, { CloseIconI } from "./calendar-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalMenu from "./modal-menu";
-import CaloriesResult from "../calendar-categories-result";
+import CaloriesResult from "../calendar-categories-searching";
 import { useStore } from "@/hooks/useStore";
 import FavorRecCardLike from "@/components/images/heart-like";
 import { RecipeResponse } from "@/pages/search-page/search-page";
 import CalendarRecipeCard from "./calendar-recipe-card";
+import { observer } from "mobx-react-lite";
+import DailyRecipesBreakfast from "./daily-recipes-breakfast";
+import DailyRecipesDinner from "./daily-recipes-dinner";
+import DailyRecipesLunch from "./daily-recipe-lunch";
 
 interface FullScDialogProps {
     openWindow?: any;
     closeWindow?: any;
 }
 
+const CalcSumCaloriesDiv = styled.div``;
+
 const MealsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 `;
 
 const MealCardsDiv = styled.div`
-border-color:  black;
-border: 1px;
-width: 20%;
-height: 60vh;
+  border-color: black;
+  border: 1px;
+  width: 20%;
+  height: 60vh;
 `;
 
-const AddRecipe = styled.button`
-
-`;
+const AddRecipe = styled.button``;
 
 export const dialogOpen = (setOpen) => {
     setOpen(true);
@@ -53,11 +57,14 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CalendarColoriesDialog: React.FC<FullScDialogProps> = ({ openWindow, closeWindow }) => {
+const CalendarColoriesDialog: React.FC<FullScDialogProps> = observer(({ openWindow, closeWindow }) => {
     const [open, setOpen] = React.useState(false);
     const [openSearch, setOpenSearch] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
-
+    let calcCal = 0;
+    // let matchesFilter = new RegExp(/[0-9]/, "i");
+    // let matchRes = calcCal.match(/[0-9]/);
+    // console.log(matchRes);
     // const showFavorites = caloriesStore.breakfast.map((resp, idx) => {
     //     return (
     //         <RecipeResponse>
@@ -75,11 +82,14 @@ const CalendarColoriesDialog: React.FC<FullScDialogProps> = ({ openWindow, close
     //     );
     // });
 
+    useEffect(() => {
+        console.log(calcCal, "calccal");
+        // let matchRes = calcCal.match(/[0-9]/);
+        // console.log(matchRes);
+    }, [calcCal]);
+    let meall = "breakfast";
     return (
         <div>
-            <Button variant="outlined" onClick={() => dialogOpen(setOpen)}>
-                Open full-screen dialog
-            </Button>
             <Dialog fullScreen open={openWindow} onClose={dialogClose} TransitionComponent={Transition}>
                 <CloseIconI
                     onClick={() => {
@@ -91,43 +101,20 @@ const CalendarColoriesDialog: React.FC<FullScDialogProps> = ({ openWindow, close
                 <MealsContainer>
                     <MealCardsDiv>
                         <h1>Завтрак</h1>
-                        <ModalMenu closeSearch={setOpenSearch} meal="breakfast" />
-                        {openSearch && <CaloriesResult closeSearch={setOpenSearch} />}
-                        {caloriesStore.breakfast.map((recip, idx) => {
-                            return (
-                                <RecipeResponse>
-                                    <CalendarRecipeCard
-                                        timeToCook={recip.timeToCook}
-                                        key={idx}
-                                        title={recip.header}
-                                        calories={recip.calories + " Kcal"}
-                                        likeIcon={<FavorRecCardLike />}
-                                        image={recip.img}
-                                        rkey={recip.rkey}
-                                        category={recip.category}
-                                        recip={recip}
-                                        recipeId={recip.rkey}
-                                        bzhu={recip.bzhu}
-                                    // closeSearch={closeSearch}
-                                    />
-                                </RecipeResponse>
-                            );
-                        })}
-
+                        <DailyRecipesBreakfast />
                     </MealCardsDiv>
                     <MealCardsDiv>
                         <h1>Обед</h1>
+                        <DailyRecipesLunch />
                     </MealCardsDiv>
                     <MealCardsDiv>
                         <h1>Ужин</h1>
+                        <DailyRecipesDinner />
                     </MealCardsDiv>
                 </MealsContainer>
 
-                {/* СДЕЛАТЬ В ФУЛЛСК ДИАЛОГЕ ТРИ СТОЛБИКА ЗАВТРАК ОБЕД УЖИН. В КАЖДОМ СТОЛБЕ КНОПКА ДОБАВИТЬ, ХРАНИЛИЩЕ ПО ПРИМЕРУ 
-FAVORITE ITEMS STORAGE. ПРИ КАЖДОМ ДОБАВЛЕНИИ ПРОСТО КНОПКА СЪЕЗЖАЕТ ВНИЗ И ОТОБРАЖАЕТ РЕЦЕПТ. СНИЗУ ПОДВОДИТСЯ ИТОГ ПОЛНЫЙ БЖУ 
-СЛОЖЕННЫЕ С РЕЦЕПТОВ В ХРАНИЛИЩЕ */}
             </Dialog>
         </div>
     );
-};
+});
 export default CalendarColoriesDialog;
