@@ -21,52 +21,29 @@ export const pushNewFavoriteRecipe = (uid, valKey) => {
   return push(ref(database, `/fullUsers/${uid}/favorites`), valKey);
 };
 
-export const currentSnapRecipes = async (uid) => {
-  const refer = ref(database);
-  const testRequest = ref(database, `/fullUsers/${uid}/rkey/`);
+// export const updateRecipes = (uid) => {
+//   const refer = ref(database);
+//   const testRequest = ref(database, `/fullUsers/${uid}/favorites`);
 
-  function unique(arr) {
-    let result = [];
-    console.log(arr, "arr");
-    for (let str of arr) {
-      console.log(str, "str");
-      if (!result.includes(str)) {
-        result.push(str);
-      }
-    }
-    return result;
-  }
+//   function unique(obj) {
+//     let result = [];
+//     console.log(obj, "arr");
+//     for (let str in obj) {
+//       console.log(obj[str], "str");
+//       if (!result.includes(obj[str])) {
+//         result.push(obj[str]);
+//       }
+//     }
+//     return result;
+//   }
 
-  await onValue(testRequest, (snap) => {
-    let resArr = [];
-
-    resArr.push(snap.val());
-  });
-};
-
-export const updateRecipes = (uid) => {
-  const refer = ref(database);
-  const testRequest = ref(database, `/fullUsers/${uid}/favorites`);
-
-  function unique(obj) {
-    let result = [];
-    console.log(obj, "arr");
-    for (let str in obj) {
-      console.log(obj[str], "str");
-      if (!result.includes(obj[str])) {
-        result.push(obj[str]);
-      }
-    }
-    return result;
-  }
-
-  onValue(testRequest, (snap) => {
-    let resArr = {};
-    console.log(snap.val(), "updREC");
-    resArr = snap.val();
-    console.log(unique(resArr), "RESarrUPDRec");
-  });
-};
+//   onValue(testRequest, (snap) => {
+//     let resArr = {};
+//     console.log(snap.val(), "updREC");
+//     resArr = snap.val();
+//     console.log(unique(resArr), "RESarrUPDRec");
+//   });
+// };
 export const searchingOnDb = async (arr) => {
   const result = [];
   for (let i = 0; i < arr.length; i++) {
@@ -108,7 +85,6 @@ export const updateFavoritesStorage = (uid, userStore) => {
       return array;
     }, []);
     return searchingOnDb(favoriteRecipeIds).then((result) => {
-      let elmg;
       console.log(result, "res");
       userStore.favoriteRecipesDb = result;
       console.log(userStore.favoriteRecipesDb, "updStorage");

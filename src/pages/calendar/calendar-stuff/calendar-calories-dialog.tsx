@@ -16,7 +16,9 @@ import CalendarRecipeCard from "./calendar-recipe-card";
 import { observer } from "mobx-react-lite";
 import DailyRecipesBreakfast from "./daily-recipes-breakfast";
 import DailyRecipesDinner from "./daily-recipes-dinner";
-import DailyRecipesLunch from "./daily-recipe-lunch";
+import DailyRecipesLunch from "./daily-recipes-lunch";
+import { getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
+import { auth } from "@/firebase";
 
 interface FullScDialogProps {
     openWindow?: any;
@@ -61,33 +63,17 @@ const CalendarColoriesDialog: React.FC<FullScDialogProps> = observer(({ openWind
     const [open, setOpen] = React.useState(false);
     const [openSearch, setOpenSearch] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
-    let calcCal = 0;
-    // let matchesFilter = new RegExp(/[0-9]/, "i");
-    // let matchRes = calcCal.match(/[0-9]/);
-    // console.log(matchRes);
-    // const showFavorites = caloriesStore.breakfast.map((resp, idx) => {
-    //     return (
-    //         <RecipeResponse>
-    //             <CalendarRecipeCard
-    //                 timeToCook={resp.recipe.timeToCook}
-    //                 key={idx}
-    //                 title={resp.recipe.header}
-    //                 calories={resp.recipe.calories + " Kcal"}
-    //                 likeIcon={<FavorRecCardLike />}
-    //                 recipeId={resp.recipeId}
-    //                 image={resp.recipe.img}
-    //                 bzhu={resp.recipe.bzhu}
-    //             />
-    //         </RecipeResponse>
-    //     );
-    // });
+    const { uid } = auth.currentUser;
 
+    let calcCal = 0;
+    requestShowerRecipes(uid, caloriesStore.actualDay, userStore).then((data) => {
+        console.log(data, "dataShower");
+
+    })
     useEffect(() => {
         console.log(calcCal, "calccal");
-        // let matchRes = calcCal.match(/[0-9]/);
-        // console.log(matchRes);
+
     }, [calcCal]);
-    let meall = "breakfast";
     return (
         <div>
             <Dialog fullScreen open={openWindow} onClose={dialogClose} TransitionComponent={Transition}>

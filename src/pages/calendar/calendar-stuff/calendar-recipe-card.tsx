@@ -6,6 +6,7 @@ import { pushNewFavoriteRecipe, removeFavoriteRecipe, updateFavoritesStorage, se
 import { auth } from "@/firebase";
 import { observer } from "mobx-react-lite";
 import useRecipesHash, { useStore } from "@/hooks/useStore";
+import { addRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
@@ -138,23 +139,37 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
   ({ title, calories, rkey, recip, likeIcon, image, meal, icon, addFunc, closeSearch, category, bzhu, timeToCook, recipeId }) => {
     const [active, setActive] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
+    const { uid } = auth.currentUser;
 
-    useEffect(() => {
-      console.log(meal, "ml");
-    });
+    // useEffect(() => {
+    //   console.log(meal, "ml");
+    //   getFullDayRecipes(uid, caloriesStore.actualDay).then((data) => {
+    //     console.log(data, "dataFullDay");
+    //   });
+
+    // }, []);
 
     const { proteins, fat, carbs } = bzhu;
     const handleAddRecipe = (meal) => {
-      console.log(meal);
+      console.log(caloriesStore.actualDay);
 
       caloriesStore.heartLikeRecipe = recip;
       // caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe, meal);
       closeSearch(false);
-      if (meal === "breakfast") caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
-      else if (meal === "dinner") caloriesStore.addRecipeDinner(recipeId, caloriesStore.heartLikeRecipe);
-      else if (meal === "lunch") caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
-      console.log(caloriesStore.breakfast, "brkfst");
-      console.log(caloriesStore.dinner, "dinner");
+      if (meal === "breakfast") {
+        caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
+        addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      }
+      else if (meal === "dinner") {
+        caloriesStore.addRecipeDinner(recipeId, caloriesStore.heartLikeRecipe);
+        addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      }
+      else if (meal === "lunch") {
+        caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
+        addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      }
+      // console.log(caloriesStore.breakfast, "brkfst");
+      // console.log(caloriesStore.dinner, "dinner");
     };
 
     // useRecipesHash(recipesHash, recipeId, active, setActive, favRecs);

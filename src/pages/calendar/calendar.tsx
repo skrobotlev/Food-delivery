@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import styled from "styled-components";
 import CalendarModal from "./calendar-stuff/calendar-modal";
 import FullScreenDialog, { dialogOpen } from "./calendar-stuff/calendar-calories-dialog";
+import { useStore } from "@/hooks/useStore";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -17,46 +18,45 @@ const CalendarDiv = styled.div`
 `;
 
 const CalendarCalc = () => {
-  const [currDay, setCurrDay] = useState("");
+  const [currData, setCurrData] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [openWindow, setOpenWindow] = useState(false);
+  const { caloriesStore } = useStore();
   const [dayData, setDay] = useState({
     date: new Date(),
   });
   const { date } = dayData;
 
   useEffect(() => {
-    console.log(currDay);
-  }, [currDay]);
+    console.log(currData, "currData");
+    console.log(dayData, "dayData");
+  }, [currData, dayData]);
 
-  const onChange = (date) => setDay({ date });
+  const onChange = (date) => {
+    console.log(date, "date");
+    setDay({ date });
+    setCurrData(`${date.getFullYear().toString()}/${date.getMonth().toString()}/${date.getDate().toString()}`);
+    // caloriesStore.actualDay = currData;
+    caloriesStore.actualDay = `${date.getFullYear().toString()}/${date.getMonth().toString()}/${date.getDate().toString()}`;
+    console.log(currData, "currData");
+    console.log(caloriesStore.actualDay, "actualDay");
+  };
   const setOpen = (bool) => setOpenWindow(bool);
-  // console.log(date.date.getDay(), "date");
   return (
     <CalendarDiv>
       <Calendar
         onChange={onChange}
-        // onClickDay={ }
-        showNeighboringMonth={true}
-        // selectRange
-        tileContent={({ date, view }) => {
-          // console.log(view, "viewww");
-          return view === "month" && date.getDay() === 6 ? <p>Суббота ;)</p> : null;
-        }}
+        // tileContent={({ date, view }) => {
+        //   // console.log(view, "viewww");
+        //   return view === "month" && date.getDay() === 6 ? <p>Суббота ;)</p> : null;
+        // }}
+        onActiveDateChange={() => console.log("activDchan")}
         value={date}
         onClickDay={() => {
-          // console.log(date.getFullYear(), "date");
-          // console.log(date.getMonth(), "month");
-          // console.log(date.getDate(), "month");
-          // console.log(date.toDateString(), "utcmonth");
-          // console.log(date., "month");
-          setCurrDay(`${date.getFullYear().toString()}/${date.getMonth().toString()}/${date.getDate().toString()}`);
           dialogOpen(setOpen);
         }}
-
       />
       <FullScreenDialog openWindow={openWindow} closeWindow={setOpenWindow} />
-      {/* <CalendarModal openMod={openModal} closeMod={setOpenModal} /> */}
     </CalendarDiv>
   );
 };

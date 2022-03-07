@@ -85,8 +85,8 @@ const HomePage = observer(() => {
         <HomePageSlider />
         {/* </PcStyleDiv> */}
         {/* <BigRectButtonDiv> */}
-        <BigRectangleButton title="Следите за своим прогрессом " onClick={() => push(CALENDAR_CALC)}>
-          <InsideRectBut key="1">
+        <BigRectangleButton title="Следите за своим прогрессом ">
+          <InsideRectBut key="1" onClick={() => push(CALENDAR_CALC)}>
             Смотреть
             <ArrowRightIcon />
           </InsideRectBut>
