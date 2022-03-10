@@ -71,12 +71,44 @@ export default class CaloriesStore {
     this._currentPage = num;
   }
 
+  @computed
+  get breakfastHashTable() {
+    const arr = toJS(this.breakfast);
+    return arr.reduce((acc, recipe) => {
+      acc[recipe.recipeId] = true;
+      return acc;
+    }, {});
+  }
+
+  @computed
+  get caloriesHashTable() {
+    const breakfast = toJS(this.breakfast).reduce((acc, recipe) => {
+      acc[recipe.recipeId] = true;
+      return acc;
+    }, {});
+    const lunch = toJS(this.lunch).reduce((acc, recipe) => {
+      acc[recipe.recipeId] = true;
+      return acc;
+    }, {});
+    const dinner = toJS(this.dinner).reduce((acc, recipe) => {
+      acc[recipe.recipeId] = true;
+      return acc;
+    }, {});
+
+    return { breakfast, lunch, dinner };
+
+    // breakfast.reduce((acc, recipe) => {
+    //   acc[recipe.recipeId] = true;
+    //   return acc;
+    // }, {});
+  }
+
   addRecipeBreakfast(recId, recipe) {
     const recipeIndexRecId = this._breakfast.findIndex((rec) => {
       return rec.recipeId === recId;
     });
     if (recipeIndexRecId === -1) {
-      this._breakfast.push(recipe);
+      this._breakfast.push({ recipe: recipe });
     }
   }
 
@@ -85,7 +117,7 @@ export default class CaloriesStore {
       return rec.recipeId === recId;
     });
     if (recipeIndexRecId === -1) {
-      this._lunch.push(recipe);
+      this._lunch.push({ recipe: recipe });
     }
   }
 
@@ -94,7 +126,7 @@ export default class CaloriesStore {
       return rec.recipeId === recId;
     });
     if (recipeIndexRecId === -1) {
-      this._dinner.push(recipe);
+      this._dinner.push({ recipe: recipe });
     }
   }
 
@@ -105,7 +137,8 @@ export default class CaloriesStore {
   calculateSumCaloriesDinner() {
     let sum = 0;
     this._dinner.map((recip) => {
-      sum += +recip.calories;
+      // console.log(recip, "sumRECIP");
+      sum += +recip.recipe.calories;
     });
     return sum;
   }
@@ -117,7 +150,7 @@ export default class CaloriesStore {
   calculateSumCaloriesLunch() {
     let sum = 0;
     this._lunch.map((recip) => {
-      sum += +recip.calories;
+      sum += +recip.recipe.calories;
     });
     return sum;
   }
@@ -129,7 +162,7 @@ export default class CaloriesStore {
   calculateSumCaloriesBreak() {
     let sum = 0;
     this._breakfast.map((recip) => {
-      sum += +recip.calories;
+      sum += +recip.recipe.calories;
     });
     return sum;
   }

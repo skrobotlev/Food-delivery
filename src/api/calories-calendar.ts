@@ -23,22 +23,55 @@ export const getFullDayRecipes = (uid, date) => {
     });
 };
 
-export const requestShowerRecipes = (uid, date, userStore) => {
+export const searchingDailyRecipes = async (arr) => {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    let item = arr[i];
+    const recipe = await get(query(ref(database, `categories/${item.categories}/${item.recipeId}`)));
+    item.recipe = JSON.parse(recipe.val());
+    result.push(item);
+  }
+  return result;
+};
+
+export const requestShowerRecipes = (uid, date, caloriesStore) => {
   return getFullDayRecipes(uid, date).then((ress) => {
-    console.log(ress, "resss");
-    const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
+    // console.log(ress, "ressss");
+    let breakfast = Object.entries(ress.breakfast);
+    let lunch = ress.lunch;
+    let dinner = ress.dinner;
+
+    const favoriteRecipeIds = Object.entries(breakfast).reduce((array, item: any) => {
+      //   console.log(item, "itemmmmm");
+
       const recipe = {
-        id: item[0],
-        recipeId: item[1].recipeId,
-        categories: item[1].category,
+        caloriesId: item[1][0],
+        recipeId: item[1][1].recipeId,
+        categories: item[1][1].category,
       };
       array.push(recipe);
+      console.log(array, "resss");
       return array;
     }, []);
-    // return searchingOnDb(favoriteRecipeIds).then((result) => {
-    //   console.log(result, "res");
-    //   userStore.favoriteRecipesDb = result;
-    //   console.log(userStore.favoriteRecipesDb, "updStorage");
-    // });
+    return searchingDailyRecipes(favoriteRecipeIds).then((result) => {
+      console.log(result, "resULT");
+      caloriesStore.breakfast = result;
+      console.log(caloriesStore.breakfast, "updStorage");
+    });
+
+    // const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
+    //   console.log(item, "itemmmmm");
+    //   let key = Object.keys(item[1]);
+
+    //   const recipe = {
+    //     caloriesId: key,
+    //     recipeId: item[1].recipeId,
+    //     categories: item[1].category,
+    //   };
+    //   array.push(recipe);
+    //   //   console.log(array, "resss");
+    //   return array;
+    // }, []);
+    // console.log(favoriteRecipeIds, "favRecIds");
   });
 };

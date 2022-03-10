@@ -19,6 +19,7 @@ import DailyRecipesDinner from "./daily-recipes-dinner";
 import DailyRecipesLunch from "./daily-recipes-lunch";
 import { getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
 import { auth } from "@/firebase";
+import { useDailyRecipesBreakfast } from "@/hooks/useDailyRecipes";
 
 interface FullScDialogProps {
     openWindow?: any;
@@ -66,14 +67,11 @@ const CalendarColoriesDialog: React.FC<FullScDialogProps> = observer(({ openWind
     const { uid } = auth.currentUser;
 
     let calcCal = 0;
-    requestShowerRecipes(uid, caloriesStore.actualDay, userStore).then((data) => {
-        console.log(data, "dataShower");
 
-    })
     useEffect(() => {
         console.log(calcCal, "calccal");
-
-    }, [calcCal]);
+        // requestShowerRecipes(uid, caloriesStore.actualDay, userStore)
+    });
     return (
         <div>
             <Dialog fullScreen open={openWindow} onClose={dialogClose} TransitionComponent={Transition}>
@@ -98,7 +96,6 @@ const CalendarColoriesDialog: React.FC<FullScDialogProps> = observer(({ openWind
                         <DailyRecipesDinner />
                     </MealCardsDiv>
                 </MealsContainer>
-
             </Dialog>
         </div>
     );

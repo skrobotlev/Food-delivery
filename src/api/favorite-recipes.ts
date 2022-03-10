@@ -75,6 +75,7 @@ export const getFavoriteRecipes = (uid) => {
 
 export const updateFavoritesStorage = (uid, userStore) => {
   return getFavoriteRecipes(uid).then((ress) => {
+    console.log(ress, "updFavorRessss");
     const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
       const recipe = {
         id: item[0],
@@ -84,8 +85,9 @@ export const updateFavoritesStorage = (uid, userStore) => {
       array.push(recipe);
       return array;
     }, []);
+    console.log(favoriteRecipeIds, "favRecipesIDS");
     return searchingOnDb(favoriteRecipeIds).then((result) => {
-      console.log(result, "res");
+      // console.log(result, "res");
       userStore.favoriteRecipesDb = result;
       console.log(userStore.favoriteRecipesDb, "updStorage");
     });

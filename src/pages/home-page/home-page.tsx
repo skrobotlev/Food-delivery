@@ -27,7 +27,7 @@ const BigRectButtonDiv = styled.div`
 `;
 
 const PcStyleDiv = styled.div`
- display: flex;
+  display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;
@@ -35,7 +35,7 @@ const PcStyleDiv = styled.div`
   width: 100%;
   margin: 10%;
   @media screen and (min-width: 1650px) {
-   justify-content: space-evenly;
+    justify-content: space-evenly;
   }
 `;
 
@@ -46,9 +46,9 @@ const FavoritesCardHeader = styled.h3`
   margin-top: 35px;
   @media screen and (min-width: 450px) {
     font-family: "Balsamiq Sans";
-  font-weight: 500;
-  font-size: 28px;
-  margin-top: 35px;
+    font-weight: 500;
+    font-size: 28px;
+    margin-top: 35px;
   }
 `;
 
@@ -68,15 +68,32 @@ const HomePage = observer(() => {
         array.push(recipe);
         return array;
       }, []);
-      searchingOnDb(favoriteRecipeIds)
-        .then((res) => {
-          let elmg;
-          console.log(res, "res");
-          userStore.favoriteRecipesDb = res;
-          console.log(userStore.favoriteRecipesDb);
-        });
+      searchingOnDb(favoriteRecipeIds).then((res) => {
+        let elmg;
+        console.log(res, "res");
+        userStore.favoriteRecipesDb = res;
+        console.log(userStore.favoriteRecipesDb);
+      });
     });
   }, []);
+
+  // useEffect(() => {
+  //   let palindrome = "калаш";
+
+  //   let arrPalind = palindrome.split("");
+  //   let cuntPalind = arrPalind.reverse();
+  //   // split()reverse()join()
+  //   // for (let i = 0; i < arrPalind.length; i++) {
+  //   //   arrPalind
+  //   // }
+  //   arrPalind === cuntPalind ? console.log("AYE,RAVEN") : console.log("neHUYNA");
+  //   // .map((b) => {
+  //   //   console.log(b == b);
+
+  //   // });
+  //   console.log(palindrome, arrPalind.reverse(), "calccal");
+  //   // requestShowerRecipes(uid, caloriesStore.actualDay, userStore)
+  // });
 
   return (
     <HomePageContent>

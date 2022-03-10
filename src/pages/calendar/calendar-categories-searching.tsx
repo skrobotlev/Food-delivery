@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import FavorRecCardLike from "@/components/images/heart-like";
 import CalendarRecipeCard from "./calendar-stuff/calendar-recipe-card";
+import useRequestCurrentCategory from "@/hooks/useRequestCurrentCategory";
 
 interface CaloriesResultProps {
     category?: string;
@@ -24,6 +25,8 @@ const CalendarCategoriesDiv = styled.div``;
 const CaloriesColumnSearching: React.FC<CaloriesResultProps> = observer(({ closeSearch, meal }) => {
     const { userStore, categoriesStore, caloriesStore } = useStore();
     let currentCategory = caloriesStore.nameCaloriesCategory;
+    // useRequestCurrentCategory(currentCategory, caloriesStore);
+
     useEffect(() => {
         requestCurrentCategory(currentCategory).then((fullCateg) => {
             let resHeader;
@@ -57,6 +60,10 @@ const CaloriesColumnSearching: React.FC<CaloriesResultProps> = observer(({ close
         });
     }, [currentCategory]);
 
+    // const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+
+    // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
+
     const DialogSearchingColumnData = usePagination(caloriesStore.valFilter(), caloriesStore.perPage);
     const pagesCount = Math.ceil(caloriesStore.categoryLength / caloriesStore.perPage);
     const handleChange = (e, p) => {
@@ -77,6 +84,7 @@ const CaloriesColumnSearching: React.FC<CaloriesResultProps> = observer(({ close
             ) : (
                 <RecipeFavoriteCardDiv>
                     {DialogSearchingColumnData.currentData().map((recip, idx) => {
+                        console.log(recip, "recipppppppppppppppppp");
                         return (
                             <RecipeResponse>
                                 <CalendarRecipeCard

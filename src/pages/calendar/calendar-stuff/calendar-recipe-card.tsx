@@ -23,7 +23,6 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   recip?: any;
   closeSearch?: any;
   meal?: any;
-  addFunc?: (recId, recip) => void;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -136,47 +135,55 @@ const ImageCard = styled.div`
 `;
 
 const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
-  ({ title, calories, rkey, recip, likeIcon, image, meal, icon, addFunc, closeSearch, category, bzhu, timeToCook, recipeId }) => {
+  ({ title, calories, rkey, recip, likeIcon, image, meal, icon, closeSearch, category, bzhu, timeToCook, recipeId }) => {
     const [active, setActive] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
+    const dayRecipes = caloriesStore.breakfast;
+    const hashTable = caloriesStore.breakfastHashTable;
 
-    // useEffect(() => {
-    //   console.log(meal, "ml");
-    //   getFullDayRecipes(uid, caloriesStore.actualDay).then((data) => {
-    //     console.log(data, "dataFullDay");
-    //   });
+    console.log(recipeId, "recipeId");
+    // useRecipesHash(hashTable, recipeId, active, setActive, dayRecipes);
 
-    // }, []);
+    const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
+    // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
+
+    if (meal === "breakfast") {
+      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+
+      useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
+    } else if (meal === "dinner") {
+      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+
+      useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
+    } else if (meal === "lunch") {
+      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+
+      useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
+    }
+
+    console.log(active);
     const { proteins, fat, carbs } = bzhu;
     const handleAddRecipe = (meal) => {
       console.log(caloriesStore.actualDay);
 
       caloriesStore.heartLikeRecipe = recip;
-      // caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe, meal);
       closeSearch(false);
       if (meal === "breakfast") {
         caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
         addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
-      }
-      else if (meal === "dinner") {
+      } else if (meal === "dinner") {
         caloriesStore.addRecipeDinner(recipeId, caloriesStore.heartLikeRecipe);
         addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
-      }
-      else if (meal === "lunch") {
+      } else if (meal === "lunch") {
         caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
         addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
       }
-      // console.log(caloriesStore.breakfast, "brkfst");
-      // console.log(caloriesStore.dinner, "dinner");
     };
-
-    // useRecipesHash(recipesHash, recipeId, active, setActive, favRecs);
 
     return (
       <RecipeElement>
-        {/* <LikeIcon onClick={() => closeSearch(false)}> */}
         <LikeIcon onClick={() => handleAddRecipe(meal)}>{React.cloneElement(likeIcon, { activeClass: active })}</LikeIcon>
         <h1>{title}</h1>
         <ImageCard>
