@@ -2,10 +2,10 @@ import { requestCurrentCategory } from "@/api/categories";
 import { useEffect } from "react";
 
 export default function useRequestCurrentCategory(currentCategory, caloriesStore) {
-
     if (currentCategory == "breakfast") {
-        useEffect(() => {
-            requestCurrentCategory(currentCategory).then((fullCateg) => {
+        console.log("brekFASTTTT")
+        requestCurrentCategory(currentCategory)
+            .then((fullCateg) => {
                 let resHeader;
                 let responseArr = [];
                 const enterArr = Object.entries(fullCateg[0]);
@@ -31,46 +31,45 @@ export default function useRequestCurrentCategory(currentCategory, caloriesStore
                     });
                 });
 
-                caloriesStore.caloriesCategory = responseArr;
-                const { length } = caloriesStore.caloriesCategory;
-                caloriesStore.categoryLength = length;
+                caloriesStore.breakfastCategory = responseArr;
+                const { length } = caloriesStore.breakfastCategory;
+                caloriesStore.breakfastCategoryLength = length;
             });
-        }, [currentCategory]);
     }
 
     else if (currentCategory == "lunch") {
-        useEffect(() => {
-            requestCurrentCategory(currentCategory).then((fullCateg) => {
-                let resHeader;
-                let responseArr = [];
-                const enterArr = Object.entries(fullCateg[0]);
-                enterArr.map((items: any) => {
-                    let pars;
-                    try {
-                        if (typeof items[1] === "string") pars = JSON.parse(items[1]);
-                    } catch (e) {
-                        console.log(e);
-                    }
-                    // console.log(pars, "pars");
-                    const { bzhu, calories, header, img, timeToCook, desc } = pars;
-                    resHeader = header;
-                    responseArr.push({
-                        img: img,
-                        header: header,
-                        bzhu: bzhu,
-                        desc: desc,
-                        calories: calories,
-                        timeToCook: timeToCook,
-                        category: currentCategory,
-                        rkey: items[0],
-                    });
-                });
+        console.log("LUNNNNNNNCHHC")
 
-                caloriesStore.caloriesCategory = responseArr;
-                const { length } = caloriesStore.caloriesCategory;
-                caloriesStore.categoryLength = length;
+        requestCurrentCategory(currentCategory).then((fullCateg) => {
+            let resHeader;
+            let responseArr = [];
+            const enterArr = Object.entries(fullCateg[0]);
+            enterArr.map((items: any) => {
+                let pars;
+                try {
+                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
+                } catch (e) {
+                    console.log(e);
+                }
+                // console.log(pars, "pars");
+                const { bzhu, calories, header, img, timeToCook, desc } = pars;
+                resHeader = header;
+                responseArr.push({
+                    img: img,
+                    header: header,
+                    bzhu: bzhu,
+                    desc: desc,
+                    calories: calories,
+                    timeToCook: timeToCook,
+                    category: currentCategory,
+                    rkey: items[0],
+                });
             });
-        }, [currentCategory]);
+
+            caloriesStore.lunchCategory = responseArr;
+            const { length } = caloriesStore.lunchCategory;
+            caloriesStore.lunchCategoryLength = length;
+        });
     }
 
     // caloriesStore.caloriesCategory = responseArr;
@@ -79,37 +78,38 @@ export default function useRequestCurrentCategory(currentCategory, caloriesStore
     // });
     // }, [currentCategory]);
     else if (currentCategory == "dinner") {
-        useEffect(() => {
-            requestCurrentCategory(currentCategory).then((fullCateg) => {
-                let resHeader;
-                let responseArr = [];
-                const enterArr = Object.entries(fullCateg[0]);
-                enterArr.map((items: any) => {
-                    let pars;
-                    try {
-                        if (typeof items[1] === "string") pars = JSON.parse(items[1]);
-                    } catch (e) {
-                        console.log(e);
-                    }
-                    // console.log(pars, "pars");
-                    const { bzhu, calories, header, img, timeToCook, desc } = pars;
-                    resHeader = header;
-                    responseArr.push({
-                        img: img,
-                        header: header,
-                        bzhu: bzhu,
-                        desc: desc,
-                        calories: calories,
-                        timeToCook: timeToCook,
-                        category: currentCategory,
-                        rkey: items[0],
-                    });
-                });
+        console.log("brekFASTTTT")
 
-                caloriesStore.caloriesCategory = responseArr;
-                const { length } = caloriesStore.caloriesCategory;
-                caloriesStore.categoryLength = length;
+
+        requestCurrentCategory(currentCategory).then((fullCateg) => {
+            let resHeader;
+            let responseArr = [];
+            const enterArr = Object.entries(fullCateg[0]);
+            enterArr.map((items: any) => {
+                let pars;
+                try {
+                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
+                } catch (e) {
+                    console.log(e);
+                }
+                // console.log(pars, "pars");
+                const { bzhu, calories, header, img, timeToCook, desc } = pars;
+                resHeader = header;
+                responseArr.push({
+                    img: img,
+                    header: header,
+                    bzhu: bzhu,
+                    desc: desc,
+                    calories: calories,
+                    timeToCook: timeToCook,
+                    category: currentCategory,
+                    rkey: items[0],
+                });
             });
-        }, [currentCategory]);
+
+            caloriesStore.dinnerCategory = responseArr;
+            const { length } = caloriesStore.dinnerCategory;
+            caloriesStore.dinnerCategoryLength = length;
+        });
     }
-}
+}        

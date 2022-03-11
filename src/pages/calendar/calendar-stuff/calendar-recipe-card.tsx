@@ -142,26 +142,26 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     const dayRecipes = caloriesStore.breakfast;
     const hashTable = caloriesStore.breakfastHashTable;
 
-    console.log(recipeId, "recipeId");
+    // console.log(recipeId, "recipeId");
     // useRecipesHash(hashTable, recipeId, active, setActive, dayRecipes);
 
     const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
     // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
 
-    if (meal === "breakfast") {
-      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+    // if (meal === "breakfast") {
+    //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
-      useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-    } else if (meal === "dinner") {
-      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+    //   useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
+    // } else if (meal === "dinner") {
+    //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
-      useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
-    } else if (meal === "lunch") {
-      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+    //   useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
+    // } else if (meal === "lunch") {
+    //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
-      useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
-    }
+    //   useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
+    // }
 
     console.log(active);
     const { proteins, fat, carbs } = bzhu;

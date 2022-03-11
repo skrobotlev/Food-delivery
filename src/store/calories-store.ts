@@ -14,6 +14,18 @@ export default class CaloriesStore {
   private _lunch: any;
   private _dinner: any;
 
+  private _breakfastCategory: any;
+  private _breakfastCategoryLength: number;
+  private _breakfastCategoryName: string;
+
+  private _lunchCategory: any;
+  private _lunchCategoryLength: number;
+  private _lunchCategoryName: string;
+
+  private _dinnerCategory: any;
+  private _dinnerCategoryLength: number;
+  private _dinnerCategoryName: string;
+
   constructor() {
     this._caloriesCategory = [];
     this._filter = "";
@@ -28,6 +40,18 @@ export default class CaloriesStore {
     this._lunch = [];
     this._dinner = [];
 
+    this._breakfastCategory = [];
+    this._breakfastCategoryLength = 0;
+    this._breakfastCategoryName = "";
+
+    this._lunchCategory = [];
+    this._lunchCategoryLength = 0;
+    this._lunchCategoryName = "";
+
+    this._dinnerCategory = [];
+    this._dinnerCategoryLength = 0;
+    this._dinnerCategoryName = "";
+
     makeAutoObservable(this);
   }
 
@@ -38,6 +62,46 @@ export default class CaloriesStore {
   set actualDay(day) {
     this._actualDay = day;
   }
+
+
+
+  set breakfastCategory(li) {
+    this._breakfastCategory = li;
+  }
+
+  set lunchCategory(li) {
+    this._lunchCategory = li;
+  }
+
+  set dinnerCategory(li) {
+    this._dinnerCategory = li;
+  }
+
+  set breakfastCategoryLength(num) {
+    this._breakfastCategoryLength = num;
+  }
+
+  set lunchCategoryLength(num) {
+    this._lunchCategoryLength = num;
+  }
+
+  set dinnerCategoryLength(num) {
+    this._dinnerCategoryLength = num;
+  }
+
+ set breakfastCategoryName(name) {
+    this._breakfastCategoryName = name;
+  }
+
+  set lunchCategoryName(name) {
+    this._lunchCategoryName = name;
+  }
+
+  set dinnerCategoryName(name) {
+    this._dinnerCategoryName = name;
+  }
+
+
 
   set breakfast(li) {
     this._breakfast = li;
@@ -156,10 +220,10 @@ export default class CaloriesStore {
   }
 
   get sumCaloriesBreak() {
-    return this.calculateSumCaloriesBreak();
+    return this.calculateSumCaloriesBreakfast();
   }
 
-  calculateSumCaloriesBreak() {
+  calculateSumCaloriesBreakfast() {
     let sum = 0;
     this._breakfast.map((recip) => {
       sum += +recip.recipe.calories;
@@ -172,6 +236,12 @@ export default class CaloriesStore {
     return this._caloriesCategory.filter((rec) => {
       return matchesFilter.test(rec.header);
     });
+  }
+
+  paginationColumnMeal(meal) {
+    if (meal === "breakfast") this.breakfast;
+    else if (meal === "lunch") this.lunch;
+    else if (meal === "dinner") this.dinner;
   }
 
   get heartLikeRecipe() {
@@ -193,6 +263,49 @@ export default class CaloriesStore {
   get dinner() {
     return this._dinner;
   }
+
+
+
+
+
+  get lunchCategory() {
+    return this._lunchCategory;
+  }
+
+  get dinnerCategory() {
+    return this._dinnerCategory;
+  }
+
+  get breakfastCategory() {
+    return this._breakfastCategory;
+  }
+
+  get breakfastCategoryLength() {
+    return this._breakfastCategoryLength;
+  }
+
+  get lunchCategoryLength() {
+    return this._lunchCategoryLength;
+  }
+
+  get dinnerCategoryLength() {
+    return this._dinnerCategoryLength;
+  }
+
+  get breakfastCategoryName() {
+    return this._breakfastCategoryName;
+  }
+
+  get lunchCategoryName() {
+    return this._lunchCategoryName;
+  }
+
+  get dinnerCategoryName() {
+    return this._dinnerCategoryName;
+  }
+
+
+
 
   get nameCaloriesCategory() {
     return this._nameCaloriesCategory;

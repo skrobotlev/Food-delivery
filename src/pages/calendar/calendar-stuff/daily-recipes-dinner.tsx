@@ -6,7 +6,7 @@ import { RecipeResponse } from "@/pages/search-page/search-page";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import styled from "styled-components";
-import CaloriesColumnSearching from "../calendar-categories-searching";
+import CaloriesColumnSearchingDinner from "../calories-columns/calories-searching-column-dinner";
 import CalendarRecipeCard from "./calendar-recipe-card";
 import ModalMenu from "./modal-menu";
 
@@ -28,8 +28,8 @@ const DailyRecipesDinner = observer(() => {
 
     return (
         <>
-            <ModalMenu closeSearch={setShowSearch} />
-            {openSearch ? <CaloriesColumnSearching closeSearch={setShowSearch} meal={meal} /> :
+            <ModalMenu closeSearch={setShowSearch} meal={meal} />
+            {openSearch ? <CaloriesColumnSearchingDinner closeSearch={setShowSearch} meal={meal} /> :
                 caloriesStore.dinner.map((recip, idx) => {
                     // calcCal = calcCal += recip.calories;
                     return (

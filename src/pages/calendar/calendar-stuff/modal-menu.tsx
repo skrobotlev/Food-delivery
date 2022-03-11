@@ -5,13 +5,14 @@ import MenuItem from "@mui/material/MenuItem";
 import { useStore } from "@/hooks/useStore";
 import { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { observer } from "mobx-react-lite";
 
 interface ModalMenuProps {
     closeSearch?: any;
     meal?: string;
 }
 
-const ModalMenu: React.FC<ModalMenuProps> = ({ closeSearch, meal }) => {
+const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const { caloriesStore } = useStore();
@@ -22,7 +23,11 @@ const ModalMenu: React.FC<ModalMenuProps> = ({ closeSearch, meal }) => {
     const handleClose = (category, meal) => {
         setAnchorEl(null);
         closeSearch(true);
-        caloriesStore.nameCaloriesCategory = category;
+        if (meal == "breakfast") caloriesStore.breakfastCategoryName = category;
+        else if (meal == "lunch") caloriesStore.lunchCategoryName = category;
+        else if (meal == "dinner") caloriesStore.dinnerCategoryName = category;
+        console.log(caloriesStore.dinnerCategoryName, "currCateg")
+        // caloriesStore.nameCaloriesCategory = category;
         // caloriesStore.meal = meal;
     };
 
@@ -96,5 +101,5 @@ const ModalMenu: React.FC<ModalMenuProps> = ({ closeSearch, meal }) => {
             </Menu>
         </div>
     );
-};
+});
 export default ModalMenu;

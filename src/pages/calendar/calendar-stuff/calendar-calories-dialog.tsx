@@ -8,7 +8,7 @@ import CalendarModal, { CloseIconI } from "./calendar-modal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ModalMenu from "./modal-menu";
-import CaloriesResult from "../calendar-categories-searching";
+import CaloriesResult from "../calories-columns/calories-searching-column-breakfast.tsx";
 import { useStore } from "@/hooks/useStore";
 import FavorRecCardLike from "@/components/images/heart-like";
 import { RecipeResponse } from "@/pages/search-page/search-page";

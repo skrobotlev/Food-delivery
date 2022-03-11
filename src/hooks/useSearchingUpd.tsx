@@ -32,10 +32,14 @@ export default function useSearchingUpd(categoriesStore, currentCategory) {
                     rkey: items[0],
                 });
             });
-
             categoriesStore.crrentCategory = responseArr;
+            // categoriesStore.crrentCategory = responseArr;
+            // const { length } = categoriesStore.currentCategory;
+            // categoriesStore.categoryLength = length;
+        }).then(() => {
+
             const { length } = categoriesStore.currentCategory;
             categoriesStore.categoryLength = length;
-        });
+        })
     }, [currentCategory]);
 }
