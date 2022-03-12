@@ -6,7 +6,7 @@ import { pushNewFavoriteRecipe, removeFavoriteRecipe, updateFavoritesStorage, se
 import { auth } from "@/firebase";
 import { observer } from "mobx-react-lite";
 import useRecipesHash, { useStore } from "@/hooks/useStore";
-import { addRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
+import { addDailyRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
@@ -18,11 +18,13 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   image?: string;
   timeToCook?: any;
   recipeId?: any;
+  recipeIdDinner?: any;
   clickFunc?: any;
   rkey?: any;
   recip?: any;
   closeSearch?: any;
   meal?: any;
+  caloriesId?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -135,19 +137,30 @@ const ImageCard = styled.div`
 `;
 
 const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
-  ({ title, calories, rkey, recip, likeIcon, image, meal, icon, closeSearch, category, bzhu, timeToCook, recipeId }) => {
+  ({ title, calories, recip, likeIcon, image, meal, recipeIdDinner, closeSearch, category, bzhu, timeToCook, caloriesId, recipeId }) => {
     const [active, setActive] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
-    const dayRecipes = caloriesStore.breakfast;
-    const hashTable = caloriesStore.breakfastHashTable;
 
-    // console.log(recipeId, "recipeId");
+    console.log(recipeId, "recipeId");
     // useRecipesHash(hashTable, recipeId, active, setActive, dayRecipes);
 
-    const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
     // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
+    console.log(meal, "meall11111111111");
+
+    if (meal === "breakfast") {
+      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+
+      useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
+    } else if (meal === "dinner") {
+      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+      console.log(dinner, "HASHdinner");
+      useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
+    } else if (meal === "lunch") {
+      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
+      // console.log(lunch.caloriesStore.lunch, "----------------------------------------------+++++++++++");
+      useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
+    }
 
     // if (meal === "breakfast") {
     //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
@@ -155,7 +168,7 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     //   useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
     // } else if (meal === "dinner") {
     //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
+    //   console.log(dinner, "HASHdinner");
     //   useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
     // } else if (meal === "lunch") {
     //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
@@ -163,22 +176,31 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     //   useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
     // }
 
-    console.log(active);
+    // console.log(active);
     const { proteins, fat, carbs } = bzhu;
     const handleAddRecipe = (meal) => {
-      console.log(caloriesStore.actualDay);
+      console.log(caloriesId, "caloriesId");
 
       caloriesStore.heartLikeRecipe = recip;
       closeSearch(false);
-      if (meal === "breakfast") {
+      if (meal === "breakfast" && !active) {
         caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
-        addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
-      } else if (meal === "dinner") {
+        addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      } else if (meal === "dinner" && !active) {
         caloriesStore.addRecipeDinner(recipeId, caloriesStore.heartLikeRecipe);
-        addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
-      } else if (meal === "lunch") {
+        addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      } else if (meal === "lunch" && !active) {
         caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
-        addRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+        addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      } else if (meal === "breakfast" && active) {
+        // caloriesStore.deleteRecipeBreakfast(recipeId);
+      } else if (meal === "dinner" && active) {
+        console.log(caloriesStore.dinner, "before");
+
+        caloriesStore.deleteRecipeDinner(caloriesId);
+        console.log(caloriesStore.dinner, "after");
+      } else if (meal === "lunch" && active) {
+        // caloriesStore.deleteRecipeLunch(recipeId);
       }
     };
 

@@ -63,8 +63,6 @@ export default class CaloriesStore {
     this._actualDay = day;
   }
 
-
-
   set breakfastCategory(li) {
     this._breakfastCategory = li;
   }
@@ -89,7 +87,7 @@ export default class CaloriesStore {
     this._dinnerCategoryLength = num;
   }
 
- set breakfastCategoryName(name) {
+  set breakfastCategoryName(name) {
     this._breakfastCategoryName = name;
   }
 
@@ -100,8 +98,6 @@ export default class CaloriesStore {
   set dinnerCategoryName(name) {
     this._dinnerCategoryName = name;
   }
-
-
 
   set breakfast(li) {
     this._breakfast = li;
@@ -165,6 +161,34 @@ export default class CaloriesStore {
     //   acc[recipe.recipeId] = true;
     //   return acc;
     // }, {});
+  }
+
+  deleteRecipeBreakfast(recId) {
+    const recipeIndexRecId = this._breakfast.findIndex((rec) => {
+      return rec.recipeId === recId;
+    });
+    if (recipeIndexRecId === -1) {
+      this._breakfast.splice(recipeIndexRecId, 1);
+    }
+  }
+
+  deleteRecipeLunch(recId) {
+    const recipeIndexRecId = this._lunch.findIndex((rec) => {
+      return rec.recipeId === recId;
+    });
+    if (recipeIndexRecId === -1) {
+      this._lunch.splice(recipeIndexRecId, 1);
+    }
+  }
+
+  deleteRecipeDinner(recId) {
+    console.log(recId, "recID");
+    const recipeIndexRecId = this._dinner.findIndex((rec) => {
+      return rec.recipeId === recId;
+    });
+    if (recipeIndexRecId === -1) {
+      this._dinner.splice(recipeIndexRecId, 1);
+    }
   }
 
   addRecipeBreakfast(recId, recipe) {
@@ -264,10 +288,6 @@ export default class CaloriesStore {
     return this._dinner;
   }
 
-
-
-
-
   get lunchCategory() {
     return this._lunchCategory;
   }
@@ -303,9 +323,6 @@ export default class CaloriesStore {
   get dinnerCategoryName() {
     return this._dinnerCategoryName;
   }
-
-
-
 
   get nameCaloriesCategory() {
     return this._nameCaloriesCategory;

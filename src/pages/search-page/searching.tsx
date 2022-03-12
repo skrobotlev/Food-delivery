@@ -40,42 +40,42 @@ const Searching = observer(() => {
     let resHeader;
     categoriesStore.nameCurrentCategory = query.get("category");
     let currentCategory = categoriesStore.nameCurrentCategory;
-    let searchFunc = useSearchingUpd(categoriesStore, currentCategory);
-    searchFunc
-    // useEffect(() => {
-    //     requestCurrentCategory(currentCategory).then((fullCateg) => {
-    //         categoriesStore.nameCurrentCategory = query.get("category");
-    //         const currentCategory = categoriesStore.nameCurrentCategory;
+    // let searchFunc = useSearchingUpd(categoriesStore, currentCategory);
+    // searchFunc
+    useEffect(() => {
+        requestCurrentCategory(currentCategory).then((fullCateg) => {
+            categoriesStore.nameCurrentCategory = query.get("category");
+            const currentCategory = categoriesStore.nameCurrentCategory;
 
-    //         let responseArr = [];
-    //         const enterArr = Object.entries(fullCateg[0]);
-    //         enterArr.map((items: any) => {
-    //             let pars;
-    //             try {
-    //                 if (typeof items[1] === "string") pars = JSON.parse(items[1]);
-    //             } catch (e) {
-    //                 console.log(e);
-    //             }
+            let responseArr = [];
+            const enterArr = Object.entries(fullCateg[0]);
+            enterArr.map((items: any) => {
+                let pars;
+                try {
+                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
+                } catch (e) {
+                    console.log(e);
+                }
 
-    //             const { bzhu, calories, header, img, timeToCook, desc } = pars;
-    //             resHeader = header;
-    //             responseArr.push({
-    //                 img: img,
-    //                 header: header,
-    //                 bzhu: bzhu,
-    //                 desc: desc,
-    //                 calories: calories,
-    //                 timeToCook: timeToCook,
-    //                 category: currentCategory,
-    //                 rkey: items[0],
-    //             });
-    //         });
+                const { bzhu, calories, header, img, timeToCook, desc } = pars;
+                resHeader = header;
+                responseArr.push({
+                    img: img,
+                    header: header,
+                    bzhu: bzhu,
+                    desc: desc,
+                    calories: calories,
+                    timeToCook: timeToCook,
+                    category: currentCategory,
+                    rkey: items[0],
+                });
+            });
 
-    //         categoriesStore.currentCategory = responseArr;
-    //         const { length } = categoriesStore.currentCategory;
-    //         categoriesStore.categoryLength = length;
-    //     });
-    // }, [currentCategory]);
+            categoriesStore.currentCategory = responseArr;
+            const { length } = categoriesStore.currentCategory;
+            categoriesStore.categoryLength = length;
+        });
+    }, [currentCategory]);
 
     let currentKey;
     const recipeClickFunc = (recip, e) => {

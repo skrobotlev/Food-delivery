@@ -33,10 +33,9 @@ const CaloriesColumnSearchingBreakfast: React.FC<CaloriesResultProps> = observer
     // else if (meal == "lunch") currentCategory = caloriesStore.lunchCategoryName;
     // else if (meal == "dinner") currentCategory = caloriesStore.dinnerCategoryName;
     //     useRequestCurrentCategory(currentCategory, caloriesStore);
-    console.log(currentCategory, "currCateg")
     useEffect(() => {
         requestCurrentCategory(currentCategory).then((fullCateg) => {
-            console.log(fullCateg)
+            console.log(fullCateg);
             let resHeader;
             let responseArr = [];
             const enterArr = Object.entries(fullCateg[0]);
@@ -58,7 +57,7 @@ const CaloriesColumnSearchingBreakfast: React.FC<CaloriesResultProps> = observer
                     calories: calories,
                     timeToCook: timeToCook,
                     category: currentCategory,
-                    rkey: items[0],
+                    recipeId: items[0],
                 });
             });
 
@@ -74,25 +73,19 @@ const CaloriesColumnSearchingBreakfast: React.FC<CaloriesResultProps> = observer
     // const DialogSearchingColumnData = usePagination(caloriesStore.valFilter(), caloriesStore.perPage);
     const DialogSearchingColumnData = usePagination(caloriesStore.breakfastCategory, caloriesStore.perPage);
 
-
     const pagesCount = Math.ceil(caloriesStore.breakfastCategoryLength / caloriesStore.perPage);
     const handleChange = (e, p) => {
         setPage(p);
         DialogSearchingColumnData.jump(p);
     };
 
-
-
     // const classes = useStyles();
     let [page, setPage] = useState(1);
     return (
         <CalendarCategoriesDiv>
-            {/* {caloriesStore.valFilter() == "" ? (
-                <NoResultsCard header="Нет результатов" desc="Попробуйте другой запрос" icon={<NoResCardImage />} />
-            ) : ( */}
+
             <RecipeFavoriteCardDiv>
                 {DialogSearchingColumnData.currentData().map((recip, idx) => {
-                    // console.log(recip, "recipppppppppppppppppp");
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard
@@ -102,10 +95,10 @@ const CaloriesColumnSearchingBreakfast: React.FC<CaloriesResultProps> = observer
                                 calories={recip.calories + " Kcal"}
                                 likeIcon={<FavorRecCardLike />}
                                 image={recip.img}
-                                rkey={recip.rkey}
+                                // rkey={recip.rkey}
                                 category={recip.category}
                                 recip={recip}
-                                recipeId={recip.rkey}
+                                recipeId={recip.recipeId}
                                 bzhu={recip.bzhu}
                                 closeSearch={closeSearch}
                                 meal={meal}
@@ -126,7 +119,6 @@ const CaloriesColumnSearchingBreakfast: React.FC<CaloriesResultProps> = observer
                     onChange={handleChange}
                 />
             </RecipeFavoriteCardDiv>
-            {/* )} */}
         </CalendarCategoriesDiv>
     );
 });

@@ -30,7 +30,7 @@ const DailyRecipesLunch = observer(() => {
                 <CaloriesColumnSearchingLunch closeSearch={setShowSearch} meal={meal} />
             ) : (
                 caloriesStore.lunch.map((recip, idx) => {
-                    console.log(recip, "recupppppp");
+                    // console.log(recip, "recupppppp");
                     // calcCal = calcCal += recip.calories;
                     return (
                         <RecipeResponse>

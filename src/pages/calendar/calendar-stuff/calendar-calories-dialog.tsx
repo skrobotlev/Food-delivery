@@ -19,7 +19,6 @@ import DailyRecipesDinner from "./daily-recipes-dinner";
 import DailyRecipesLunch from "./daily-recipes-lunch";
 import { getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
 import { auth } from "@/firebase";
-import { useDailyRecipesBreakfast } from "@/hooks/useDailyRecipes";
 
 interface FullScDialogProps {
     openWindow?: any;

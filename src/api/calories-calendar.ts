@@ -1,8 +1,16 @@
 import { child, get, onValue, push, query, ref, update } from "firebase/database";
 import { database } from "@/firebase";
 
-export const addRecipeFirebase = (uid, date, meal, valkey) => {
+export const addDailyRecipeFirebase = (uid, date, meal, valkey) => {
   return push(ref(database, `/fullUsers/${uid}/calories-calendar/${date}/${meal}`), valkey);
+};
+
+export const deleteDailyRecipeFirebase = (uid, id, valKey) => {
+  const updates = {};
+
+  updates[`/fullUsers/${uid}/favorites/${id}`] = valKey;
+
+  return update(ref(database), updates);
 };
 
 export const getFullDayRecipes = (uid, date) => {

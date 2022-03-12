@@ -32,6 +32,8 @@ const DailyRecipesDinner = observer(() => {
             {openSearch ? <CaloriesColumnSearchingDinner closeSearch={setShowSearch} meal={meal} /> :
                 caloriesStore.dinner.map((recip, idx) => {
                     // calcCal = calcCal += recip.calories;
+                    console.log(recip, "COLUMNDINNER +------------------=");
+
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard
@@ -41,11 +43,13 @@ const DailyRecipesDinner = observer(() => {
                                 calories={recip.recipe.calories + " Kcal"}
                                 likeIcon={<FavorRecCardLike />}
                                 image={recip.recipe.img}
-                                rkey={recip.recipe.rkey}
+                                // rkey={recip.recipe.rkey}
                                 category={recip.recipe.category}
                                 // recip={recip}
-                                recipeId={recip.recipe.rkey}
+                                recipeId={recip.recipeId}
+                                recipeIdDinner={recip.recipeId}
                                 bzhu={recip.recipe.bzhu}
+                                meal={meal}
                             // closeSearch={closeSearch}
                             />
                         </RecipeResponse>

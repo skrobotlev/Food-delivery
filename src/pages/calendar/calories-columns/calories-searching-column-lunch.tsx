@@ -33,10 +33,9 @@ const CaloriesColumnSearchingLunch: React.FC<CaloriesResultProps> = observer(({ 
     else if (meal == "lunch") currentCategory = caloriesStore.lunchCategoryName;
     else if (meal == "dinner") currentCategory = caloriesStore.dinnerCategoryName;
     //     useRequestCurrentCategory(currentCategory, caloriesStore);
-    console.log(currentCategory, "currCateg")
     useEffect(() => {
         requestCurrentCategory(currentCategory).then((fullCateg) => {
-            console.log(fullCateg)
+            console.log(fullCateg);
             let resHeader;
             let responseArr = [];
             const enterArr = Object.entries(fullCateg[0]);
@@ -58,7 +57,7 @@ const CaloriesColumnSearchingLunch: React.FC<CaloriesResultProps> = observer(({ 
                     calories: calories,
                     timeToCook: timeToCook,
                     category: currentCategory,
-                    rkey: items[0],
+                    recipeId: items[0],
                 });
             });
 
@@ -74,14 +73,11 @@ const CaloriesColumnSearchingLunch: React.FC<CaloriesResultProps> = observer(({ 
     // const DialogSearchingColumnData = usePagination(caloriesStore.valFilter(), caloriesStore.perPage);
     const DialogSearchingColumnData = usePagination(caloriesStore.lunchCategory, caloriesStore.perPage);
 
-
     const pagesCount = Math.ceil(caloriesStore.lunchCategoryLength / caloriesStore.perPage);
     const handleChange = (e, p) => {
         setPage(p);
         DialogSearchingColumnData.jump(p);
     };
-
-
 
     // const classes = useStyles();
     let [page, setPage] = useState(1);
@@ -102,10 +98,10 @@ const CaloriesColumnSearchingLunch: React.FC<CaloriesResultProps> = observer(({ 
                                 calories={recip.calories + " Kcal"}
                                 likeIcon={<FavorRecCardLike />}
                                 image={recip.img}
-                                rkey={recip.rkey}
+                                // rkey={recip.rkey}
                                 category={recip.category}
                                 recip={recip}
-                                recipeId={recip.rkey}
+                                recipeId={recip.recipeId}
                                 bzhu={recip.bzhu}
                                 closeSearch={closeSearch}
                                 meal={meal}

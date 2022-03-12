@@ -36,7 +36,7 @@ const DailyRecipesBreakfast = observer(() => {
             {openSearch ? <CaloriesColumnSearchingBreakfast closeSearch={setShowSearch} meal={meal} /> :
                 caloriesStore.breakfast.map((recip, idx) => {
                     // calcCal = calcCal += recip.calories;
-                    // console.log(recip, "reciPPPP");
+                    // console.log(recip.caloriesId, "reciPPPP");
 
                     // const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
@@ -55,6 +55,7 @@ const DailyRecipesBreakfast = observer(() => {
                                 recip={recip}
                                 recipeId={recip.recipe.rkey}
                                 bzhu={recip.recipe.bzhu}
+                                caloriesId={recip.caloriesId}
 
                             // closeSearch={closeSearch}
                             />

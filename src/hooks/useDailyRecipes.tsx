@@ -67,6 +67,7 @@ export const useDailyRecipesLunch = (uid, date, caloriesStore) => {
 
 
 export const useDailyRecipesDinner = (uid, date, caloriesStore) => {
+
     getFullDayRecipes(uid, date).then((ress) => {
         // console.log(ress, "ressss");
         let breakfast = Object.entries(ress.breakfast);

@@ -100,15 +100,12 @@ const HomePage = observer(() => {
       <HomePageHeader desc="Находите, ешьте, отслеживайте полезную пищу" name="Эвелина" />
       <PcStyleDiv>
         <HomePageSlider />
-        {/* </PcStyleDiv> */}
-        {/* <BigRectButtonDiv> */}
         <BigRectangleButton title="Следите за своим прогрессом ">
           <InsideRectBut key="1" onClick={() => push(CALENDAR_CALC)}>
             Смотреть
             <ArrowRightIcon />
           </InsideRectBut>
         </BigRectangleButton>
-        {/* </BigRectButtonDiv> */}
       </PcStyleDiv>
       <FavoritesCardHeader>Выберите интересующую категорию</FavoritesCardHeader>
       <FavoriteCategories />
