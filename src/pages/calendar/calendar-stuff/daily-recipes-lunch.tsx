@@ -44,9 +44,9 @@ const DailyRecipesLunch = observer(() => {
                                 rkey={recip.recipe.rkey}
                                 category={recip.recipe.category}
                                 // recip={recip}
-                                recipeId={recip.recipe.rkey}
+                                recipeId={recip.recipeId}
                                 bzhu={recip.recipe.bzhu}
-                            // closeSearch={closeSearch}
+                                meal={meal}
                             />
                         </RecipeResponse>
                     );

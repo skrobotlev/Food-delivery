@@ -35,12 +35,6 @@ const DailyRecipesBreakfast = observer(() => {
             <ModalMenu closeSearch={setShowSearch} meal={meal} />
             {openSearch ? <CaloriesColumnSearchingBreakfast closeSearch={setShowSearch} meal={meal} /> :
                 caloriesStore.breakfast.map((recip, idx) => {
-                    // calcCal = calcCal += recip.calories;
-                    // console.log(recip.caloriesId, "reciPPPP");
-
-                    // const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
-                    // useRecipesHash(breakfast, recip.recipe.rkey, active, setActive, caloriesStore.breakfast);
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard
@@ -53,17 +47,16 @@ const DailyRecipesBreakfast = observer(() => {
                                 rkey={recip.recipe.rkey}
                                 category={recip.recipe.category}
                                 recip={recip}
-                                recipeId={recip.recipe.rkey}
+                                recipeId={recip.recipeId}
                                 bzhu={recip.recipe.bzhu}
                                 caloriesId={recip.caloriesId}
-
-                            // closeSearch={closeSearch}
+                                meal={meal}
                             />
                         </RecipeResponse>
                     );
                 })}
             <CalcSumCaloriesDiv>
-                <h1>Итог: {caloriesStore.calculateSumCaloriesBreakfast}</h1>
+                <h1>Итог: {caloriesStore.sumCaloriesBreakfast}</h1>
             </CalcSumCaloriesDiv>
         </>
     );

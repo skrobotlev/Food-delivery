@@ -243,7 +243,7 @@ export default class CaloriesStore {
     return sum;
   }
 
-  get sumCaloriesBreak() {
+  get sumCaloriesBreakfast() {
     return this.calculateSumCaloriesBreakfast();
   }
 

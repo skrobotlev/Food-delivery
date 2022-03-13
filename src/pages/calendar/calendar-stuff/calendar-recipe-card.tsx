@@ -142,7 +142,7 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
 
-    console.log(recipeId, "recipeId");
+    // console.log(recipeId, "recipeId");
     // useRecipesHash(hashTable, recipeId, active, setActive, dayRecipes);
 
     // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
@@ -150,15 +150,16 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
 
     if (meal === "breakfast") {
       const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
+      console.log(recipeId, "breakfRecID");
       useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
     } else if (meal === "dinner") {
       const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-      console.log(dinner, "HASHdinner");
+      // console.log(dinner, "HASHdinner");
+      console.log(recipeId, "dinnerfRecID");
       useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
     } else if (meal === "lunch") {
       const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-      // console.log(lunch.caloriesStore.lunch, "----------------------------------------------+++++++++++");
+      console.log(recipeId, "lunchRecID");
       useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
     }
 

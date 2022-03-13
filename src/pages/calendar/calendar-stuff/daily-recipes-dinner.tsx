@@ -31,9 +31,6 @@ const DailyRecipesDinner = observer(() => {
             <ModalMenu closeSearch={setShowSearch} meal={meal} />
             {openSearch ? <CaloriesColumnSearchingDinner closeSearch={setShowSearch} meal={meal} /> :
                 caloriesStore.dinner.map((recip, idx) => {
-                    // calcCal = calcCal += recip.calories;
-                    console.log(recip, "COLUMNDINNER +------------------=");
-
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard

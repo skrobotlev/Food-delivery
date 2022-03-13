@@ -87,7 +87,7 @@ export const useDailyRecipesDinner = (uid, date, caloriesStore) => {
             return array;
         }, []);
         return searchingDailyRecipes(favoriteRecipeIds).then((result) => {
-            console.log(result, "resULT");
+            // console.log(result, "resULT");
             caloriesStore.dinner = result;
             // console.log(caloriesStore.breakfast, "updStorage");
         });
