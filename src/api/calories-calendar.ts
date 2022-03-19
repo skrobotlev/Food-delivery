@@ -1,5 +1,6 @@
 import { child, get, onValue, push, query, ref, update } from "firebase/database";
 import { database } from "@/firebase";
+import { requestCurrentCategory } from "./categories";
 
 export const addDailyRecipeFirebase = (uid, date, meal, valkey) => {
   return push(ref(database, `/fullUsers/${uid}/calories-calendar/${date}/${meal}`), valkey);
@@ -42,6 +43,39 @@ export const searchingDailyRecipes = async (arr) => {
   return result;
 };
 
+export const requestColumnSearchingDinner = (caloriesStore, currentCategory) => {
+  requestCurrentCategory(currentCategory).then((fullCateg) => {
+    console.log(fullCateg, "fullCateg");
+    let resHeader;
+    let responseArr = [];
+    const enterArr = Object.entries(fullCateg[0]);
+    enterArr.map((items: any) => {
+      let pars;
+      try {
+        if (typeof items[1] === "string") pars = JSON.parse(items[1]);
+      } catch (e) {
+        console.log(e);
+      }
+      const { bzhu, calories, header, img, timeToCook, desc } = pars;
+      resHeader = header;
+      responseArr.push({
+        img: img,
+        header: header,
+        bzhu: bzhu,
+        desc: desc,
+        calories: calories,
+        timeToCook: timeToCook,
+        category: currentCategory,
+        recipeId: items[0],
+      });
+    });
+
+    caloriesStore.dinnerCategory = responseArr;
+    const { length } = caloriesStore.dinnerCategory;
+    caloriesStore.dinnerCategoryLength = length;
+  });
+};
+
 export const requestShowerRecipes = (uid, date, caloriesStore) => {
   return getFullDayRecipes(uid, date).then((ress) => {
     // console.log(ress, "ressss");
@@ -50,8 +84,6 @@ export const requestShowerRecipes = (uid, date, caloriesStore) => {
     let dinner = ress.dinner;
 
     const favoriteRecipeIds = Object.entries(breakfast).reduce((array, item: any) => {
-      //   console.log(item, "itemmmmm");
-
       const recipe = {
         caloriesId: item[1][0],
         recipeId: item[1][1].recipeId,

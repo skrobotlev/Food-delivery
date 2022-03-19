@@ -26,9 +26,6 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
         if (meal == "breakfast") caloriesStore.breakfastCategoryName = category;
         else if (meal == "lunch") caloriesStore.lunchCategoryName = category;
         else if (meal == "dinner") caloriesStore.dinnerCategoryName = category;
-        console.log(caloriesStore.dinnerCategoryName, "currCateg")
-        // caloriesStore.nameCaloriesCategory = category;
-        // caloriesStore.meal = meal;
     };
 
     useEffect(() => {
@@ -36,16 +33,24 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
     });
 
     const useStyles = makeStyles(() => ({
-        // root: {
-        //     "& .MuiPagination-ul": {
-        //         fontFamily: "Balsamiq Sans",
-        //         fontSize: "25px"
-        //     },
-        // },
+        root: {
+            "& .MuiButtonBase-root-MuiButton-root": {
+                fontFamily: "Balsamiq Sans",
+                fontSize: "25px",
+                backrgroundColor: "black",
+            },
+        },
+        button: {
+            "& .MuiButtonBase-root": {
+                fontFamily: "Balsamiq Sans",
+                fontSize: "25px",
+                color: "#1a9920",
+            }
+        },
         li: {
             "& .MuiMenuItem-root": {
                 color: "#fff",
-                backgroundColor: "#1a9920 ",
+                backgroundColor: "#1a9920",
                 fontFamily: "Balsamiq Sans",
             },
         },
@@ -75,8 +80,9 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
                 onClick={handleClick}
                 classes={
                     {
-                        // root: classes.root,
-                        // ul: classes.ul,
+                        root: classes.root,
+                        // li: classes.li,
+                        // button: classes.button,
                     }
                 }
             >

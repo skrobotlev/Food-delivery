@@ -12,7 +12,7 @@ import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import FavorRecCardLike from "@/components/images/heart-like";
 import CalendarRecipeCard from "../calendar-stuff/calendar-recipe-card";
-import useRequestCurrentCategory from "@/hooks/useRequestCurrentCategory";
+import useRequestCurrentCategory, { useColumnSearching } from "@/hooks/useRequestCurrentCategory";
 
 interface CaloriesResultProps {
     category?: string;
@@ -26,51 +26,13 @@ const CaloriesColumnSearchingBreakfast: React.FC<CaloriesResultProps> = observer
     const [showedCategory, setShowedCategory] = useState([]);
 
     const { userStore, categoriesStore, caloriesStore } = useStore();
-    // let currentCategory = caloriesStore.nameCaloriesCategory;
     let currentCategory;
 
     if (meal == "breakfast") currentCategory = caloriesStore.breakfastCategoryName;
-    // else if (meal == "lunch") currentCategory = caloriesStore.lunchCategoryName;
-    // else if (meal == "dinner") currentCategory = caloriesStore.dinnerCategoryName;
-    //     useRequestCurrentCategory(currentCategory, caloriesStore);
-    useEffect(() => {
-        requestCurrentCategory(currentCategory).then((fullCateg) => {
-            console.log(fullCateg);
-            let resHeader;
-            let responseArr = [];
-            const enterArr = Object.entries(fullCateg[0]);
-            enterArr.map((items: any) => {
-                let pars;
-                try {
-                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
-                } catch (e) {
-                    console.log(e);
-                }
-                // console.log(pars, "pars");
-                const { bzhu, calories, header, img, timeToCook, desc } = pars;
-                resHeader = header;
-                responseArr.push({
-                    img: img,
-                    header: header,
-                    bzhu: bzhu,
-                    desc: desc,
-                    calories: calories,
-                    timeToCook: timeToCook,
-                    category: currentCategory,
-                    recipeId: items[0],
-                });
-            });
+    else if (meal == "lunch") currentCategory = caloriesStore.lunchCategoryName;
+    else if (meal == "dinner") currentCategory = caloriesStore.dinnerCategoryName;
+    useColumnSearching(caloriesStore, currentCategory, meal);
 
-            caloriesStore.breakfastCategory = responseArr;
-            const { length } = caloriesStore.breakfastCategory;
-            caloriesStore.breakfastCategoryLength = length;
-        });
-    }, [currentCategory]);
-
-    // const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-    // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-
-    // const DialogSearchingColumnData = usePagination(caloriesStore.valFilter(), caloriesStore.perPage);
     const DialogSearchingColumnData = usePagination(caloriesStore.breakfastCategory, caloriesStore.perPage);
 
     const pagesCount = Math.ceil(caloriesStore.breakfastCategoryLength / caloriesStore.perPage);

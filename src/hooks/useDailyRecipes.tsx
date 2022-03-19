@@ -11,6 +11,12 @@ export const useAllDailyRecipes = (uid, date, caloriesStore) => {
     useDailyRecipesLunch(uid, date, caloriesStore);
     useDailyRecipesDinner(uid, date, caloriesStore);
 };
+
+export const useUpdateDailyRecipes = (uid, date, caloriesStore) => {
+    useDailyRecipesBreakfast(uid, date, caloriesStore);
+    useDailyRecipesLunch(uid, date, caloriesStore);
+    useDailyRecipesDinner(uid, date, caloriesStore);
+};
 export const useDailyRecipesBreakfast = (uid, date, caloriesStore) => {
     getFullDayRecipes(uid, date).then((ress) => {
         // console.log(ress, "ressss");

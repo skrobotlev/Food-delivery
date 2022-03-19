@@ -7,6 +7,7 @@ import { auth } from "@/firebase";
 import { observer } from "mobx-react-lite";
 import useRecipesHash, { useStore } from "@/hooks/useStore";
 import { addDailyRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
+import { useUpdateDailyRecipes } from "@/hooks/useDailyRecipes";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
@@ -141,49 +142,20 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     const [active, setActive] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
-
-    // console.log(recipeId, "recipeId");
-    // useRecipesHash(hashTable, recipeId, active, setActive, dayRecipes);
-
-    // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-    console.log(meal, "meall11111111111");
+    const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
     if (meal === "breakfast") {
-      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-      console.log(recipeId, "breakfRecID");
       useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
     } else if (meal === "dinner") {
-      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-      // console.log(dinner, "HASHdinner");
-      console.log(recipeId, "dinnerfRecID");
       useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
     } else if (meal === "lunch") {
-      const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-      console.log(recipeId, "lunchRecID");
       useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
     }
 
-    // if (meal === "breakfast") {
-    //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
-    //   useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-    // } else if (meal === "dinner") {
-    //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-    //   console.log(dinner, "HASHdinner");
-    //   useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
-    // } else if (meal === "lunch") {
-    //   const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
-    //   useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
-    // }
-
-    // console.log(active);
     const { proteins, fat, carbs } = bzhu;
     const handleAddRecipe = (meal) => {
-      console.log(caloriesId, "caloriesId");
-
       caloriesStore.heartLikeRecipe = recip;
-      closeSearch(false);
+
       if (meal === "breakfast" && !active) {
         caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
         addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
@@ -196,13 +168,15 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
       } else if (meal === "breakfast" && active) {
         // caloriesStore.deleteRecipeBreakfast(recipeId);
       } else if (meal === "dinner" && active) {
-        console.log(caloriesStore.dinner, "before");
+        console.log(caloriesStore.dinner, caloriesId, "before");
 
         caloriesStore.deleteRecipeDinner(caloriesId);
+        useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
         console.log(caloriesStore.dinner, "after");
       } else if (meal === "lunch" && active) {
         // caloriesStore.deleteRecipeLunch(recipeId);
       }
+      closeSearch ? closeSearch(false) : null;
     };
 
     return (

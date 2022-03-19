@@ -17,14 +17,11 @@ color: #6eb62a;
 `;
 
 const DailyRecipesDinner = observer(() => {
-    const [open, setOpen] = React.useState(false);
     const [openSearch, setShowSearch] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
 
     const meal = "dinner";
-
-    // useDailyRecipesDinner(uid, caloriesStore.actualDay, caloriesStore);
 
     return (
         <>
@@ -40,14 +37,12 @@ const DailyRecipesDinner = observer(() => {
                                 calories={recip.recipe.calories + " Kcal"}
                                 likeIcon={<FavorRecCardLike />}
                                 image={recip.recipe.img}
-                                // rkey={recip.recipe.rkey}
                                 category={recip.recipe.category}
                                 // recip={recip}
                                 recipeId={recip.recipeId}
-                                recipeIdDinner={recip.recipeId}
                                 bzhu={recip.recipe.bzhu}
                                 meal={meal}
-                            // closeSearch={closeSearch}
+                                caloriesId={recip.caloriesId}
                             />
                         </RecipeResponse>
                     );

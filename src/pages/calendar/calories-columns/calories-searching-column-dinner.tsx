@@ -12,7 +12,7 @@ import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import FavorRecCardLike from "@/components/images/heart-like";
 import CalendarRecipeCard from "../calendar-stuff/calendar-recipe-card";
-import useRequestCurrentCategory from "@/hooks/useRequestCurrentCategory";
+import useRequestCurrentCategory, { useColumnSearchDinner, useColumnSearching } from "@/hooks/useRequestCurrentCategory";
 
 interface CaloriesResultProps {
     category?: string;
@@ -26,52 +26,14 @@ const CaloriesColumnSearchingDinner: React.FC<CaloriesResultProps> = observer(({
     const [showedCategory, setShowedCategory] = useState([]);
 
     const { userStore, categoriesStore, caloriesStore } = useStore();
-    // let currentCategory = caloriesStore.nameCaloriesCategory;
     let currentCategory;
 
-    if (meal == "breakfast") currentCategory = caloriesStore.breakfastCategoryName;
-    else if (meal == "lunch") currentCategory = caloriesStore.lunchCategoryName;
-    else if (meal == "dinner") currentCategory = caloriesStore.dinnerCategoryName;
-    //     useRequestCurrentCategory(currentCategory, caloriesStore);
-    useEffect(() => {
-        requestCurrentCategory(currentCategory).then((fullCateg) => {
-            console.log(fullCateg, "fullCateg");
-            let resHeader;
-            let responseArr = [];
-            const enterArr = Object.entries(fullCateg[0]);
-            enterArr.map((items: any) => {
-                let pars;
-                try {
-                    if (typeof items[1] === "string") pars = JSON.parse(items[1]);
-                } catch (e) {
-                    console.log(e);
-                }
-                const { bzhu, calories, header, img, timeToCook, desc } = pars;
-                resHeader = header;
-                responseArr.push({
-                    img: img,
-                    header: header,
-                    bzhu: bzhu,
-                    desc: desc,
-                    calories: calories,
-                    timeToCook: timeToCook,
-                    category: currentCategory,
-                    recipeId: items[0],
-                });
-            });
+    if (meal === "breakfast") currentCategory = caloriesStore.breakfastCategoryName;
+    else if (meal === "lunch") currentCategory = caloriesStore.lunchCategoryName;
+    else if (meal === "dinner") currentCategory = caloriesStore.dinnerCategoryName;
 
-            caloriesStore.dinnerCategory = responseArr;
-            const { length } = caloriesStore.dinnerCategory;
-            caloriesStore.dinnerCategoryLength = length;
-        });
-    }, [currentCategory]);
+    useColumnSearching(caloriesStore, currentCategory, meal);
 
-    // const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
-    // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-
-    // const DialogSearchingColumnData = usePagination(caloriesStore.valFilter(), caloriesStore.perPage);
-    // console.log(caloriesStore.dinnerCategory, "dinnrtCATREGO")
 
     const DialogSearchingColumnData = usePagination(caloriesStore.dinnerCategory, caloriesStore.perPage);
 
@@ -81,18 +43,12 @@ const CaloriesColumnSearchingDinner: React.FC<CaloriesResultProps> = observer(({
         DialogSearchingColumnData.jump(p);
     };
 
-    // useEffect(() => {
-    //     console.log(caloriesStore.dinnerCategory, "dinnrtCATREGO")
-    //     console.log(DialogSearchingColumnData.currentData(), "DialogSearchingColumnData");
-    // }, [DialogSearchingColumnData]);
-
     // const classes = useStyles();
     let [page, setPage] = useState(1);
     return (
         <CalendarCategoriesDiv>
             <RecipeFavoriteCardDiv>
                 {DialogSearchingColumnData.currentData().map((recip, idx) => {
-                    console.log(recip, "COLUMNDINNER +=========");
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard

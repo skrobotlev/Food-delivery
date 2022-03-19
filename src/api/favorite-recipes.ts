@@ -75,7 +75,6 @@ export const getFavoriteRecipes = (uid) => {
 
 export const updateFavoritesStorage = (uid, userStore) => {
   return getFavoriteRecipes(uid).then((ress) => {
-    console.log(ress, "updFavorRessss");
     const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
       const recipe = {
         id: item[0],
@@ -85,11 +84,8 @@ export const updateFavoritesStorage = (uid, userStore) => {
       array.push(recipe);
       return array;
     }, []);
-    console.log(favoriteRecipeIds, "favRecipesIDS");
     return searchingOnDb(favoriteRecipeIds).then((result) => {
-      // console.log(result, "res");
       userStore.favoriteRecipesDb = result;
-      console.log(userStore.favoriteRecipesDb, "updStorage");
     });
   });
 };
@@ -98,8 +94,6 @@ const updateModalObj = (recipeId, userStore, categoriesStore) => {
     return rec.recipeId === recipeId;
   });
   currentKey > -1 ? categoriesStore.setModalObject(userStore.favoriteRecipesDb[currentKey]) : null;
-  console.log(userStore.favoriteRecipesDb[currentKey], "rkey==recipeId157");
-  console.log("UPDATEmodOBJ");
 };
 
 export const updateModalRecipe = (uid, recipeId, userStore, categoriesStore) => {

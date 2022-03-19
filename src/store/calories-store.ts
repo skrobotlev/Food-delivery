@@ -164,30 +164,30 @@ export default class CaloriesStore {
   }
 
   deleteRecipeBreakfast(recId) {
-    const recipeIndexRecId = this._breakfast.findIndex((rec) => {
+    const recipeIndexRecId = this.breakfast.findIndex((rec) => {
       return rec.recipeId === recId;
     });
-    if (recipeIndexRecId === -1) {
-      this._breakfast.splice(recipeIndexRecId, 1);
+    if (recipeIndexRecId > -1) {
+      this.breakfast.splice(recipeIndexRecId, 1);
     }
   }
 
   deleteRecipeLunch(recId) {
-    const recipeIndexRecId = this._lunch.findIndex((rec) => {
+    const recipeIndexRecId = this.lunch.findIndex((rec) => {
       return rec.recipeId === recId;
     });
-    if (recipeIndexRecId === -1) {
-      this._lunch.splice(recipeIndexRecId, 1);
+    if (recipeIndexRecId > -1) {
+      this.lunch.splice(recipeIndexRecId, 1);
     }
   }
 
   deleteRecipeDinner(recId) {
-    console.log(recId, "recID");
-    const recipeIndexRecId = this._dinner.findIndex((rec) => {
-      return rec.recipeId === recId;
+    // console.log(recId, "recID");
+    const recipeIndexRecId = this.dinner.findIndex((rec) => {
+      return rec.caloriesId === recId;
     });
-    if (recipeIndexRecId === -1) {
-      this._dinner.splice(recipeIndexRecId, 1);
+    if (recipeIndexRecId > -1) {
+      this.dinner.splice(recipeIndexRecId, 1);
     }
   }
 
