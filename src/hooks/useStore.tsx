@@ -7,6 +7,11 @@ export default function useRecipesHash(recipesHashTb, recipeId, active, setActiv
         if (recipesHashTb[recipeId]) setActive(true);
         else setActive(false);
     }, [records, active]);
+    // useEffect(() => {
+    //     console.log(recipesHashTb.recipeId, "recHashTB");
+    //     if (recipesHashTb[recipeId]) setActive(true);
+    //     else setActive(false);
+    // }, [records, active]);
 }
 
 export function useStore() {

@@ -7,28 +7,21 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CaloriesColumnSearchingBreakfast from "../calories-columns/calories-searching-column-breakfast.tsx";
-import CalendarRecipeCard from "./calendar-recipe-card";
-import ModalMenu from "./modal-menu";
+import CalendarRecipeCard from "../calendar-stuff/calendar-recipe-card";
+import ModalMenu from "../calendar-stuff/modal-menu";
 
-const CalcSumCaloriesDiv = styled.div``;
+const CalcSumCaloriesDiv = styled.div`
+h1{
+    color:#6eb62a ;
+}`;
 
 const DailyRecipesBreakfast = observer(() => {
     const [openSearch, setShowSearch] = useState(false);
     const [active, setActive] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
-    const { uid } = auth.currentUser;
+    const { fats, proteins, carbs, sumCalories } = caloriesStore.sumCaloriesBreakfast;
 
     const meal = "breakfast";
-
-    const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
-
-    // useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-
-    // useDailyRecipesBreakfast(uid, caloriesStore.actualDay, caloriesStore);
-
-    // useEffect(() => {
-    //     console.log(caloriesStore.breakfast);
-    // });
 
     return (
         <>
@@ -56,7 +49,10 @@ const DailyRecipesBreakfast = observer(() => {
                     );
                 })}
             <CalcSumCaloriesDiv>
-                <h1>Итог: {caloriesStore.sumCaloriesBreakfast}</h1>
+                <h1>Итог: {sumCalories} ckal</h1>
+                <h1> {proteins}gr белков</h1>
+                <h1> {fats}gr жиров</h1>
+                <h1> {carbs}gr углеводов</h1>
             </CalcSumCaloriesDiv>
         </>
     );

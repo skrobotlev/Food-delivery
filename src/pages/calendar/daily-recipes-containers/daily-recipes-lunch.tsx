@@ -1,33 +1,35 @@
 import FavorRecCardLike from "@/components/images/heart-like";
 import { auth } from "@/firebase";
-import { useDailyRecipesDinner } from "@/hooks/useDailyRecipes";
 import { useStore } from "@/hooks/useStore";
 import { RecipeResponse } from "@/pages/search-page/search-page";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import styled from "styled-components";
-import CaloriesColumnSearchingDinner from "../calories-columns/calories-searching-column-dinner";
-import CalendarRecipeCard from "./calendar-recipe-card";
-import ModalMenu from "./modal-menu";
+import CalendarRecipeCard from "../calendar-stuff/calendar-recipe-card";
+import ModalMenu from "../calendar-stuff/modal-menu";
+import CaloriesColumnSearchingLunch from "../calories-columns/calories-searching-column-lunch";
+
 
 const CalcSumCaloriesDiv = styled.div`
-h1{
-color: #6eb62a;
-}
+  h1 {
+    color: #6eb62a;
+  }
 `;
 
-const DailyRecipesDinner = observer(() => {
+const DailyRecipesLunch = observer(() => {
     const [openSearch, setShowSearch] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
-    const { uid } = auth.currentUser;
+    const { fats, proteins, carbs, sumCalories } = caloriesStore.sumCaloriesLunch;
 
-    const meal = "dinner";
+    const meal = "lunch";
 
     return (
         <>
             <ModalMenu closeSearch={setShowSearch} meal={meal} />
-            {openSearch ? <CaloriesColumnSearchingDinner closeSearch={setShowSearch} meal={meal} /> :
-                caloriesStore.dinner.map((recip, idx) => {
+            {openSearch ? (
+                <CaloriesColumnSearchingLunch closeSearch={setShowSearch} meal={meal} />
+            ) : (
+                caloriesStore.lunch.map((recip, idx) => {
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard
@@ -38,18 +40,23 @@ const DailyRecipesDinner = observer(() => {
                                 likeIcon={<FavorRecCardLike />}
                                 image={recip.recipe.img}
                                 category={recip.recipe.category}
-                                // recip={recip}
                                 recipeId={recip.recipeId}
+                                caloriesId={recip.caloriesId}
                                 bzhu={recip.recipe.bzhu}
                                 meal={meal}
-                                caloriesId={recip.caloriesId}
                             />
                         </RecipeResponse>
                     );
-                })}
-            <CalcSumCaloriesDiv><h1>Итог: {caloriesStore.sumCaloriesDinner} калорий</h1></CalcSumCaloriesDiv>
+                })
+            )}
+            <CalcSumCaloriesDiv>
+                <h1>Итог: {sumCalories} ckal</h1>
+                <h1> {proteins}gr белков</h1>
+                <h1> {fats}gr жиров</h1>
+                <h1> {carbs}gr углеводов</h1>
+            </CalcSumCaloriesDiv>
         </>
     );
 });
 
-export default DailyRecipesDinner;
+export default DailyRecipesLunch;

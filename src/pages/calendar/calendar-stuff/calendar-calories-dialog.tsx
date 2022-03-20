@@ -7,18 +7,12 @@ import { TransitionProps } from "@mui/material/transitions";
 import CalendarModal, { CloseIconI } from "./calendar-modal";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ModalMenu from "./modal-menu";
-import CaloriesResult from "../calories-columns/calories-searching-column-breakfast.tsx";
 import { useStore } from "@/hooks/useStore";
-import FavorRecCardLike from "@/components/images/heart-like";
-import { RecipeResponse } from "@/pages/search-page/search-page";
-import CalendarRecipeCard from "./calendar-recipe-card";
 import { observer } from "mobx-react-lite";
-import DailyRecipesBreakfast from "./daily-recipes-breakfast";
-import DailyRecipesDinner from "./daily-recipes-dinner";
-import DailyRecipesLunch from "./daily-recipes-lunch";
-import { getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
+import DailyRecipesBreakfast from "../daily-recipes-containers/daily-recipes-breakfast";
 import { auth } from "@/firebase";
+import DailyRecipesDinner from "../daily-recipes-containers/daily-recipes-dinner";
+import DailyRecipesLunch from "../daily-recipes-containers/daily-recipes-lunch";
 
 interface FullScDialogProps {
     openWindow?: any;
@@ -38,6 +32,15 @@ const MealCardsDiv = styled.div`
   border: 1px;
   width: 20%;
   height: 60vh;
+  font-family: "Balsamiq Sans";
+button {
+    font-family: "Balsamiq Sans";
+
+}
+  h1 {
+    font-family: "Balsamiq Sans";
+
+  }
 `;
 
 const AddRecipe = styled.button``;
@@ -65,12 +68,6 @@ const CalendarColoriesDialog: React.FC<FullScDialogProps> = observer(({ openWind
     const { userStore, categoriesStore, caloriesStore } = useStore();
     const { uid } = auth.currentUser;
 
-    let calcCal = 0;
-
-    useEffect(() => {
-        console.log(calcCal, "calccal");
-        // requestShowerRecipes(uid, caloriesStore.actualDay, userStore)
-    });
     return (
         <div>
             <Dialog fullScreen open={openWindow} onClose={dialogClose} TransitionComponent={Transition}>

@@ -165,7 +165,7 @@ export default class CaloriesStore {
 
   deleteRecipeBreakfast(recId) {
     const recipeIndexRecId = this.breakfast.findIndex((rec) => {
-      return rec.recipeId === recId;
+      return rec.caloriesId === recId;
     });
     if (recipeIndexRecId > -1) {
       this.breakfast.splice(recipeIndexRecId, 1);
@@ -174,7 +174,7 @@ export default class CaloriesStore {
 
   deleteRecipeLunch(recId) {
     const recipeIndexRecId = this.lunch.findIndex((rec) => {
-      return rec.recipeId === recId;
+      return rec.caloriesId === recId;
     });
     if (recipeIndexRecId > -1) {
       this.lunch.splice(recipeIndexRecId, 1);
@@ -223,12 +223,19 @@ export default class CaloriesStore {
   }
 
   calculateSumCaloriesDinner() {
-    let sum = 0;
-    this._dinner.map((recip) => {
-      // console.log(recip, "sumRECIP");
-      sum += +recip.recipe.calories;
+    let sumCalories = 0;
+    let proteins = 0;
+    let fats = 0;
+    let carbs = 0;
+    this.dinner.map((recip) => {
+      proteins += +recip.recipe.bzhu.proteins;
+      fats += +recip.recipe.bzhu.fat;
+      carbs += +recip.recipe.bzhu.carbs;
     });
-    return sum;
+    this.dinner.map((recip) => {
+      sumCalories += +recip.recipe.calories;
+    });
+    return { sumCalories, fats, proteins, carbs };
   }
 
   get sumCaloriesLunch() {
@@ -236,11 +243,19 @@ export default class CaloriesStore {
   }
 
   calculateSumCaloriesLunch() {
-    let sum = 0;
-    this._lunch.map((recip) => {
-      sum += +recip.recipe.calories;
+    let sumCalories = 0;
+    let proteins = 0;
+    let fats = 0;
+    let carbs = 0;
+    this.lunch.map((recip) => {
+      proteins += +recip.recipe.bzhu.proteins;
+      fats += +recip.recipe.bzhu.fat;
+      carbs += +recip.recipe.bzhu.carbs;
     });
-    return sum;
+    this.lunch.map((recip) => {
+      sumCalories += +recip.recipe.calories;
+    });
+    return { sumCalories, fats, proteins, carbs };
   }
 
   get sumCaloriesBreakfast() {
@@ -248,11 +263,19 @@ export default class CaloriesStore {
   }
 
   calculateSumCaloriesBreakfast() {
-    let sum = 0;
-    this._breakfast.map((recip) => {
-      sum += +recip.recipe.calories;
+    let sumCalories = 0;
+    let proteins = 0;
+    let fats = 0;
+    let carbs = 0;
+    this.breakfast.map((recip) => {
+      proteins += +recip.recipe.bzhu.proteins;
+      fats += +recip.recipe.bzhu.fat;
+      carbs += +recip.recipe.bzhu.carbs;
     });
-    return sum;
+    this.breakfast.map((recip) => {
+      sumCalories += +recip.recipe.calories;
+    });
+    return { sumCalories, fats, proteins, carbs };
   }
 
   valFilter() {

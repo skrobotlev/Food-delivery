@@ -1,37 +1,32 @@
 import FavorRecCardLike from "@/components/images/heart-like";
 import { auth } from "@/firebase";
-import { useDailyRecipesLunch } from "@/hooks/useDailyRecipes";
 import { useStore } from "@/hooks/useStore";
 import { RecipeResponse } from "@/pages/search-page/search-page";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import styled from "styled-components";
-import CaloriesColumnSearching from "../calories-columns/calories-searching-column-breakfast.tsx";
-import CaloriesColumnSearchingLunch from "../calories-columns/calories-searching-column-lunch";
-import CalendarRecipeCard from "./calendar-recipe-card";
-import ModalMenu from "./modal-menu";
+import CalendarRecipeCard from "../calendar-stuff/calendar-recipe-card";
+import ModalMenu from "../calendar-stuff/modal-menu";
+import CaloriesColumnSearchingDinner from "../calories-columns/calories-searching-column-dinner";
 
-const CalcSumCaloriesDiv = styled.div``;
 
-const DailyRecipesLunch = observer(() => {
-    const [open, setOpen] = React.useState(false);
+const CalcSumCaloriesDiv = styled.div`
+h1{
+color: #6eb62a;
+}
+`;
+
+const DailyRecipesDinner = observer(() => {
     const [openSearch, setShowSearch] = useState(false);
     const { userStore, categoriesStore, caloriesStore } = useStore();
-    const { uid } = auth.currentUser;
-
-    const meal = "lunch";
-
-    // useDailyRecipesLunch(uid, caloriesStore.actualDay, caloriesStore);
+    const { fats, proteins, carbs, sumCalories } = caloriesStore.sumCaloriesDinner;
+    const meal = "dinner";
 
     return (
         <>
             <ModalMenu closeSearch={setShowSearch} meal={meal} />
-            {openSearch ? (
-                <CaloriesColumnSearchingLunch closeSearch={setShowSearch} meal={meal} />
-            ) : (
-                caloriesStore.lunch.map((recip, idx) => {
-                    // console.log(recip, "recupppppp");
-                    // calcCal = calcCal += recip.calories;
+            {openSearch ? <CaloriesColumnSearchingDinner closeSearch={setShowSearch} meal={meal} /> :
+                caloriesStore.dinner.map((recip, idx) => {
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard
@@ -41,22 +36,22 @@ const DailyRecipesLunch = observer(() => {
                                 calories={recip.recipe.calories + " Kcal"}
                                 likeIcon={<FavorRecCardLike />}
                                 image={recip.recipe.img}
-                                rkey={recip.recipe.rkey}
                                 category={recip.recipe.category}
-                                // recip={recip}
                                 recipeId={recip.recipeId}
                                 bzhu={recip.recipe.bzhu}
                                 meal={meal}
+                                caloriesId={recip.caloriesId}
                             />
                         </RecipeResponse>
                     );
-                })
-            )}
-            <CalcSumCaloriesDiv>
-                <h1>Итог: {caloriesStore.sumCaloriesLunch}</h1>
+                })}
+            <CalcSumCaloriesDiv><h1>Итог: {sumCalories} ckal</h1>
+                <h1> {proteins}gr белков</h1>
+                <h1> {fats}gr жиров</h1>
+                <h1> {carbs}gr углеводов</h1>
             </CalcSumCaloriesDiv>
         </>
     );
 });
 
-export default DailyRecipesLunch;
+export default DailyRecipesDinner;

@@ -2,12 +2,13 @@
     width: 50%;
     max-width: 100%;
     height: 45vh;
-    background: green;
+    background: #eff7ee;
     border: 1px solid #a0a096;
     border-radius: 30px;
     /* font-family: Arial, Helvetica, sans-serif; */
     /* font-family: "Balsamiq Sans"; */
     line-height: 1.125em;
+    
   }
   .react-calendar,
   .react-calendar *,
@@ -25,10 +26,13 @@
   }
   .react-calendar button:enabled:hover {
     cursor: pointer;
+
   }
   .react-calendar__navigation {
     height: 44px;
+    margin-top: 1em;
     margin-bottom: 1em;
+    display: flex;
   }
   .react-calendar__navigation__label {
     font-family: "Balsamiq Sans";
@@ -40,7 +44,8 @@
   }
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
-    background-color: #e6e6e6;
+    background-color: #00dc5c;
+    border-radius: 20px;
   }
   .react-calendar__navigation__next-button:enabled:focus {
     background-color: green;
@@ -96,30 +101,35 @@
     /* background-color: red; */
     font-size: 100%;
   }
+  .react-calendar__navigation__arrow:focus {
+    background-color: #00dc5c;
+  }
   button.react-calendar__tile:disabled {
     background-color: #f0f0f0;
   }
   button.react-calendar__tile:enabled:hover,
   button.react-calendar__tile:enabled:focus {
-    background-color: #e6e6e6;
+    background-color: #00dc5c;
+    border-radius: 20px;
   }
   .react-calendar__tile--hasActive {
     background: #76baff;
   }
   button.react-calendar__tile--hasActive:enabled:hover,
   button.react-calendar__tile--hasActive:enabled:focus {
-    background: #a9d4ff;
+    background: #00dc5c;
   }
   .react-calendar__tile--active {
-    background: #006edc;
+    background: #00dc5c;
     color: white;
+    border-radius: 20px;
   }
   button.react-calendar__tile--active:enabled:hover,
   button.react-calendar__tile--active:enabled:focus {
-    background: #1087ff;
+    background: #00dc5c;
   }
   .react-calendar--selectRange .react-calendar__tile--hover {
-    background-color: #e6e6e6;
+    background-color: #00dc5c;
   }
   .react-calendar__month-view__days__day {
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

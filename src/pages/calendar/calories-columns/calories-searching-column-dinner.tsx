@@ -1,5 +1,3 @@
-import NoResCardImage from "@/components/images/no-results";
-import FavoriteRecipeCard from "@/components/recipe-cards/favorite-recipe-card";
 import { RecipeFavoriteCardDiv } from "@/components/tabulation/all-tabs/recipe-tab";
 import { useStore } from "@/hooks/useStore";
 import React, { useEffect, useState } from "react";
@@ -7,12 +5,11 @@ import usePagination from "../../search-page/pagination-logic";
 import { RecipeResponse } from "../../search-page/search-page";
 import NoResultsCard from "../../search-page/searching/no-results-card";
 import Pagination from "@mui/material/Pagination";
-import { requestCurrentCategory } from "@/api/categories";
 import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import FavorRecCardLike from "@/components/images/heart-like";
 import CalendarRecipeCard from "../calendar-stuff/calendar-recipe-card";
-import useRequestCurrentCategory, { useColumnSearchDinner, useColumnSearching } from "@/hooks/useRequestCurrentCategory";
+import { useColumnSearching } from "@/hooks/useColumnSearching";
 
 interface CaloriesResultProps {
     category?: string;
@@ -34,13 +31,12 @@ const CaloriesColumnSearchingDinner: React.FC<CaloriesResultProps> = observer(({
 
     useColumnSearching(caloriesStore, currentCategory, meal);
 
-
-    const DialogSearchingColumnData = usePagination(caloriesStore.dinnerCategory, caloriesStore.perPage);
+    let dialogSearchingColumnData = usePagination(caloriesStore.dinnerCategory, caloriesStore.perPage);
 
     const pagesCount = Math.ceil(caloriesStore.dinnerCategoryLength / caloriesStore.perPage);
     const handleChange = (e, p) => {
         setPage(p);
-        DialogSearchingColumnData.jump(p);
+        dialogSearchingColumnData.jump(p);
     };
 
     // const classes = useStyles();
@@ -48,7 +44,7 @@ const CaloriesColumnSearchingDinner: React.FC<CaloriesResultProps> = observer(({
     return (
         <CalendarCategoriesDiv>
             <RecipeFavoriteCardDiv>
-                {DialogSearchingColumnData.currentData().map((recip, idx) => {
+                {dialogSearchingColumnData.currentData().map((recip, idx) => {
                     return (
                         <RecipeResponse>
                             <CalendarRecipeCard

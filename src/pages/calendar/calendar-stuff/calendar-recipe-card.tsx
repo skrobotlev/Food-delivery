@@ -6,8 +6,9 @@ import { pushNewFavoriteRecipe, removeFavoriteRecipe, updateFavoritesStorage, se
 import { auth } from "@/firebase";
 import { observer } from "mobx-react-lite";
 import useRecipesHash, { useStore } from "@/hooks/useStore";
-import { addDailyRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
+import { addDailyRecipeFirebase, clickHeartLikeCalendarRecipe, deleteDailyRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
 import { useUpdateDailyRecipes } from "@/hooks/useDailyRecipes";
+import { useLikeRecipesHashCOMP } from "@/hooks/useLikeRecipesHash";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title?: string;
@@ -108,6 +109,8 @@ const BzhuRecip = styled.span`
   grid-area: bzhu;
   align-items: baseline;
   display: grid;
+  /* font-family: "Balsamiq Sans"; */
+
   /* grid-row: 1; */
   h4 {
     font-size: 15px;
@@ -116,6 +119,8 @@ const BzhuRecip = styled.span`
     font-size: 15px;
     padding-right: 5px;
     color: #6eb62a;
+    font-family: "Balsamiq Sans";
+
   }
   @media screen and (min-width: 450px) {
     h4 {
@@ -144,18 +149,12 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     const { uid } = auth.currentUser;
     const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
-    if (meal === "breakfast") {
-      useRecipesHash(breakfast, recipeId, active, setActive, caloriesStore.breakfast);
-    } else if (meal === "dinner") {
-      useRecipesHash(dinner, recipeId, active, setActive, caloriesStore.dinner);
-    } else if (meal === "lunch") {
-      useRecipesHash(lunch, recipeId, active, setActive, caloriesStore.lunch);
-    }
-
+    useLikeRecipesHashCOMP(recipeId, setActive, meal, breakfast, lunch, dinner);
+    // const handleClickLike = clickHeartLikeCalendarRecipe(caloriesStore, recip, meal, active, recipeId, uid, category, caloriesId, closeSearch);
     const { proteins, fat, carbs } = bzhu;
+
     const handleAddRecipe = (meal) => {
       caloriesStore.heartLikeRecipe = recip;
-
       if (meal === "breakfast" && !active) {
         caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
         addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
@@ -166,15 +165,17 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
         caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
         addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
       } else if (meal === "breakfast" && active) {
-        // caloriesStore.deleteRecipeBreakfast(recipeId);
+        caloriesStore.deleteRecipeBreakfast(caloriesId);
+        deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+        useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
       } else if (meal === "dinner" && active) {
-        console.log(caloriesStore.dinner, caloriesId, "before");
-
+        deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
         caloriesStore.deleteRecipeDinner(caloriesId);
         useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
-        console.log(caloriesStore.dinner, "after");
       } else if (meal === "lunch" && active) {
-        // caloriesStore.deleteRecipeLunch(recipeId);
+        deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+        caloriesStore.deleteRecipeLunch(caloriesId);
+        useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
       }
       closeSearch ? closeSearch(false) : null;
     };
@@ -192,12 +193,10 @@ const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
           <h4>Ж:{fat}</h4>
           <h4>У:{carbs}</h4>
         </BzhuRecip>
-        {/* <TimeToCookSpan> */}
         <TimeToCookH>
           <AccessAlarmsIcon fontSize="small" />
           {timeToCook}
         </TimeToCookH>
-        {/* </TimeToCookSpan> */}
       </RecipeElement>
     );
   }

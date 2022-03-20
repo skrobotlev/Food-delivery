@@ -1,15 +1,16 @@
 import { child, get, onValue, push, query, ref, update } from "firebase/database";
 import { database } from "@/firebase";
 import { requestCurrentCategory } from "./categories";
+import { useUpdateDailyRecipes } from "@/hooks/useDailyRecipes";
 
 export const addDailyRecipeFirebase = (uid, date, meal, valkey) => {
   return push(ref(database, `/fullUsers/${uid}/calories-calendar/${date}/${meal}`), valkey);
 };
 
-export const deleteDailyRecipeFirebase = (uid, id, valKey) => {
+export const deleteDailyRecipeFirebase = (uid, id, date, meal, valKey) => {
   const updates = {};
 
-  updates[`/fullUsers/${uid}/favorites/${id}`] = valKey;
+  updates[`/fullUsers/${uid}/calories-calendar/${date}/${meal}/${id}`] = valKey;
 
   return update(ref(database), updates);
 };
@@ -78,7 +79,6 @@ export const requestColumnSearchingDinner = (caloriesStore, currentCategory) => 
 
 export const requestShowerRecipes = (uid, date, caloriesStore) => {
   return getFullDayRecipes(uid, date).then((ress) => {
-    // console.log(ress, "ressss");
     let breakfast = Object.entries(ress.breakfast);
     let lunch = ress.lunch;
     let dinner = ress.dinner;
@@ -90,28 +90,37 @@ export const requestShowerRecipes = (uid, date, caloriesStore) => {
         categories: item[1][1].category,
       };
       array.push(recipe);
-      console.log(array, "resss");
       return array;
     }, []);
     return searchingDailyRecipes(favoriteRecipeIds).then((result) => {
-      console.log(result, "resULT");
       caloriesStore.breakfast = result;
-      console.log(caloriesStore.breakfast, "updStorage");
     });
-
-    // const favoriteRecipeIds = Object.entries(ress).reduce((array, item: any) => {
-    //   console.log(item, "itemmmmm");
-    //   let key = Object.keys(item[1]);
-
-    //   const recipe = {
-    //     caloriesId: key,
-    //     recipeId: item[1].recipeId,
-    //     categories: item[1].category,
-    //   };
-    //   array.push(recipe);
-    //   //   console.log(array, "resss");
-    //   return array;
-    // }, []);
-    // console.log(favoriteRecipeIds, "favRecIds");
   });
+};
+
+export const clickHeartLikeCalendarRecipe = (caloriesStore, recip, meal, active, recipeId, uid, category, caloriesId, closeSearch) => {
+  caloriesStore.heartLikeRecipe = recip;
+  if (meal === "breakfast" && !active) {
+    caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
+    addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+  } else if (meal === "dinner" && !active) {
+    caloriesStore.addRecipeDinner(recipeId, caloriesStore.heartLikeRecipe);
+    addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+  } else if (meal === "lunch" && !active) {
+    caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
+    addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+  } else if (meal === "breakfast" && active) {
+    caloriesStore.deleteRecipeBreakfast(caloriesId);
+    deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+    useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
+  } else if (meal === "dinner" && active) {
+    deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+    caloriesStore.deleteRecipeDinner(caloriesId);
+    useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
+  } else if (meal === "lunch" && active) {
+    deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+    caloriesStore.deleteRecipeLunch(caloriesId);
+    useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
+  }
+  closeSearch ? closeSearch(false) : null;
 };

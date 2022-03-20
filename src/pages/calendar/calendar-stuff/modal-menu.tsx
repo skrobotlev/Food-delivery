@@ -20,17 +20,26 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+    // useEffect((category) => {
+    //     if (meal === "breakfast") caloriesStore.breakfastCategoryName = category;
+    //     else if (meal === "lunch") caloriesStore.lunchCategoryName = category;
+    //     else if (meal === "dinner") caloriesStore.dinnerCategoryName = category;
+    // },[category])
+    const closeMenu = (meal, category) => {
+        if (meal === "breakfast") caloriesStore.breakfastCategoryName = category;
+        else if (meal === "lunch") caloriesStore.lunchCategoryName = category;
+        else if (meal === "dinner") caloriesStore.dinnerCategoryName = category;
+    };
     const handleClose = (category, meal) => {
+        // if (meal === "breakfast") caloriesStore.breakfastCategoryName = category;
+        // else if (meal === "lunch") caloriesStore.lunchCategoryName = category;
+        // else if (meal === "dinner") caloriesStore.dinnerCategoryName = category;
+        closeMenu(meal, category);
         setAnchorEl(null);
         closeSearch(true);
-        if (meal == "breakfast") caloriesStore.breakfastCategoryName = category;
-        else if (meal == "lunch") caloriesStore.lunchCategoryName = category;
-        else if (meal == "dinner") caloriesStore.dinnerCategoryName = category;
+
     };
 
-    useEffect(() => {
-        console.log();
-    });
 
     const useStyles = makeStyles(() => ({
         root: {
@@ -39,32 +48,17 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
                 fontSize: "25px",
                 backrgroundColor: "black",
             },
+            "& .MuiButton-textSizeMedium": {
+                color: "green",
+            }
         },
         button: {
             "& .MuiButtonBase-root": {
                 fontFamily: "Balsamiq Sans",
                 fontSize: "25px",
                 color: "#1a9920",
-            }
-        },
-        li: {
-            "& .MuiMenuItem-root": {
-                color: "#fff",
-                backgroundColor: "#1a9920",
-                fontFamily: "Balsamiq Sans",
             },
-        },
-        ul: {
-            "& .MuiMenuItem-root": {
-                color: "#fff",
-                backgroundColor: "#1a9920 ",
-                fontFamily: "Balsamiq Sans",
-            },
-            "& .Mui-selected": {
-                color: "#fff",
-                backgroundColor: "#bb9733 !important",
-                fontFamily: "Balsamiq Sans",
-            },
+
         },
     }));
     const classes = useStyles();
@@ -73,7 +67,7 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
         <div>
             <Button
                 id="basic-button"
-                className=""
+                className="modal-menu-button"
                 aria-controls={open ? "basic-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
@@ -82,7 +76,7 @@ const ModalMenu: React.FC<ModalMenuProps> = observer(({ closeSearch, meal }) => 
                     {
                         root: classes.root,
                         // li: classes.li,
-                        // button: classes.button,
+                        // button: classes.button,???????/
                     }
                 }
             >

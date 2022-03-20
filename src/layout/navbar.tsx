@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
-import { FAVORITES_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE } from "@/router/consts";
+import { CALENDAR_CALC, FAVORITES_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE } from "@/router/consts";
 
 interface NavbarSvgIconProps {
     activeClass?: boolean;
@@ -106,6 +106,7 @@ const NavBarIconComponent: React.FC<NavBarIconComponentProps> = ({ children, ico
 
     useEffect(() => {
         if (link === location.pathname) {
+            console.log(location.pathname, "LINKKKKKKKKk");
             setActive(true);
         } else setActive(false);
     }, [location.pathname]);
@@ -145,7 +146,7 @@ const Navbar: React.FC<NavBarProps> = () => {
     ];
 
     return (
-        <NavBarDiv className="wrapper-navbar">
+        <NavBarDiv>
             {navBarComponents.map((component) => {
                 return <NavBarIconComponent {...component} key={component.link} />;
             })}

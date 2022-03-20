@@ -179,12 +179,10 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
           <h4>Ж:{fat}</h4>
           <h4>У:{carbs}</h4>
         </BzhuRecip>
-        {/* <TimeToCookSpan> */}
         <TimeToCookH>
           <AccessAlarmsIcon fontSize="small" />
           {timeToCook}
         </TimeToCookH>
-        {/* </TimeToCookSpan> */}
       </RecipeElement>
     );
   }
