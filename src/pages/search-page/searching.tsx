@@ -40,8 +40,8 @@ const Searching = observer(() => {
     let resHeader;
     categoriesStore.nameCurrentCategory = query.get("category");
     let currentCategory = categoriesStore.nameCurrentCategory;
-    // useSearchingUpd(categoriesStore, currentCategory);
-
+    // let searchFunc = useSearchingUpd(categoriesStore, currentCategory);
+    // searchFunc
     useEffect(() => {
         requestCurrentCategory(currentCategory).then((fullCateg) => {
             categoriesStore.nameCurrentCategory = query.get("category");

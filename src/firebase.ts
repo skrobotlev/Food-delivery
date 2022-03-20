@@ -2,6 +2,16 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
+const firebaseConfigBackupProj = {
+  apiKey: "AIzaSyCsrrRayo63GZsRzHJLSBFkmoXZ4uSYu0k",
+  authDomain: "chelfoodbackup.firebaseapp.com",
+  databaseURL: "https://chelfoodbackup-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "chelfoodbackup",
+  storageBucket: "chelfoodbackup.appspot.com",
+  messagingSenderId: "603193770650",
+  appId: "1:603193770650:web:8b6dadd433e1c5303d9523",
+};
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBYLLHL3VlSNB_L9S7z3Ci9863p4DDo958",
   authDomain: "chelfood-c39f1.firebaseapp.com",
@@ -13,7 +23,7 @@ export const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfigBackupProj);
 export const auth = getAuth(app);
 export const database = getDatabase();
 

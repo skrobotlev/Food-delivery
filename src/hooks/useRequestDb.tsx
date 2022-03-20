@@ -17,7 +17,6 @@ export default function useRequestDb(uid, userStore) {
                 .then((res) => {
                     console.log(res, "res");
                     userStore.favoriteRecipesDb = res;
-
                     console.log(userStore.favoriteRecipesDb);
                 });
         });

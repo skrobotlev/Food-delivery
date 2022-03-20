@@ -13,8 +13,7 @@ import { auth } from "@/firebase";
 import { getFavoriteRecipes, pushNewFavoriteRecipe, removeFavoriteRecipe, searchingOnDb, updateModalRecipe } from "@/api/favorite-recipes";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/hooks/useStore";
-import CalendarCategories from "../calendar-categories";
-import CaloriesResult from "../calendar-categories-result";
+import CaloriesResult from "../calories-columns/calories-searching-column-breakfast.tsx";
 
 export const ModalWindowDiv = styled.div`
   display: flex;
@@ -192,7 +191,6 @@ const CalendarModal = observer((props: Props) => {
                 >
                     <CloseIcon fontSize="large" />
                 </CloseIconI>
-                <CalendarCategories />
                 <CaloriesResult />
 
             </SwipeableDrawer>

@@ -22,7 +22,6 @@ interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
   recip?: any;
 }
 
-
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
   width: 100%;
   height: 120px;
@@ -77,7 +76,6 @@ const RecipeElement = styled.div<FavoriteRecipeCardProps>`
       padding-left: 5px;
       font-size: 18px;
     }
-    
   }
 `;
 const LikeIcon = styled.i`
@@ -114,7 +112,7 @@ const BzhuRecip = styled.span`
     color: #6eb62a;
   }
   @media screen and (min-width: 450px) {
-    h4{
+    h4 {
       font-size: 20px;
     }
   }
@@ -138,7 +136,7 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
     const [active, setActive] = useState(false);
     const { userStore, categoriesStore } = useStore();
     const { uid } = auth.currentUser;
-    // let header = title;
+
     let currId;
     let favRecs = userStore.favoriteRecipesDb;
     let recipesHash = userStore.favoriteRecipesHashTable;
@@ -151,7 +149,6 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
         return rec.recipe.header === title;
       });
       if (active) {
-        // console.log(res, "deleteRES");
         currId = userStore.favoriteRecipesDb[res].id;
         userStore.deleteRecipe(header);
         console.log("DELLLL");
@@ -169,7 +166,6 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
 
     return (
       <RecipeElement>
-
         <LikeIcon onClick={() => updRecipesStores(title, rkey, categoriesStore.heartLikeRecipe)}>
           {React.cloneElement(likeIcon, { activeClass: active })}
         </LikeIcon>
@@ -183,12 +179,10 @@ const FavoriteRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
           <h4>Ж:{fat}</h4>
           <h4>У:{carbs}</h4>
         </BzhuRecip>
-        {/* <TimeToCookSpan> */}
         <TimeToCookH>
           <AccessAlarmsIcon fontSize="small" />
           {timeToCook}
         </TimeToCookH>
-        {/* </TimeToCookSpan> */}
       </RecipeElement>
     );
   }

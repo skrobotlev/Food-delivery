@@ -63,7 +63,7 @@ export default class CategoriesStore {
 
   valFilter() {
     let matchesFilter = new RegExp(this._filter, "i");
-    return this._currentCategory.filter((rec) => {
+    return this.currentCategory.filter((rec) => {
       return matchesFilter.test(rec.header);
     });
   }

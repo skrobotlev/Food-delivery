@@ -6,21 +6,27 @@ import { pushNewFavoriteRecipe, removeFavoriteRecipe, updateFavoritesStorage, se
 import { auth } from "@/firebase";
 import { observer } from "mobx-react-lite";
 import useRecipesHash, { useStore } from "@/hooks/useStore";
+import { addDailyRecipeFirebase, clickHeartLikeCalendarRecipe, deleteDailyRecipeFirebase, getFullDayRecipes, requestShowerRecipes } from "@/api/calories-calendar";
+import { useUpdateDailyRecipes } from "@/hooks/useDailyRecipes";
+import { useLikeRecipesHashCOMP } from "@/hooks/useLikeRecipesHash";
 
 interface FavoriteRecipeCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    title?: string;
-    calories?: string;
-    icon?: ReactElement;
-    category?: any;
-    likeIcon?: ReactElement;
-    bzhu?: any;
-    image?: string;
-    timeToCook?: any;
-    recipeId?: any;
-    clickFunc?: any;
-    rkey?: any;
-    recip?: any;
-    closeSearch?: any;
+  title?: string;
+  calories?: string;
+  icon?: ReactElement;
+  category?: any;
+  likeIcon?: ReactElement;
+  bzhu?: any;
+  image?: string;
+  timeToCook?: any;
+  recipeId?: any;
+  recipeIdDinner?: any;
+  clickFunc?: any;
+  rkey?: any;
+  recip?: any;
+  closeSearch?: any;
+  meal?: any;
+  caloriesId?: any;
 }
 
 const RecipeElement = styled.div<FavoriteRecipeCardProps>`
@@ -103,6 +109,8 @@ const BzhuRecip = styled.span`
   grid-area: bzhu;
   align-items: baseline;
   display: grid;
+  /* font-family: "Balsamiq Sans"; */
+
   /* grid-row: 1; */
   h4 {
     font-size: 15px;
@@ -111,6 +119,8 @@ const BzhuRecip = styled.span`
     font-size: 15px;
     padding-right: 5px;
     color: #6eb62a;
+    font-family: "Balsamiq Sans";
+
   }
   @media screen and (min-width: 450px) {
     h4 {
@@ -133,45 +143,63 @@ const ImageCard = styled.div`
 `;
 
 const CalendarRecipeCard: React.FC<FavoriteRecipeCardProps> = observer(
-    ({ title, calories, rkey, recip, likeIcon, image, icon, closeSearch, category, bzhu, timeToCook, recipeId }) => {
-        const [active, setActive] = useState(false);
-        const { userStore, categoriesStore, caloriesStore } = useStore();
+  ({ title, calories, recip, likeIcon, image, meal, recipeIdDinner, closeSearch, category, bzhu, timeToCook, caloriesId, recipeId }) => {
+    const [active, setActive] = useState(false);
+    const { userStore, categoriesStore, caloriesStore } = useStore();
+    const { uid } = auth.currentUser;
+    const { breakfast, lunch, dinner } = caloriesStore.caloriesHashTable;
 
-        const { proteins, fat, carbs } = bzhu;
-        const handleAddRecipe = () => {
-            caloriesStore.heartLikeRecipe = recip;
-            console.log(caloriesStore.heartLikeRecipe);
-            caloriesStore.addRecipe(recipeId, caloriesStore.heartLikeRecipe);
-            closeSearch(false);
-            console.log(caloriesStore.breakfast, "brkfst");
-        };
-        // console.log(recipeId, rkey);
-        // useRecipesHash(recipesHash, recipeId, active, setActive, favRecs);
+    useLikeRecipesHashCOMP(recipeId, setActive, meal, breakfast, lunch, dinner);
+    // const handleClickLike = clickHeartLikeCalendarRecipe(caloriesStore, recip, meal, active, recipeId, uid, category, caloriesId, closeSearch);
+    const { proteins, fat, carbs } = bzhu;
 
-        return (
-            <RecipeElement>
-                {/* <LikeIcon onClick={() => closeSearch(false)}> */}
-                <LikeIcon onClick={() => handleAddRecipe()}>
-                    {React.cloneElement(likeIcon, { activeClass: active })}</LikeIcon>
-                <h1>{title}</h1>
-                <ImageCard>
-                    <img src={image} />
-                </ImageCard>
-                <h2>{calories}</h2>
-                <BzhuRecip className="bzhu-recip">
-                    <h4>Б:{proteins}</h4>
-                    <h4>Ж:{fat}</h4>
-                    <h4>У:{carbs}</h4>
-                </BzhuRecip>
-                {/* <TimeToCookSpan> */}
-                <TimeToCookH>
-                    <AccessAlarmsIcon fontSize="small" />
-                    {timeToCook}
-                </TimeToCookH>
-                {/* </TimeToCookSpan> */}
-            </RecipeElement>
-        );
-    }
+    const handleAddRecipe = (meal) => {
+      caloriesStore.heartLikeRecipe = recip;
+      if (meal === "breakfast" && !active) {
+        caloriesStore.addRecipeBreakfast(recipeId, caloriesStore.heartLikeRecipe);
+        addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      } else if (meal === "dinner" && !active) {
+        caloriesStore.addRecipeDinner(recipeId, caloriesStore.heartLikeRecipe);
+        addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      } else if (meal === "lunch" && !active) {
+        caloriesStore.addRecipeLunch(recipeId, caloriesStore.heartLikeRecipe);
+        addDailyRecipeFirebase(uid, caloriesStore.actualDay, meal, { category: category, recipeId: recipeId });
+      } else if (meal === "breakfast" && active) {
+        caloriesStore.deleteRecipeBreakfast(caloriesId);
+        deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+        useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
+      } else if (meal === "dinner" && active) {
+        deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+        caloriesStore.deleteRecipeDinner(caloriesId);
+        useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
+      } else if (meal === "lunch" && active) {
+        deleteDailyRecipeFirebase(uid, caloriesId, caloriesStore.actualDay, meal, null);
+        caloriesStore.deleteRecipeLunch(caloriesId);
+        useUpdateDailyRecipes(uid, caloriesStore.actualDay, caloriesStore);
+      }
+      closeSearch ? closeSearch(false) : null;
+    };
+
+    return (
+      <RecipeElement>
+        <LikeIcon onClick={() => handleAddRecipe(meal)}>{React.cloneElement(likeIcon, { activeClass: active })}</LikeIcon>
+        <h1>{title}</h1>
+        <ImageCard>
+          <img src={image} />
+        </ImageCard>
+        <h2>{calories}</h2>
+        <BzhuRecip className="bzhu-recip">
+          <h4>Б:{proteins}</h4>
+          <h4>Ж:{fat}</h4>
+          <h4>У:{carbs}</h4>
+        </BzhuRecip>
+        <TimeToCookH>
+          <AccessAlarmsIcon fontSize="small" />
+          {timeToCook}
+        </TimeToCookH>
+      </RecipeElement>
+    );
+  }
 );
 
 export default CalendarRecipeCard;
