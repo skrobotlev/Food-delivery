@@ -1,13 +1,23 @@
 <h1 align="center"> ChelFood </h1>
 
 ## Search, add and show favorite recipes
-<a href="https://gifyu.com/image/SpT76"><img src="https://s1.gifyu.com/images/ezgif.com-gif-maker800f4bc003a0ee58.gif" alt="ezgif.com-gif-maker800f4bc003a0ee58.gif" border="0" /></a>
 <br>
+
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/92730840/159512610-90d43dae-d9c6-46ab-9fee-922e55c7b50c.gif)
+
+<br>
+
 ## Use calendar calories
 <br>
-<a href="https://gifyu.com/image/SpTFA"><img src="https://s1.gifyu.com/images/ezgif.com-gif-maker-1f82babe646493a39.gif" alt="ezgif.com-gif-maker-1f82babe646493a39.gif" border="0" /></a>
+
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/92730840/159514342-936df8c5-7400-4744-8fd7-d9217c477a8b.gif)
+
+<!-- <a href="https://gifyu.com/image/SpTFA"><img src="https://s1.gifyu.com/images/ezgif.com-gif-maker-1f82babe646493a39.gif" alt="ezgif.com-gif-maker-1f82babe646493a39.gif" border="0" /></a> -->
+<br>
+
 ## Introduction
-A lightweight `React` + `TypeScript` + `MobX` + `SCSS` + `Material-UI` application created with using `create-react-app`.
+<!-- <br> -->
+ React + TypeScript + MobX + SCSS + Material-UI application created with using `create-react-app`.
 
 ## Technologies
 Frontend: <br>
