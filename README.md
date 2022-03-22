@@ -1,7 +1,11 @@
 <h1 align="center"> ChelFood </h1>
 
+## Search, add and show favorite recipes
 <a href="https://gifyu.com/image/SpT76"><img src="https://s1.gifyu.com/images/ezgif.com-gif-maker800f4bc003a0ee58.gif" alt="ezgif.com-gif-maker800f4bc003a0ee58.gif" border="0" /></a>
-
+<br>
+## Use calendar calories
+<br>
+<a href="https://gifyu.com/image/SpTFA"><img src="https://s1.gifyu.com/images/ezgif.com-gif-maker-1f82babe646493a39.gif" alt="ezgif.com-gif-maker-1f82babe646493a39.gif" border="0" /></a>
 ## Introduction
 A lightweight `React` + `TypeScript` + `MobX` + `SCSS` + `Material-UI` application created with using `create-react-app`.
 
