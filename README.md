@@ -1,30 +1,43 @@
 <h1 align="center"> ChelFood </h1>
 
-## Search, add and show favorite recipes
+# Search, add and show favorite recipes
 <br>
 
-![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/92730840/159512610-90d43dae-d9c6-46ab-9fee-922e55c7b50c.gif)
+## Mobile
+<!-- <br> -->
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/92730840/160228038-0f63555a-0fb9-41a9-9172-fcbdd15d9a21.gif)
 
-<br>
 
-## Use calendar calories
-<br>
+## Desktop
+<!-- <br> -->
 
-![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/92730840/159514342-936df8c5-7400-4744-8fd7-d9217c477a8b.gif)
+# Use calendar calories
+<!-- <br> -->
 
-<!-- <a href="https://gifyu.com/image/SpTFA"><img src="https://s1.gifyu.com/images/ezgif.com-gif-maker-1f82babe646493a39.gif" alt="ezgif.com-gif-maker-1f82babe646493a39.gif" border="0" /></a> -->
-<br>
 
-## Introduction
+## Desktop
+<!-- <br> -->
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/92730840/160268923-8615bbee-3768-45f8-90f0-5ec8a02a9c35.gif)
+
+
+
+## Mobile
+<!-- <br> -->
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/92730840/160148935-3e0cfb0a-0f27-4ad1-9dad-7e309d69a7eb.gif)
+
+
+# Introduction
 <!-- <br> -->
  React + TypeScript + MobX + SCSS + Material-UI application created with using `create-react-app`.
 
-## Technologies
+# Technologies
 Frontend: <br>
 HTML, SCSS, React+TypeScript, styled-components, mobx-react-lite; <br>
 Backend: <br>
 Node.js, Firebase(Realtime Database, Auth);
-## Getting Started
+# Getting Started
 ### Running the project
 1. [Download](https://nodejs.org/en/) the latest Node version. This is marked as `<version number> Current`. Install it on your machine.
 
@@ -44,7 +57,7 @@ Node.js, Firebase(Realtime Database, Auth);
 
 5. Fire up your browser and go to `localhost:3000`
 
-## Built with
+# Built with
 * <img width=20 height=20 src="https://reactjs.org/favicon.ico"> [React 17](https://reactjs.org/) - Web Framework
 * <img width=20 height=20 src="https://redux.js.org/img/favicon/favicon.ico"> [MobX](https://mobx.js.org/) - State Container Management
 * <img width=20 height=20 src="https://www.typescriptlang.org/favicon-32x32.png"> [TypeScript](https://www.typescriptlang.org/) - Language syntax and compiler
