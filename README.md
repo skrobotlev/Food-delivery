@@ -7,10 +7,6 @@
 <!-- <br> -->
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/92730840/160228038-0f63555a-0fb9-41a9-9172-fcbdd15d9a21.gif)
 
-
-## Desktop
-<!-- <br> -->
-
 # Use calendar calories
 <!-- <br> -->
 
